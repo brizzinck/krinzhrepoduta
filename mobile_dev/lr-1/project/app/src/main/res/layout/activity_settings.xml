@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Налаштування вигляду"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Перемикач теми -->
+    <Button
+        android:id="@+id/btnToggleTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Змінити тему (Стандартна / Альтернативна)" />
+
+    <!-- Кнопка вибору зображення з файлів -->
+    <Button
+        android:id="@+id/btnSelectBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Вибрати фон з галереї" />
+
+    <!-- Кнопка скидання фону -->
+    <Button
+        android:id="@+id/btnResetBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Скинути фон"
+        style="@style/Widget.MaterialComponents.Button.TextButton" />
+</LinearLayout>
