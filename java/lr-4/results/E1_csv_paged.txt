@@ -1,0 +1,7 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E1_csv_paged/*.java
+compile-errors/E1_csv_paged/CsvPaged.java:11: error: incompatible types: CsvFormat cannot be converted to PagedFormat
+        new PagedReportService(new CsvFormat(), source);
+                               ^
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+1 error
+(код завершення: 1)

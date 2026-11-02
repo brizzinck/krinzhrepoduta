@@ -1,0 +1,28 @@
+> tree src
+src
+└── main
+    ├── java
+    │   └── com
+    │       └── example
+    │           └── demo
+    │               ├── client
+    │               │   └── CameraClient.java
+    │               ├── controller
+    │               │   └── CameraController.java
+    │               ├── DemoApplication.java
+    │               ├── dto
+    │               │   ├── CameraInfoDto.java
+    │               │   └── SnapshotDto.java
+    │               └── service
+    │                   └── CameraService.java
+    └── resources
+        └── application.properties
+(код завершення: 0)
+
+> ls -p | grep -v target
+pom.xml
+results/
+screenshots/
+src/
+stages/
+(код завершення: 0)

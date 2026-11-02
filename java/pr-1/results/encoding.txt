@@ -1,0 +1,13 @@
+> LANG=POSIX java -jar target/env-check-1.0.jar   (навмисно, імітація несправного кодування)
+JVM: 21.0.12.1+1-LTS (Eclipse Adoptium)
+OS: Linux (amd64)
+Reversed (Commons Lang): avaJ
+?????? ?? ??????!
+(код завершення: 0)
+
+> java -jar target/env-check-1.0.jar   (LANG=C.UTF-8, як у tools/java.sh)
+JVM: 21.0.12.1+1-LTS (Eclipse Adoptium)
+OS: Linux (amd64)
+Reversed (Commons Lang): avaJ
+Привіт зі збірки!
+(код завершення: 0)

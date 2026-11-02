@@ -1,0 +1,44 @@
+> diff -rq snapshots/stage1_three_kinds src/main/java
+Only in src/main/java/ua/duikt/lavrishko/media: Audiobook.java
+Files snapshots/stage1_three_kinds/ua/duikt/lavrishko/media/Main.java and src/main/java/ua/duikt/lavrishko/media/Main.java differ
+(код завершення: 1)
+
+> git diff --no-index --stat snapshots/stage1_three_kinds/ua/duikt/lavrishko/media/Main.java src/main/java/ua/duikt/lavrishko/media/Main.java
+ .../main/java}/ua/duikt/lavrishko/media/Main.java                | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+(код завершення: 1)
+
+> git diff --no-index --stat snapshots/stage1_three_kinds/ua/duikt/lavrishko/media/LibraryReport.java src/main/java/ua/duikt/lavrishko/media/LibraryReport.java
+(код завершення: 0)
+
+> git diff --no-index --stat snapshots/stage1_three_kinds/ua/duikt/lavrishko/media/MediaContent.java src/main/java/ua/duikt/lavrishko/media/MediaContent.java
+(код завершення: 0)
+
+> sha256sum snapshots/stage1_three_kinds/ua/duikt/lavrishko/media/LibraryReport.java src/main/java/ua/duikt/lavrishko/media/LibraryReport.java
+dd41e3a551f359efbe675e8f3aa7b405bf48bdb1d9002b3dad38338d9c293aad  snapshots/stage1_three_kinds/ua/duikt/lavrishko/media/LibraryReport.java
+dd41e3a551f359efbe675e8f3aa7b405bf48bdb1d9002b3dad38338d9c293aad  src/main/java/ua/duikt/lavrishko/media/LibraryReport.java
+(код завершення: 0)
+
+> diff -u snapshots/stage1_three_kinds/ua/duikt/lavrishko/media/Main.java src/main/java/ua/duikt/lavrishko/media/Main.java
+--- snapshots/stage1_three_kinds/ua/duikt/lavrishko/media/Main.java	2026-11-03 00:08:27.436105875 +0200
++++ src/main/java/ua/duikt/lavrishko/media/Main.java	2026-11-03 00:08:27.430105933 +0200
+@@ -15,6 +15,15 @@
+         report.printAll(library);
+         report.printSummary(library);
+ 
++        // Новий різновид: змінюється лише точка складання, LibraryReport той самий
++        MediaContent[] extended = new MediaContent[library.length + 1];
++        System.arraycopy(library, 0, extended, 0, library.length);
++        extended[library.length] = new Audiobook("Вечори на хуторі", 20580, "Микола Гоголь", "Ігор Савчук");
++
++        System.out.println("Бібліотека з новим різновидом (Audiobook):");
++        report.printAll(extended);
++        report.printSummary(extended);
++
+         System.out.println("Некоректні дані не створюють об'єкт:");
+         try {
+             new Film("", 100, "Режисер", 2020);
+(код завершення: 1)
+
+> grep -rnE instanceof|getClass\(\)|\((Film|Song|Podcast|Audiobook)\) *[a-z] src/main/java
+(код завершення: 1)

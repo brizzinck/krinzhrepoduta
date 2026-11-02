@@ -1,0 +1,2 @@
+> javac -encoding UTF-8 -cp target/classes -d demo/out demo/ReadAllDemo.java demo/CauseDemo.java
+(код завершення: 0)

@@ -1,0 +1,23 @@
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 catch data/stock.txt
+Перший рядок: артикул;кількість;ціна
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 catch nofile.txt
+Файл не знайдено: nofile.txt (No such file or directory)
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 throws data/stock.txt
+Файл відкрито: data/stock.txt
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 throws nofile.txt
+Exception in thread "main" java.io.FileNotFoundException: nofile.txt (No such file or directory)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.base/java.io.FileReader.<init>(FileReader.java:60)
+	at ua.duikt.lavrishko.pr5.Exp1Checked.openWithThrows(Exp1Checked.java:27)
+	at ua.duikt.lavrishko.pr5.Main.runExp1(Main.java:36)
+	at ua.duikt.lavrishko.pr5.Main.main(Main.java:22)
+(код завершення: 1)

@@ -1,0 +1,15 @@
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 finally data/stock.txt
+Файл відкрито й закрито без помилок
+Блок finally виконано
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 finally nofile.txt
+Спіймано FileNotFoundException: nofile.txt (No such file or directory)
+Блок finally виконано
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 finally-return x
+try: готуємо return 1
+finally: виконується до фактичного виходу з методу
+Метод повернув: 1
+(код завершення: 0)

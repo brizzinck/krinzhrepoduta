@@ -1,0 +1,7 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E4_default_conflict/*.java
+compile-errors/E4_default_conflict/ConflictReport.java:5: error: types Printable and Exportable are incompatible;
+class ConflictReport implements Printable, Exportable {
+^
+  class ConflictReport inherits unrelated defaults for describe() from types Printable and Exportable
+1 error
+(код завершення: 1)

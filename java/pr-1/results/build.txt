@@ -1,0 +1,38 @@
+> mvn clean package
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< ua.duikt.lavrishko:env-check >--------------------
+[INFO] Building env-check 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ env-check ---
+[INFO] Deleting /w/target
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ env-check ---
+[INFO] skip non existing resourceDirectory /w/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ env-check ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ env-check ---
+[INFO] skip non existing resourceDirectory /w/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ env-check ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ env-check ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ env-check ---
+[INFO] Building jar: /w/target/env-check-1.0.jar
+[INFO] 
+[INFO] --- dependency:3.8.1:copy-dependencies (copy-deps) @ env-check ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.628 s
+[INFO] Finished at: 2026-11-02T20:37:27Z
+[INFO] ------------------------------------------------------------------------
+(код завершення: 0)

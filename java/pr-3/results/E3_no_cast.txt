@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E3_no_cast/*.java
+compile-errors/E3_no_cast/NoCast.java:7: error: incompatible types: Animal cannot be converted to Dog
+        Dog d = a;                  // без явного приведення компілятор не пропускає
+                ^
+1 error
+(код завершення: 1)

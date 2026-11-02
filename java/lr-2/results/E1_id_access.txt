@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E1_id_access/*.java
+compile-errors/E1_id_access/TamperId.java:9: error: id has private access in Student
+        student.id = 99;
+               ^
+1 error
+(код завершення: 1)

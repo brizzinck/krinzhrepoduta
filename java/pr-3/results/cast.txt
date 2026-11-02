@@ -1,0 +1,7 @@
+> java -cp target/classes ua.duikt.lavrishko.pr3.CastDemo
+[Animal] конструктор, ім'я: Рекс
+[Dog] конструктор
+Приведення Animal до Dog для об'єкта Dog: Тварина Рекс. Собака Рекс гавкає
+[Animal] конструктор, ім'я: Невідомий
+Приведення Animal до Dog для об'єкта Animal: class ua.duikt.lavrishko.pr3.Animal cannot be cast to class ua.duikt.lavrishko.pr3.Dog (ua.duikt.lavrishko.pr3.Animal and ua.duikt.lavrishko.pr3.Dog are in unnamed module of loader 'app')
+(код завершення: 0)

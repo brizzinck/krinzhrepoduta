@@ -1,0 +1,12 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E2_access_app/*.java
+compile-errors/E2_access_app/MainAll.java:9: error: pin has private access in Account
+        String a = account.pin;       // private
+                          ^
+compile-errors/E2_access_app/MainAll.java:10: error: balance is not public in Account; cannot be accessed from outside package
+        double b = account.balance;   // за замовчуванням
+                          ^
+compile-errors/E2_access_app/MainAll.java:11: error: number has protected access in Account
+        String c = account.number;    // protected
+                          ^
+3 errors
+(код завершення: 1)

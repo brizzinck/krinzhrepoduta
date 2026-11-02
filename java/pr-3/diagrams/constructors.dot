@@ -1,0 +1,17 @@
+digraph G {
+  rankdir=TB; nodesep=0.6; ranksep=0.5;
+  graph [fontname="Liberation Sans", bgcolor="white", label="Порядок виклику конструкторів при створенні Animal a = new Dog(\"Рекс\")", labelloc=t, fontsize=13];
+  node [shape=box, fontname="Liberation Sans", fontsize=12, style="rounded,filled", fillcolor="#f5f5f5"];
+  edge [fontname="Liberation Sans", fontsize=11];
+
+  new  [label="new Dog(\"Рекс\")", fillcolor="#dbe9ff"];
+  dog1 [label="Dog(String name)\nпочаток: перший оператор super(name)"];
+  an   [label="Animal(String name)\nname = \"Рекс\"\nвивід: [Animal] конструктор", fillcolor="#fde9c9"];
+  dog2 [label="Dog(String name), продовження\nвивід: [Dog] конструктор", fillcolor="#d6f0d2"];
+  obj  [label="об'єкт готовий:\nпосилання типу Animal вказує на Dog", fillcolor="#dbe9ff"];
+
+  new -> dog1 [label=" 1. виклик"];
+  dog1 -> an [label=" 2. super(name)"];
+  an -> dog2 [label=" 3. повернення"];
+  dog2 -> obj [label=" 4. кінець"];
+}

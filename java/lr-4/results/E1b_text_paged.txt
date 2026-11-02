@@ -1,0 +1,2 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E1b_text_paged/*.java
+(код завершення: 0)

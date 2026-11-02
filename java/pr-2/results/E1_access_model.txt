@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E1_access_model/*.java
+compile-errors/E1_access_model/AccessProbeAll.java:7: error: pin has private access in Account
+        String a = account.pin;       // private
+                          ^
+1 error
+(код завершення: 1)

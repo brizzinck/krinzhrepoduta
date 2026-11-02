@@ -1,0 +1,38 @@
+digraph G {
+  rankdir=BT; nodesep=0.15; ranksep=0.5;
+  graph [fontname="Liberation Sans", bgcolor="white"];
+  node [shape=record, fontname="Liberation Sans", fontsize=13, style=filled, fillcolor="#f5f5f5"];
+  edge [fontname="Liberation Sans", fontsize=11];
+
+  ReportFormat [fillcolor="#dbe9ff", label="{«interface»\nReportFormat|+ render(Table)\l}"];
+  PagedFormat [fillcolor="#dbe9ff", label="{«interface»\nPagedFormat|+ renderPages(Table, int)\l}"];
+  DataSource [fillcolor="#dbe9ff", label="{«interface»\nDataSource|+ load() : Table\l}"];
+  Abstract [fillcolor="#fde9c9", label="{«abstract»\nAbstractReportFormat|+ render(Table)  «final»\l# header(Table)  «abstract»\l# formatRow(Table, List)  «abstract»\l# footer(Table)\l# renderPagesWith(...)\l}"];
+  Text [label="{TextFormat|+ renderPages(…)\l}"];
+  Html [label="{HtmlFormat|+ renderPages(…)\l}"];
+  Csv [label="{CsvFormat|без сторінок\l}"];
+  Md [fillcolor="#d6f0d2", label="{MarkdownFormat\n(доданий пізніше)|}"];
+  Mem [label="{InMemory-\nDataSource|}"];
+  File [label="{CsvFile-\nDataSource|}"];
+  Service [fillcolor="#e8dbff", label="{ReportService|- format : ReportFormat\l- source : DataSource\l|+ generate() : String\l}"];
+  Paged [fillcolor="#e8dbff", label="{PagedReportService|- format : PagedFormat\l- source : DataSource\l|+ generatePages(int)\l}"];
+  Main [fillcolor="#d6f0d2", label="{Main|створює й з'єднує\lоб'єкти\l}"];
+
+  PagedFormat -> ReportFormat [arrowhead=empty];
+  Abstract -> ReportFormat [arrowhead=empty, style=dashed];
+  Text -> Abstract [arrowhead=empty];
+  Html -> Abstract [arrowhead=empty];
+  Csv -> Abstract [arrowhead=empty];
+  Md -> Abstract [arrowhead=empty];
+  Text -> PagedFormat [arrowhead=empty, style=dashed];
+  Html -> PagedFormat [arrowhead=empty, style=dashed];
+  Mem -> DataSource [arrowhead=empty, style=dashed];
+  File -> DataSource [arrowhead=empty, style=dashed];
+
+  Service -> ReportFormat [arrowhead=vee, style=dashed, color="#6a3fb0"];
+  Service -> DataSource [arrowhead=vee, style=dashed, color="#6a3fb0"];
+  Paged -> PagedFormat [arrowhead=vee, style=dashed, color="#6a3fb0"];
+  Paged -> DataSource [arrowhead=vee, style=dashed, color="#6a3fb0"];
+  Main -> Service [arrowhead=vee, style=dotted, color="#2e8b3a"];
+  Main -> Paged [arrowhead=vee, style=dotted, color="#2e8b3a"];
+}

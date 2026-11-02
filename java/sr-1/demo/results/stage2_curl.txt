@@ -1,0 +1,30 @@
+> curl -X POST http://localhost:8080/api/v1/camera/snapshot -H "Accept: image/jpeg" -D snapshot-headers.txt -o snapshot.jpg
+(код завершення: 0)
+
+> cat snapshot-headers.txt
+HTTP/1.1 200 
+Content-Type: image/jpeg
+Content-Length: 106972
+Date: Mon, 02 Nov 2026 20:46:55 GMT
+
+(код завершення: 0)
+
+> file snapshot.jpg
+snapshot.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 900x600, components 3
+-rw-r--r-- 1 skalse skalse 106972 Nov  2 22:46 snapshot.jpg
+(код завершення: 0)
+
+> незалежна перевірка: декодуємо поле image прямо з моку й порівнюємо з snapshot.jpg
+файли ідентичні
+ba6a02acbdac0f745f7bbe7ff52529aa87b727b8454ec3370a901a78edfd67c6  (мок напряму)
+ba6a02acbdac0f745f7bbe7ff52529aa87b727b8454ec3370a901a78edfd67c6  results/snapshot.jpg
+(код завершення: 0)
+
+> curl -i -X POST http://localhost:8080/api/v1/camera/snapshot -H 'Accept: application/json'   (запит іншого типу)
+HTTP/1.1 406 
+Accept: image/jpeg
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 02 Nov 2026 20:46:55 GMT
+
+{"timestamp":"2026-11-02T20:46:55.503+00:00","status":406,"error":"Not Acceptable","path":"/api/v1/camera/snapshot"}(код завершення: 0)

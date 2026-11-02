@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E2_service_op/*.java
+compile-errors/E2_service_op/CallService.java:11: error: attach(StudyGroup) is not public in Student; cannot be accessed from outside package
+        student.attach(group);
+               ^
+1 error
+(код завершення: 1)

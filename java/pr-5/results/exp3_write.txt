@@ -1,0 +1,46 @@
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp3 write-noclose files/no_close.txt
+Записано рядків: 3, close() не викликано
+(код завершення: 0)
+
+> ls -l files/no_close.txt
+-rw-r--r-- 1 skalse skalse 0 Nov  2 22:31 files/no_close.txt
+(код завершення: 0)
+
+> wc -c files/no_close.txt
+0 files/no_close.txt
+(код завершення: 0)
+
+> cat files/no_close.txt
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp3 write-twr files/with_close.txt
+Записано рядків: 3, close() викличе try-with-resources
+(код завершення: 0)
+
+> ls -l files/with_close.txt
+-rw-r--r-- 1 skalse skalse 135 Nov  2 22:31 files/with_close.txt
+(код завершення: 0)
+
+> wc -m -c files/with_close.txt
+ 83 135 files/with_close.txt
+(код завершення: 0)
+
+> cat files/with_close.txt
+Привіт зі складу
+Артикул A-101: молоко, залишок 15
+Артикул A-102: хліб, залишок 40
+(код завершення: 0)
+
+> xxd -l 32 files/with_close.txt
+00000000: d09f d180 d0b8 d0b2 d196 d182 20d0 b7d1  ............ ...
+00000010: 9620 d181 d0ba d0bb d0b0 d0b4 d183 0ad0  . ..............
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp3 write-cp1251 files/cp1251.txt
+Записано рядків у windows-1251: 3
+(код завершення: 0)
+
+> xxd -l 32 files/cp1251.txt
+00000000: cff0 e8e2 b3f2 20e7 b320 f1ea ebe0 e4f3  ...... .. ......
+00000010: 0ac0 f0f2 e8ea f3eb 2041 2d31 3031 3a20  ........ A-101: 
+(код завершення: 0)

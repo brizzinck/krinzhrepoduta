@@ -1,0 +1,2 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E1c_fixed/*.java
+(код завершення: 0)

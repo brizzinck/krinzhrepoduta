@@ -1,0 +1,21 @@
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 div 2
+Результат: 5
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 div 0
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at ua.duikt.lavrishko.pr5.Exp1Checked.divide(Exp1Checked.java:34)
+	at ua.duikt.lavrishko.pr5.Main.runExp1(Main.java:37)
+	at ua.duikt.lavrishko.pr5.Main.main(Main.java:22)
+(код завершення: 1)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 array 1
+Елемент: 10
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp1 array 5
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 3
+	at ua.duikt.lavrishko.pr5.Exp1Checked.elementAt(Exp1Checked.java:39)
+	at ua.duikt.lavrishko.pr5.Main.runExp1(Main.java:40)
+	at ua.duikt.lavrishko.pr5.Main.main(Main.java:22)
+(код завершення: 1)

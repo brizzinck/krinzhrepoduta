@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E2_catch_order/*.java
+compile-errors/E2_catch_order/WrongOrder.java:11: error: exception IOException has already been caught
+        } catch (IOException e) {
+          ^
+1 error
+(код завершення: 1)

@@ -1,0 +1,39 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam ArrowColor #333333
+set separator none
+hide empty members
+
+package "model (ua.duikt.lavrishko.pr2.model)" {
+  class Account {
+    {static} +count : int
+    -pin : String
+    ~balance : double
+    #number : String
+    +owner : String
+    -id : String {final}
+    +Account()
+    +Account(owner, number, balance)
+    +Account(owner, number)
+    {static} +getCount() : int
+  }
+  class AccessProbe {
+    +{static} probe(account)
+  }
+  class AccountNoThis
+}
+
+package "app (ua.duikt.lavrishko.pr2.app)" {
+  class Main
+  class ProbeSub
+}
+
+Account <|-- ProbeSub
+AccessProbe ..> Account : бачить ~balance, #number, +owner
+Main ..> Account : бачить лише +owner
+note right of ProbeSub : бачить #number через успадкування,\nале не ~balance
+@enduml

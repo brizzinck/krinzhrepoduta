@@ -1,0 +1,14 @@
+> mvn -q clean package
+(код завершення: 0)
+
+> java -jar target/env-check-1.0.jar
+JVM: 21.0.12.1+1-LTS (Eclipse Adoptium)
+OS: Linux (amd64)
+Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/commons/lang3/StringUtils
+	at ua.duikt.lavrishko.env.Main.main(Main.java:12)
+Caused by: java.lang.ClassNotFoundException: org.apache.commons.lang3.StringUtils
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 1 more
+(код завершення: 1)

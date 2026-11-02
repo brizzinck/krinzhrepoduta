@@ -1,0 +1,13 @@
+> java -jar target/env-check-1.0.jar
+JVM: 21.0.12.1+1-LTS (Eclipse Adoptium)
+OS: Linux (amd64)
+Reversed (Commons Lang): avaJ
+Привіт зі збірки!
+(код завершення: 0)
+
+> java -cp target/classes:target/lib/commons-lang3-3.17.0.jar ua.duikt.lavrishko.env.Main
+JVM: 21.0.12.1+1-LTS (Eclipse Adoptium)
+OS: Linux (amd64)
+Reversed (Commons Lang): avaJ
+Привіт зі збірки!
+(код завершення: 0)

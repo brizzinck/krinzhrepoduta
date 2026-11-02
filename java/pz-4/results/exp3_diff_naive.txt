@@ -1,0 +1,17 @@
+> diff -u src/main/java/ua/duikt/lavrishko/pr4/exp3/before/NotificationService.java src/main/java/ua/duikt/lavrishko/pr4/exp3/naive/NotificationService.java
+--- src/main/java/ua/duikt/lavrishko/pr4/exp3/before/NotificationService.java	2026-11-02 22:28:20.146792173 +0200
++++ src/main/java/ua/duikt/lavrishko/pr4/exp3/naive/NotificationService.java	2026-11-02 22:28:20.148423656 +0200
+@@ -1,9 +1,9 @@
+-package ua.duikt.lavrishko.pr4.exp3.before;
++package ua.duikt.lavrishko.pr4.exp3.naive;
+ 
+-/** Сервіс сам створює залежність: прив'язаний до EmailNotifier. */
++/** Той самий сервіс після переходу на SMS: довелося змінити його код. */
+ public class NotificationService {
+ 
+-    private final EmailNotifier notifier = new EmailNotifier();
++    private final SmsNotifier notifier = new SmsNotifier();
+ 
+     public void notifyUser(String user) {
+         notifier.send("Вітаємо, " + user + "! Документ готовий.");
+(код завершення: 1)

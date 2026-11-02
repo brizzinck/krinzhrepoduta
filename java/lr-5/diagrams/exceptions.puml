@@ -1,0 +1,55 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+}
+hide empty members
+
+class Exception <<java.lang>>
+
+class InvalidStockItemException <<domain>> {
+  +InvalidStockItemException(message)
+}
+class RecordFormatException <<parse>> {
+  -lineNumber : long
+  +RecordFormatException(lineNumber, message)
+  +RecordFormatException(lineNumber, message, cause)
+  +lineNumber() : long
+}
+class ImportFailedException <<app>> {
+  +ImportFailedException(message)
+  +ImportFailedException(message, cause)
+}
+
+Exception <|-- InvalidStockItemException
+Exception <|-- RecordFormatException
+Exception <|-- ImportFailedException
+
+class StockItem <<domain>> {
+  -StockItem(article, quantity, price)
+  +{static} create(article, quantity, price)
+}
+class StockItemParser <<parse>> {
+  +parse(line, lineNumber)
+}
+class StockImporter <<app>> {
+  +importFile(input, output, onRejected)
+}
+class Main <<app>> {
+  +{static} main(args)
+}
+
+StockItem ..> InvalidStockItemException : кидає
+StockItemParser ..> StockItem : create()
+StockItemParser ..> RecordFormatException : кидає,\nInvalidStockItemException або\nNumberFormatException у cause
+StockImporter ..> StockItemParser
+StockImporter ..> RecordFormatException : ловить у циклі,\nрядок відхиляється
+StockImporter ..> ImportFailedException : кидає,\nIOException у cause
+Main ..> StockImporter
+Main ..> ImportFailedException : ловить,\nкоротке повідомлення
+@enduml

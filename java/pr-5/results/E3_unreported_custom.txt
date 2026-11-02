@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E3_unreported_custom/*.java
+compile-errors/E3_unreported_custom/UnreportedCustom.java:6: error: unreported exception InvalidQuantityException; must be caught or declared to be thrown
+        int quantity = Exp2Cause.parseQuantityWithCause("15");
+                                                       ^
+1 error
+(код завершення: 1)

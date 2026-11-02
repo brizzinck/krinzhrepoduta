@@ -1,0 +1,70 @@
+> diff -rq snapshots/stage1_three_formats src/main/java
+Files snapshots/stage1_three_formats/ua/duikt/lavrishko/reports/app/Main.java and src/main/java/ua/duikt/lavrishko/reports/app/Main.java differ
+Only in src/main/java/ua/duikt/lavrishko/reports/format: MarkdownFormat.java
+(код завершення: 1)
+
+> git diff --no-index --stat snapshots/stage1_three_formats/ua/duikt/lavrishko/reports/service/ReportService.java src/main/java/ua/duikt/lavrishko/reports/service/ReportService.java
+(код завершення: 0)
+
+> git diff --no-index --stat snapshots/stage1_three_formats/ua/duikt/lavrishko/reports/service/PagedReportService.java src/main/java/ua/duikt/lavrishko/reports/service/PagedReportService.java
+(код завершення: 0)
+
+> git diff --no-index --stat snapshots/stage1_three_formats/ua/duikt/lavrishko/reports/format/ReportFormat.java src/main/java/ua/duikt/lavrishko/reports/format/ReportFormat.java
+(код завершення: 0)
+
+> git diff --no-index --stat snapshots/stage1_three_formats/ua/duikt/lavrishko/reports/format/AbstractReportFormat.java src/main/java/ua/duikt/lavrishko/reports/format/AbstractReportFormat.java
+(код завершення: 0)
+
+> sha256sum snapshots/stage1_three_formats/ua/duikt/lavrishko/reports/service/ReportService.java src/main/java/ua/duikt/lavrishko/reports/service/ReportService.java
+967146dad637abb8a7588f69bd8ad948e53e7634c48e047f3f8703a6f6cb1645  snapshots/stage1_three_formats/ua/duikt/lavrishko/reports/service/ReportService.java
+967146dad637abb8a7588f69bd8ad948e53e7634c48e047f3f8703a6f6cb1645  src/main/java/ua/duikt/lavrishko/reports/service/ReportService.java
+(код завершення: 0)
+
+> git diff --no-index --stat snapshots/stage1_three_formats/ua/duikt/lavrishko/reports/app/Main.java src/main/java/ua/duikt/lavrishko/reports/app/Main.java
+ .../main/java}/ua/duikt/lavrishko/reports/app/Main.java              | 5 +++++
+ 1 file changed, 5 insertions(+)
+(код завершення: 1)
+
+> diff -u snapshots/stage1_three_formats/ua/duikt/lavrishko/reports/app/Main.java src/main/java/ua/duikt/lavrishko/reports/app/Main.java
+--- snapshots/stage1_three_formats/ua/duikt/lavrishko/reports/app/Main.java	2026-11-03 00:08:51.861813953 +0200
++++ src/main/java/ua/duikt/lavrishko/reports/app/Main.java	2026-11-03 00:08:51.855866413 +0200
+@@ -4,6 +4,7 @@
+ import java.util.List;
+ import ua.duikt.lavrishko.reports.format.CsvFormat;
+ import ua.duikt.lavrishko.reports.format.HtmlFormat;
++import ua.duikt.lavrishko.reports.format.MarkdownFormat;
+ import ua.duikt.lavrishko.reports.format.TextFormat;
+ import ua.duikt.lavrishko.reports.model.Table;
+ import ua.duikt.lavrishko.reports.service.PagedReportService;
+@@ -39,5 +40,9 @@
+ 
+         System.out.println("Конфігурація 5: HTML зі сторінками по 3 рядки + дані з файлу");
+         new PagedReportService(new HtmlFormat(), file).generatePages(3).forEach(System.out::print);
++
++        // Нова реалізація: змінюється лише точка збирання, ReportService той самий
++        System.out.println("Конфігурація 6 (нова): Markdown + дані з файлу");
++        System.out.print(new ReportService(new MarkdownFormat(), file).generate());
+     }
+ }
+(код завершення: 1)
+
+> grep -rn new \|import ua.duikt.lavrishko.reports.format\|import ua.duikt.lavrishko.reports.source src/main/java/ua/duikt/lavrishko/reports/service
+src/main/java/ua/duikt/lavrishko/reports/service/PagedReportService.java:4:import ua.duikt.lavrishko.reports.format.PagedFormat;
+src/main/java/ua/duikt/lavrishko/reports/service/PagedReportService.java:5:import ua.duikt.lavrishko.reports.source.DataSource;
+src/main/java/ua/duikt/lavrishko/reports/service/ReportService.java:3:import ua.duikt.lavrishko.reports.format.ReportFormat;
+src/main/java/ua/duikt/lavrishko/reports/service/ReportService.java:4:import ua.duikt.lavrishko.reports.source.DataSource;
+(код завершення: 0)
+
+> grep -rn renderPages src/main/java/ua/duikt/lavrishko/reports/format
+src/main/java/ua/duikt/lavrishko/reports/format/TextFormat.java:32:    public List<String> renderPages(Table table, int pageSize) {
+src/main/java/ua/duikt/lavrishko/reports/format/TextFormat.java:33:        return renderPagesWith(table, pageSize, (n, total) -> "-- Сторінка " + n + " з " + total + " --\n");
+src/main/java/ua/duikt/lavrishko/reports/format/HtmlFormat.java:26:    public List<String> renderPages(Table table, int pageSize) {
+src/main/java/ua/duikt/lavrishko/reports/format/HtmlFormat.java:27:        return renderPagesWith(table, pageSize, (n, total) -> "<!-- Сторінка " + n + " з " + total + " -->\n");
+src/main/java/ua/duikt/lavrishko/reports/format/PagedFormat.java:8:    List<String> renderPages(Table table, int pageSize);
+src/main/java/ua/duikt/lavrishko/reports/format/AbstractReportFormat.java:34:    protected final List<String> renderPagesWith(Table table, int pageSize, BiFunction<Integer, Integer, String> marker) {
+(код завершення: 0)
+
+> grep -rln implements PagedFormat src/main/java/ua/duikt/lavrishko/reports/format
+src/main/java/ua/duikt/lavrishko/reports/format/TextFormat.java
+src/main/java/ua/duikt/lavrishko/reports/format/HtmlFormat.java
+(код завершення: 0)

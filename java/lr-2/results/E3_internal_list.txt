@@ -1,0 +1,9 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E3_internal_list/*.java
+compile-errors/E3_internal_list/TamperList.java:12: error: students has private access in StudyGroup
+        group.students.add(new Student("Підсаджений Студент", "KB-999", 100));
+             ^
+compile-errors/E3_internal_list/TamperList.java:13: error: students has private access in StudyGroup
+        group.students = new ArrayList<>();
+             ^
+2 errors
+(код завершення: 1)

@@ -1,0 +1,20 @@
+> java -cp target/classes:demo/out CauseDemo
+Вхід: A-1;десять;5
+  повідомлення: кількість "десять" не є цілим числом
+  причина: NumberFormatException: For input string: "десять"
+Вхід: A-1;0;5
+  повідомлення: кількість 0 має бути більше 0
+  причина: InvalidStockItemException: кількість 0 має бути більше 0
+Вхід: A-1;5;-1
+  повідомлення: ціна -1 не може бути від'ємною
+  причина: InvalidStockItemException: ціна -1 не може бути від'ємною
+Вхід: A-1;5;12,50
+  повідомлення: ціна "12,50": дробову частину треба відокремлювати крапкою
+  причина: немає (помилку виявлено самим парсером)
+
+Ланцюжок винятків для першого рядка (клас, повідомлення, верхній кадр стека):
+RecordFormatException: кількість "десять" не є цілим числом
+    at StockItemParser.parseQuantity(StockItemParser.java:42)
+Caused by: NumberFormatException: For input string: "десять"
+    at NumberFormatException.forInputString(NumberFormatException.java:67)
+(код завершення: 0)

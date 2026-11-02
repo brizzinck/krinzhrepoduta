@@ -1,0 +1,8 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E3b_exportable_view/*.java
+compile-errors/E3b_exportable_view/ViaExportable.java:8: error: cannot find symbol
+        e.print(); // через посилання Exportable метод print() недоступний
+         ^
+  symbol:   method print()
+  location: variable e of type Exportable
+1 error
+(код завершення: 1)

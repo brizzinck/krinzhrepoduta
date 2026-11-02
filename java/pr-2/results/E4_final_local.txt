@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E4_final_local/*.java
+compile-errors/E4_final_local/FinalLocal.java:5: error: cannot assign a value to final variable limit
+        limit = 6;
+        ^
+1 error
+(код завершення: 1)

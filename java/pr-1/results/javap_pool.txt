@@ -1,0 +1,11 @@
+> javap -v -p -cp target/classes ua.duikt.lavrishko.env.Main | grep -E '^ +#(7|8|9|10|11|35|60|61) ='   (фрагмент пулу констант)
+   #7 = Fieldref           #8.#9          // java/lang/System.out:Ljava/io/PrintStream;
+   #8 = Class              #10            // java/lang/System
+   #9 = NameAndType        #11:#12        // out:Ljava/io/PrintStream;
+  #10 = Utf8               java/lang/System
+  #11 = Utf8               out
+  #35 = Methodref          #36.#37        // java/io/PrintStream.println:(Ljava/lang/String;)V
+  #36 = Class              #38            // java/io/PrintStream
+  #60 = String             #61            // Привіт зі збірки!
+  #61 = Utf8               Привіт зі збірки!
+(код завершення: 0)

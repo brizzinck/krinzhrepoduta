@@ -1,0 +1,45 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #333333
+set separator none
+hide empty members
+
+package "domain (ua.duikt.lavrishko.group.domain)" {
+  class StudyGroup {
+    -name : String {final}
+    -students : List<Student> {final}
+    +StudyGroup(name)
+    +addStudent(student) : boolean
+    +removeStudent(student) : boolean
+    +size() : int
+    +getStudents() : List<Student>
+    +averageGrade() : double
+    +summary() : String
+  }
+  class Student {
+    {static} -nextId : int
+    -id : int {final}
+    -fullName : String {final}
+    -recordBookNumber : String {final}
+    -grade : int
+    -group : StudyGroup
+    +Student(fullName, recordBookNumber, grade)
+    +Student(fullName)
+    +getId() : int
+    +setGrade(grade)
+    ~attach(group)
+    ~detach()
+  }
+}
+package "app (ua.duikt.lavrishko.group.app)" {
+  class Main
+}
+
+StudyGroup "1" o-- "0..*" Student : students
+Student ..> StudyGroup : group (службовий зв'язок)
+Main ..> StudyGroup
+Main ..> Student
+@enduml

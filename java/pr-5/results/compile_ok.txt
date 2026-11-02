@@ -1,0 +1,2 @@
+> javac -encoding UTF-8 -d /tmp/out src/main/java/ua/duikt/lavrishko/pr5/*.java
+(код завершення: 0)

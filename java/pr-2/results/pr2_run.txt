@@ -1,0 +1,30 @@
+> java -cp target/classes ua.duikt.lavrishko.pr2.app.Main
+Дослід 1: доступ
+З іншого класу пакета model (AccessProbe):
+balance (за замовчуванням): 1500.5
+number  (protected):        UA-100001
+owner   (public):           Іваненко І. І.
+З Main у пакеті app:
+owner (public): Іваненко І. І.
+number через public-геттер: UA-100001
+balance через public-геттер: 1500.5
+pin через метод класу: checkPin("0000") = true
+Підклас в іншому пакеті:
+protected number з підкласу в app: UA-777777
+Дослід 2: три конструктори
+без параметрів:       Account{id=ID-3, owner=Невідомий, number=UA-000000, balance=0.0}
+з параметрами:        Account{id=ID-4, owner=Петренко П. П., number=UA-200002, balance=320.0}
+через this(...):      Account{id=ID-5, owner=Сидоренко С. С., number=UA-300003, balance=0.0}
+Дослід 3: this
+з this:   Account{id=ID-6, owner=Коваленко К. К., number=UA-400004, balance=99.9}
+без this: AccountNoThis{owner=null, number=null, balance=0.0}
+Дослід 4: static
+лічильник до створення трьох об'єктів: 6
+Account.getCount() після створення:     9
+Account.count (спільне для всіх):       9
+owner (своє в кожного): Власник А, Власник Б, Власник В
+id (своє в кожного):    ID-7, ID-8, ID-9
+Дослід 5: final
+final-поле id: ID-10
+final-змінна limit у методі, dailyLimit(): 5000
+(код завершення: 0)

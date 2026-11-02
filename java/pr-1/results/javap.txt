@@ -1,0 +1,41 @@
+> javap -c -p -cp target/classes ua.duikt.lavrishko.env.Main
+Compiled from "Main.java"
+public class ua.duikt.lavrishko.env.Main {
+  public ua.duikt.lavrishko.env.Main();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: getstatic     #7                  // Field java/lang/System.out:Ljava/io/PrintStream;
+       3: invokestatic  #13                 // Method java/lang/Runtime.version:()Ljava/lang/Runtime$Version;
+       6: invokestatic  #19                 // Method java/lang/String.valueOf:(Ljava/lang/Object;)Ljava/lang/String;
+       9: ldc           #25                 // String java.vendor
+      11: invokestatic  #27                 // Method java/lang/System.getProperty:(Ljava/lang/String;)Ljava/lang/String;
+      14: invokedynamic #31,  0             // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      19: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      22: getstatic     #7                  // Field java/lang/System.out:Ljava/io/PrintStream;
+      25: ldc           #41                 // String os.name
+      27: invokestatic  #27                 // Method java/lang/System.getProperty:(Ljava/lang/String;)Ljava/lang/String;
+      30: ldc           #43                 // String os.arch
+      32: invokestatic  #27                 // Method java/lang/System.getProperty:(Ljava/lang/String;)Ljava/lang/String;
+      35: invokedynamic #45,  0             // InvokeDynamic #1:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      40: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      43: getstatic     #7                  // Field java/lang/System.out:Ljava/io/PrintStream;
+      46: ldc           #46                 // String Java
+      48: invokestatic  #48                 // Method org/apache/commons/lang3/StringUtils.reverse:(Ljava/lang/String;)Ljava/lang/String;
+      51: invokedynamic #53,  0             // InvokeDynamic #2:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+      56: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      59: invokestatic  #55                 // Method greet:()V
+      62: return
+
+  public static void greet();
+    Code:
+       0: getstatic     #7                  // Field java/lang/System.out:Ljava/io/PrintStream;
+       3: ldc           #60                 // String Привіт зі збірки!
+       5: invokevirtual #35                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       8: return
+}
+(код завершення: 0)

@@ -1,0 +1,2 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/fixed/*.java
+(код завершення: 0)

@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E3_final_field/*.java
+compile-errors/E3_final_field/AccountFinalField.java:10: error: cannot assign a value to final variable id
+        this.id = newId;
+            ^
+1 error
+(код завершення: 1)

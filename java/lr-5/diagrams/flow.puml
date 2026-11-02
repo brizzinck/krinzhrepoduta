@@ -1,0 +1,40 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam sequence {
+  ParticipantBackgroundColor #FFFFFF
+  ParticipantBorderColor #333333
+  LifeLineBorderColor #888888
+}
+skinparam wrapWidth 260
+participant Main
+participant StockImporter
+participant StockItemParser
+participant StockItem
+
+Main -> StockImporter : importFile(input, output, printer)
+StockImporter -> StockImporter : відкрити файли (UTF-8),\ntry-with-resources
+alt помилка файлу (немає файлу, немає доступу, помилка читання чи запису)
+  StockImporter --> Main : ImportFailedException(повідомлення, cause = IOException)
+  note over Main : друкує "Помилка: …" і "причина: …"\nбез стектрейсу, код завершення 1
+else файл відкрито
+  loop readLine() != null
+    StockImporter -> StockItemParser : parse(line, n)
+    StockItemParser -> StockItem : create(article, quantity, price)
+    alt дані коректні
+      StockItem --> StockItemParser : StockItem
+      StockItemParser --> StockImporter : StockItem
+      note over StockImporter : summary.accept(item)
+    else дані некоректні
+      StockItem --> StockItemParser : InvalidStockItemException
+      StockItemParser --> StockImporter : RecordFormatException(n, текст, cause)
+      note over StockImporter : ловить у циклі: summary.reject(),\nзапис у звіт і в консоль (до 20 рядків)
+    end
+  end
+  note over StockImporter : дописати підсумок, закрити writer, потім reader
+  StockImporter --> Main : ImportSummary
+  note over Main : "Імпортовано: …, відхилено: …", код 0
+end
+@enduml

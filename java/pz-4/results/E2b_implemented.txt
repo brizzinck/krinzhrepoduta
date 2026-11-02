@@ -1,0 +1,2 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E2b_implemented/*.java
+(код завершення: 0)

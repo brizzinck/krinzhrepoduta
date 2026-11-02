@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E4_final_assign/*.java
+compile-errors/E4_final_assign/FinalData.java:13: error: cannot assign a value to final variable fullName
+        this.fullName = newName;
+            ^
+1 error
+(код завершення: 1)

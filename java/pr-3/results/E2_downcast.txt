@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E2_downcast/*.java
+compile-errors/E2_downcast/DerivedFromBase.java:6: error: incompatible types: Animal cannot be converted to Dog
+        Dog d = new Animal("Невідомий"); // базовий об'єкт у посиланні похідного типу
+                ^
+1 error
+(код завершення: 1)

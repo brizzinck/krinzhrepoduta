@@ -1,0 +1,67 @@
+> java -cp target/classes ua.duikt.lavrishko.reports.app.Main   (етап 1: текст, CSV, HTML)
+Конфігурація 1: текст + дані в пам'яті
+Парк авто
+--------------------------------
+Авто           | Рік  | Статус
+--------------------------------
+Skoda Octavia  | 2022 | вільне
+Toyota Camry   | 2021 | в оренді
+Renault Duster | 2023 | вільне
+Рядків: 3
+Конфігурація 2: CSV + дані з файлу
+Авто,Клієнт,Днів,Сума (грн)
+Skoda Octavia,Іваненко О.,3,4500
+Toyota Camry,"Петренко, І.",5,9000
+Renault Duster,Коваль Н.,2,2800
+Kia Sportage,"Мельник ""VIP""",7,12600
+Ford Focus,Шевченко Т.,1,1300
+Nissan Leaf,Бондар С.,4,6000
+Hyundai Tucson,Ткаченко В.,6,10200
+Volkswagen Golf,Кравець Л.,2,2600
+Конфігурація 3: HTML + дані в пам'яті
+<table>
+<caption>Парк авто</caption>
+<tr><th>Авто</th><th>Рік</th><th>Статус</th></tr>
+<tr><td>Skoda Octavia</td><td>2022</td><td>вільне</td></tr>
+<tr><td>Toyota Camry</td><td>2021</td><td>в оренді</td></tr>
+<tr><td>Renault Duster</td><td>2023</td><td>вільне</td></tr>
+</table>
+Конфігурація 4: текст + дані з файлу (формат і джерело замінено незалежно)
+Оренди за тиждень
+---------------------------------------------------
+Авто            | Клієнт        | Днів | Сума (грн)
+---------------------------------------------------
+Skoda Octavia   | Іваненко О.   | 3    | 4500
+Toyota Camry    | Петренко, І.  | 5    | 9000
+Renault Duster  | Коваль Н.     | 2    | 2800
+Kia Sportage    | Мельник "VIP" | 7    | 12600
+Ford Focus      | Шевченко Т.   | 1    | 1300
+Nissan Leaf     | Бондар С.     | 4    | 6000
+Hyundai Tucson  | Ткаченко В.   | 6    | 10200
+Volkswagen Golf | Кравець Л.    | 2    | 2600
+Рядків: 8
+Конфігурація 5: HTML зі сторінками по 3 рядки + дані з файлу
+<table>
+<caption>Оренди за тиждень</caption>
+<tr><th>Авто</th><th>Клієнт</th><th>Днів</th><th>Сума (грн)</th></tr>
+<tr><td>Skoda Octavia</td><td>Іваненко О.</td><td>3</td><td>4500</td></tr>
+<tr><td>Toyota Camry</td><td>Петренко, І.</td><td>5</td><td>9000</td></tr>
+<tr><td>Renault Duster</td><td>Коваль Н.</td><td>2</td><td>2800</td></tr>
+</table>
+<!-- Сторінка 1 з 3 -->
+<table>
+<caption>Оренди за тиждень</caption>
+<tr><th>Авто</th><th>Клієнт</th><th>Днів</th><th>Сума (грн)</th></tr>
+<tr><td>Kia Sportage</td><td>Мельник &quot;VIP&quot;</td><td>7</td><td>12600</td></tr>
+<tr><td>Ford Focus</td><td>Шевченко Т.</td><td>1</td><td>1300</td></tr>
+<tr><td>Nissan Leaf</td><td>Бондар С.</td><td>4</td><td>6000</td></tr>
+</table>
+<!-- Сторінка 2 з 3 -->
+<table>
+<caption>Оренди за тиждень</caption>
+<tr><th>Авто</th><th>Клієнт</th><th>Днів</th><th>Сума (грн)</th></tr>
+<tr><td>Hyundai Tucson</td><td>Ткаченко В.</td><td>6</td><td>10200</td></tr>
+<tr><td>Volkswagen Golf</td><td>Кравець Л.</td><td>2</td><td>2600</td></tr>
+</table>
+<!-- Сторінка 3 з 3 -->
+(код завершення: 0)

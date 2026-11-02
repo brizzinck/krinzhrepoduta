@@ -1,0 +1,3 @@
+> sha256sum src/main/java/ua/duikt/lavrishko/pr4/exp3/after/NotificationService.java
+b0345d26fcd6adf4345675ce6ab4f148bbf3c7aee6a410412498a9680dc7e506  src/main/java/ua/duikt/lavrishko/pr4/exp3/after/NotificationService.java
+(код завершення: 0)

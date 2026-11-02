@@ -1,0 +1,39 @@
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp3 read files/no_close.txt UTF-8
+Кодування читання: UTF-8
+(файл порожній, рядків немає)
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp3 read files/with_close.txt UTF-8
+Кодування читання: UTF-8
+1: Привіт зі складу
+2: Артикул A-101: молоко, залишок 15
+3: Артикул A-102: хліб, залишок 40
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp3 read files/with_close.txt windows-1251
+Кодування читання: windows-1251
+1: РџСЂРёРІС–С‚ Р·С– СЃРєР»Р°РґСѓ
+2: РђСЂС‚РёРєСѓР» A-101: РјРѕР»РѕРєРѕ, Р·Р°Р»РёС€РѕРє 15
+3: РђСЂС‚РёРєСѓР» A-102: С…Р»С–Р±, Р·Р°Р»РёС€РѕРє 40
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp3 read files/with_close.txt ISO-8859-1
+Кодування читання: ISO-8859-1
+1: ÐÑÐ¸Ð²ÑÑ Ð·Ñ ÑÐºÐ»Ð°Ð´Ñ
+2: ÐÑÑÐ¸ÐºÑÐ» A-101: Ð¼Ð¾Ð»Ð¾ÐºÐ¾, Ð·Ð°Ð»Ð¸ÑÐ¾Ðº 15
+3: ÐÑÑÐ¸ÐºÑÐ» A-102: ÑÐ»ÑÐ±, Ð·Ð°Ð»Ð¸ÑÐ¾Ðº 40
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp3 read files/cp1251.txt windows-1251
+Кодування читання: windows-1251
+1: Привіт зі складу
+2: Артикул A-101: молоко, залишок 15
+3: Артикул A-102: хліб, залишок 40
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp3 read files/cp1251.txt UTF-8
+Кодування читання: UTF-8
+1: ����� � ������
+2: ������� A-101: ������, ������� 15
+3: ������� A-102: ���, ������� 40
+(код завершення: 0)

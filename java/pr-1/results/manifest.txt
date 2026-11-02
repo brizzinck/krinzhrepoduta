@@ -1,0 +1,13 @@
+> unzip -p target/env-check-1.0.jar META-INF/MANIFEST.MF
+Manifest-Version: 1.0
+Created-By: Maven JAR Plugin 3.5.0
+Java-Version: 21
+Build-Jdk-Spec: 21
+Class-Path: lib/commons-lang3-3.17.0.jar
+Main-Class: ua.duikt.lavrishko.env.Main
+
+(код завершення: 0)
+
+> ls target/lib
+commons-lang3-3.17.0.jar
+(код завершення: 0)

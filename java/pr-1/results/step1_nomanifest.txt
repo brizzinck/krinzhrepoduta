@@ -1,0 +1,3 @@
+> java -jar target/env-check-1.0.jar
+no main manifest attribute, in target/env-check-1.0.jar
+(код завершення: 1)

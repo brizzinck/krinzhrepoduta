@@ -1,0 +1,4 @@
+> java -cp target/classes ua.duikt.lavrishko.pr4.exp3.after.Main
+Email: Вітаємо, Олена! Документ готовий.
+SMS: Вітаємо, Олена! Документ готовий.
+(код завершення: 0)

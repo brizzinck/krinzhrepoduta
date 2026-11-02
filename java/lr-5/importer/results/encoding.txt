@@ -1,0 +1,4 @@
+> java -jar importer.jar demo/v2_cp1251.txt results/report_cp1251.txt
+Помилка: файл demo/v2_cp1251.txt не в кодуванні UTF-8 (рядок 1)
+  причина: MalformedInputException: Input length = 1
+(код завершення: 1)

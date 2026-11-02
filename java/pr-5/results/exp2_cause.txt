@@ -1,0 +1,33 @@
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp2 no-cause abc
+ua.duikt.lavrishko.pr5.InvalidQuantityException: For input string: "abc"
+	at ua.duikt.lavrishko.pr5.Exp2Cause.parseQuantityWithoutCause(Exp2Cause.java:14)
+	at ua.duikt.lavrishko.pr5.Main.runExp2(Main.java:53)
+	at ua.duikt.lavrishko.pr5.Main.main(Main.java:23)
+getMessage(): For input string: "abc"
+getCause():   null
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp2 with-cause abc
+ua.duikt.lavrishko.pr5.InvalidQuantityException: Некоректна кількість
+	at ua.duikt.lavrishko.pr5.Exp2Cause.parseQuantityWithCause(Exp2Cause.java:23)
+	at ua.duikt.lavrishko.pr5.Main.runExp2(Main.java:54)
+	at ua.duikt.lavrishko.pr5.Main.main(Main.java:23)
+Caused by: java.lang.NumberFormatException: For input string: "abc"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:662)
+	at java.base/java.lang.Integer.parseInt(Integer.java:778)
+	at ua.duikt.lavrishko.pr5.Exp2Cause.parseQuantityWithCause(Exp2Cause.java:21)
+	... 2 more
+getMessage(): Некоректна кількість
+getCause():   java.lang.NumberFormatException: For input string: "abc"
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr5.Main exp2 with-cause -5
+ua.duikt.lavrishko.pr5.InvalidQuantityException: Кількість має бути більше 0: -5
+	at ua.duikt.lavrishko.pr5.Exp2Cause.checkPositive(Exp2Cause.java:29)
+	at ua.duikt.lavrishko.pr5.Exp2Cause.parseQuantityWithCause(Exp2Cause.java:21)
+	at ua.duikt.lavrishko.pr5.Main.runExp2(Main.java:54)
+	at ua.duikt.lavrishko.pr5.Main.main(Main.java:23)
+getMessage(): Кількість має бути більше 0: -5
+getCause():   null
+(код завершення: 0)

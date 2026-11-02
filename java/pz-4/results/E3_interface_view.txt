@@ -1,0 +1,8 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E3_interface_view/*.java
+compile-errors/E3_interface_view/ViaPrintable.java:8: error: cannot find symbol
+        p.export(); // через посилання Printable метод export() недоступний
+         ^
+  symbol:   method export()
+  location: variable p of type Printable
+1 error
+(код завершення: 1)

@@ -1,0 +1,19 @@
+> grep CameraService app_stage1.log | cut -c1-200   (етап 1)
+2026-11-02T21:56:56.542Z  INFO 1 --- [demo] [nio-8080-exec-2] com.example.demo.service.CameraService   : Getting camera info
+2026-11-02T21:56:56.961Z  INFO 1 --- [demo] [nio-8080-exec-2] com.example.demo.service.CameraService   : Camera info received: CameraInfoDto[id=123, device_type=camera, status=online, features=[motion
+2026-11-02T21:56:56.982Z  INFO 1 --- [demo] [nio-8080-exec-4] com.example.demo.service.CameraService   : Capturing snapshot
+2026-11-02T21:56:57.112Z  INFO 1 --- [demo] [nio-8080-exec-4] com.example.demo.service.CameraService   : Snapshot received
+2026-11-02T21:56:57.126Z  INFO 1 --- [demo] [nio-8080-exec-5] com.example.demo.service.CameraService   : Capturing snapshot
+2026-11-02T21:56:57.359Z  INFO 1 --- [demo] [nio-8080-exec-5] com.example.demo.service.CameraService   : Snapshot received
+2026-11-02T21:56:57.371Z  INFO 1 --- [demo] [nio-8080-exec-7] com.example.demo.service.CameraService   : Getting camera info
+2026-11-02T21:56:57.489Z  INFO 1 --- [demo] [nio-8080-exec-7] com.example.demo.service.CameraService   : Camera info received: CameraInfoDto[id=123, device_type=camera, status=online, features=[motion
+(код завершення: 0)
+
+> grep CameraService app_stage2.log | cut -c1-200   (етап 2)
+2026-11-02T21:56:43.146Z  INFO 1 --- [demo] [nio-8080-exec-1] com.example.demo.service.CameraService   : Getting camera info
+2026-11-02T21:56:43.533Z  INFO 1 --- [demo] [nio-8080-exec-1] com.example.demo.service.CameraService   : Camera info received: CameraInfoDto[id=123, device_type=camera, status=online, features=[motion
+2026-11-02T21:56:43.561Z  INFO 1 --- [demo] [nio-8080-exec-2] com.example.demo.service.CameraService   : Capturing snapshot
+2026-11-02T21:56:43.699Z  INFO 1 --- [demo] [nio-8080-exec-2] com.example.demo.service.CameraService   : Snapshot received
+2026-11-02T21:56:43.744Z  INFO 1 --- [demo] [nio-8080-exec-4] com.example.demo.service.CameraService   : Capturing snapshot
+2026-11-02T21:56:43.951Z  INFO 1 --- [demo] [nio-8080-exec-4] com.example.demo.service.CameraService   : Snapshot received
+(код завершення: 0)

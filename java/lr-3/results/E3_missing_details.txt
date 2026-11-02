@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E3_missing_details/*.java
+compile-errors/E3_missing_details/Clip.java:4: error: Clip is not abstract and does not override abstract method details() in MediaContent
+class Clip extends MediaContent {
+^
+1 error
+(код завершення: 1)

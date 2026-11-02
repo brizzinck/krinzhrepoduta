@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E1_new_abstract/*.java
+compile-errors/E1_new_abstract/NewDocument.java:5: error: Document is abstract; cannot be instantiated
+        Document d = new Document("Назва");
+                     ^
+1 error
+(код завершення: 1)

@@ -1,0 +1,19 @@
+digraph G {
+  rankdir=BT; nodesep=0.25; ranksep=1.0;
+  graph [fontname="Liberation Sans", bgcolor="white"];
+  node [shape=record, fontname="Liberation Sans", fontsize=11, style=filled, fillcolor="#f5f5f5"];
+  edge [fontname="Liberation Sans", fontsize=10];
+
+  MediaContent [fillcolor="#fde9c9", label="{«abstract»\nMediaContent|- title : String\l- durationSeconds : int\l|# MediaContent(…)\l# «static» requireText(…) : String\l+ title() : String  «final»\l+ durationSeconds() : int  «final»\l+ formattedDuration() : String  «final»\l+ «abstract» kind() : String\l# «abstract» details() : String\l+ describe() : String  «final»\l}"];
+  Film [label="{Film|- director : String\l- year : int\l|+ Film(…)\l+ kind() : String\l# details() : String\l}"];
+  Song [label="{Song|- artist : String\l- album : String\l|+ Song(…)\l+ kind() : String\l# details() : String\l}"];
+  Podcast [label="{Podcast|- host : String\l- episode : int\l|+ Podcast(…)\l+ kind() : String\l# details() : String\l}"];
+  Audiobook [fillcolor="#d6f0d2", label="{Audiobook\n(доданий пізніше)|- author : String\l- narrator : String\l|+ Audiobook(…)\l+ kind() : String\l# details() : String\l}"];
+  LibraryReport [fillcolor="#dbe9ff", label="{LibraryReport|+ printAll(MediaContent[])\l+ totalDuration(MediaContent[]) : long\l+ printSummary(MediaContent[])\l}"];
+
+  Film -> MediaContent [arrowhead=empty];
+  Song -> MediaContent [arrowhead=empty];
+  Podcast -> MediaContent [arrowhead=empty];
+  Audiobook -> MediaContent [arrowhead=empty];
+  MediaContent -> LibraryReport [style=dashed, dir=back, arrowtail=vee, label=" залежить лише від базового типу"];
+}

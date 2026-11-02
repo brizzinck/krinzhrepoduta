@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E1_unreported/*.java
+compile-errors/E1_unreported/Unreported.java:6: error: unreported exception FileNotFoundException; must be caught or declared to be thrown
+        new FileReader("data.txt");
+        ^
+1 error
+(код завершення: 1)

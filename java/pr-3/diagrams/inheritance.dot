@@ -1,0 +1,13 @@
+digraph G {
+  rankdir=BT; nodesep=0.8; ranksep=0.9;
+  graph [fontname="Liberation Sans", bgcolor="white"];
+  node [shape=record, fontname="Liberation Sans", fontsize=12, style=filled, fillcolor="#f5f5f5"];
+  edge [fontname="Liberation Sans", fontsize=11];
+
+  Animal [label="{Animal|+ label : String = \"базове\"\l# name : String\l|+ Animal(name : String)\l+ describe() : String\l}"];
+  Dog [label="{Dog|+ label : String = \"похідне\"\l|+ Dog(name : String)\l+ describe() : String  «@Override»\l}"];
+  Cat [label="{Cat|+ label : String = \"похідне\"\l|+ Cat(name : String)\l+ describe() : String  «@Override»\l}"];
+
+  Dog -> Animal [arrowhead=empty, label=" extends"];
+  Cat -> Animal [arrowhead=empty, label=" extends"];
+}

@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E2_not_implemented/*.java
+compile-errors/E2_not_implemented/NoRender.java:4: error: NoRender is not abstract and does not override abstract method render() in Document
+class NoRender extends Document {
+^
+1 error
+(код завершення: 1)

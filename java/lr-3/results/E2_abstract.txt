@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E2_abstract/*.java
+compile-errors/E2_abstract/NewBase.java:5: error: MediaContent is abstract; cannot be instantiated
+        MediaContent m = new MediaContent("Назва", 100); // базовий тип абстрактний
+                         ^
+1 error
+(код завершення: 1)
