@@ -1,0 +1,56 @@
+> 05 - POST JSON Data Types
+POST https://postman-echo.com/post
+Content-Type: application/json
+User-Agent: PostmanRuntime/7.39.0
+Host: postman-echo.com
+
+Тіло запиту:
+{
+    "studentId": 305,
+    "name": "QA Student",
+    "skills": [
+        "API",
+        "SQL"
+    ],
+    "active": true,
+    "middleName": null,
+    "comment": ""
+}
+
+Відповідь: 200 OK (152 мс)
+{
+  "args": {},
+  "data": {
+    "studentId": 305,
+    "name": "QA Student",
+    "skills": [
+      "API",
+      "SQL"
+    ],
+    "active": true,
+    "middleName": null,
+    "comment": ""
+  },
+  "files": {},
+  "form": {},
+  "headers": {
+    "host": "postman-echo.com",
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.39.0"
+  },
+  "json": {
+    "studentId": 305,
+    "name": "QA Student",
+    "skills": [
+      "API",
+      "SQL"
+    ],
+    "active": true,
+    "middleName": null,
+    "comment": ""
+  },
+  "url": "https://postman-echo.com/post"
+}
+
+PASS  Required fields are present
+PASS  Values have correct types and formats

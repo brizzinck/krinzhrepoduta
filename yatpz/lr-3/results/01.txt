@@ -1,0 +1,22 @@
+> 01 - GET Query Parameters
+GET https://postman-echo.com/get?student=QAStudent&course=SoftwareTesting&year=3
+User-Agent: PostmanRuntime/7.39.0
+Host: postman-echo.com
+
+Відповідь: 200 OK (419 мс)
+{
+  "args": {
+    "student": "QAStudent",
+    "course": "SoftwareTesting",
+    "year": "3"
+  },
+  "headers": {
+    "host": "postman-echo.com",
+    "user-agent": "PostmanRuntime/7.39.0"
+  },
+  "url": "https://postman-echo.com/get?student=QAStudent&course=SoftwareTesting&year=3"
+}
+
+PASS  Status code is 200
+PASS  Response is JSON
+PASS  Query parameters are correct

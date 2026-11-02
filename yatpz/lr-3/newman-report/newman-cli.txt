@@ -1,0 +1,60 @@
+newman
+
+API Testing - Student(Lavrishko)
+
+→ 01 - GET Query Parameters
+  GET https://postman-echo.com/get?student=QAStudent&course=SoftwareTesting&year=3 [200 OK, 1.39kB, 419ms]
+  ✓  Status code is 200
+  ✓  Response is JSON
+  ✓  Query parameters are correct
+
+→ 02 - GET Special Characters
+  GET https://postman-echo.com/get?search=API testing %26 QA [200 OK, 1.25kB, 157ms]
+  ✓  Special characters are preserved
+
+→ 02b - GET Empty Search Parameter
+  GET https://postman-echo.com/get?search= [200 OK, 1.22kB, 156ms]
+  ✓  Empty parameter is returned
+
+→ 03 - GET Request Headers
+  GET https://postman-echo.com/headers [200 OK, 1.18kB, 154ms]
+  ✓  Status code is 200
+  ✓  Header X-QA-Student is returned
+
+→ 04 - POST JSON Object
+  POST https://postman-echo.com/post [200 OK, 1.45kB, 157ms]
+  ✓  Status code is 200
+  ✓  All sent values are returned
+
+→ 05 - POST JSON Data Types
+  POST https://postman-echo.com/post [200 OK, 1.5kB, 152ms]
+  ✓  Required fields are present
+  ✓  Values have correct types and formats
+
+→ 06 - GET Expected 404
+  GET https://postman-echo.com/status/404 [404 Not Found, 466B, 143ms]
+  ✓  Status code is 404
+
+→ 07 - GET Expected 500
+  GET https://postman-echo.com/status/500 [500 Internal Server Error, 478B, 153ms]
+  ✓  Status code is 500
+
+┌─────────────────────────┬────────────────────┬────────────────────┐
+│                         │           executed │             failed │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              iterations │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│                requests │                  8 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│            test-scripts │                  8 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│      prerequest-scripts │                  0 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              assertions │                 13 │                  0 │
+├─────────────────────────┴────────────────────┴────────────────────┤
+│ total run duration: 1619ms                                        │
+├───────────────────────────────────────────────────────────────────┤
+│ total data received: 4.6kB (approx)                               │
+├───────────────────────────────────────────────────────────────────┤
+│ average response time: 186ms [min: 143ms, max: 419ms, s.d.: 88ms] │
+└───────────────────────────────────────────────────────────────────┘

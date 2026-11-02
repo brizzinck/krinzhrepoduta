@@ -1,0 +1,18 @@
+> 02 - GET Special Characters
+GET https://postman-echo.com/get?search=API%20testing%20%26%20QA
+User-Agent: PostmanRuntime/7.39.0
+Host: postman-echo.com
+
+Відповідь: 200 OK (157 мс)
+{
+  "args": {
+    "search": "API testing & QA"
+  },
+  "headers": {
+    "host": "postman-echo.com",
+    "user-agent": "PostmanRuntime/7.39.0"
+  },
+  "url": "https://postman-echo.com/get?search=API%20testing%20%26%20QA"
+}
+
+PASS  Special characters are preserved

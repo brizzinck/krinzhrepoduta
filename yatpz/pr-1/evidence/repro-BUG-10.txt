@@ -1,0 +1,9 @@
+BUG-10: Іконки Edit/Delete недоступні з клавіатури
+дата запуску: 2026-11-02 22:13:49; браузер: Chromium 156.0.8078.4
+Прогін 1:
+фокус після 40 натискань Tab з поля пошуку: ['basic-addon2', 'SELECT', 'BODY', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'addNewRecordButton', 'searchBox', 'basic-addon2', 'SELECT', 'BODY', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'addNewRecordButton', 'searchBox', 'basic-addon2', 'SELECT', 'BODY', 'A', 'A', 'A', 'A', 'A', 'A', 'A']; атрибути іконки Edit: {'tag': 'SPAN', 'tabindex': None, 'role': None, 'ariaLabel': None}
+прогін 1: ВІДТВОРЕНО
+Прогін 2:
+фокус після 40 натискань Tab з поля пошуку: ['basic-addon2', 'SELECT', 'BODY', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'addNewRecordButton', 'searchBox', 'basic-addon2', 'SELECT', 'BODY', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'addNewRecordButton', 'searchBox', 'basic-addon2', 'SELECT', 'BODY', 'A', 'A', 'A', 'A', 'A', 'A', 'A']; атрибути іконки Edit: {'tag': 'SPAN', 'tabindex': None, 'role': None, 'ariaLabel': None}
+прогін 2: ВІДТВОРЕНО
+ПІДСУМОК BUG-10: 2/2 ВІДТВОРЕНО

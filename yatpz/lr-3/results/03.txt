@@ -1,0 +1,17 @@
+> 03 - GET Request Headers
+GET https://postman-echo.com/headers
+X-QA-Student: Student-03
+User-Agent: PostmanRuntime/7.39.0
+Host: postman-echo.com
+
+Відповідь: 200 OK (154 мс)
+{
+  "headers": {
+    "host": "postman-echo.com",
+    "x-qa-student": "Student-03",
+    "user-agent": "PostmanRuntime/7.39.0"
+  }
+}
+
+PASS  Status code is 200
+PASS  Header X-QA-Student is returned

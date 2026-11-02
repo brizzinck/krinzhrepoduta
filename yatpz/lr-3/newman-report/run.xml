@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="API Testing - Student(Lavrishko)" tests="8" time="1.491">
+  <testsuite name="01 - GET Query Parameters" id="fc1c9020-222f-434a-8ca7-5a5cbc8a150f" timestamp="2026-11-02T20:38:32.162Z" tests="3" failures="0" errors="0" time="0.419">
+    <testcase name="Status code is 200" time="0.419" classname="ApiTestingStudentLavrishko"/>
+    <testcase name="Response is JSON" time="0.419" classname="ApiTestingStudentLavrishko"/>
+    <testcase name="Query parameters are correct" time="0.419" classname="ApiTestingStudentLavrishko"/>
+  </testsuite>
+  <testsuite name="02 - GET Special Characters" id="bf59fd92-ff37-428e-bba9-7a7d7fd83768" timestamp="2026-11-02T20:38:32.162Z" tests="1" failures="0" errors="0" time="0.157">
+    <testcase name="Special characters are preserved" time="0.157" classname="ApiTestingStudentLavrishko"/>
+  </testsuite>
+  <testsuite name="02b - GET Empty Search Parameter" id="d377cbce-7d5b-4829-a1b2-71b07b0ffcd6" timestamp="2026-11-02T20:38:32.162Z" tests="1" failures="0" errors="0" time="0.156">
+    <testcase name="Empty parameter is returned" time="0.156" classname="ApiTestingStudentLavrishko"/>
+  </testsuite>
+  <testsuite name="03 - GET Request Headers" id="3402630c-bf00-4ebb-88f9-58e57ba8f23d" timestamp="2026-11-02T20:38:32.162Z" tests="2" failures="0" errors="0" time="0.154">
+    <testcase name="Status code is 200" time="0.154" classname="ApiTestingStudentLavrishko"/>
+    <testcase name="Header X-QA-Student is returned" time="0.154" classname="ApiTestingStudentLavrishko"/>
+  </testsuite>
+  <testsuite name="04 - POST JSON Object" id="eb0c757d-122d-4220-a562-6b7aea271f69" timestamp="2026-11-02T20:38:32.162Z" tests="2" failures="0" errors="0" time="0.157">
+    <testcase name="Status code is 200" time="0.157" classname="ApiTestingStudentLavrishko"/>
+    <testcase name="All sent values are returned" time="0.157" classname="ApiTestingStudentLavrishko"/>
+  </testsuite>
+  <testsuite name="05 - POST JSON Data Types" id="1c085279-81b0-4bf1-8aa7-46ea45f536e2" timestamp="2026-11-02T20:38:32.162Z" tests="2" failures="0" errors="0" time="0.152">
+    <testcase name="Required fields are present" time="0.152" classname="ApiTestingStudentLavrishko"/>
+    <testcase name="Values have correct types and formats" time="0.152" classname="ApiTestingStudentLavrishko"/>
+  </testsuite>
+  <testsuite name="06 - GET Expected 404" id="c7212d84-6c10-4b31-86f1-d09869070bcf" timestamp="2026-11-02T20:38:32.162Z" tests="1" failures="0" errors="0" time="0.143">
+    <testcase name="Status code is 404" time="0.143" classname="ApiTestingStudentLavrishko"/>
+  </testsuite>
+  <testsuite name="07 - GET Expected 500" id="19d340f2-de50-4389-ba00-2600346fa68e" timestamp="2026-11-02T20:38:32.162Z" tests="1" failures="0" errors="0" time="0.153">
+    <testcase name="Status code is 500" time="0.153" classname="ApiTestingStudentLavrishko"/>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,41 @@
+> 04 - POST JSON Object
+POST https://postman-echo.com/post
+Content-Type: application/json
+User-Agent: PostmanRuntime/7.39.0
+Host: postman-echo.com
+
+Тіло запиту:
+{
+    "name": "Test Student",
+    "email": "student@example.com",
+    "role": "QA",
+    "active": true
+}
+
+Відповідь: 200 OK (157 мс)
+{
+  "args": {},
+  "data": {
+    "name": "Test Student",
+    "email": "student@example.com",
+    "role": "QA",
+    "active": true
+  },
+  "files": {},
+  "form": {},
+  "headers": {
+    "host": "postman-echo.com",
+    "content-type": "application/json",
+    "user-agent": "PostmanRuntime/7.39.0"
+  },
+  "json": {
+    "name": "Test Student",
+    "email": "student@example.com",
+    "role": "QA",
+    "active": true
+  },
+  "url": "https://postman-echo.com/post"
+}
+
+PASS  Status code is 200
+PASS  All sent values are returned

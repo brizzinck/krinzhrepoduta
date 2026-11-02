@@ -1,0 +1,18 @@
+> 02b - GET Empty Search Parameter
+GET https://postman-echo.com/get?search=
+User-Agent: PostmanRuntime/7.39.0
+Host: postman-echo.com
+
+Відповідь: 200 OK (156 мс)
+{
+  "args": {
+    "search": ""
+  },
+  "headers": {
+    "host": "postman-echo.com",
+    "user-agent": "PostmanRuntime/7.39.0"
+  },
+  "url": "https://postman-echo.com/get?search="
+}
+
+PASS  Empty parameter is returned

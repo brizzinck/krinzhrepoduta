@@ -1,0 +1,11 @@
+> 06 - GET Expected 404
+GET https://postman-echo.com/status/404
+User-Agent: PostmanRuntime/7.39.0
+Host: postman-echo.com
+
+Відповідь: 404 Not Found (143 мс)
+{
+  "status": 404
+}
+
+PASS  Status code is 404

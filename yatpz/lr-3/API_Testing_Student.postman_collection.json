@@ -1,0 +1,356 @@
+{
+  "info": {
+    "name": "API Testing - Student(Lavrishko)",
+    "description": "Лабораторна робота №3. Тестування REST API за допомогою Postman Echo.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://postman-echo.com",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - GET Query Parameters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "",
+              "pm.test(\"Query parameters are correct\", function () {",
+              "    const body = pm.response.json();",
+              "",
+              "    pm.expect(body.args.student).to.eql(\"QAStudent\");",
+              "    pm.expect(body.args.course).to.eql(\"SoftwareTesting\");",
+              "    pm.expect(body.args.year).to.eql(\"3\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/get?student=QAStudent&course=SoftwareTesting&year=3",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "get"
+          ],
+          "query": [
+            {
+              "key": "student",
+              "value": "QAStudent"
+            },
+            {
+              "key": "course",
+              "value": "SoftwareTesting"
+            },
+            {
+              "key": "year",
+              "value": "3"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "02 - GET Special Characters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Special characters are preserved\", function () {",
+              "    const body = pm.response.json();",
+              "    pm.expect(body.args.search).to.eql(\"API testing & QA\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/get?search=API%20testing%20%26%20QA",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "get"
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": "API testing & QA"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "02b - GET Empty Search Parameter",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Empty parameter is returned\", function () {",
+              "    const args = pm.response.json().args;",
+              "",
+              "    pm.expect(args).to.have.property(\"search\");",
+              "    pm.expect(args.search).to.eql(\"\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/get?search=",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "get"
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "03 - GET Request Headers",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Header X-QA-Student is returned\", function () {",
+              "    const headers = pm.response.json().headers;",
+              "    // Postman Echo повертає імена заголовків у нижньому регістрі",
+              "    pm.expect(headers[\"x-qa-student\"]).to.eql(\"Student-03\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-QA-Student",
+            "value": "Student-03"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/headers",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "headers"
+          ]
+        }
+      }
+    },
+    {
+      "name": "04 - POST JSON Object",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"All sent values are returned\", function () {",
+              "    const json = pm.response.json().json;",
+              "",
+              "    pm.expect(json.name).to.eql(\"Test Student\");",
+              "    pm.expect(json.email).to.eql(\"student@example.com\");",
+              "    pm.expect(json.role).to.eql(\"QA\");",
+              "    pm.expect(json.active).to.eql(true);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Test Student\",\n    \"email\": \"student@example.com\",\n    \"role\": \"QA\",\n    \"active\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/post",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "post"
+          ]
+        }
+      }
+    },
+    {
+      "name": "05 - POST JSON Data Types",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Required fields are present\", function () {",
+              "    const json = pm.response.json().json;",
+              "",
+              "    pm.expect(json).to.have.property(\"studentId\");",
+              "    pm.expect(json).to.have.property(\"name\");",
+              "    pm.expect(json).to.have.property(\"skills\");",
+              "    pm.expect(json).to.have.property(\"active\");",
+              "});",
+              "",
+              "pm.test(\"Values have correct types and formats\", function () {",
+              "    const json = pm.response.json().json;",
+              "",
+              "    pm.expect(json.studentId).to.be.a(\"number\");",
+              "    pm.expect(json.name).to.be.a(\"string\");",
+              "    pm.expect(json.skills).to.be.an(\"array\");",
+              "    pm.expect(json.active).to.be.a(\"boolean\");",
+              "    pm.expect(json.middleName).to.be.null;",
+              "    pm.expect(json.comment).to.eql(\"\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"studentId\": 305,\n    \"name\": \"QA Student\",\n    \"skills\": [\n        \"API\",\n        \"SQL\"\n    ],\n    \"active\": true,\n    \"middleName\": null,\n    \"comment\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/post",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "post"
+          ]
+        }
+      }
+    },
+    {
+      "name": "06 - GET Expected 404",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {",
+              "    pm.response.to.have.status(404);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/status/404",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "status",
+            "404"
+          ]
+        }
+      }
+    },
+    {
+      "name": "07 - GET Expected 500",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 500\", function () {",
+              "    pm.response.to.have.status(500);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/status/500",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "status",
+            "500"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+BUG-06: Некоректні email приймаються
+дата запуску: 2026-11-02 22:13:19; браузер: Chromium 156.0.8078.4
+Прогін 1:
+збережено як коректні: {'a..b@example.com': True, 'user@.example.com': True, 'user@example..com': True}
+прогін 1: ВІДТВОРЕНО
+Прогін 2:
+збережено як коректні: {'a..b@example.com': True, 'user@.example.com': True, 'user@example..com': True}
+прогін 2: ВІДТВОРЕНО
+ПІДСУМОК BUG-06: 2/2 ВІДТВОРЕНО

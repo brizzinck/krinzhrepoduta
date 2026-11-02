@@ -1,0 +1,11 @@
+> 07 - GET Expected 500
+GET https://postman-echo.com/status/500
+User-Agent: PostmanRuntime/7.39.0
+Host: postman-echo.com
+
+Відповідь: 500 Internal Server Error (153 мс)
+{
+  "status": 500
+}
+
+PASS  Status code is 500
