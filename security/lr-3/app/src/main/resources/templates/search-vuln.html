@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Пошук авто</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>Прокат автомобілів<small>ЛР 3. Демонстрація</small></header>
+<main class="wide">
+  <div class="card">
+    <h1>Пошук авто за брендом</h1>
+    <span class="tag-vuln">ВРАЗЛИВО: конкатенація SQL, th:utext</span>
+    <p>Ви шукали: <strong th:utext="${brand}"></strong></p>
+    <p>Виконано SQL: <code th:text="${sql}">sql</code></p>
+    <table>
+      <tr><th>Бренд</th><th>Модель</th><th>Рік</th><th>Ціна за добу</th></tr>
+      <tr th:each="r : ${rows}"><td th:text="${r.values().toArray()[0]}"></td><td th:text="${r.values().toArray()[1]}"></td><td th:text="${r.values().toArray()[2]}"></td><td th:text="${r.values().toArray()[3]}"></td></tr>
+    </table>
+    <p th:if="${#lists.isEmpty(rows)}">Нічого не знайдено.</p>
+  </div>
+</main>
+</body>
+</html>

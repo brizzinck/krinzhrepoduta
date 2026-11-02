@@ -1,0 +1,52 @@
+
+# Порожня форма: жодного поля (JavaScript не потрібен)
+$ curl -s -X POST http://localhost:8080/register -d login= -d firstName= -d email= -d password= -d phone= -d birthDate= 
+  HTTP 400
+  login      Вкажіть логін
+  firstName  Вкажіть ім'я
+  email      Вкажіть e-mail
+  password   Вкажіть пароль
+  phone      Вкажіть номер телефону
+  birthDate  Вкажіть дату народження у форматі РРРР-ММ-ДД
+
+# Некоректні значення в кожному полі
+$ curl -s -X POST http://localhost:8080/register -d login=abc -d firstName=Ol3na -d email=olena@example -d password=secret -d phone=abc -d birthDate=2099-01-01 
+  HTTP 400
+  login      Логін має містити від 5 до 32 символів
+  firstName  Ім'я має містити лише літери
+  email      E-mail має містити @ та доменне ім'я, наприклад name@example.com
+  password   Пароль має містити від 8 до 72 символів | Пароль має містити принаймні одну велику літеру | Пароль має містити принаймні одну цифру
+  phone      Телефон: необов'язковий + і від 10 до 15 цифр, без пробілів
+  birthDate  Дата народження не може бути в майбутньому
+
+# Порожній логін і некоректні решта полів: помилки формату не ховаються
+$ curl -s -X POST http://localhost:8080/register -d login= -d firstName=Ol3na -d email=olena@example -d password=secret -d phone=abc -d birthDate=2099-01-01 
+  HTTP 400
+  login      Вкажіть логін
+  firstName  Ім'я має містити лише літери
+  email      E-mail має містити @ та доменне ім'я, наприклад name@example.com
+  password   Пароль має містити від 8 до 72 символів | Пароль має містити принаймні одну велику літеру | Пароль має містити принаймні одну цифру
+  phone      Телефон: необов'язковий + і від 10 до 15 цифр, без пробілів
+  birthDate  Дата народження не може бути в майбутньому
+
+# Пароль без цифри / без великої літери / коротший за 8
+$ curl -s -X POST http://localhost:8080/register -d login=client01 -d firstName=Олена -d email=o@example.com -d password=SecretPass -d phone=+380501234567 -d birthDate=1998-04-12 
+  HTTP 400
+  password   Пароль має містити принаймні одну цифру
+
+# Дата не існує в календарі і не-дата
+$ curl -s -X POST http://localhost:8080/register -d login=client01 -d firstName=Олена -d email=o@example.com -d password=Secret123 -d phone=+380501234567 -d birthDate=2026-02-31 
+  HTTP 400
+  birthDate  Некоректна дата: використовуйте формат РРРР-ММ-ДД і існуючу календарну дату
+
+# Mass assignment: корисне навантаження + зайве поле role=ADMIN (має ігноруватися)
+$ curl -s -X POST http://localhost:8080/register -d login=attacker1 -d firstName=Олена -d email=att@example.com -d password=Secret123 -d phone=+380501234567 -d birthDate=1998-04-12 -d role=ADMIN 
+  HTTP 302
+
+# Що збережено в БД для attacker1 (роль не змінилася)
+$ mysql ... -e "SELECT login, role, LEFT(password_hash,7) AS hash_prefix FROM users WHERE login='attacker1'"
++-----------+--------+-------------+
+| login     | role   | hash_prefix |
++-----------+--------+-------------+
+| attacker1 | CLIENT | $2a$10$     |
++-----------+--------+-------------+

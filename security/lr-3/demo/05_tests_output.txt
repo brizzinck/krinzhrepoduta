@@ -1,0 +1,6 @@
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.716 s -- in ua.duikt.lavrishko.rental.validation.CustomValidatorsTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.003 s -- in ua.duikt.lavrishko.rental.ApiAndDemoTest
+[INFO] Tests run: 48, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.103 s -- in ua.duikt.lavrishko.rental.RegistrationValidationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.322 s -- in ua.duikt.lavrishko.rental.VulnerableDemoTest
+[INFO] Tests run: 64, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS

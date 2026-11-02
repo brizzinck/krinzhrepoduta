@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Реєстрація, Прокат автомобілів</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script th:src="@{/js/validate.js}" defer></script>
+</head>
+<body>
+<header>Прокат автомобілів<small>ЛР 3. Валідація вхідних даних</small></header>
+<main>
+  <div class="card">
+    <h1>Реєстрація користувача</h1>
+    <p class="lead">Усі поля обов'язкові. Дані перевіряються у браузері та повторно на сервері.</p>
+    <form id="reg" th:action="@{/register}" th:object="${registrationForm}" method="post" novalidate autocomplete="on">
+      <div class="banner" th:if="${#fields.hasErrors('*')}">Форму не збережено: виправте позначені поля.</div>
+      <label for="login">Логін</label>
+      <input id="login" name="login" type="text" th:field="*{login}" th:errorclass="invalid"
+             required minlength="5" maxlength="32" pattern="[A-Za-z0-9_.\-]+" autocomplete="username">
+      <div class="hint">Від 5 до 32 символів: латиниця, цифри, _ . -</div>
+      <th:block th:replace="~{:: err('login')}"></th:block>
+
+      <label for="firstName">Ім'я</label>
+      <input id="firstName" name="firstName" type="text" th:field="*{firstName}" th:errorclass="invalid"
+             required maxlength="50" autocomplete="given-name">
+      <div class="hint">Лише літери</div>
+      <th:block th:replace="~{:: err('firstName')}"></th:block>
+
+      <label for="email">E-mail</label>
+      <input id="email" name="email" type="email" th:field="*{email}" th:errorclass="invalid"
+             required maxlength="254" autocomplete="email">
+      <th:block th:replace="~{:: err('email')}"></th:block>
+
+      <label for="password">Пароль</label>
+      <input id="password" name="password" type="password" th:field="*{password}" th:errorclass="invalid"
+             required minlength="8" maxlength="72" autocomplete="new-password">
+      <div class="hint">Від 8 символів, принаймні одна велика літера і одна цифра</div>
+      <th:block th:replace="~{:: err('password')}"></th:block>
+
+      <label for="phone">Телефон</label>
+      <input id="phone" name="phone" type="tel" th:field="*{phone}" th:errorclass="invalid"
+             required maxlength="16" pattern="\+?[0-9]{10,15}" autocomplete="tel" placeholder="+380501234567">
+      <th:block th:replace="~{:: err('phone')}"></th:block>
+
+      <label for="birthDate">Дата народження</label>
+      <input id="birthDate" name="birthDate" type="date" th:field="*{birthDate}" th:errorclass="invalid"
+             required min="1900-01-01" th:attr="max=${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}"
+             autocomplete="bday">
+      <th:block th:replace="~{:: err('birthDate')}"></th:block>
+
+      <button type="submit">Зареєструватися</button>
+    </form>
+  </div>
+</main>
+
+<!-- Повідомлення про помилки поля: упорядковані за алфавітом, щоб вивід був стабільним -->
+<div th:remove="all"><th:block th:fragment="err(field)">
+  <span class="err" th:attr="data-for=${field}"><th:block th:each="m, st : ${#lists.sort(#fields.errors(field))}"><span th:text="${m}"></span><br th:unless="${st.last}"></th:block></span>
+</th:block></div>
+</body>
+</html>

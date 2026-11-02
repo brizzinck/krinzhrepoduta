@@ -1,0 +1,2593 @@
+{
+  "version": "2.0",
+  "summary": {
+    "title": "Прокат автомобілів",
+    "owner": "Лаврішко Владислав Сергійович",
+    "description": "Модель загроз вебсервісу прокату автомобілів: реєстрація, пошук і бронювання авто, оплата, сповіщення, адмін-панель. Методика STRIDE, оцінка ризику вручну (L × I).",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Лаврішко В. С."
+      }
+    ],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "DFD верхнього рівня",
+        "diagramType": "STRIDE",
+        "version": "2.0",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "description": "Елементи EI/P/DS, 6 меж довіри TB-A…TB-F, потоки F1…F18.",
+        "cells": [
+          {
+            "position": {
+              "x": 20,
+              "y": 120
+            },
+            "size": {
+              "width": 270,
+              "height": 600
+            },
+            "shape": "trust-boundary-box",
+            "attrs": {
+              "body": {
+                "stroke": "#4a5a6a",
+                "strokeDasharray": "7 5"
+              },
+              "headerText": {
+                "text": "TB-A Інтернет (публічна, недовірена зона)"
+              }
+            },
+            "zIndex": -50,
+            "id": "d244aea5-fc44-5f8e-b434-eb1ff3c4e3bb",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "TB-A Інтернет (публічна, недовірена зона)",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 340,
+              "y": 120
+            },
+            "size": {
+              "width": 200,
+              "height": 600
+            },
+            "shape": "trust-boundary-box",
+            "attrs": {
+              "body": {
+                "stroke": "#4a5a6a",
+                "strokeDasharray": "7 5"
+              },
+              "headerText": {
+                "text": "TB-B DMZ"
+              }
+            },
+            "zIndex": -50,
+            "id": "0d3d8bf8-654e-5842-9701-b3dc9c22d04e",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "TB-B DMZ",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 600,
+              "y": 120
+            },
+            "size": {
+              "width": 400,
+              "height": 600
+            },
+            "shape": "trust-boundary-box",
+            "attrs": {
+              "body": {
+                "stroke": "#4a5a6a",
+                "strokeDasharray": "7 5"
+              },
+              "headerText": {
+                "text": "TB-C Внутрішня мережа застосунку (приватна)"
+              }
+            },
+            "zIndex": -50,
+            "id": "c5bd9fed-8f00-5458-abe0-e048f5d915e4",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "TB-C Внутрішня мережа застосунку (приватна)",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 1060,
+              "y": 120
+            },
+            "size": {
+              "width": 270,
+              "height": 600
+            },
+            "shape": "trust-boundary-box",
+            "attrs": {
+              "body": {
+                "stroke": "#4a5a6a",
+                "strokeDasharray": "7 5"
+              },
+              "headerText": {
+                "text": "TB-D Зона даних (приватна)"
+              }
+            },
+            "zIndex": -50,
+            "id": "3c1bd885-45db-5a8b-bc4a-444d49c147ff",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "TB-D Зона даних (приватна)",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 20,
+              "y": 790
+            },
+            "size": {
+              "width": 520,
+              "height": 190
+            },
+            "shape": "trust-boundary-box",
+            "attrs": {
+              "body": {
+                "stroke": "#4a5a6a",
+                "strokeDasharray": "7 5"
+              },
+              "headerText": {
+                "text": "TB-E Привілейована зона персоналу (VPN, allowlist)"
+              }
+            },
+            "zIndex": -50,
+            "id": "02c27d35-da08-515d-887c-f4f51f64b7aa",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "TB-E Привілейована зона персоналу (VPN, allowlist)",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 1380,
+              "y": 120
+            },
+            "size": {
+              "width": 270,
+              "height": 600
+            },
+            "shape": "trust-boundary-box",
+            "attrs": {
+              "body": {
+                "stroke": "#4a5a6a",
+                "strokeDasharray": "7 5"
+              },
+              "headerText": {
+                "text": "TB-F Треті сторони (поза нашим контролем)"
+              }
+            },
+            "zIndex": -50,
+            "id": "2037e742-6791-5f60-872c-0db744862b51",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "TB-F Треті сторони (поза нашим контролем)",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 60,
+              "y": 190
+            },
+            "size": {
+              "width": 190,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "EI-1\nКлієнт (орендар)"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 1,
+            "id": "ad25bd06-fa74-5a2b-9e08-0e5f5f4646fc",
+            "data": {
+              "name": "EI-1\nКлієнт (орендар)",
+              "description": "Людина з браузером або мобільним браузером; до входу не автентифікована, пристрій не контролюється сервісом.",
+              "type": "tm.Actor",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Журнал дій із прив'язкою до облікового запису, договір оренди, дані шлюзу. (ASVS: V16.3.1, V16.3.3)",
+                  "description": "Клієнт заперечує факт бронювання або оплати.",
+                  "title": "T13 Відмова клієнта від оплати чи оренди",
+                  "type": "Repudiation",
+                  "modelType": "STRIDE",
+                  "id": "71b081a4-3287-5670-833e-2080f1b10935",
+                  "number": 21,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                },
+                {
+                  "status": "NotApplicable",
+                  "severity": "Low",
+                  "mitigation": "Поза межами: пристрій клієнта не контролюється сервісом; сервер не довіряє клієнтським даним.",
+                  "description": "Клієнт працює з рутованого пристрою чи емулятора.",
+                  "title": "FP4 Скомпрометований пристрій клієнта (root, емулятор) (відхилено)",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "id": "2c886668-579c-5084-bc23-23fb5f2f8ce0",
+                  "number": 55,
+                  "score": "—",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "providesAuthentication": false
+            }
+          },
+          {
+            "position": {
+              "x": 50,
+              "y": 860
+            },
+            "size": {
+              "width": 190,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "EI-2\nМенеджер парку"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 2,
+            "id": "df5cb406-f01c-5efc-8839-c32c68ff644e",
+            "data": {
+              "name": "EI-2\nМенеджер парку",
+              "description": "Співробітник прокату; керує автопарком, цінами й бронюваннями лише через адмін-панель.",
+              "type": "tm.Actor",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "mitigation": "MFA для адмінів, окремий origin, короткі тайм-аути сесії. (ASVS: V6.3.3, V7.3.1)",
+                  "description": "Фішинг чи викрадений пароль менеджера дає повний контроль над цінами й бронюваннями.",
+                  "title": "T14 Компрометація акаунта адміністратора",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "id": "adb99dfb-1cb4-5462-a6c0-586da923591b",
+                  "number": 24,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "providesAuthentication": false
+            }
+          },
+          {
+            "position": {
+              "x": 1420,
+              "y": 180
+            },
+            "size": {
+              "width": 190,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "EI-3\nПлатіжний шлюз"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": "4 3"
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 3,
+            "id": "88a9db73-8516-5757-9c1a-491ac28f652c",
+            "data": {
+              "name": "EI-3\nПлатіжний шлюз",
+              "description": "Зовнішній провайдер: hosted payment page і webhook. Картка вводиться на його сторінці, PAN до сервісу не потрапляє.",
+              "type": "tm.Actor",
+              "isTrustBoundary": false,
+              "outOfScope": true,
+              "reasonOutOfScope": "Сторонній провайдер: безпека його інфраструктури покривається договором і SLA.",
+              "threats": [],
+              "hasOpenThreats": false,
+              "providesAuthentication": false
+            }
+          },
+          {
+            "position": {
+              "x": 1420,
+              "y": 390
+            },
+            "size": {
+              "width": 190,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "EI-4\nEmail/SMS-провайдер"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 4,
+            "id": "d4ecbe37-348f-5aca-93bd-200e29d3dddd",
+            "data": {
+              "name": "EI-4\nEmail/SMS-провайдер",
+              "description": "Зовнішній сервіс для підтвердження пошти/телефону й нагадувань про повернення авто.",
+              "type": "tm.Actor",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "mitigation": "SPF/DKIM/DMARC, листи без посилань на введення пароля (практика, поза ASVS). (ASVS: поза ASVS)",
+                  "description": "Підроблені листи від імені прокату виманюють облікові дані.",
+                  "title": "T24 Фішинг від імені сервісу",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "id": "65cefebf-541b-5589-9585-599c96ad4c9b",
+                  "number": 42,
+                  "score": "L3 × I2 = 6",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "providesAuthentication": false
+            }
+          },
+          {
+            "position": {
+              "x": 1420,
+              "y": 600
+            },
+            "size": {
+              "width": 190,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "EI-5\nГеокодинг API"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 5,
+            "id": "1750666f-8319-5b68-93b8-22d4dc1a3243",
+            "data": {
+              "name": "EI-5\nГеокодинг API",
+              "description": "Зовнішній картографічний сервіс: адреси видачі й повернення авто, відстань.",
+              "type": "tm.Actor",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "NotApplicable",
+                  "severity": "Low",
+                  "mitigation": "Прийнятий ризик: дані некритичні (орієнтовна відстань), ціна від відстані не залежить.",
+                  "description": "Відповідь підробленого картографічного API змінює відстань.",
+                  "title": "FP3 Підміна геокодинг-сервісу (відхилено)",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "id": "574ea26b-cc0e-5c8c-adbf-42dc166ceb03",
+                  "number": 54,
+                  "score": "—",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": false,
+              "providesAuthentication": false
+            }
+          },
+          {
+            "position": {
+              "x": 100,
+              "y": 460
+            },
+            "size": {
+              "width": 110,
+              "height": 110
+            },
+            "attrs": {
+              "text": {
+                "text": "P-1\nВеб-клієнт"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 6,
+            "id": "7b153386-4b15-5e6c-b971-7deb9967779f",
+            "data": {
+              "name": "P-1\nВеб-клієнт",
+              "description": "Інтерфейс у браузері (SSR + невеликий JS): форми реєстрації, пошуку авто, бронювання; клієнтська валідація лише для зручності.",
+              "type": "tm.Process",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Контекстне кодування виводу, CSP, валідація вводу за allow-list. (ASVS: V1.2.1, V3.2.2, V3.4.3)",
+                  "description": "Скрипт у полі (ім'я, коментар) виконується в браузері іншого користувача: крадіжка сесії, підміна форм.",
+                  "title": "T06 Збережений і відображений XSS",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "0c17da5e-5019-568f-b5b7-c3cc50c7ea6b",
+                  "number": 8,
+                  "score": "L3 × I4 = 12",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Контекстне кодування виводу, CSP, валідація вводу за allow-list. (ASVS: V1.2.1, V3.2.2, V3.4.3)",
+                  "description": "Скрипт у полі (ім'я, коментар) виконується в браузері іншого користувача: крадіжка сесії, підміна форм.",
+                  "title": "T06 Збережений і відображений XSS",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "37b19f47-8de6-5f5f-979a-818253f8acdf",
+                  "number": 9,
+                  "score": "L3 × I4 = 12",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "SameSite для cookie, CSRF-токен форм, перевірка Origin. (ASVS: V3.3.2, V3.5.1)",
+                  "description": "Зловмисна сторінка змушує браузер автентифікованого клієнта виконати бронювання чи оплату.",
+                  "title": "T07 CSRF на бронювання й оплату",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "6267f401-2c7f-59e4-80ad-4566577ed2e6",
+                  "number": 10,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "SBOM, регулярне оновлення, перевірка залежностей у CI. (ASVS: V15.1.1, V15.1.2, V15.2.1)",
+                  "description": "Застарілі бібліотеки містять відомі вразливості.",
+                  "title": "T25 Вразливі залежності (supply chain)",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "831117af-f91c-5cce-a440-45ccced7c62f",
+                  "number": 44,
+                  "score": "L3 × I4 = 12",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Без секретів в URL, очищення клієнтського сховища після виходу, заборона кешування чутливих відповідей. (ASVS: V14.2.1, V14.3.1)",
+                  "description": "Чутливі дані потрапляють у історію браузера, журнали проксі, спільні кеші.",
+                  "title": "T26 Токени й PII в URL, localStorage, кешах",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "c1bbf052-c83c-5407-bff1-87627331e79f",
+                  "number": 46,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": true,
+              "privilegeLevel": "користувач (браузер)"
+            }
+          },
+          {
+            "position": {
+              "x": 385,
+              "y": 460
+            },
+            "size": {
+              "width": 110,
+              "height": 110
+            },
+            "attrs": {
+              "text": {
+                "text": "P-2\nReverse proxy\nWAF"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 7,
+            "id": "ab182373-8bbd-5eea-bdc3-3576dffe271c",
+            "data": {
+              "name": "P-2\nReverse proxy\nWAF",
+              "description": "nginx: термінація TLS, обмеження частоти й розміру запитів, заголовки безпеки.",
+              "type": "tm.Process",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "mitigation": "Обмеження розміру тіла та частоти на проксі, пагінація й ліміти вибірок. (ASVS: V2.4.1, V5.2.1)",
+                  "description": "Масові або надмірно великі запити виснажують ресурси сервісу.",
+                  "title": "T10 Флуд пошуку, великі тіла запитів",
+                  "type": "Denial of service",
+                  "modelType": "STRIDE",
+                  "id": "b2b11294-a07b-59de-afb4-53615dc4efa0",
+                  "number": 15,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "мережевий периметр"
+            }
+          },
+          {
+            "position": {
+              "x": 660,
+              "y": 385
+            },
+            "size": {
+              "width": 120,
+              "height": 120
+            },
+            "attrs": {
+              "text": {
+                "text": "P-3\nBackend API"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 8,
+            "id": "1c16c58b-2bca-5441-8b7d-750eebcd718d",
+            "data": {
+              "name": "P-3\nBackend API",
+              "description": "Spring Boot: автентифікація, сесії, каталог, бронювання, ролі, валідація вводу.",
+              "type": "tm.Process",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "mitigation": "Обмеження частоти спроб і тимчасове блокування, перевірка паролів за списком скомпрометованих, MFA як опція. (ASVS: V6.3.1, V6.1.1, V2.4.1)",
+                  "description": "Автоматизований перебір пар логін/пароль із витоків інших сервісів призводить до захоплення акаунтів.",
+                  "title": "T02 Підбір паролів і credential stuffing",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "id": "b4648f90-02f6-5a0f-88f9-e782c53e00fc",
+                  "number": 3,
+                  "score": "L4 × I4 = 16",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Новий токен сесії після входу, cookie з Secure/HttpOnly/SameSite, тайм-аути, завершення сесії на сервері. (ASVS: V7.2.4, V3.3.1, V7.4.1)",
+                  "description": "Зловмисник отримує токен сесії (XSS, мережа) або нав'язує відомий ідентифікатор до входу.",
+                  "title": "T03 Викрадення або фіксація сесії",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "id": "9e6d5feb-1abd-58f8-8686-6a682bea1227",
+                  "number": 4,
+                  "score": "L3 × I4 = 12",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "mitigation": "Перевірка власника об'єкта на сервері для кожного запиту, непередбачувані ідентифікатори. (ASVS: V8.2.2, V8.3.1)",
+                  "description": "Підстановка чужого ідентифікатора в запит дає доступ до чужих бронювань і сканів посвідчень.",
+                  "title": "T04 IDOR: перегляд чужих бронювань і документів",
+                  "type": "Elevation of privilege",
+                  "modelType": "STRIDE",
+                  "id": "ea2ae1b8-7033-5f70-bcfe-953a6192c0ec",
+                  "number": 5,
+                  "score": "L4 × I4 = 16",
+                  "new": false
+                },
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "mitigation": "Параметризовані запити, allow-list валідація входу (передбачено в архітектурі). (ASVS: V1.2.4, V2.2.1)",
+                  "description": "Спеціально сформований ввід змінює SQL-запит: витік даних користувачів, зміна бронювань.",
+                  "title": "T05 SQL-ін'єкція",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "e103355b-2482-5426-9df1-40c48c9b1b3a",
+                  "number": 6,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "SameSite для cookie, CSRF-токен форм, перевірка Origin. (ASVS: V3.3.2, V3.5.1)",
+                  "description": "Зловмисна сторінка змушує браузер автентифікованого клієнта виконати бронювання чи оплату.",
+                  "title": "T07 CSRF на бронювання й оплату",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "da01c8e8-6fd6-5b24-a34e-9aa0ea029fbb",
+                  "number": 11,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "mitigation": "Ціна й знижки рахуються на сервері, клієнтські значення лише пропозиція. (ASVS: V2.2.2, V2.3.1)",
+                  "description": "Клієнт змінює приховані поля або JSON: ціна, строк оренди, знижка.",
+                  "title": "T08 Підміна ціни або дат на клієнті",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "fd82833d-ff7e-5df0-a34b-f936b7460452",
+                  "number": 12,
+                  "score": "L4 × I4 = 16",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Транзакції, блокування рядка або унікальне обмеження на інтервал бронювання. (ASVS: V2.3.3, V2.3.4)",
+                  "description": "Два одночасні запити бронюють одне авто на однакові дати.",
+                  "title": "T09 Подвійне бронювання авто (гонка)",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "94a890a5-fd9f-5b03-b432-af3c2c9ea5b3",
+                  "number": 13,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                },
+                {
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "mitigation": "Обмеження розміру тіла та частоти на проксі, пагінація й ліміти вибірок. (ASVS: V2.4.1, V5.2.1)",
+                  "description": "Масові або надмірно великі запити виснажують ресурси сервісу.",
+                  "title": "T10 Флуд пошуку, великі тіла запитів",
+                  "type": "Denial of service",
+                  "modelType": "STRIDE",
+                  "id": "264a0797-058d-5afb-83b8-a8d79ac7e8fd",
+                  "number": 16,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Окремий обліковий запис із мінімальними привілеями (DML на потрібні таблиці). (ASVS: V13.2.2)",
+                  "description": "Застосунок працює з обліковим записом, що має права DDL чи доступ до чужих схем.",
+                  "title": "T17 Надлишкові права облікового запису БД",
+                  "type": "Elevation of privilege",
+                  "modelType": "STRIDE",
+                  "id": "10e9c8f4-859c-5702-82c1-9822a6568f80",
+                  "number": 28,
+                  "score": "L2 × I5 = 10",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Перевірка типу й розміру, без виконання, окремий домен для віддачі. (ASVS: V5.2.1, V5.2.2, V5.3.1)",
+                  "description": "Завантажений файл виконується або віддається як активний контент.",
+                  "title": "T19 Шкідливий файл (SVG зі скриптом, webshell)",
+                  "type": "Elevation of privilege",
+                  "modelType": "STRIDE",
+                  "id": "9aa23204-b1d1-5df8-b027-f7b3220e9fb4",
+                  "number": 32,
+                  "score": "L3 × I4 = 12",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Загальні повідомлення про помилки, вимкнений debug/actuator (передбачено в архітектурі). (ASVS: V16.5.1, V13.4.2)",
+                  "description": "Службові подробиці помилок допомагають зловмиснику (SQL, класи, версії).",
+                  "title": "T22 Стек-трейси, debug і actuator у відповідях",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "8ad10123-cdce-5cc4-96a5-a1219e6e5481",
+                  "number": 38,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Allow-list вихідних адрес, заборона перенаправлень, валідація параметрів. (ASVS: V2.2.1; Лекція 2 (A10))",
+                  "description": "Сервер робить запит на адресу, обрану зловмисником (внутрішні ресурси).",
+                  "title": "T23 SSRF через URL-параметри геокодингу",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "9b3d6c61-e9f6-5b1b-b860-74d8fd4fac84",
+                  "number": 39,
+                  "score": "L2 × I4 = 8",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "SBOM, регулярне оновлення, перевірка залежностей у CI. (ASVS: V15.1.1, V15.1.2, V15.2.1)",
+                  "description": "Застарілі бібліотеки містять відомі вразливості.",
+                  "title": "T25 Вразливі залежності (supply chain)",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "a3ab49f0-7af9-5ef1-a616-a3418e197b6c",
+                  "number": 43,
+                  "score": "L3 × I4 = 12",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Одноразові токени з TTL, без секретних питань. (ASVS: V6.4.1, V6.4.2)",
+                  "description": "Передбачуваний токен або секретне питання дозволяють скинути чужий пароль.",
+                  "title": "T27 Захоплення акаунта через слабке відновлення пароля",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "id": "432f02e0-9d4f-5669-9176-1b7f4d2a74cb",
+                  "number": 47,
+                  "score": "L3 × I4 = 12",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "mitigation": "DTO з allow-list полів, роль виставляє лише сервер (передбачено в архітектурі). (ASVS: V8.2.1, V2.2.1)",
+                  "description": "Додатковий параметр у формі реєстрації підвищує роль до адміністратора.",
+                  "title": "T28 Mass assignment: role=ADMIN у реєстрації",
+                  "type": "Elevation of privilege",
+                  "modelType": "STRIDE",
+                  "id": "d879e918-afd1-547b-af16-cc5956b09426",
+                  "number": 49,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": true,
+              "isWebApplication": true,
+              "privilegeLevel": "службовий обліковий запис застосунку"
+            }
+          },
+          {
+            "position": {
+              "x": 380,
+              "y": 840
+            },
+            "size": {
+              "width": 110,
+              "height": 110
+            },
+            "attrs": {
+              "text": {
+                "text": "P-4\nАдмін-панель"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 9,
+            "id": "74094a24-7153-5b7a-8fb6-2637cf5176ee",
+            "data": {
+              "name": "P-4\nАдмін-панель",
+              "description": "Окремий вебклієнт на окремому origin; доступ лише з мережі персоналу (VPN/allowlist) і з MFA.",
+              "type": "tm.Process",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "mitigation": "MFA для адмінів, окремий origin, короткі тайм-аути сесії. (ASVS: V6.3.3, V7.3.1)",
+                  "description": "Фішинг чи викрадений пароль менеджера дає повний контроль над цінами й бронюваннями.",
+                  "title": "T14 Компрометація акаунта адміністратора",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "id": "48d0afe2-4ea9-54be-8bb8-759fe273a945",
+                  "number": 23,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "mitigation": "Доступ лише з VPN/allowlist, перевірка ролі на кожному запиті. (ASVS: V8.2.1, V8.3.1)",
+                  "description": "Адмін-ендпоінти доступні ззовні або без перевірки ролі.",
+                  "title": "T15 Адмінка доступна з інтернету, forced browsing",
+                  "type": "Elevation of privilege",
+                  "modelType": "STRIDE",
+                  "id": "68ce82e4-9f22-56e4-84d7-ebb14b7e5eff",
+                  "number": 25,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "SBOM, регулярне оновлення, перевірка залежностей у CI. (ASVS: V15.1.1, V15.1.2, V15.2.1)",
+                  "description": "Застарілі бібліотеки містять відомі вразливості.",
+                  "title": "T25 Вразливі залежності (supply chain)",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "cf9a99fb-6752-5621-aa2b-828398cc8f28",
+                  "number": 45,
+                  "score": "L3 × I4 = 12",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Журнал рішень авторизації, розділення обов'язків. (ASVS: V16.3.2)",
+                  "description": "Менеджер змінює ціни чи бронювання без можливості пізніше довести авторство.",
+                  "title": "T29 Зловживання персоналу без сліду",
+                  "type": "Repudiation",
+                  "modelType": "STRIDE",
+                  "id": "0afe5a72-b6ad-5aa5-884c-ba152db69558",
+                  "number": 50,
+                  "score": "L2 × I4 = 8",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": true,
+              "privilegeLevel": "адміністратор"
+            }
+          },
+          {
+            "position": {
+              "x": 665,
+              "y": 560
+            },
+            "size": {
+              "width": 110,
+              "height": 110
+            },
+            "attrs": {
+              "text": {
+                "text": "P-5\nПлатіжний\nмодуль"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 10,
+            "id": "1d234035-88bb-556d-b19d-63d44b7bf3c3",
+            "data": {
+              "name": "P-5\nПлатіжний\nмодуль",
+              "description": "Створює платіжну сесію, приймає webhook шлюзу, перевіряє HMAC-підпис, оновлює статус платежу.",
+              "type": "tm.Process",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "mitigation": "HMAC-підпис події, ідемпотентність за id події, звірка зі шлюзом. (ASVS: V11.4.1, V2.3.1)",
+                  "description": "Зловмисник надсилає підроблену подію шлюзу й отримує авто без оплати.",
+                  "title": "T11 Підроблений webhook «оплачено»",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "id": "db4879d7-0661-5f36-8908-63f94b07173e",
+                  "number": 18,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Журнал дій із прив'язкою до облікового запису, договір оренди, дані шлюзу. (ASVS: V16.3.1, V16.3.3)",
+                  "description": "Клієнт заперечує факт бронювання або оплати.",
+                  "title": "T13 Відмова клієнта від оплати чи оренди",
+                  "type": "Repudiation",
+                  "modelType": "STRIDE",
+                  "id": "342a511f-5495-5841-9119-e95da53aa809",
+                  "number": 22,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "handlesCardPayment": true,
+              "handlesGoodsOrServices": true,
+              "isWebApplication": false,
+              "privilegeLevel": "службовий обліковий запис платежів"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F1 ввід форм",
+              "description": "Логін, ПІБ, пошта, пароль, телефон, дата народження, дати оренди. Дані: UI.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "UI",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "530cdce9-0253-556e-9302-157af1058902",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F1 ввід форм"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "ad25bd06-fa74-5a2b-9e08-0e5f5f4646fc"
+            },
+            "target": {
+              "cell": "7b153386-4b15-5e6c-b971-7deb9967779f"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F2 HTTPS-запити",
+              "description": "Запити браузера до сервісу. Дані: HTTPS (TLS 1.2/1.3, HSTS).",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS (TLS 1.2/1.3, HSTS)",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "mitigation": "TLS 1.2+ для всього зовнішнього трафіку, HSTS, публічно довірені сертифікати. (ASVS: V12.1.1, V12.2.1, V3.4.1)",
+                  "description": "Зловмисник у недовіреній мережі (публічний Wi-Fi) читає або змінює трафік між браузером і сервісом: логін, пароль, cookie сесії.",
+                  "title": "T01 Перехоплення (MITM) облікових даних і сесії",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "2a752771-884a-500f-b716-2673454b4a6a",
+                  "number": 1,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "36d894f1-41e9-5310-a5fe-d9f967f47bdf",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F2 HTTPS-запити"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "7b153386-4b15-5e6c-b971-7deb9967779f"
+            },
+            "target": {
+              "cell": "ab182373-8bbd-5eea-bdc3-3576dffe271c"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F3 проксіювання",
+              "description": "Перенаправлені запити. Дані: HTTP/mTLS у внутрішній мережі.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTP/mTLS у внутрішній мережі",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "d113b86b-60c6-551e-8cc4-7f54a22f21d8",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F3 проксіювання"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "ab182373-8bbd-5eea-bdc3-3576dffe271c"
+            },
+            "target": {
+              "cell": "1c16c58b-2bca-5441-8b7d-750eebcd718d"
+            },
+            "vertices": [
+              {
+                "x": 570,
+                "y": 515
+              },
+              {
+                "x": 570,
+                "y": 445
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F4 SQL",
+              "description": "SQL-запити: облікові дані, бронювання. Дані: JDBC + TLS, параметризовані запити.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": true,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "JDBC + TLS, параметризовані запити",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "592d6136-4ed7-52d1-8ee7-69cea013620f",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F4 SQL"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "1c16c58b-2bca-5441-8b7d-750eebcd718d"
+            },
+            "target": {
+              "cell": "caab9621-4bcf-552f-beb0-97e2f1caac4f"
+            },
+            "vertices": [
+              {
+                "x": 720,
+                "y": 185
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F5 сесії",
+              "description": "Сесії та лічильники rate limit. Дані: Redis AUTH + TLS.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": true,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "Redis AUTH + TLS",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "AUTH, TLS, мережева ізоляція. (ASVS: V12.3.1, V7.2.1)",
+                  "description": "Доступ до Redis дозволяє читати й підміняти сесії та лічильники.",
+                  "title": "T20 Redis без автентифікації, підміна сесій",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "30073377-70fd-54a9-875e-a16d6093d74b",
+                  "number": 34,
+                  "score": "L2 × I4 = 8",
+                  "new": false
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "7b3b7799-15cd-5435-9e49-a271b5d11ee0",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F5 сесії"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "1c16c58b-2bca-5441-8b7d-750eebcd718d"
+            },
+            "target": {
+              "cell": "fe26d7fb-c09e-5be8-b471-319481ca28d4"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F6 файли",
+              "description": "Фото авто, скани посвідчень. Дані: S3-подібний API, pre-signed URL.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": true,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "S3-подібний API, pre-signed URL",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "mitigation": "Приватне сховище, pre-signed URL із коротким TTL, перевірка власника. (ASVS: V8.2.2, V5.4.1)",
+                  "description": "Публічні посилання на файли дають доступ до документів сторонніх осіб.",
+                  "title": "T18 Скани посвідчень за вгадуваними публічними URL",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "34f87fda-f997-57b7-9ba1-a77fa28cca42",
+                  "number": 30,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "a022293b-364b-585f-b51b-5f475705e43f",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F6 файли"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "1c16c58b-2bca-5441-8b7d-750eebcd718d"
+            },
+            "target": {
+              "cell": "54debde1-33af-5d23-bca8-58b5c785a514"
+            },
+            "vertices": [
+              {
+                "x": 720,
+                "y": 315
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F7 запит на оплату",
+              "description": "Ідентифікатор бронювання, сума. Дані: внутрішній виклик.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "внутрішній виклик",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "74310230-8cbf-52ed-9d9c-3099772055df",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F7 запит на оплату"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "1c16c58b-2bca-5441-8b7d-750eebcd718d"
+            },
+            "target": {
+              "cell": "1d234035-88bb-556d-b19d-63d44b7bf3c3"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F8 платіжна сесія",
+              "description": "Створення платіжної сесії, redirect-URL, статус. Дані: HTTPS, API-ключ.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": true,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS, API-ключ",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "mitigation": "Hosted payment page (PAN не потрапляє до сервісу), у БД лише токен і статус. (ASVS: V14.1.1, V14.2.1)",
+                  "description": "Дані картки потрапляють у логи чи БД сервісу або перехоплюються при введенні.",
+                  "title": "T12 Витік даних картки",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "711372d5-7362-5e53-a8aa-61e83eefef79",
+                  "number": 19,
+                  "score": "L2 × I5 = 10",
+                  "new": false
+                },
+                {
+                  "status": "NotApplicable",
+                  "severity": "Low",
+                  "mitigation": "Поза межами: інфраструктура провайдера, SLA; на нашому боці лише коректна обробка збою (V16.5.2).",
+                  "description": "Недоступність платіжного шлюзу блокує оплату.",
+                  "title": "FP2 DoS платіжного шлюзу (відхилено)",
+                  "type": "Denial of service",
+                  "modelType": "STRIDE",
+                  "id": "838862aa-bccb-5a87-8f4f-f7ab76f1ffcf",
+                  "number": 53,
+                  "score": "—",
+                  "new": false
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "dab692df-e66d-5559-8039-d5a924094a91",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F8 платіжна сесія"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "1d234035-88bb-556d-b19d-63d44b7bf3c3"
+            },
+            "target": {
+              "cell": "88a9db73-8516-5757-9c1a-491ac28f652c"
+            },
+            "vertices": [
+              {
+                "x": 720,
+                "y": 750
+              },
+              {
+                "x": 1345,
+                "y": 750
+              },
+              {
+                "x": 1345,
+                "y": 215
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F9 введення картки на сторінці шлюзу",
+              "description": "Дані картки (поза нашим периметром). Дані: HTTPS (сторінка шлюзу).",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS (сторінка шлюзу)",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "mitigation": "Hosted payment page (PAN не потрапляє до сервісу), у БД лише токен і статус. (ASVS: V14.1.1, V14.2.1)",
+                  "description": "Дані картки потрапляють у логи чи БД сервісу або перехоплюються при введенні.",
+                  "title": "T12 Витік даних картки",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "77f7ae58-364f-5ec8-a7a7-6c9aa9a36384",
+                  "number": 20,
+                  "score": "L2 × I5 = 10",
+                  "new": false
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "8338ccdc-32fa-5322-822a-aa9d09d37b36",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F9 введення картки на сторінці шлюзу"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "ad25bd06-fa74-5a2b-9e08-0e5f5f4646fc"
+            },
+            "target": {
+              "cell": "88a9db73-8516-5757-9c1a-491ac28f652c"
+            },
+            "vertices": [
+              {
+                "x": 155,
+                "y": 30
+              },
+              {
+                "x": 1515,
+                "y": 30
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F10 webhook (через P-2)",
+              "description": "Подія «оплачено/відхилено». Дані: HTTPS, HMAC-підпис, ідемпотентність.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS, HMAC-підпис, ідемпотентність",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "mitigation": "HMAC-підпис події, ідемпотентність за id події, звірка зі шлюзом. (ASVS: V11.4.1, V2.3.1)",
+                  "description": "Зловмисник надсилає підроблену подію шлюзу й отримує авто без оплати.",
+                  "title": "T11 Підроблений webhook «оплачено»",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "7961579f-88a8-5244-bb5b-a37c337be255",
+                  "number": 17,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "c4b31ade-b45a-5b33-96d5-e7af14ed2206",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F10 webhook (через P-2)"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "88a9db73-8516-5757-9c1a-491ac28f652c"
+            },
+            "target": {
+              "cell": "1d234035-88bb-556d-b19d-63d44b7bf3c3"
+            },
+            "vertices": [
+              {
+                "x": 1680,
+                "y": 215
+              },
+              {
+                "x": 1680,
+                "y": 795
+              },
+              {
+                "x": 600,
+                "y": 795
+              },
+              {
+                "x": 600,
+                "y": 615
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F11 статус платежу",
+              "description": "Статус платежу, токен. Дані: JDBC + TLS.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "JDBC + TLS",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "237f476e-30d1-553a-8950-07a44a032a61",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F11 статус платежу"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "1d234035-88bb-556d-b19d-63d44b7bf3c3"
+            },
+            "target": {
+              "cell": "caab9621-4bcf-552f-beb0-97e2f1caac4f"
+            },
+            "vertices": [
+              {
+                "x": 1040,
+                "y": 615
+              },
+              {
+                "x": 1040,
+                "y": 185
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F12 подія сповіщення",
+              "description": "Подія для надсилання листа/SMS. Дані: черга.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "черга",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "d11f9325-0e80-5105-a73d-2b935fe8b125",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F12 подія сповіщення"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "1c16c58b-2bca-5441-8b7d-750eebcd718d"
+            },
+            "target": {
+              "cell": "958809e1-0c5e-5ddd-b5f3-d07caf650604"
+            },
+            "vertices": [
+              {
+                "x": 905,
+                "y": 445
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F13 email/SMS",
+              "description": "Листи й SMS. Дані: HTTPS, API-ключ.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS, API-ключ",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Одноразові токени з TTL, без секретних питань. (ASVS: V6.4.1, V6.4.2)",
+                  "description": "Передбачуваний токен або секретне питання дозволяють скинути чужий пароль.",
+                  "title": "T27 Захоплення акаунта через слабке відновлення пароля",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "4a904e09-3862-57e0-b0d7-68bca07865ce",
+                  "number": 48,
+                  "score": "L3 × I4 = 12",
+                  "new": false
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "bf6ab112-4eee-5891-8b92-54b6c47c42c7",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F13 email/SMS"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "958809e1-0c5e-5ddd-b5f3-d07caf650604"
+            },
+            "target": {
+              "cell": "d4ecbe37-348f-5aca-93bd-200e29d3dddd"
+            },
+            "vertices": [
+              {
+                "x": 905,
+                "y": 765
+              },
+              {
+                "x": 1360,
+                "y": 765
+              },
+              {
+                "x": 1360,
+                "y": 425
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F14 геокодинг",
+              "description": "Адреси й координати. Дані: HTTPS, API-ключ.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": true,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS, API-ключ",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Allow-list вихідних адрес, заборона перенаправлень, валідація параметрів. (ASVS: V2.2.1; Лекція 2 (A10))",
+                  "description": "Сервер робить запит на адресу, обрану зловмисником (внутрішні ресурси).",
+                  "title": "T23 SSRF через URL-параметри геокодингу",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "fc77e5c3-0a85-5b9b-bb8a-18b70671f9d6",
+                  "number": 40,
+                  "score": "L2 × I4 = 8",
+                  "new": false
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "47abb7c0-3402-53b8-b488-4aab3341ec34",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F14 геокодинг"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "1c16c58b-2bca-5441-8b7d-750eebcd718d"
+            },
+            "target": {
+              "cell": "1750666f-8319-5b68-93b8-22d4dc1a3243"
+            },
+            "vertices": [
+              {
+                "x": 1020,
+                "y": 445
+              },
+              {
+                "x": 1020,
+                "y": 710
+              },
+              {
+                "x": 1355,
+                "y": 710
+              },
+              {
+                "x": 1355,
+                "y": 635
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F15 вхід, керування парком",
+              "description": "Вхід менеджера, керування парком і цінами. Дані: HTTPS + MFA.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS + MFA",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "0de53317-5037-5096-9011-326ed853c92d",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F15 вхід, керування парком"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "df5cb406-f01c-5efc-8839-c32c68ff644e"
+            },
+            "target": {
+              "cell": "74094a24-7153-5b7a-8fb6-2637cf5176ee"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F16 адмін-API (через P-2)",
+              "description": "Адмін-запити. Дані: HTTPS, роль ADMIN.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS, роль ADMIN",
+              "threats": [],
+              "isTrustBoundary": false
+            },
+            "id": "d1362bac-592d-5261-9497-422509407e13",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F16 адмін-API (через P-2)"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "74094a24-7153-5b7a-8fb6-2637cf5176ee"
+            },
+            "target": {
+              "cell": "1c16c58b-2bca-5441-8b7d-750eebcd718d"
+            },
+            "vertices": [
+              {
+                "x": 435,
+                "y": 660
+              },
+              {
+                "x": 615,
+                "y": 660
+              },
+              {
+                "x": 615,
+                "y": 445
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F17 події й помилки",
+              "description": "Події безпеки й помилки без PII і паролів (також від P-2). Дані: syslog/файл.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "syslog/файл",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Структурований журнал без секретів, захист від змін, захист від log injection. (ASVS: V16.2.1, V16.2.5, V16.4.2)",
+                  "description": "Без журналу неможливо розслідувати інцидент; журнал із паролями сам стає джерелом витоку.",
+                  "title": "T21 Журнали відсутні, змінені або містять PII і паролі",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "1a3711e0-55c0-5f15-a7eb-52301d3d5258",
+                  "number": 37,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "74cc6f2e-a78e-5abe-8be5-0fe93859fa48",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F17 події й помилки"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "1c16c58b-2bca-5441-8b7d-750eebcd718d"
+            },
+            "target": {
+              "cell": "41fb0f19-ab2e-5f62-b571-f474aa932158"
+            },
+            "vertices": [
+              {
+                "x": 1000,
+                "y": 445
+              },
+              {
+                "x": 1000,
+                "y": 575
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "rounded",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F18 відповіді, Set-Cookie",
+              "description": "HTML/JSON, Set-Cookie. Дані: HTTPS.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "mitigation": "TLS 1.2+ для всього зовнішнього трафіку, HSTS, публічно довірені сертифікати. (ASVS: V12.1.1, V12.2.1, V3.4.1)",
+                  "description": "Зловмисник у недовіреній мережі (публічний Wi-Fi) читає або змінює трафік між браузером і сервісом: логін, пароль, cookie сесії.",
+                  "title": "T01 Перехоплення (MITM) облікових даних і сесії",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "1c8fc2ae-7577-5548-bfdb-cb1302e1bcc0",
+                  "number": 2,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                }
+              ],
+              "isTrustBoundary": false
+            },
+            "id": "970cfce7-07da-529e-b016-cf02a1a1f9a7",
+            "router": {
+              "name": "orth"
+            },
+            "labels": [
+              {
+                "position": 0.5,
+                "attrs": {
+                  "label": {
+                    "text": "F18 відповіді, Set-Cookie"
+                  }
+                }
+              }
+            ],
+            "source": {
+              "cell": "1c16c58b-2bca-5441-8b7d-750eebcd718d"
+            },
+            "target": {
+              "cell": "7b153386-4b15-5e6c-b971-7deb9967779f"
+            },
+            "vertices": [
+              {
+                "x": 720,
+                "y": 70
+              },
+              {
+                "x": 155,
+                "y": 70
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 850,
+              "y": 560
+            },
+            "size": {
+              "width": 110,
+              "height": 110
+            },
+            "attrs": {
+              "text": {
+                "text": "P-6\nВоркер\nсповіщень"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 11,
+            "id": "958809e1-0c5e-5ddd-b5f3-d07caf650604",
+            "data": {
+              "name": "P-6\nВоркер\nсповіщень",
+              "description": "Фоновий процес із черги: надсилає email/SMS-повідомлення.",
+              "type": "tm.Process",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Low",
+                  "mitigation": "SPF/DKIM/DMARC, листи без посилань на введення пароля (практика, поза ASVS). (ASVS: поза ASVS)",
+                  "description": "Підроблені листи від імені прокату виманюють облікові дані.",
+                  "title": "T24 Фішинг від імені сервісу",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "id": "7e375aae-23be-5bde-810d-fbf7eb12e5ee",
+                  "number": 41,
+                  "score": "L3 × I2 = 6",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "службовий обліковий запис воркера"
+            }
+          },
+          {
+            "position": {
+              "x": 1110,
+              "y": 150
+            },
+            "size": {
+              "width": 180,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "DS-1\nРеляційна БД"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 12,
+            "id": "caab9621-4bcf-552f-beb0-97e2f1caac4f",
+            "data": {
+              "name": "DS-1\nРеляційна БД",
+              "description": "MySQL/PostgreSQL: користувачі (BCrypt-хеші), авто, бронювання, платежі (токен і статус), аудит.",
+              "type": "tm.Store",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "mitigation": "Параметризовані запити, allow-list валідація входу (передбачено в архітектурі). (ASVS: V1.2.4, V2.2.1)",
+                  "description": "Спеціально сформований ввід змінює SQL-запит: витік даних користувачів, зміна бронювань.",
+                  "title": "T05 SQL-ін'єкція",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "3fb0675d-bf92-579a-87d1-d7e17acd7143",
+                  "number": 7,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Транзакції, блокування рядка або унікальне обмеження на інтервал бронювання. (ASVS: V2.3.3, V2.3.4)",
+                  "description": "Два одночасні запити бронюють одне авто на однакові дати.",
+                  "title": "T09 Подвійне бронювання авто (гонка)",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "8184db21-4e68-584a-acab-a80ab5541b8a",
+                  "number": 14,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "High",
+                  "mitigation": "Стійке хешування паролів (BCrypt), шифрування сховища й резервних копій, секрети поза кодом. (ASVS: V11.4.2, V13.3.1)",
+                  "description": "Витік резервної копії чи дампу розкриває ПІБ, телефони, паспортні дані й хеші паролів.",
+                  "title": "T16 Витік бази даних",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "080a3b55-f925-5d26-8d23-b3eadadab390",
+                  "number": 26,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Окремий обліковий запис із мінімальними привілеями (DML на потрібні таблиці). (ASVS: V13.2.2)",
+                  "description": "Застосунок працює з обліковим записом, що має права DDL чи доступ до чужих схем.",
+                  "title": "T17 Надлишкові права облікового запису БД",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "5c5dc036-9535-5b80-8a33-c959498b0637",
+                  "number": 27,
+                  "score": "L2 × I5 = 10",
+                  "new": false
+                },
+                {
+                  "status": "NotApplicable",
+                  "severity": "Low",
+                  "mitigation": "Прийнятий ризик: дані не конфіденційні, публічність частина бізнес-моделі.",
+                  "description": "Каталог авто, ціни й фото публічні за задумом сервісу.",
+                  "title": "FP1 Розкриття каталогу авто (відхилено)",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "bca6154c-f9c1-5c9a-86c5-120e182db33b",
+                  "number": 52,
+                  "score": "—",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": true,
+              "isSigned": false,
+              "storesCredentials": true,
+              "storesInventory": false
+            }
+          },
+          {
+            "position": {
+              "x": 1110,
+              "y": 280
+            },
+            "size": {
+              "width": 180,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "DS-2\nФайлове сховище"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 13,
+            "id": "54debde1-33af-5d23-bca8-58b5c785a514",
+            "data": {
+              "name": "DS-2\nФайлове сховище",
+              "description": "Об'єктне сховище: фото авто та скани посвідчень водія (чутливі дані).",
+              "type": "tm.Store",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "mitigation": "Приватне сховище, pre-signed URL із коротким TTL, перевірка власника. (ASVS: V8.2.2, V5.4.1)",
+                  "description": "Публічні посилання на файли дають доступ до документів сторонніх осіб.",
+                  "title": "T18 Скани посвідчень за вгадуваними публічними URL",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "c092e7a3-5c7a-5a5b-830c-8aac9604c116",
+                  "number": 29,
+                  "score": "L3 × I5 = 15",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Перевірка типу й розміру, без виконання, окремий домен для віддачі. (ASVS: V5.2.1, V5.2.2, V5.3.1)",
+                  "description": "Завантажений файл виконується або віддається як активний контент.",
+                  "title": "T19 Шкідливий файл (SVG зі скриптом, webshell)",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "db734c4e-9a1a-5383-a613-c0efd1d99119",
+                  "number": 31,
+                  "score": "L3 × I4 = 12",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": true,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false
+            }
+          },
+          {
+            "position": {
+              "x": 1110,
+              "y": 410
+            },
+            "size": {
+              "width": 180,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "DS-3\nКеш і сесії (Redis)"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 14,
+            "id": "fe26d7fb-c09e-5be8-b471-319481ca28d4",
+            "data": {
+              "name": "DS-3\nКеш і сесії (Redis)",
+              "description": "Серверні сесії та лічильники rate limit.",
+              "type": "tm.Store",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "AUTH, TLS, мережева ізоляція. (ASVS: V12.3.1, V7.2.1)",
+                  "description": "Доступ до Redis дозволяє читати й підміняти сесії та лічильники.",
+                  "title": "T20 Redis без автентифікації, підміна сесій",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "id": "be46f056-5202-5ea9-bd89-f5ecde49f26b",
+                  "number": 33,
+                  "score": "L2 × I4 = 8",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": true,
+              "storesInventory": false
+            }
+          },
+          {
+            "position": {
+              "x": 1110,
+              "y": 540
+            },
+            "size": {
+              "width": 180,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "DS-4\nЖурнали"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 15,
+            "id": "41fb0f19-ab2e-5f62-b571-f474aa932158",
+            "data": {
+              "name": "DS-4\nЖурнали",
+              "description": "Журнали застосунку й подій безпеки (без паролів і PII).",
+              "type": "tm.Store",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Структурований журнал без секретів, захист від змін, захист від log injection. (ASVS: V16.2.1, V16.2.5, V16.4.2)",
+                  "description": "Без журналу неможливо розслідувати інцидент; журнал із паролями сам стає джерелом витоку.",
+                  "title": "T21 Журнали відсутні, змінені або містять PII і паролі",
+                  "type": "Repudiation",
+                  "modelType": "STRIDE",
+                  "id": "9f05831e-d26c-555c-bd6f-201c4ade175f",
+                  "number": 35,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Структурований журнал без секретів, захист від змін, захист від log injection. (ASVS: V16.2.1, V16.2.5, V16.4.2)",
+                  "description": "Без журналу неможливо розслідувати інцидент; журнал із паролями сам стає джерелом витоку.",
+                  "title": "T21 Журнали відсутні, змінені або містять PII і паролі",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "id": "e781252a-6d90-5bea-a104-e8727ff646fa",
+                  "number": 36,
+                  "score": "L3 × I3 = 9",
+                  "new": false
+                },
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "mitigation": "Журнал рішень авторизації, розділення обов'язків. (ASVS: V16.3.2)",
+                  "description": "Менеджер змінює ціни чи бронювання без можливості пізніше довести авторство.",
+                  "title": "T29 Зловживання персоналу без сліду",
+                  "type": "Repudiation",
+                  "modelType": "STRIDE",
+                  "id": "4d7cc567-0ab2-542c-90b1-cf24f4016a1a",
+                  "number": 51,
+                  "score": "L2 × I4 = 8",
+                  "new": false
+                }
+              ],
+              "hasOpenThreats": true,
+              "isALog": true,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false
+            }
+          }
+        ]
+      }
+    ],
+    "diagramTop": 0,
+    "reviewer": "Ананченко О. Є.",
+    "threatTop": 55
+  }
+}

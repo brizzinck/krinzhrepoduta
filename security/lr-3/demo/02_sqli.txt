@@ -1,0 +1,70 @@
+Вразливий варіант (до захисту):
+
+# Нормальний пошук
+$ curl -s -G http://localhost:8080/demo/vuln/search --data-urlencode "brand=Toyota"
+  HTTP 200
+  SQL: SELECT brand, model, production_year, daily_price FROM cars WHERE brand = 'Toyota' ORDER BY id
+  | Toyota | Corolla | 2022 | 1200.00
+  | Toyota | Camry | 2023 | 1800.00
+
+# Булева ін'єкція: повертаються всі авто
+$ curl -s -G http://localhost:8080/demo/vuln/search --data-urlencode "brand=' OR '1'='1"
+  HTTP 200
+  SQL: SELECT brand, model, production_year, daily_price FROM cars WHERE brand = '' OR '1'='1' ORDER BY id
+  | Toyota | Corolla | 2022 | 1200.00
+  | Toyota | Camry | 2023 | 1800.00
+  | Skoda | Octavia | 2021 | 1100.00
+  | Renault | Duster | 2022 | 1300.00
+  | BMW | X5 | 2023 | 3500.00
+
+# UNION-ін'єкція: витік логінів і хешів паролів із таблиці users
+$ curl -s -G http://localhost:8080/demo/vuln/search --data-urlencode "brand=' UNION SELECT login,password_hash,0,0 FROM users-- "
+  HTTP 200
+  SQL: SELECT brand, model, production_year, daily_price FROM cars WHERE brand = '' UNION SELECT login,password_hash,0,0 FROM users-- ' ORDER BY id
+  | manager | $2a$10$OMIQiy/8WhB.wovMRigmk.9.9ohWa7lmSvjiVjdyDI.m1vhycZciK | 0 | 0.00
+  | attacker1 | $2a$10$jxS/qpF1e/jMQLo7BFIGO.0/P7cyvYQg3Rs1IzDi3DNjnMfC2Gyka | 0 | 0.00
+
+# Одинарна лапка ламає запит: помилка розкриває SQL і внутрішні класи
+$ curl -s -G http://localhost:8080/demo/vuln/search --data-urlencode "brand='" | head -c 700
+{"timestamp":"2026-11-02T22:15:45.813+00:00","status":500,"error":"Internal Server Error","exception":"org.springframework.jdbc.BadSqlGrammarException","trace":"org.springframework.jdbc.BadSqlGrammarException: StatementCallback; bad SQL grammar [SELECT brand, model, production_year, daily_price FROM cars WHERE brand = ''' ORDER BY id]\n\tat org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:103)\n\tat org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:107)\n\tat org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1548)\n\tat org.s ...
+
+Безпечний варіант (після захисту):
+
+# Нормальний пошук
+$ curl -s -G http://localhost:8080/demo/safe/search --data-urlencode "brand=Toyota"
+  HTTP 200
+  | Toyota | Corolla | 2022 | 1200.00
+  | Toyota | Camry | 2023 | 1800.00
+
+# Той самий рядок: шукається бренд із такою назвою, збігів немає
+$ curl -s -G http://localhost:8080/demo/safe/search --data-urlencode "brand=' OR '1'='1"
+  HTTP 200
+  (рядків немає)
+
+# Той самий UNION: просто текст параметра
+$ curl -s -G http://localhost:8080/demo/safe/search --data-urlencode "brand=' UNION SELECT login,password_hash,0,0 FROM users-- "
+  HTTP 200
+  (рядків немає)
+
+# Одинарна лапка: звичайний порожній результат, без помилки
+$ curl -s -G http://localhost:8080/demo/safe/search --data-urlencode "brand='"
+  HTTP 200
+  (рядків немає)
+
+# Форма реєстрації: SQL-ін'єкція в полі login (allow-list [A-Za-z0-9_.-])
+$ curl -s -X POST http://localhost:8080/register -d login=x\'\ OR\ \'1\'=\'1 -d firstName=Олена -d email=o@example.com -d password=Secret123 -d phone=+380501234567 -d birthDate=1998-04-12 
+  HTTP 400
+  login      Логін може містити лише латинські літери, цифри та символи _ . -
+
+# Форма реєстрації: DROP TABLE у полі login
+$ curl -s -X POST http://localhost:8080/register -d login=a\'\;\ DROP\ TABLE\ users\;-- -d firstName=Олена -d email=o@example.com -d password=Secret123 -d phone=+380501234567 -d birthDate=1998-04-12 
+  HTTP 400
+  login      Логін може містити лише латинські літери, цифри та символи _ . -
+
+# Таблиця users на місці, DROP не виконано
+$ mysql ... -e "SELECT COUNT(*) AS users_total FROM users"
++-------------+
+| users_total |
++-------------+
+|           2 |
++-------------+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Реєстрація завершена</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>Прокат автомобілів<small>ЛР 3. Валідація вхідних даних</small></header>
+<main>
+  <div class="card">
+    <h1>Реєстрацію завершено</h1>
+    <div class="ok-box">
+      Користувача <strong th:text="${login}">login</strong> створено. Пароль збережено лише у вигляді BCrypt-хешу.
+    </div>
+    <p><a th:href="@{/register}">Зареєструвати ще одного</a></p>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Користувачі (вразлива сторінка)</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>Прокат автомобілів<small>ЛР 3. Демонстрація</small></header>
+<main class="wide">
+  <div class="card">
+    <h1>Користувачі</h1>
+    <span class="tag-vuln">ВРАЗЛИВО: імена виводяться через th:utext</span>
+    <table>
+      <tr><th>Логін</th><th>Ім'я</th><th>E-mail</th></tr>
+      <tr th:each="r : ${rows}">
+        <td th:utext="${r.login}"></td><td th:utext="${r.first_name}"></td><td th:text="${r.email}"></td>
+      </tr>
+    </table>
+  </div>
+</main>
+</body>
+</html>

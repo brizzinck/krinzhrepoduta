@@ -1,0 +1,7 @@
+$ docker exec rental_mysql mysql -urental_app rental -e "SELECT id, login, first_name, LEFT(password_hash, 7) AS hash_prefix, LENGTH(password_hash) AS hash_len, role FROM users WHERE login IN ('olena_k','attacker1','manager') ORDER BY id"
++----+-----------+------------+-------------+----------+--------+
+| id | login     | first_name | hash_prefix | hash_len | role   |
++----+-----------+------------+-------------+----------+--------+
+|  1 | manager   | Ірина      | $2a$10$     |       60 | ADMIN  |
+|  2 | attacker1 | Олена      | $2a$10$     |       60 | CLIENT |
++----+-----------+------------+-------------+----------+--------+

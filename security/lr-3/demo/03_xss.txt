@@ -1,0 +1,38 @@
+# Вразлива сторінка: payload потрапляє в HTML як є, браузер виконає скрипт
+$ curl -s -G http://localhost:8080/demo/vuln/search --data-urlencode 'brand=<script>alert(1)</script>' | grep 'Ви шукали'
+<p>Ви шукали: <strong><script>alert(1)</script></strong></p>
+
+# Безпечна сторінка: спецсимволи перетворено на сутності, скрипт лишається текстом
+$ curl -s -G http://localhost:8080/demo/safe/search --data-urlencode 'brand=<script>alert(1)</script>' | grep 'Ви шукали'
+<p>Ви шукали: <strong>&lt;script&gt;alert(1)&lt;/script&gt;</strong></p>
+
+# Заголовки: вразлива сторінка без CSP, безпечна має CSP, що забороняє inline-скрипти
+$ curl -sI 'http://localhost:8080/demo/vuln/search?brand=x' | grep -i -E 'HTTP/|content-security|x-content-type'
+HTTP/1.1 200 
+X-Content-Type-Options: nosniff
+$ curl -sI 'http://localhost:8080/demo/safe/search?brand=x' | grep -i -E 'HTTP/|content-security|x-content-type'
+HTTP/1.1 200 
+X-Content-Type-Options: nosniff
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
+
+# Збережений XSS: вразлива реєстрація (без валідації) кладе розмітку в БД
+$ curl -s -X POST http://localhost:8080/demo/vuln/register -d 'login=stored2&firstName=<svg onload=alert(1)>&...'
+Користувача створено: stored2  HTTP 200
+
+# У БД лежить розмітка і пароль у відкритому вигляді (грубі помилки вразливого варіанта)
++---------+-----------------------+---------------+
+| login   | first_name            | password_hash |
++---------+-----------------------+---------------+
+| stored2 | <svg onload=alert(1)> | x             |
++---------+-----------------------+---------------+
+
+# Безпечна форма: той самий payload в імені відхиляється allow-list'ом
+$ curl -s -X POST http://localhost:8080/register -d login=safe_user -d firstName=\<svg\ onload=alert\(1\)\> -d email=o@example.com -d password=Secret123 -d phone=+380501234567 -d birthDate=1998-04-12 
+  HTTP 400
+  firstName  Ім'я має містити лише літери
+
+# Безпечна форма: HTML у логіні й телефоні
+$ curl -s -X POST http://localhost:8080/register -d login=\<b\>bold\</b\> -d firstName=Олена -d email=o@example.com -d password=Secret123 -d phone=\<script\> -d birthDate=1998-04-12 
+  HTTP 400
+  login      Логін може містити лише латинські літери, цифри та символи _ . -
+  phone      Телефон: необов'язковий + і від 10 до 15 цифр, без пробілів
