@@ -1,0 +1,9 @@
+lavrishko@duikt-unix:~/prokat/park$ cat cars_*.txt | grep '[abcd]' > out7b.txt
+lavrishko@duikt-unix:~/prokat/park$ wc -l out7b.txt
+11 out7b.txt
+lavrishko@duikt-unix:~/prokat/park$ head -n 5 out7b.txt
+Toyota Camry 2021 sedan 1200
+Skoda Octavia 2020 sedan 900
+Honda Civic 2019 hatchback 850
+Audi Q7 2022 suv 2100
+Toyota RAV4 2022 suv 1700

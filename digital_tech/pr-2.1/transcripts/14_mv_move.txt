@@ -1,0 +1,17 @@
+lavrishko@duikt-unix:~/prokat$ ls sedan
+license
+lavrishko@duikt-unix:~/prokat$ mv 1_* sedan
+lavrishko@duikt-unix:~/prokat$ mv *3 hatchback
+lavrishko@duikt-unix:~/prokat$ mv 2_golf 2_polo crossover
+lavrishko@duikt-unix:~/prokat$ ls -p . sedan hatchback crossover
+.:
+3_rav4	3_x5  GPL-1  GPL-2  crossover/	hatchback/  license_old  sedan/  trash/
+
+crossover:
+2_golf	2_polo
+
+hatchback:
+GPL-3  camry3  golf3
+
+sedan:
+1_camry  1_civic  license

@@ -1,0 +1,17 @@
+lavrishko@duikt-unix:~$ cd /usr
+lavrishko@duikt-unix:/usr$ pwd
+/usr
+lavrishko@duikt-unix:/usr$ ls
+bin  games  include  lib  lib64  libexec  local  sbin  share  src
+lavrishko@duikt-unix:/usr$ cd ..
+lavrishko@duikt-unix:/$ pwd
+/
+lavrishko@duikt-unix:/$ cd /usr/share
+lavrishko@duikt-unix:/usr/share$ cd ../..
+lavrishko@duikt-unix:/$ pwd
+/
+lavrishko@duikt-unix:/$ cd ~
+lavrishko@duikt-unix:~$ pwd
+/home/lavrishko
+lavrishko@duikt-unix:~$ cd /1
+bash: cd: /1: No such file or directory

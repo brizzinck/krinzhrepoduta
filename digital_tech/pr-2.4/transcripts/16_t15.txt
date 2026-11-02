@@ -1,0 +1,16 @@
+lavrishko@duikt-unix:~/lab24$ ./t15_dir_check.sh backup
+total 12
+-rw-r--r-- 1 lavrishko lavrishko 111 Nov  2 20:33 cars_a.txt
+-rw-r--r-- 1 lavrishko lavrishko 106 Nov  2 20:33 cars_b.txt
+-rw-r--r-- 1 lavrishko lavrishko 119 Nov  2 20:33 cars_c.txt
+-rw-r--r-- 1 lavrishko lavrishko   0 Nov  2 20:33 empty.txt
+lavrishko@duikt-unix:~/lab24$ ./t15_dir_check.sh newdir
+Каталогу 'newdir' не було, його створено
+lavrishko@duikt-unix:~/lab24$ ./t15_dir_check.sh newdir
+total 0
+lavrishko@duikt-unix:~/lab24$ ./t15_dir_check.sh readme.md
+Прокат автомобілів: тестові дані для скриптів
+lavrishko@duikt-unix:~/lab24$ mkdir locked; chmod 000 locked
+lavrishko@duikt-unix:~/lab24$ ./t15_dir_check.sh locked
+Каталог 'locked' існує, але його не можна читати
+lavrishko@duikt-unix:~/lab24$ chmod 755 locked

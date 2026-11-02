@@ -1,0 +1,28 @@
+lavrishko@duikt-unix:~/prokat/park$ ps -eo comm= | sort >> out5.txt
+lavrishko@duikt-unix:~/prokat/park$ who
+lavrishko@duikt-unix:~/prokat/park$ w
+ 21:54:19 up 12:41,  0 user,  load average: 4.82, 4.03, 3.26
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU  WHAT
+lavrishko@duikt-unix:~/prokat/park$ ps -eo user= | sort -u
+lavrishko
+lavrishko@duikt-unix:~/prokat/park$ ps -eo user= | sort -u >> out5.txt
+lavrishko@duikt-unix:~/prokat/park$ wc -l out5.txt
+12 out5.txt
+lavrishko@duikt-unix:~/prokat/park$ head -n 12 out5.txt
+Toyota Camry 2021 sedan 1200
+Toyota RAV4 2022 suv 1700
+Toyota Corolla 2019 sedan 1000
+3 out5.txt
+bash
+docker-init
+ps
+script
+sh
+sleep
+sort
+lavrishko
+lavrishko@duikt-unix:~/prokat/park$ tail -n 4 out5.txt
+sh
+sleep
+sort
+lavrishko

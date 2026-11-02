@@ -1,0 +1,4 @@
+lavrishko@duikt-unix:~/lab24$ ./t09_merge_grep.sh cars_a.txt cars_b.txt cars_c.txt Toyota r09.out
+Toyota Camry 2021 sedan 1200
+Toyota Corolla 2019 sedan 1000
+Toyota RAV4 2022 suv 1700

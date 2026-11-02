@@ -1,0 +1,23 @@
+lavrishko@duikt-unix:~/prokat$ cp /usr/share/common-licenses/GPL-3 ~/prokat
+lavrishko@duikt-unix:~/prokat$ cp /usr/share/common-licenses/GPL-[12] .
+lavrishko@duikt-unix:~/prokat$ cp GPL-3 sedan/license
+lavrishko@duikt-unix:~/prokat$ cp GPL-3 GPL-3.bak
+lavrishko@duikt-unix:~/prokat$ cp GPL-3
+cp: missing destination file operand after 'GPL-3'
+Try 'cp --help' for more information.
+lavrishko@duikt-unix:~/prokat$ cp GPL-3 .
+cp: 'GPL-3' and './GPL-3' are the same file
+lavrishko@duikt-unix:~/prokat$ ls -l . sedan
+.:
+total 120
+-rw-r--r-- 1 lavrishko lavrishko 12632 Nov  2 20:04 GPL-1
+-rw-r--r-- 1 lavrishko lavrishko 18092 Nov  2 20:04 GPL-2
+-rw-r--r-- 1 lavrishko lavrishko 35149 Nov  2 20:04 GPL-3
+-rw-r--r-- 1 lavrishko lavrishko 35149 Nov  2 20:04 GPL-3.bak
+drwxr-xr-x 2 lavrishko lavrishko  4096 Nov  2 20:04 hatchback
+drwxr-xr-x 2 lavrishko lavrishko  4096 Nov  2 20:04 sedan
+drwxr-xr-x 2 lavrishko lavrishko  4096 Nov  2 20:04 suv
+
+sedan:
+total 36
+-rw-r--r-- 1 lavrishko lavrishko 35149 Nov  2 20:04 license

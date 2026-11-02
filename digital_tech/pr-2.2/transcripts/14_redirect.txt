@@ -1,0 +1,20 @@
+lavrishko@duikt-unix:~/prokat/park$ cat < cars_a.txt > copy_a.txt
+lavrishko@duikt-unix:~/prokat/park$ cat copy_a.txt | wc -l
+4
+lavrishko@duikt-unix:~/prokat/park$ ls /nonexistent 2> err.txt
+lavrishko@duikt-unix:~/prokat/park$ cat err.txt
+ls: cannot access '/nonexistent': No such file or directory
+lavrishko@duikt-unix:~/prokat/park$ cat < nofile.txt > copy_b.txt 2> err2.txt
+bash: nofile.txt: No such file or directory
+lavrishko@duikt-unix:~/prokat/park$ cat nofile.txt > copy_b.txt 2> err2.txt
+lavrishko@duikt-unix:~/prokat/park$ cat err2.txt
+cat: nofile.txt: No such file or directory
+lavrishko@duikt-unix:~/prokat/park$ echo "додано в кінець" >> copy_a.txt
+lavrishko@duikt-unix:~/prokat/park$ tail -n 2 copy_a.txt
+Audi Q7 2022 suv 2100
+додано в кінець
+lavrishko@duikt-unix:~/prokat/park$ cut -d' ' -f1 cars_*.txt | sort | uniq -c | sort -rn | head -n 4
+      3 Toyota
+      1 Volkswagen
+      1 Skoda
+      1 Renault

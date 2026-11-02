@@ -1,0 +1,24 @@
+lavrishko@duikt-unix:~$ ps -u lavrishko
+    PID TTY          TIME CMD
+      1 ?        00:00:00 docker-init
+      8 ?        00:00:00 sleep
+     24 ?        00:00:00 script
+     30 pts/0    00:00:00 sh
+     31 pts/0    00:00:00 bash
+     33 pts/0    00:00:00 ps
+lavrishko@duikt-unix:~$ ps aux | head -n 6
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+lavrish+       1  7.1  0.0   1152   828 ?        Ss   20:28   0:00 /sbin/docker-init -- sleep infinity
+lavrish+       8  0.0  0.0   3136  1884 ?        S    20:28   0:00 sleep infinity
+lavrish+      24 33.3  0.0   3156  2140 ?        Ss   20:28   0:00 script -qfc bash --norc --noediting -i /dev/null
+lavrish+      30  0.0  0.0   2812  1872 pts/0    Ss   20:28   0:00 sh -c bash --norc --noediting -i
+lavrish+      31  0.0  0.0   4896  3780 pts/0    S    20:28   0:00 bash --norc --noediting -i
+lavrishko@duikt-unix:~$ ps -ef | head -n 6
+UID          PID    PPID  C STIME TTY          TIME CMD
+lavrish+       1       0  7 20:28 ?        00:00:00 /sbin/docker-init -- sleep infinity
+lavrish+       8       1  0 20:28 ?        00:00:00 sleep infinity
+lavrish+      24       0 33 20:28 ?        00:00:00 script -qfc bash --norc --noediting -i /dev/null
+lavrish+      30      24  0 20:28 pts/0    00:00:00 sh -c bash --norc --noediting -i
+lavrish+      31      30  0 20:28 pts/0    00:00:00 bash --norc --noediting -i
+lavrishko@duikt-unix:~$ ps -ef | wc -l
+8

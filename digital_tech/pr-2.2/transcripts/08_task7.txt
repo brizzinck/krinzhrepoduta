@@ -1,0 +1,15 @@
+lavrishko@duikt-unix:~/prokat/park$ cat cars_*.txt | grep abcd > out7.txt
+lavrishko@duikt-unix:~/prokat/park$ ls >> out7.txt
+lavrishko@duikt-unix:~/prokat/park$ cat out7.txt
+Promo abcd 2026 discount 10
+cars_a.txt
+cars_b.txt
+cars_c.txt
+count.txt
+found.txt
+merged.txt
+out4.txt
+out5.txt
+out7.txt
+result2.txt
+sorted.txt

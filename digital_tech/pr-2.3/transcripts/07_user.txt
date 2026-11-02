@@ -1,0 +1,12 @@
+lavrishko@duikt-unix:~$ echo 'tester:x:2001:2001:Test User:/home/tester:/bin/bash' | sudo tee -a /etc/passwd
+tester:x:2001:2001:Test User:/home/tester:/bin/bash
+lavrishko@duikt-unix:~$ getent passwd tester
+tester:x:2001:2001:Test User:/home/tester:/bin/bash
+lavrishko@duikt-unix:~$ id tester
+uid=2001(tester) gid=2001 groups=2001
+lavrishko@duikt-unix:~$ sudo pwck -r 2>&1 | grep -E 'tester|shadow|changes'
+user 'tester': no group 2001
+user 'tester': directory '/home/tester' does not exist
+no matching password file entry in /etc/shadow
+add user 'tester' in /etc/shadow? No
+pwck: no changes

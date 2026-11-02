@@ -1,0 +1,20 @@
+lavrishko@duikt-unix:~/prokat$ sudo -u tester cat tariffs.txt; echo "код: $?"
+sedan 1200 | suv 1700 | hatchback 900
+код: 0
+lavrishko@duikt-unix:~/prokat$ sudo -u tester sh -c 'echo x >> tariffs.txt'; echo "код: $?"
+sh: 1: cannot create tariffs.txt: Permission denied
+код: 2
+lavrishko@duikt-unix:~/prokat$ sudo -u guest cat tariffs.txt; echo "код: $?"
+cat: tariffs.txt: Permission denied
+код: 1
+lavrishko@duikt-unix:~/prokat$ chmod g+w tariffs.txt
+lavrishko@duikt-unix:~/prokat$ ls -l tariffs.txt
+-rw-rw---- 1 lavrishko rental 38 Nov  2 20:30 tariffs.txt
+lavrishko@duikt-unix:~/prokat$ sudo -u tester sh -c 'echo "tester 2026" >> tariffs.txt'; echo "код: $?"
+код: 0
+lavrishko@duikt-unix:~/prokat$ cat tariffs.txt
+sedan 1200 | suv 1700 | hatchback 900
+tester 2026
+lavrishko@duikt-unix:~/prokat$ sudo -u guest sh -c 'echo y >> tariffs.txt'; echo "код: $?"
+sh: 1: cannot create tariffs.txt: Permission denied
+код: 2

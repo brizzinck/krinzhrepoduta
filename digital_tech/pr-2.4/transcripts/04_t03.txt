@@ -1,0 +1,7 @@
+lavrishko@duikt-unix:~/lab24$ ./t03_users.sh users.out
+Записано користувачів: 19
+_apt
+backup
+bin
+daemon
+games

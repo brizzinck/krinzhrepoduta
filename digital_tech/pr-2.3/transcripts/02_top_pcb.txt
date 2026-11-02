@@ -1,0 +1,24 @@
+lavrishko@duikt-unix:~$ top -b -n 1 -w 90 | head -n 12
+top - 20:28:40 up 11:16,  0 user,  load average: 4.53, 2.90, 2.31
+Tasks:   7 total,   1 running,   6 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 21.0 us,  3.6 sy,  0.0 ni, 44.3 id, 29.9 wa,  0.6 hi,  0.6 si,  0.0 st
+MiB Mem :  31365.9 total,   3276.1 free,  19096.8 used,  11580.3 buff/cache
+MiB Swap:  19778.5 total,  16974.9 free,   2803.6 used.  12269.1 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+      1 lavrish+  20   0    1152    828    780 S   0.0   0.0   0:00.02 docker-init
+      8 lavrish+  20   0    3136   1884   1780 S   0.0   0.0   0:00.00 sleep
+     24 lavrish+  20   0    3156   2140   2016 S   0.0   0.0   0:00.01 script
+     30 lavrish+  20   0    2812   1872   1772 S   0.0   0.0   0:00.00 sh
+     31 lavrish+  20   0    4896   3780   3452 S   0.0   0.0   0:00.00 bash
+lavrishko@duikt-unix:~$ head -n 10 /proc/$$/status
+Name:	bash
+Umask:	0022
+State:	S (sleeping)
+Tgid:	31
+Ngid:	0
+Pid:	31
+PPid:	30
+TracerPid:	0
+Uid:	1000	1000	1000	1000
+Gid:	1000	1000	1000	1000

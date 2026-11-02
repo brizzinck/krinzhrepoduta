@@ -1,0 +1,16 @@
+/* Слайди 16:9 для друку в PDF: кожна секція на окремій сторінці */
+@page { size: 297mm 167mm; margin: 0; }
+html { background: #fff; }
+body { margin: 0; font-family: "DejaVu Sans", "Liberation Sans", sans-serif; color: #1a2540; font-size: 26px; line-height: 1.3; }
+section { box-sizing: border-box; width: 297mm; height: 167mm; padding: 14mm 18mm 10mm; break-after: page; overflow: hidden; border-left: 10px solid #1f4e9d; }
+h2 { font-size: 40px; margin: 0 0 14px; color: #1f4e9d; line-height: 1.15; }
+p { margin: 8px 0; }
+ul, ol { margin: 8px 0; padding-left: 28px; }
+li { margin: 7px 0; }
+li ul { margin: 2px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 22px; margin-top: 6px; }
+th { background: #1f4e9d; color: #fff; text-align: left; padding: 6px 10px; }
+td { border-bottom: 1px solid #c9d1e3; padding: 6px 10px; }
+code { font-family: "DejaVu Sans Mono", monospace; font-size: 22px; background: #eef2fa; padding: 1px 4px; border-radius: 3px; }
+em { color: #5a6788; font-size: 22px; }
+.notes { display: none; }

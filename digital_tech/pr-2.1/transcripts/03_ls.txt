@@ -1,0 +1,29 @@
+lavrishko@duikt-unix:~$ pwd
+/home/lavrishko
+lavrishko@duikt-unix:~$ ls
+lavrishko@duikt-unix:~$ ls -a
+.  ..  .bash_logout  .bashrc  .profile
+lavrishko@duikt-unix:~$ ls -p
+lavrishko@duikt-unix:~$ ls -l
+total 0
+lavrishko@duikt-unix:~$ ls -l /
+total 52
+lrwxrwxrwx   1 root root    7 Apr 22  2024 bin -> usr/bin
+drwxr-xr-x   2 root root 4096 Apr 22  2024 boot
+drwxr-xr-x   5 root root  340 Nov  2 20:04 dev
+drwxr-xr-x   1 root root 4096 Nov  2 20:04 etc
+drwxr-xr-x   1 root root 4096 Nov  2 19:57 home
+lrwxrwxrwx   1 root root    7 Apr 22  2024 lib -> usr/lib
+lrwxrwxrwx   1 root root    9 Apr 22  2024 lib64 -> usr/lib64
+drwxr-xr-x   2 root root 4096 Sep 30 14:05 media
+drwxr-xr-x   2 root root 4096 Sep 30 14:05 mnt
+drwxr-xr-x   2 root root 4096 Sep 30 14:05 opt
+dr-xr-xr-x 605 root root    0 Nov  2 20:04 proc
+drwx------   2 root root 4096 Sep 30 14:12 root
+drwxr-xr-x   1 root root 4096 Nov  2 20:04 run
+lrwxrwxrwx   1 root root    8 Apr 22  2024 sbin -> usr/sbin
+drwxr-xr-x   2 root root 4096 Sep 30 14:05 srv
+dr-xr-xr-x  13 root root    0 Nov  2 20:01 sys
+drwxrwxrwt   2 root root 4096 Sep 30 14:12 tmp
+drwxr-xr-x   1 root root 4096 Sep 30 14:05 usr
+drwxr-xr-x   1 root root 4096 Sep 30 14:12 var

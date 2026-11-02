@@ -1,0 +1,13 @@
+lavrishko@duikt-unix:~$ whoami
+lavrishko
+lavrishko@duikt-unix:~$ id
+uid=1000(lavrishko) gid=1000(lavrishko) groups=1000(lavrishko),27(sudo)
+lavrishko@duikt-unix:~$ hostname
+duikt-unix
+lavrishko@duikt-unix:~$ grep lavrishko /etc/passwd
+lavrishko:x:1000:1000:Lavrishko Vladyslav:/home/lavrishko:/bin/bash
+lavrishko@duikt-unix:~$ echo $SHELL
+/bin/bash
+lavrishko@duikt-unix:~$ head -n 2 /etc/os-release
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+NAME="Ubuntu"

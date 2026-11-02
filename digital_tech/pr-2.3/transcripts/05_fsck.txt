@@ -1,0 +1,22 @@
+lavrishko@duikt-unix:~$ dd if=/dev/zero of=~/disk.img bs=1M count=16
+16+0 records in
+16+0 records out
+16777216 bytes (17 MB, 16 MiB) copied, 0.00280891 s, 6.0 GB/s
+lavrishko@duikt-unix:~$ mkfs.ext4 -q ~/disk.img
+lavrishko@duikt-unix:~$ ls -lh ~/disk.img
+-rw-r--r-- 1 lavrishko lavrishko 16M Nov  2 20:29 /home/lavrishko/disk.img
+lavrishko@duikt-unix:~$ fsck -N -t ext4 ~/disk.img
+fsck from util-linux 2.39.3
+[/usr/sbin/fsck.ext4 (1) -- /home/lavrishko/disk.img] fsck.ext4 /home/lavrishko/disk.img
+lavrishko@duikt-unix:~$ fsck.ext4 -f -n ~/disk.img
+e2fsck 1.47.0 (5-Feb-2023)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/home/lavrishko/disk.img: 11/4096 files (9.1% non-contiguous), 1291/4096 blocks
+lavrishko@duikt-unix:~$ e2fsck -fn ~/disk.img | tail -n 2
+e2fsck 1.47.0 (5-Feb-2023)
+Pass 5: Checking group summary information
+/home/lavrishko/disk.img: 11/4096 files (9.1% non-contiguous), 1291/4096 blocks

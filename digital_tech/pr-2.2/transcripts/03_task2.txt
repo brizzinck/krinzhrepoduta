@@ -1,0 +1,19 @@
+lavrishko@duikt-unix:~/prokat/park$ cat cars_*.txt > merged.txt
+lavrishko@duikt-unix:~/prokat/park$ wc -l -w merged.txt > count.txt
+lavrishko@duikt-unix:~/prokat/park$ cat count.txt
+ 12  60 merged.txt
+lavrishko@duikt-unix:~/prokat/park$ cat merged.txt count.txt > result2.txt
+lavrishko@duikt-unix:~/prokat/park$ cat result2.txt
+Toyota Camry 2021 sedan 1200
+Skoda Octavia 2020 sedan 900
+Honda Civic 2019 hatchback 850
+Audi Q7 2022 suv 2100
+BMW X5 2021 suv 2300
+Toyota RAV4 2022 suv 1700
+Ford Focus 2018 hatchback 700
+Renault Logan 2017 sedan 600
+Volkswagen Golf 2020 hatchback 950
+Toyota Corolla 2019 sedan 1000
+Mazda CX-5 2021 suv 1600
+Promo abcd 2026 discount 10
+ 12  60 merged.txt

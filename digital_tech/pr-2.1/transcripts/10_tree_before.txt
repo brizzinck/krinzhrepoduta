@@ -1,0 +1,20 @@
+lavrishko@duikt-unix:~/prokat$ tree
+.
+├── 1_camry
+├── 1_civic
+├── 2_golf
+├── 2_polo
+├── 3_rav4
+├── 3_x5
+├── GPL-1
+├── GPL-2
+├── GPL-3
+├── GPL-3.bak
+├── camry3
+├── golf3
+├── hatchback
+├── sedan
+│   └── license
+└── suv
+
+4 directories, 13 files

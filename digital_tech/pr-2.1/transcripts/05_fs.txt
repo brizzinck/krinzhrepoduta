@@ -1,0 +1,12 @@
+lavrishko@duikt-unix:~$ df -T /
+Filesystem     Type    1K-blocks      Used Available Use% Mounted on
+overlay        overlay 978218112 556951088 411301036  58% /
+lavrishko@duikt-unix:~$ wc -l /proc/filesystems
+33 /proc/filesystems
+lavrishko@duikt-unix:~$ grep -v nodev /proc/filesystems
+	ext3
+	ext2
+	ext4
+	fuseblk
+	btrfs
+	vfat

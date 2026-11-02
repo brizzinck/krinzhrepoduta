@@ -1,0 +1,15 @@
+lavrishko@duikt-unix:~/lab24$ fruit=apple
+lavrishko@duikt-unix:~/lab24$ echo $fruit
+apple
+lavrishko@duikt-unix:~/lab24$ fruit=pine$fruit
+lavrishko@duikt-unix:~/lab24$ echo $fruit
+pineapple
+lavrishko@duikt-unix:~/lab24$ now=$(date)
+lavrishko@duikt-unix:~/lab24$ echo $now
+Mon Nov 2 20:33:39 UTC 2026
+lavrishko@duikt-unix:~/lab24$ a=b; export a; bash -c 'echo $a'
+b
+lavrishko@duikt-unix:~/lab24$ fruit = apple
+bash: fruit: command not found
+lavrishko@duikt-unix:~/lab24$ echo $ fruit
+$ fruit

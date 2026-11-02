@@ -1,0 +1,13 @@
+lavrishko@duikt-unix:~/lab24$ touch dst.out
+lavrishko@duikt-unix:~/lab24$ ./t17b_attr_args.sh cars_b.txt dst.out
+Вміст cars_b.txt перенаправлено в dst.out
+lavrishko@duikt-unix:~/lab24$ head -n 2 dst.out
+BMW X5 2021 suv 2300
+Toyota RAV4 2022 suv 1700
+lavrishko@duikt-unix:~/lab24$ ./t17b_attr_args.sh nofile dst.out
+Відсутній файл: nofile або dst.out
+lavrishko@duikt-unix:~/lab24$ chmod a-w dst.out
+lavrishko@duikt-unix:~/lab24$ ./t17b_attr_args.sh cars_b.txt dst.out
+Атрибути не збігаються: cars_b.txt має бути для читання, dst.out для запису
+lavrishko@duikt-unix:~/lab24$ ./t17b_attr_args.sh cars_b.txt
+Використання: ./t17b_attr_args.sh джерело приймач

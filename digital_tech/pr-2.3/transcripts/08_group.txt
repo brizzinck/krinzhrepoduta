@@ -1,0 +1,16 @@
+lavrishko@duikt-unix:~$ echo 'rental:x:2001:lavrishko,tester' | sudo tee -a /etc/group
+rental:x:2001:lavrishko,tester
+lavrishko@duikt-unix:~$ getent group rental
+rental:x:2001:lavrishko,tester
+lavrishko@duikt-unix:~$ id tester
+uid=2001(tester) gid=2001(rental) groups=2001(rental)
+lavrishko@duikt-unix:~$ sudo mkdir /home/tester
+lavrishko@duikt-unix:~$ sudo chown tester:rental /home/tester
+lavrishko@duikt-unix:~$ sudo pwconv
+lavrishko@duikt-unix:~$ sudo grpconv
+lavrishko@duikt-unix:~$ echo 'tester:Test#2026' | sudo chpasswd
+lavrishko@duikt-unix:~$ sudo pwck -r 2>&1 | grep -E 'tester|shadow|changes'
+pwck: no changes
+lavrishko@duikt-unix:~$ sudo grpck -r
+lavrishko@duikt-unix:~$ ls -ld /home/tester
+drwxr-xr-x 2 tester rental 4096 Nov  2 20:30 /home/tester

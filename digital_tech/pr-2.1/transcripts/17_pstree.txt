@@ -1,0 +1,10 @@
+lavrishko@duikt-unix:~/prokat$ pstree -p
+docker-init(1)─┬─script(24)───sh(38)───bash(39)───pstree(145)
+               └─sleep(7)
+lavrishko@duikt-unix:~/prokat$ pstree -s -p $$
+docker-init(1)───script(24)───sh(38)───bash(39)───pstree(146)
+lavrishko@duikt-unix:~/prokat$ ps -o pid,ppid,user:12,stat,etime,cmd -p 1,$PPID,$$
+    PID    PPID USER         STAT     ELAPSED CMD
+      1       0 lavrishko    Ss         00:15 /sbin/docker-init -- sleep infinity
+     38      24 lavrishko    Ss         00:14 sh -c bash --norc --noediting -i
+     39      38 lavrishko    S          00:14 bash --norc --noediting -i

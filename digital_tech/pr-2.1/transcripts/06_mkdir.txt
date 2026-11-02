@@ -1,0 +1,7 @@
+lavrishko@duikt-unix:~$ mkdir prokat
+lavrishko@duikt-unix:~$ mkdir prokat/sedan prokat/suv prokat/hatchback
+lavrishko@duikt-unix:~$ ls -p prokat
+hatchback/  sedan/  suv/
+lavrishko@duikt-unix:~$ cd prokat
+lavrishko@duikt-unix:~/prokat$ pwd
+/home/lavrishko/prokat

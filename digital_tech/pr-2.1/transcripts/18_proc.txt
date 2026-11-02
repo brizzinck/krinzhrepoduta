@@ -1,0 +1,18 @@
+lavrishko@duikt-unix:~/prokat$ grep -E '^(Name|State|Pid|PPid|Uid):' /proc/1/status
+Name:	docker-init
+State:	S (sleeping)
+Pid:	1
+PPid:	0
+Uid:	1000	1000	1000	1000
+lavrishko@duikt-unix:~/prokat$ grep -E '^(Name|State|Pid|PPid|Uid):' /proc/$PPID/status
+Name:	sh
+State:	S (sleeping)
+Pid:	38
+PPid:	24
+Uid:	1000	1000	1000	1000
+lavrishko@duikt-unix:~/prokat$ grep -E '^(Name|State|Pid|PPid|Uid):' /proc/$$/status
+Name:	bash
+State:	S (sleeping)
+Pid:	39
+PPid:	38
+Uid:	1000	1000	1000	1000

@@ -1,0 +1,16 @@
+lavrishko@duikt-unix:~/prokat/park$ cat cars_*.txt | sort -r > out4.txt
+lavrishko@duikt-unix:~/prokat/park$ date >> out4.txt
+lavrishko@duikt-unix:~/prokat/park$ cat out4.txt
+Volkswagen Golf 2020 hatchback 950
+Toyota RAV4 2022 suv 1700
+Toyota Corolla 2019 sedan 1000
+Toyota Camry 2021 sedan 1200
+Skoda Octavia 2020 sedan 900
+Renault Logan 2017 sedan 600
+Promo abcd 2026 discount 10
+Mazda CX-5 2021 suv 1600
+Honda Civic 2019 hatchback 850
+Ford Focus 2018 hatchback 700
+BMW X5 2021 suv 2300
+Audi Q7 2022 suv 2100
+Mon Nov  2 20:10:22 UTC 2026

@@ -1,0 +1,23 @@
+lavrishko@duikt-unix:~/prokat/park$ cd ..
+lavrishko@duikt-unix:~/prokat$ tree park
+park
+├── cars_a.txt
+├── cars_b.txt
+├── cars_c.txt
+├── copy_a.txt
+├── copy_b.txt
+├── count.txt
+├── err.txt
+├── err2.txt
+├── found.txt
+├── merged.txt
+├── out10.txt
+├── out4.txt
+├── out5.txt
+├── out7.txt
+├── out7b.txt
+├── out8.txt
+├── result2.txt
+└── sorted.txt
+
+1 directory, 18 files

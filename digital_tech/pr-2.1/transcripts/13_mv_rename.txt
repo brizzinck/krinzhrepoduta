@@ -1,0 +1,6 @@
+lavrishko@duikt-unix:~/prokat/trash$ cd ~/prokat
+lavrishko@duikt-unix:~/prokat$ mv GPL-3.bak license_old
+lavrishko@duikt-unix:~/prokat$ mv suv crossover
+lavrishko@duikt-unix:~/prokat$ ls -p
+1_camry  2_golf  3_rav4  GPL-1	GPL-3	crossover/  hatchback/	 sedan/
+1_civic  2_polo  3_x5	 GPL-2	camry3	golf3	    license_old  trash/

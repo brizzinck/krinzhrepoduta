@@ -1,0 +1,12 @@
+lavrishko@duikt-unix:~/prokat/trash$ rm *c?
+lavrishko@duikt-unix:~/prokat/trash$ ls
+ cat   file1   file10   file2   file3   file4   fileA   fileB   filec  'my file'
+lavrishko@duikt-unix:~/prokat/trash$ rm file[1-3]
+lavrishko@duikt-unix:~/prokat/trash$ rm my\ file
+lavrishko@duikt-unix:~/prokat/trash$ rm -i fileA
+rm: remove regular empty file 'fileA'?  y
+lavrishko@duikt-unix:~/prokat/trash$ ls
+cat  file10  file4  fileB  filec
+lavrishko@duikt-unix:~/prokat/trash$ rm file*
+lavrishko@duikt-unix:~/prokat/trash$ ls
+cat

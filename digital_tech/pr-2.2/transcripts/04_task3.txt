@@ -1,0 +1,11 @@
+lavrishko@duikt-unix:~/prokat/park$ grep -n Toyota cars_a.txt cars_b.txt cars_c.txt > found.txt
+lavrishko@duikt-unix:~/prokat/park$ cat found.txt
+cars_a.txt:1:Toyota Camry 2021 sedan 1200
+cars_b.txt:2:Toyota RAV4 2022 suv 1700
+cars_c.txt:2:Toyota Corolla 2019 sedan 1000
+lavrishko@duikt-unix:~/prokat/park$ grep -c Toyota cars_a.txt cars_b.txt cars_c.txt
+cars_a.txt:1
+cars_b.txt:1
+cars_c.txt:1
+lavrishko@duikt-unix:~/prokat/park$ grep -i toyota cars_a.txt
+Toyota Camry 2021 sedan 1200

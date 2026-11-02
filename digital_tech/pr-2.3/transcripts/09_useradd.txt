@@ -1,0 +1,15 @@
+lavrishko@duikt-unix:~$ sudo useradd -m -s /bin/bash guest
+lavrishko@duikt-unix:~$ getent passwd guest
+guest:x:2002:2002::/home/guest:/bin/bash
+lavrishko@duikt-unix:~$ echo 'guest:Guest#2026' | sudo chpasswd
+lavrishko@duikt-unix:~$ id guest
+uid=2002(guest) gid=2002(guest) groups=2002(guest)
+lavrishko@duikt-unix:~$ sudo usermod -aG rental guest
+lavrishko@duikt-unix:~$ id guest
+uid=2002(guest) gid=2002(guest) groups=2002(guest),2001(rental)
+lavrishko@duikt-unix:~$ getent group rental
+rental:x:2001:lavrishko,tester,guest
+lavrishko@duikt-unix:~$ sudo gpasswd -d guest rental
+Removing user guest from group rental
+lavrishko@duikt-unix:~$ id guest
+uid=2002(guest) gid=2002(guest) groups=2002(guest)

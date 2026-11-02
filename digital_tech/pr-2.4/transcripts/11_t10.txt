@@ -1,0 +1,10 @@
+lavrishko@duikt-unix:~/lab24$ ./t10_show_pause.sh cars_a.txt; echo "код завершення: $?"
+Toyota Camry 2021 sedan 1200
+Skoda Octavia 2020 sedan 900
+Honda Civic 2019 hatchback 850
+Audi Q7 2022 suv 2100
+Пауза 3 секунди, далі екран буде очищено...
+код завершення: 0
+lavrishko@duikt-unix:~/lab24$ ./t10_show_pause.sh cars_a.txt | tail -c 12 | od -c
+0000000  \n 033   [   H 033   [   2   J 033   [   3   J
+0000014

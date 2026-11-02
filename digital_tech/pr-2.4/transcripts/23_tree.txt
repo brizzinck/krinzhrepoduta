@@ -1,0 +1,48 @@
+lavrishko@duikt-unix:~/lab24$ cd
+lavrishko@duikt-unix:~$ tree lab24
+lab24
+├── all_files.out
+├── backup
+│   ├── cars_a.txt
+│   ├── cars_b.txt
+│   ├── cars_c.txt
+│   └── empty.txt
+├── backup2
+│   └── readme.md
+├── cars_a.txt
+├── cars_b.txt
+├── cars_c.txt
+├── copy.out
+├── dst.out
+├── empty.txt
+├── locked
+├── newdir
+├── r08.out
+├── r09.out
+├── r16a.out
+├── r16b.out
+├── readme.md
+├── report_ps.out
+├── sorted_r.out
+├── t01_copy_ext.sh
+├── t02_date_ps.sh
+├── t03_users.sh
+├── t04_find_user.sh
+├── t05_hello.sh
+├── t06_calc.sh
+├── t07_cylinder.sh
+├── t08_merge_sort.sh
+├── t09_merge_grep.sh
+├── t10_show_pause.sh
+├── t11_headers.sh
+├── t12_show_or_ls.sh
+├── t13_password.sh
+├── t14_exists.sh
+├── t15_dir_check.sh
+├── t16_mask.sh
+├── t17a_attr_names.sh
+├── t17b_attr_args.sh
+├── t18_sort_size.sh
+└── users.out
+
+5 directories, 39 files

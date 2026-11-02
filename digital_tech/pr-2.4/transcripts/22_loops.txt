@@ -1,0 +1,20 @@
+lavrishko@duikt-unix:~/lab24$ for i in 1 2 3; do echo "i=$i"; done
+i=1
+i=2
+i=3
+lavrishko@duikt-unix:~/lab24$ n=1; while [ $n -le 3 ]; do echo "n=$n"; n=$((n+1)); done
+n=1
+n=2
+n=3
+lavrishko@duikt-unix:~/lab24$ n=3; until [ $n -eq 0 ]; do echo "n=$n"; n=$((n-1)); done
+n=3
+n=2
+n=1
+lavrishko@duikt-unix:~/lab24$ ext=sh; case $ext in txt) echo "текст";; sh) echo "скрипт";; *) echo "інше";; esac
+скрипт
+lavrishko@duikt-unix:~/lab24$ expr 34 + 45 + 67
+146
+lavrishko@duikt-unix:~/lab24$ expr 6 \* 7
+42
+lavrishko@duikt-unix:~/lab24$ set -- перший другий; echo "$# аргументи: $1 і $2"
+2 аргументи: перший і другий

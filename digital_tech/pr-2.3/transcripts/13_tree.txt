@@ -1,0 +1,18 @@
+lavrishko@duikt-unix:~/prokat$ cd
+lavrishko@duikt-unix:~$ tree -L 2
+.
+└── prokat
+    ├── 3_rav4
+    ├── 3_x5
+    ├── GPL-1
+    ├── GPL-2
+    ├── crossover
+    ├── hatchback
+    ├── license_old
+    ├── list_park.txt
+    ├── park
+    ├── sedan
+    ├── tariffs.txt
+    └── trash
+
+7 directories, 7 files

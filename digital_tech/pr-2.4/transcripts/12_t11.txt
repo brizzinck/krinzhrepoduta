@@ -1,0 +1,17 @@
+lavrishko@duikt-unix:~/lab24$ ./t11_headers.sh 'cars_*.txt' all_files.out
+------ файл cars_a.txt -----
+Toyota Camry 2021 sedan 1200
+Skoda Octavia 2020 sedan 900
+Honda Civic 2019 hatchback 850
+Audi Q7 2022 suv 2100
+------ файл cars_b.txt -----
+BMW X5 2021 suv 2300
+Toyota RAV4 2022 suv 1700
+Ford Focus 2018 hatchback 700
+Renault Logan 2017 sedan 600
+------ файл cars_c.txt -----
+Volkswagen Golf 2020 hatchback 950
+Toyota Corolla 2019 sedan 1000
+Mazda CX-5 2021 suv 1600
+Promo abcd 2026 discount 10
+lavrishko@duikt-unix:~/lab24$ ./t11_headers.sh '*.zzz' none.out

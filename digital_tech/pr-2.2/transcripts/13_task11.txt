@@ -1,0 +1,19 @@
+lavrishko@duikt-unix:~/prokat/park$ ls | wc -l
+14
+lavrishko@duikt-unix:~/prokat/park$ { ls | wc -l; ls | sort; } > ../list_park.txt
+lavrishko@duikt-unix:~/prokat/park$ cat ../list_park.txt
+14
+cars_a.txt
+cars_b.txt
+cars_c.txt
+count.txt
+found.txt
+merged.txt
+out10.txt
+out4.txt
+out5.txt
+out7.txt
+out7b.txt
+out8.txt
+result2.txt
+sorted.txt

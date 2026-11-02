@@ -1,0 +1,31 @@
+lavrishko@duikt-unix:~$ cd prokat
+lavrishko@duikt-unix:~/prokat$ mkdir park
+lavrishko@duikt-unix:~/prokat$ cd park
+lavrishko@duikt-unix:~/prokat/park$ cat > cars_a.txt <<'EOF'
+> Toyota Camry 2021 sedan 1200
+> Skoda Octavia 2020 sedan 900
+> Honda Civic 2019 hatchback 850
+> Audi Q7 2022 suv 2100
+> EOF
+lavrishko@duikt-unix:~/prokat/park$ cat > cars_b.txt <<'EOF'
+> BMW X5 2021 suv 2300
+> Toyota RAV4 2022 suv 1700
+> Ford Focus 2018 hatchback 700
+> Renault Logan 2017 sedan 600
+> EOF
+lavrishko@duikt-unix:~/prokat/park$ cat > cars_c.txt <<'EOF'
+> Volkswagen Golf 2020 hatchback 950
+> Toyota Corolla 2019 sedan 1000
+> Mazda CX-5 2021 suv 1600
+> Promo abcd 2026 discount 10
+> EOF
+lavrishko@duikt-unix:~/prokat/park$ ls -l
+total 12
+-rw-r--r-- 1 lavrishko lavrishko 111 Nov  2 20:10 cars_a.txt
+-rw-r--r-- 1 lavrishko lavrishko 106 Nov  2 20:10 cars_b.txt
+-rw-r--r-- 1 lavrishko lavrishko 119 Nov  2 20:10 cars_c.txt
+lavrishko@duikt-unix:~/prokat/park$ wc -l cars_a.txt cars_b.txt cars_c.txt
+  4 cars_a.txt
+  4 cars_b.txt
+  4 cars_c.txt
+ 12 total

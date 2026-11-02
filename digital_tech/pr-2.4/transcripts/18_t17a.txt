@@ -1,0 +1,12 @@
+lavrishko@duikt-unix:~/lab24$ touch copy.out
+lavrishko@duikt-unix:~/lab24$ ./t17a_attr_names.sh
+Вміст cars_a.txt перенаправлено в copy.out
+lavrishko@duikt-unix:~/lab24$ head -n 2 copy.out
+Toyota Camry 2021 sedan 1200
+Skoda Octavia 2020 sedan 900
+lavrishko@duikt-unix:~/lab24$ rm copy.out
+lavrishko@duikt-unix:~/lab24$ ./t17a_attr_names.sh
+Відсутній файл: cars_a.txt або copy.out
+lavrishko@duikt-unix:~/lab24$ touch copy.out; chmod a-w copy.out
+lavrishko@duikt-unix:~/lab24$ ./t17a_attr_names.sh
+Атрибути не збігаються: cars_a.txt має бути для читання, copy.out для запису

@@ -1,0 +1,18 @@
+lavrishko@duikt-unix:~$ sudo -b atd
+[1]   Terminated              sleep 300
+[2]   Terminated              sleep 400
+[3]-  Terminated              nice -n 10 sleep 200
+lavrishko@duikt-unix:~$ sleep 1
+lavrishko@duikt-unix:~$ ps -ef | grep '[a]td'
+daemon        54       1  0 20:28 ?        00:00:00 atd
+lavrishko@duikt-unix:~$ echo 'date > ~/at_result.txt' | at now + 1 minute
+warning: commands will be executed using /bin/sh
+job 1 at Mon Nov  2 20:29:00 2026
+lavrishko@duikt-unix:~$ atq
+1	Mon Nov  2 20:29:00 2026 a lavrishko
+lavrishko@duikt-unix:~$ date
+Mon Nov  2 20:28:43 UTC 2026
+lavrishko@duikt-unix:~$ sleep 75
+lavrishko@duikt-unix:~$ atq
+lavrishko@duikt-unix:~$ cat ~/at_result.txt
+Mon Nov  2 20:29:00 UTC 2026

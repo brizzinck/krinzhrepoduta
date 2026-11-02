@@ -1,0 +1,18 @@
+lavrishko@duikt-unix:~/lab24$ for s in t*.sh; do bash -n $s || echo "$s: помилка синтаксису"; done; echo "синтаксис усіх скриптів перевірено"
+синтаксис усіх скриптів перевірено
+lavrishko@duikt-unix:~/lab24$ ./t01_copy_ext.sh backup txt
+bash: ./t01_copy_ext.sh: Permission denied
+lavrishko@duikt-unix:~/lab24$ chmod +x t*.sh
+lavrishko@duikt-unix:~/lab24$ ls -l t01_copy_ext.sh
+-rwxr-xr-x 1 lavrishko lavrishko 364 Nov  2 20:16 t01_copy_ext.sh
+lavrishko@duikt-unix:~/lab24$ ./t01_copy_ext.sh
+Використання: ./t01_copy_ext.sh каталог розширення
+lavrishko@duikt-unix:~/lab24$ ./t01_copy_ext.sh backup txt
+У каталозі backup є файли:
+cars_a.txt  cars_b.txt	cars_c.txt  empty.txt
+lavrishko@duikt-unix:~/lab24$ sh t01_copy_ext.sh backup2 md
+У каталозі backup2 є файли:
+readme.md
+lavrishko@duikt-unix:~/lab24$ ls -l backup2
+total 4
+-rw-r--r-- 1 lavrishko lavrishko 85 Nov  2 20:33 readme.md

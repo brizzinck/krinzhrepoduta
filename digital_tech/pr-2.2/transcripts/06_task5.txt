@@ -1,0 +1,7 @@
+lavrishko@duikt-unix:~/prokat/park$ cat cars_*.txt | grep Toyota > out5.txt
+lavrishko@duikt-unix:~/prokat/park$ wc -l out5.txt >> out5.txt
+lavrishko@duikt-unix:~/prokat/park$ cat out5.txt
+Toyota Camry 2021 sedan 1200
+Toyota RAV4 2022 suv 1700
+Toyota Corolla 2019 sedan 1000
+3 out5.txt

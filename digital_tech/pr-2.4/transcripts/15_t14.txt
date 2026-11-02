@@ -1,0 +1,4 @@
+lavrishko@duikt-unix:~/lab24$ ./t14_exists.sh readme.md
+Прокат автомобілів: тестові дані для скриптів
+lavrishko@duikt-unix:~/lab24$ ./t14_exists.sh nofile
+Файл 'nofile' не існує

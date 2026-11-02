@@ -1,0 +1,11 @@
+lavrishko@duikt-unix:~$ ls -l /etc/passwd /etc/group /etc/shadow
+-rw-r--r-- 1 root root   461 Nov  2 19:57 /etc/group
+-rw-r--r-- 1 root root   907 Nov  2 19:57 /etc/passwd
+-rw-r----- 1 root shadow 505 Nov  2 19:57 /etc/shadow
+lavrishko@duikt-unix:~$ id
+uid=1000(lavrishko) gid=1000(lavrishko) groups=1000(lavrishko),27(sudo)
+lavrishko@duikt-unix:~$ sudo whoami
+root
+lavrishko@duikt-unix:~$ tail -n 2 /etc/passwd
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+lavrishko:x:1000:1000:Lavrishko Vladyslav:/home/lavrishko:/bin/bash

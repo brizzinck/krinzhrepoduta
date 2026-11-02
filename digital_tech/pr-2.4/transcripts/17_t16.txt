@@ -1,0 +1,53 @@
+lavrishko@duikt-unix:~/lab24$ ./t16_mask.sh 'cars_*' r16a.out
+=== cars_a.txt ===
+Toyota Camry 2021 sedan 1200
+Skoda Octavia 2020 sedan 900
+Honda Civic 2019 hatchback 850
+Audi Q7 2022 suv 2100
+=== cars_b.txt ===
+BMW X5 2021 suv 2300
+Toyota RAV4 2022 suv 1700
+Ford Focus 2018 hatchback 700
+Renault Logan 2017 sedan 600
+=== cars_c.txt ===
+Volkswagen Golf 2020 hatchback 950
+Toyota Corolla 2019 sedan 1000
+Mazda CX-5 2021 suv 1600
+Promo abcd 2026 discount 10
+lavrishko@duikt-unix:~/lab24$ ./t16_mask.sh '*.zzz' r16b.out
+Файлів за маскою '*.zzz' немає
+all_files.out
+backup
+backup2
+cars_a.txt
+cars_b.txt
+cars_c.txt
+empty.txt
+locked
+newdir
+r08.out
+r09.out
+r16a.out
+r16b.out
+readme.md
+report_ps.out
+t01_copy_ext.sh
+t02_date_ps.sh
+t03_users.sh
+t04_find_user.sh
+t05_hello.sh
+t06_calc.sh
+t07_cylinder.sh
+t08_merge_sort.sh
+t09_merge_grep.sh
+t10_show_pause.sh
+t11_headers.sh
+t12_show_or_ls.sh
+t13_password.sh
+t14_exists.sh
+t15_dir_check.sh
+t16_mask.sh
+t17a_attr_names.sh
+t17b_attr_args.sh
+t18_sort_size.sh
+users.out

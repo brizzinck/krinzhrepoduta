@@ -1,0 +1,14 @@
+lavrishko@duikt-unix:~/lab24$ ./t08_merge_sort.sh cars_a.txt cars_b.txt cars_c.txt r08.out
+Audi Q7 2022 suv 2100
+BMW X5 2021 suv 2300
+Ford Focus 2018 hatchback 700
+Honda Civic 2019 hatchback 850
+Mazda CX-5 2021 suv 1600
+Promo abcd 2026 discount 10
+Renault Logan 2017 sedan 600
+Skoda Octavia 2020 sedan 900
+Toyota Camry 2021 sedan 1200
+Toyota Corolla 2019 sedan 1000
+Toyota RAV4 2022 suv 1700
+Volkswagen Golf 2020 hatchback 950
+Кількість рядків: 12

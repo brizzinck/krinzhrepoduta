@@ -1,0 +1,27 @@
+lavrishko@duikt-unix:~/prokat$ head -n 5 GPL-1
+
+                    GNU GENERAL PUBLIC LICENSE
+                     Version 1, February 1989
+
+ Copyright (C) 1989 Free Software Foundation, Inc.
+lavrishko@duikt-unix:~/prokat$ wc -l GPL-1 GPL-2 GPL-3
+  251 GPL-1
+  339 GPL-2
+  674 GPL-3
+ 1264 total
+lavrishko@duikt-unix:~/prokat$ cat sedan/license | tail -n 3
+the library.  If this is what you want to do, use the GNU Lesser General
+Public License instead of this License.  But first, please read
+<https://www.gnu.org/licenses/why-not-lgpl.html>.
+lavrishko@duikt-unix:~/prokat$ more -6 GPL-2
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 2, June 1991
+ Copyright (C) 1989, 1991 Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ Everyone is permitted to copy and distribute verbatim copies
+--More--(1%)
+ of this license document, but changing it is not allowed.
+                            Preamble
+  The licenses for most software are designed to take away your
+freedom to share and change it.  By contrast, the GNU General Public
+--More--(2%)

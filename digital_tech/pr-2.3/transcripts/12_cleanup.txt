@@ -1,0 +1,15 @@
+lavrishko@duikt-unix:~/prokat$ sudo userdel -r guest
+userdel: guest mail spool (/var/mail/guest) not found
+lavrishko@duikt-unix:~/prokat$ sudo userdel -r tester
+userdel: tester mail spool (/var/mail/tester) not found
+lavrishko@duikt-unix:~/prokat$ sudo groupdel rental
+lavrishko@duikt-unix:~/prokat$ getent passwd tester guest; echo "код: $?"
+код: 2
+lavrishko@duikt-unix:~/prokat$ getent group rental; echo "код: $?"
+код: 2
+lavrishko@duikt-unix:~/prokat$ chmod o-x ~ ~/prokat
+lavrishko@duikt-unix:~/prokat$ chmod g-w tariffs.txt
+lavrishko@duikt-unix:~/prokat$ rm ~/disk.img ~/at_result.txt
+lavrishko@duikt-unix:~/prokat$ tail -n 2 /etc/passwd
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+lavrishko:x:1000:1000:Lavrishko Vladyslav:/home/lavrishko:/bin/bash

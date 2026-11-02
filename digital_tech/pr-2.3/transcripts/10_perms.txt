@@ -1,0 +1,15 @@
+lavrishko@duikt-unix:~$ cd ~/prokat
+lavrishko@duikt-unix:~/prokat$ echo "sedan 1200 | suv 1700 | hatchback 900" > tariffs.txt
+lavrishko@duikt-unix:~/prokat$ ls -l tariffs.txt
+-rw-r--r-- 1 lavrishko lavrishko 38 Nov  2 20:30 tariffs.txt
+lavrishko@duikt-unix:~/prokat$ sudo chown lavrishko:rental tariffs.txt
+lavrishko@duikt-unix:~/prokat$ chmod 640 tariffs.txt
+lavrishko@duikt-unix:~/prokat$ ls -l tariffs.txt
+-rw-r----- 1 lavrishko rental 38 Nov  2 20:30 tariffs.txt
+lavrishko@duikt-unix:~/prokat$ chmod u=rw,g=r,o= tariffs.txt
+lavrishko@duikt-unix:~/prokat$ stat -c '%A %a %U:%G %n' tariffs.txt
+-rw-r----- 640 lavrishko:rental tariffs.txt
+lavrishko@duikt-unix:~/prokat$ chmod o+x ~ ~/prokat
+lavrishko@duikt-unix:~/prokat$ ls -ld ~ ~/prokat
+drwxr-x--x 4 lavrishko lavrishko 4096 Nov  2 20:29 /home/lavrishko
+drwxr-xr-x 7 lavrishko lavrishko 4096 Nov  2 20:30 /home/lavrishko/prokat

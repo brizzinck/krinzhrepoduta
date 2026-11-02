@@ -1,0 +1,16 @@
+lavrishko@duikt-unix:~/prokat$ mkdir -p full/inner
+lavrishko@duikt-unix:~/prokat$ touch full/f1 full/inner/f2
+lavrishko@duikt-unix:~/prokat$ rmdir full
+rmdir: failed to remove 'full': Directory not empty
+lavrishko@duikt-unix:~/prokat$ rm -R full
+lavrishko@duikt-unix:~/prokat$ ls -p
+3_rav4	3_x5  GPL-1  GPL-2  crossover/	hatchback/  license_old  sedan/  trash/
+lavrishko@duikt-unix:~/prokat$ mkdir ghost
+lavrishko@duikt-unix:~/prokat$ cd ghost
+lavrishko@duikt-unix:~/prokat/ghost$ rmdir ../ghost
+lavrishko@duikt-unix:~/prokat/ghost$ pwd
+/home/lavrishko/prokat/ghost
+lavrishko@duikt-unix:~/prokat/ghost$ ls
+lavrishko@duikt-unix:~/prokat/ghost$ cd ~/prokat
+lavrishko@duikt-unix:~/prokat$ pwd
+/home/lavrishko/prokat

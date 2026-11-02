@@ -1,0 +1,19 @@
+lavrishko@duikt-unix:~/prokat/park$ find ~ -name 'cars_*' 2>/dev/null
+/home/lavrishko/prokat/park/cars_b.txt
+/home/lavrishko/prokat/park/cars_c.txt
+/home/lavrishko/prokat/park/cars_a.txt
+lavrishko@duikt-unix:~/prokat/park$ find /etc -name 'passwd' 2>/dev/null
+/etc/passwd
+/etc/pam.d/passwd
+lavrishko@duikt-unix:~/prokat/park$ which sort
+/usr/bin/sort
+lavrishko@duikt-unix:~/prokat/park$ cut -d: -f1 /etc/passwd | head -n 5
+root
+daemon
+bin
+sys
+sync
+lavrishko@duikt-unix:~/prokat/park$ getent passwd lavrishko
+lavrishko:x:1000:1000:Lavrishko Vladyslav:/home/lavrishko:/bin/bash
+lavrishko@duikt-unix:~/prokat/park$ users
+lavrishko@duikt-unix:~/prokat/park$ who

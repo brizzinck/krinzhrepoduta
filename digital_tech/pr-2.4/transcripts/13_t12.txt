@@ -1,0 +1,11 @@
+lavrishko@duikt-unix:~/lab24$ ./t12_show_or_ls.sh readme.md
+Прокат автомобілів: тестові дані для скриптів
+lavrishko@duikt-unix:~/lab24$ ./t12_show_or_ls.sh missing.txt
+Файлу 'missing.txt' немає, список файлів поточного каталогу:
+all_files.out  r08.out		t04_find_user.sh   t11_headers.sh      t17b_attr_args.sh
+backup	       r09.out		t05_hello.sh	   t12_show_or_ls.sh   t18_sort_size.sh
+backup2        readme.md	t06_calc.sh	   t13_password.sh     users.out
+cars_a.txt     report_ps.out	t07_cylinder.sh    t14_exists.sh
+cars_b.txt     t01_copy_ext.sh	t08_merge_sort.sh  t15_dir_check.sh
+cars_c.txt     t02_date_ps.sh	t09_merge_grep.sh  t16_mask.sh
+empty.txt      t03_users.sh	t10_show_pause.sh  t17a_attr_names.sh

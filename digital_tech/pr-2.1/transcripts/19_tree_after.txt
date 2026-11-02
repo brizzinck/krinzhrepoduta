@@ -1,0 +1,23 @@
+lavrishko@duikt-unix:~/prokat$ cd
+lavrishko@duikt-unix:~$ tree prokat
+prokat
+├── 3_rav4
+├── 3_x5
+├── GPL-1
+├── GPL-2
+├── crossover
+│   ├── 2_golf
+│   └── 2_polo
+├── hatchback
+│   ├── GPL-3
+│   ├── camry3
+│   └── golf3
+├── license_old
+├── sedan
+│   ├── 1_camry
+│   ├── 1_civic
+│   └── license
+└── trash
+    └── cat
+
+5 directories, 14 files

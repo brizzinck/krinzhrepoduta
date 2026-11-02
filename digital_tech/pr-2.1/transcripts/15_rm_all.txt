@@ -1,0 +1,12 @@
+lavrishko@duikt-unix:~/prokat$ mkdir temp
+lavrishko@duikt-unix:~/prokat$ touch temp/a temp/b temp/c
+lavrishko@duikt-unix:~/prokat$ rmdir temp
+rmdir: failed to remove 'temp': Directory not empty
+lavrishko@duikt-unix:~/prokat$ cd temp
+lavrishko@duikt-unix:~/prokat/temp$ rm *
+lavrishko@duikt-unix:~/prokat/temp$ ls -a
+.  ..
+lavrishko@duikt-unix:~/prokat/temp$ cd ..
+lavrishko@duikt-unix:~/prokat$ rmdir temp
+lavrishko@duikt-unix:~/prokat$ ls -p
+3_rav4	3_x5  GPL-1  GPL-2  crossover/	hatchback/  license_old  sedan/  trash/
