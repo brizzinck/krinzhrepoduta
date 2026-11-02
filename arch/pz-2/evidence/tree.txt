@@ -1,0 +1,98 @@
+$ tree -I "bin|obj|.data|TestResults" --dirsfirst CarRental
+CarRental
+├── src
+│   ├── CarRental.Application
+│   │   ├── Common
+│   │   │   ├── Audit
+│   │   │   │   └── AuditLogHandler.cs
+│   │   │   ├── Events
+│   │   │   │   ├── IEventBus.cs
+│   │   │   │   ├── IEventHandler.cs
+│   │   │   │   └── InProcessEventBus.cs
+│   │   │   └── Exceptions.cs
+│   │   ├── Fleet
+│   │   │   ├── Handlers
+│   │   │   │   └── UpdateCarMileageOnRentalCompleted.cs
+│   │   │   ├── CarDto.cs
+│   │   │   ├── CarService.cs
+│   │   │   └── ICarStore.cs
+│   │   ├── Rentals
+│   │   │   ├── Events
+│   │   │   │   ├── RentalCancelled.cs
+│   │   │   │   ├── RentalCompleted.cs
+│   │   │   │   └── RentalOpened.cs
+│   │   │   ├── Handlers
+│   │   │   │   ├── NotifyRenterOnRentalOpened.cs
+│   │   │   │   └── TrackRentalOnRentalOpened.cs
+│   │   │   ├── IAnalyticsService.cs
+│   │   │   ├── IFleetGateway.cs
+│   │   │   ├── INotificationService.cs
+│   │   │   ├── IRentalStore.cs
+│   │   │   ├── IRenterStore.cs
+│   │   │   ├── RentalDto.cs
+│   │   │   ├── RentalService.cs
+│   │   │   └── RenterService.cs
+│   │   └── CarRental.Application.csproj
+│   ├── CarRental.Domain
+│   │   ├── Common
+│   │   │   ├── CarClass.cs
+│   │   │   ├── DomainRuleException.cs
+│   │   │   ├── Entity.cs
+│   │   │   └── Money.cs
+│   │   ├── Fleet
+│   │   │   ├── Car.cs
+│   │   │   ├── CarStatus.cs
+│   │   │   └── LicensePlate.cs
+│   │   ├── Rentals
+│   │   │   ├── DriverLicense.cs
+│   │   │   ├── RentableCar.cs
+│   │   │   ├── Rental.cs
+│   │   │   ├── RentalPeriod.cs
+│   │   │   ├── RentalStatus.cs
+│   │   │   └── Renter.cs
+│   │   └── CarRental.Domain.csproj
+│   ├── CarRental.Infrastructure
+│   │   ├── Integration
+│   │   │   └── FleetGateway.cs
+│   │   ├── Notifications
+│   │   │   ├── ConsoleNotificationService.cs
+│   │   │   └── InMemoryAnalyticsService.cs
+│   │   ├── Persistence
+│   │   │   ├── CarRentalDbContext.cs
+│   │   │   ├── SaveExtensions.cs
+│   │   │   ├── SqliteCarStore.cs
+│   │   │   ├── SqliteRentalStore.cs
+│   │   │   └── SqliteRenterStore.cs
+│   │   └── CarRental.Infrastructure.csproj
+│   └── CarRental.WebApi
+│       ├── Controllers
+│       │   ├── CarsController.cs
+│       │   ├── RentalsController.cs
+│       │   └── RentersController.cs
+│       ├── CarRental.WebApi.csproj
+│       ├── CompositionRoot.cs
+│       ├── ErrorHandlingMiddleware.cs
+│       ├── Program.cs
+│       └── Requests.cs
+├── tests
+│   └── CarRental.Tests
+│       ├── Domain
+│       │   ├── CarTests.cs
+│       │   ├── RentalTests.cs
+│       │   ├── RenterTests.cs
+│       │   └── ValueObjectTests.cs
+│       ├── Events
+│       │   ├── EventBusTests.cs
+│       │   └── RentalEventsTests.cs
+│       ├── Integration
+│       │   ├── PersistenceTests.cs
+│       │   └── SqliteFixture.cs
+│       ├── CarRental.Tests.csproj
+│       └── TestData.cs
+├── CarRental.slnx
+├── demo.sh
+├── Directory.Build.props
+├── README.md
+└── serve.sh
+
+26 directories, 69 files

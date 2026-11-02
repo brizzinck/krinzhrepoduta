@@ -1,0 +1,38 @@
+$ grep -rnE "new (InProcessEventBus|AuditLogHandler|FileAuditLog|Notify\w*|Track\w*|Update\w*|Sqlite\w*|Pricing\w*|\w+Rule|\w+Service|\w+Store|\w+Gateway|\w+Handler)\(" src
+src/CarRental.WebApi/CompositionRoot.cs:16:        var bus = new InProcessEventBus();
+src/CarRental.WebApi/CompositionRoot.cs:17:        var audit = new AuditLogHandler(sp.GetRequiredService<IAuditLog>());
+src/CarRental.WebApi/CompositionRoot.cs:19:        bus.Subscribe<RentalOpened>(new NotifyRenterOnRentalOpened(
+src/CarRental.WebApi/CompositionRoot.cs:21:        bus.Subscribe<RentalOpened>(new TrackRentalOnRentalOpened(sp.GetRequiredService<IAnalyticsService>()));
+src/CarRental.WebApi/CompositionRoot.cs:24:        bus.Subscribe<RentalCompleted>(new UpdateCarMileageOnRentalCompleted(sp.GetRequiredService<ICarStore>()));
+src/CarRental.WebApi/Program.cs:40:    new FileAuditLog(builder.Configuration["CarRental:AuditLogPath"] ?? "audit.log"));
+src/CarRental.Application/Rentals/Pricing/PricingService.cs:13:        var context = new PricingContext(car, period);
+(код виходу: 0)
+
+$ grep -rn "DateTime.UtcNow\|DateTime.Now" src
+src/CarRental.Application/Rentals/RenterService.cs:12:        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs:15:        rental.Cancel(DateOnly.FromDateTime(DateTime.UtcNow));
+src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs:24:        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+src/CarRental.Infrastructure/Audit/FileAuditLog.cs:13:        var line = $"{DateTime.UtcNow:O} {eventName} {JsonSerializer.Serialize(payload, payload.GetType())}{Environment.NewLine}";
+(код виходу: 0)
+
+$ grep -rnE "static (readonly )?(SemaphoreSlim|int|decimal|object|Dictionary|List)|private static [A-Za-z<>]+ [A-Z_a-z]+ =" src
+src/CarRental.Infrastructure/Audit/FileAuditLog.cs:9:    private static readonly SemaphoreSlim Gate = new(1, 1);
+(код виходу: 0)
+
+$ grep -rn "IServiceProvider\|GetRequiredService\|GetService" src
+src/CarRental.WebApi/CompositionRoot.cs:14:    public static IEventBus BuildEventBus(IServiceProvider sp)
+src/CarRental.WebApi/CompositionRoot.cs:17:        var audit = new AuditLogHandler(sp.GetRequiredService<IAuditLog>());
+src/CarRental.WebApi/CompositionRoot.cs:20:            sp.GetRequiredService<IRenterStore>(), sp.GetRequiredService<INotificationService>()));
+src/CarRental.WebApi/CompositionRoot.cs:21:        bus.Subscribe<RentalOpened>(new TrackRentalOnRentalOpened(sp.GetRequiredService<IAnalyticsService>()));
+src/CarRental.WebApi/CompositionRoot.cs:24:        bus.Subscribe<RentalCompleted>(new UpdateCarMileageOnRentalCompleted(sp.GetRequiredService<ICarStore>()));
+src/CarRental.WebApi/Program.cs:31:builder.Services.AddScoped<IRentalReader>(sp => sp.GetRequiredService<IRentalStore>());
+src/CarRental.WebApi/Program.cs:59:    var db = scope.ServiceProvider.GetRequiredService<CarRentalDbContext>();
+(код виходу: 0)
+
+$ grep -rn "RentalMapper\." src
+src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs:19:        return RentalMapper.ToDto(rental);
+src/CarRental.Application/Rentals/UseCases/RentalQueryService.cs:9:        RentalMapper.ToDto(await rentals.Find(id, ct) ?? throw new NotFoundException("Оренду"));
+src/CarRental.Application/Rentals/UseCases/RentalQueryService.cs:12:        (await rentals.List(renterId, ct)).Select(RentalMapper.ToDto).ToArray();
+src/CarRental.Application/Rentals/UseCases/CompleteRentalHandler.cs:19:        return RentalMapper.ToDto(rental);
+src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs:31:        return RentalMapper.ToDto(rental);
+(код виходу: 0)

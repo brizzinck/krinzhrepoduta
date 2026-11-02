@@ -1,0 +1,26 @@
+digraph contexts {
+  rankdir=LR; fontname="DejaVu Sans"; compound=true; nodesep=0.4; ranksep=0.9;
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=12, margin="0.2,0.1"];
+  edge [fontname="DejaVu Sans", fontsize=10];
+  subgraph cluster_rentals {
+    label="Bounded context: Rentals (оренда)"; style="rounded,dashed"; color="#3b6ea5"; fontname="DejaVu Sans";
+    rental [label="Rental\n(корінь агрегату)", fillcolor="#dbeafe"];
+    renter [label="Renter\n+ DriverLicense (VO)", fillcolor="#dbeafe"];
+    period [label="RentalPeriod (VO)", fillcolor="#eef4fb"];
+    rentable [label="RentableCar\n(проєкція авто для оренди)", fillcolor="#eef4fb"];
+    rental -> renter [label=" RenterId", style=dashed];
+    rental -> period [label=" має"];
+    rental -> rentable [label=" вхід Open()", style=dashed];
+  }
+  gateway [label="IFleetGateway\n(порт у Application)", shape=component, fillcolor="#fff3b0"];
+  subgraph cluster_fleet {
+    label="Bounded context: Fleet (автопарк)"; style="rounded,dashed"; color="#2f7d32"; fontname="DejaVu Sans";
+    car [label="Car\n(корінь агрегату)", fillcolor="#d9f2d9"];
+    plate [label="LicensePlate (VO)", fillcolor="#eef8ee"];
+    car -> plate [label=" має"];
+  }
+  kernel [label="Shared Kernel\nMoney, CarClass, DomainRuleException", shape=note, fillcolor="#eeeeee"];
+  rentable -> gateway [label=" GetRentableCar()", ltail=cluster_rentals];
+  gateway -> car [label=" FleetGateway читає Car\n(Infrastructure)", lhead=cluster_fleet];
+  rental -> kernel [style=dotted, arrowhead=none]; car -> kernel [style=dotted, arrowhead=none];
+}

@@ -1,0 +1,22 @@
+digraph solid {
+  rankdir=TB; fontname="DejaVu Sans"; nodesep=0.06; ranksep=0.4;
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=14, margin="0.08,0.05"];
+  edge [fontname="DejaVu Sans", fontsize=12];
+  old [label="RentalService (ПЗ 2):\nсценарії + тариф + DTO", fillcolor="#fecaca"];
+  subgraph cluster_srp { label="SRP: сценарії, мапер"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=13;
+    o [label="OpenRental\nHandler", fillcolor="#d9f2d9"]; c [label="CompleteRental\nHandler", fillcolor="#d9f2d9"];
+    x [label="CancelRental\nHandler", fillcolor="#d9f2d9"]; q [label="RentalQuery\nService", fillcolor="#d9f2d9"];
+    m [label="RentalMapper", fillcolor="#d9f2d9"]; }
+  subgraph cluster_ocp { label="OCP: тариф"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=13;
+    ps [label="PricingService", fillcolor="#dbeafe"];
+    r1 [label="ClassMultiplier\nRule", fillcolor="#eff6ff"]; r2 [label="LongRental\nDiscountRule", fillcolor="#eff6ff"];
+    r3 [label="WeekendSurcharge\nRule (новий файл)", fillcolor="#eff6ff"]; }
+  subgraph cluster_isp { label="ISP"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=13;
+    rr [label="IRentalReader", fillcolor="#fff3b0"]; rs [label="IRentalStore", fillcolor="#fff3b0"]; }
+  subgraph cluster_dip { label="DIP"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=13;
+    ah [label="AuditLogHandler", fillcolor="#fff3b0"]; ia [label="IAuditLog", fillcolor="#fff3b0"]; fa [label="FileAuditLog", fillcolor="#fff3b0"]; }
+  old -> o; old -> c; old -> x; old -> q; old -> m;
+  o -> ps; ps -> r1; ps -> r2; ps -> r3 [style=dashed, label="вмикається\nналаштуванням"];
+  q -> rr; rs -> rr [arrowhead=empty];
+  x -> ah [style=invis]; ah -> ia; fa -> ia [arrowhead=empty, style=dashed];
+}

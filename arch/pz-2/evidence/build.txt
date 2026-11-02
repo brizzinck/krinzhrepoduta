@@ -1,0 +1,18 @@
+$ dotnet build -c Release --no-incremental
+  Determining projects to restore...
+  Restored /w/src/CarRental.Domain/CarRental.Domain.csproj (in 41 ms).
+  Restored /w/src/CarRental.Application/CarRental.Application.csproj (in 41 ms).
+  Restored /w/src/CarRental.Infrastructure/CarRental.Infrastructure.csproj (in 417 ms).
+  Restored /w/tests/CarRental.Tests/CarRental.Tests.csproj (in 426 ms).
+  Restored /w/src/CarRental.WebApi/CarRental.WebApi.csproj (in 417 ms).
+  CarRental.Domain -> /w/src/CarRental.Domain/bin/Release/net10.0/CarRental.Domain.dll
+  CarRental.Application -> /w/src/CarRental.Application/bin/Release/net10.0/CarRental.Application.dll
+  CarRental.Infrastructure -> /w/src/CarRental.Infrastructure/bin/Release/net10.0/CarRental.Infrastructure.dll
+  CarRental.Tests -> /w/tests/CarRental.Tests/bin/Release/net10.0/CarRental.Tests.dll
+  CarRental.WebApi -> /w/src/CarRental.WebApi/bin/Release/net10.0/CarRental.WebApi.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.21

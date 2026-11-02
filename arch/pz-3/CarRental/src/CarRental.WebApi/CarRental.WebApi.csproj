@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <!-- Точка складання застосунку: бачить Application і Infrastructure. -->
+  <ItemGroup>
+    <ProjectReference Include="../CarRental.Application/CarRental.Application.csproj" />
+    <ProjectReference Include="../CarRental.Infrastructure/CarRental.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

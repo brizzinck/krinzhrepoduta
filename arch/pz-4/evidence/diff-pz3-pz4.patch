@@ -1,0 +1,670 @@
+diff -ru pz3/README.md pz4/README.md
+--- pz3/README.md	2026-11-02 22:15:19.189707246 +0200
++++ pz4/README.md	2026-11-02 22:31:30.845430646 +0200
+@@ -1,6 +1,6 @@
+ # CarRental: прокат автомобілів (Clean Architecture та DDD)
+ 
+-ASP.NET Core API для прокату автомобілів: автопарк, орендарі, оренди. Проєкт будується поетапно на практичних заняттях з «Архітектури ПЗ»; цей знімок відповідає **практичному заняттю №3** (SOLID-рефакторинг).
++ASP.NET Core API для прокату автомобілів: автопарк, орендарі, оренди. Проєкт будується поетапно на практичних заняттях з «Архітектури ПЗ»; цей знімок відповідає **практичному заняттю №4** (Dependency Injection).
+ 
+ ## Мова домену (Ubiquitous Language)
+ 
+@@ -48,12 +48,12 @@
+ | Шар | Проєкт | Відповідальність |
+ |---|---|---|
+ | Domain | `CarRental.Domain` | сутності, Value Objects, правила; без посилань на інші проєкти й пакети |
+-| Application | `CarRental.Application` | сценарії (`CarService`, `RenterService`, `RentalService`), контракти (`ICarStore`, `IRentalStore`, `IFleetGateway`, ...), DTO |
+-| Infrastructure | `CarRental.Infrastructure` | EF Core + SQLite, реалізації контрактів, повідомлення й аналітика |
+-| WebApi | `CarRental.WebApi` | контролери, обробка помилок, точка складання (`Program.cs`) |
++| Application | `CarRental.Application` | сценарії (`CarService`, `RenterService`, `*Handler`), контракти (`ICarStore`, `IRentalStore`, `IFleetGateway`, `IClock`, ...), DTO, реєстрація `AddApplication()` |
++| Infrastructure | `CarRental.Infrastructure` | EF Core + SQLite, реалізації контрактів, шина подій, годинник, повідомлення й аналітика, реєстрація `AddInfrastructure()` |
++| WebApi | `CarRental.WebApi` | контролери, обробка помилок, точка складання (`Program.cs`: виклики `AddApplication()` і `AddInfrastructure()`) |
+ 
+ ```text
+-Application    -> Domain
++Application    -> Domain (+ пакет абстракцій DI)
+ Infrastructure -> Application (Domain доступний транзитивно)
+ WebApi         -> Application, Infrastructure
+ Domain         -> без залежностей
+@@ -63,7 +63,7 @@
+ 
+ ## Події (Event-Driven Design)
+ 
+-Сервіс оренди після збереження публікує факт через `IEventBus` і не знає, хто на нього реагує.
++Сценарій оренди після збереження публікує факт через `IEventBus` і не знає, хто на нього реагує.
+ 
+ | Подія (минулий час, мінімум даних) | Обробник | Реакція |
+ |---|---|---|
+@@ -74,10 +74,22 @@
+ | | `AuditLogHandler` | рядок у журналі аудиту |
+ | `RentalCancelled(RentalId, CarId)` | `AuditLogHandler` | рядок у журналі аудиту |
+ 
+-`InProcessEventBus` викликає обробники послідовно в тому самому процесі й тій самій області запиту. Підписки збираються вручну в `CompositionRoot` (WebApi). Події не виконують бізнес-логіку: перевірка доступності авто лишається синхронною частиною `Rental.Open`. Журнал аудиту пишеться у файл `CarRental:AuditLogPath` (у docker: `.data/audit.log`).
++`InProcessEventBus` (Infrastructure, Singleton) на кожну публікацію створює власну область контейнера й послідовно викликає всі зареєстровані `IEventHandler<T>` у порядку реєстрації в `AddApplication()`. Події не виконують бізнес-логіку: перевірка доступності авто лишається синхронною частиною `Rental.Open`. Журнал аудиту пишеться у файл `CarRental:AuditLogPath` (у docker: `.data/audit.log`).
+ 
+ Обмеження: подія та її обробники працюють без транзакції й черги (немає гарантій доставки); виняток в обробнику повертається клієнтові як помилка вже після збереження оренди.
+ 
++## Dependency Injection (ПЗ 4)
++
++Усі залежності створює контейнер; `Program.cs` (точка складання) викликає `AddApplication()` та `AddInfrastructure()` і вмикає `ValidateScopes` та `ValidateOnBuild`.
++
++| Цикл | Компоненти |
++|---|---|
++| Singleton | `IClock`, `IAnalyticsService`, `IAuditLog`, `IEventBus` |
++| Scoped | `CarRentalDbContext`, `ICarStore`, `IRenterStore`, `IRentalStore`/`IRentalReader`, `IFleetGateway`, сценарії (`*Handler`, `CarService`, `RenterService`, `RentalQueryService`), обробники подій |
++| Transient | `IPricingRule`, `IPricingService`, `IRentalMapper`, `INotificationService` |
++
++Правила: конструкторна ін'єкція, без `static` і service locator у бізнес-коді (контейнер напряму використовує лише `InProcessEventBus`), час через `IClock`. У режимі Development доступний `GET /api/_diag/lifetimes` (ідентифікатори екземплярів для демонстрації життєвих циклів).
++
+ ## SOLID-рефакторинг (ПЗ 3)
+ 
+ Поведінка API не змінена; змінилась структура Application.
+@@ -94,6 +106,7 @@
+ 
+ ```sh
+ ./serve.sh start      # API на http://127.0.0.1:5080, БД у ./.data
++ASPNETCORE_ENVIRONMENT=Development ./serve.sh start   # з діагностикою життєвих циклів
+ ./demo.sh             # сценарії: успіх, 409, 400, 404
+ ./serve.sh logs       # журнал контейнера
+ ./serve.sh restart    # перезапуск; дані зберігаються
+diff -ru pz3/src/CarRental.Application/CarRental.Application.csproj pz4/src/CarRental.Application/CarRental.Application.csproj
+--- pz3/src/CarRental.Application/CarRental.Application.csproj	2026-11-02 22:13:37.929028733 +0200
++++ pz4/src/CarRental.Application/CarRental.Application.csproj	2026-11-02 22:25:10.196002341 +0200
+@@ -2,5 +2,7 @@
+   <!-- Сценарії залежать від Domain і власних контрактів, але не від технології збереження. -->
+   <ItemGroup>
+     <ProjectReference Include="../CarRental.Domain/CarRental.Domain.csproj" />
++    <!-- Лише абстракції контейнера: Application реєструє власні компоненти й не залежить від реалізації. -->
++    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.11" />
+   </ItemGroup>
+ </Project>
+Only in pz3/src/CarRental.Application/Common/Events: InProcessEventBus.cs
+Only in pz4/src/CarRental.Application/Common: IClock.cs
+Only in pz4/src/CarRental.Application: DependencyInjection.cs
+Only in pz4/src/CarRental.Application/Rentals: IRentalMapper.cs
+diff -ru pz3/src/CarRental.Application/Rentals/RentalMapper.cs pz4/src/CarRental.Application/Rentals/RentalMapper.cs
+--- pz3/src/CarRental.Application/Rentals/RentalMapper.cs	2026-11-02 22:14:17.175728708 +0200
++++ pz4/src/CarRental.Application/Rentals/RentalMapper.cs	2026-11-02 22:24:44.486369633 +0200
+@@ -2,9 +2,9 @@
+ 
+ namespace CarRental.Application.Rentals;
+ 
+-/// <summary>Перетворення Rental на DTO; окремо від сценаріїв, щоб вони не знали форми відповіді.</summary>
+-public static class RentalMapper
++/// <summary>Реалізація мапера: без стану, тому реєструється як Transient.</summary>
++public sealed class RentalMapper : IRentalMapper
+ {
+-    public static RentalDto ToDto(Rental r) => new(r.Id, r.CarId, r.RenterId, r.Period.Start, r.Period.End,
++    public RentalDto ToDto(Rental r) => new(r.Id, r.CarId, r.RenterId, r.Period.Start, r.Period.End,
+         r.Period.Days, r.DailyRate.Amount, r.Total.Amount, r.Status.ToString(), r.StartMileage, r.EndMileage);
+ }
+diff -ru pz3/src/CarRental.Application/Rentals/RenterService.cs pz4/src/CarRental.Application/Rentals/RenterService.cs
+--- pz3/src/CarRental.Application/Rentals/RenterService.cs	2026-11-02 22:13:37.947106959 +0200
++++ pz4/src/CarRental.Application/Rentals/RenterService.cs	2026-11-02 22:24:44.505403574 +0200
+@@ -4,13 +4,12 @@
+ namespace CarRental.Application.Rentals;
+ 
+ /// <summary>Сценарії реєстрації й перегляду орендарів.</summary>
+-public sealed class RenterService(IRenterStore store)
++public sealed class RenterService(IRenterStore store, IClock clock)
+ {
+     public async Task<RenterDto> Register(string? fullName, string? email, DateOnly birthDate,
+         string? licenseNumber, DateOnly licenseValidUntil, CancellationToken ct = default)
+     {
+-        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+-        var renter = Renter.Register(fullName, email, birthDate, new DriverLicense(licenseNumber, licenseValidUntil), today);
++        var renter = Renter.Register(fullName, email, birthDate, new DriverLicense(licenseNumber, licenseValidUntil), clock.Today);
+         await store.Add(renter, ct);
+         await store.Save(ct);
+         return ToDto(renter);
+diff -ru pz3/src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs pz4/src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs
+--- pz3/src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs	2026-11-02 22:14:17.177870373 +0200
++++ pz4/src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs	2026-11-02 22:24:44.487369624 +0200
+@@ -7,15 +7,15 @@
+ public sealed record CancelRentalCommand(Guid RentalId);
+ 
+ /// <summary>Сценарій «скасувати оренду».</summary>
+-public sealed class CancelRentalHandler(IRentalStore rentals, IEventBus events)
++public sealed class CancelRentalHandler(IRentalStore rentals, IClock clock, IRentalMapper mapper, IEventBus events)
+ {
+     public async Task<RentalDto> HandleAsync(CancelRentalCommand cmd, CancellationToken ct = default)
+     {
+         var rental = await rentals.Find(cmd.RentalId, ct) ?? throw new NotFoundException("Оренду");
+-        rental.Cancel(DateOnly.FromDateTime(DateTime.UtcNow));
++        rental.Cancel(clock.Today);
+         await rentals.Save(ct);
+ 
+         await events.PublishAsync(new RentalCancelled(rental.Id, rental.CarId), ct);
+-        return RentalMapper.ToDto(rental);
++        return mapper.ToDto(rental);
+     }
+ }
+diff -ru pz3/src/CarRental.Application/Rentals/UseCases/CompleteRentalHandler.cs pz4/src/CarRental.Application/Rentals/UseCases/CompleteRentalHandler.cs
+--- pz3/src/CarRental.Application/Rentals/UseCases/CompleteRentalHandler.cs	2026-11-02 22:14:17.176915244 +0200
++++ pz4/src/CarRental.Application/Rentals/UseCases/CompleteRentalHandler.cs	2026-11-02 22:24:44.489049618 +0200
+@@ -7,7 +7,7 @@
+ public sealed record CompleteRentalCommand(Guid RentalId, int EndMileage);
+ 
+ /// <summary>Сценарій «завершити оренду».</summary>
+-public sealed class CompleteRentalHandler(IRentalStore rentals, IEventBus events)
++public sealed class CompleteRentalHandler(IRentalStore rentals, IRentalMapper mapper, IEventBus events)
+ {
+     public async Task<RentalDto> HandleAsync(CompleteRentalCommand cmd, CancellationToken ct = default)
+     {
+@@ -16,6 +16,6 @@
+         await rentals.Save(ct);
+ 
+         await events.PublishAsync(new RentalCompleted(rental.Id, rental.CarId, cmd.EndMileage), ct);
+-        return RentalMapper.ToDto(rental);
++        return mapper.ToDto(rental);
+     }
+ }
+diff -ru pz3/src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs pz4/src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs
+--- pz3/src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs	2026-11-02 22:14:17.175915252 +0200
++++ pz4/src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs	2026-11-02 22:24:44.489888601 +0200
+@@ -12,6 +12,8 @@
+     IRenterStore renters,
+     IFleetGateway fleet,
+     IPricingService pricing,
++    IClock clock,
++    IRentalMapper mapper,
+     IEventBus events)
+ {
+     public async Task<RentalDto> HandleAsync(OpenRentalCommand cmd, CancellationToken ct = default)
+@@ -21,13 +23,12 @@
+         var period = new RentalPeriod(cmd.Start, cmd.End);
+         var busy = await rentals.ActivePeriodsOfCar(car.Id, ct);
+ 
+-        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+-        var rental = Rental.Open(car, renter, period, pricing.Calculate(car, period), today, busy);
++        var rental = Rental.Open(car, renter, period, pricing.Calculate(car, period), clock.Today, busy);
+         await rentals.Add(rental, ct);
+         await rentals.Save(ct);
+ 
+         await events.PublishAsync(new RentalOpened(rental.Id, rental.CarId, rental.RenterId,
+             rental.Period.Start, rental.Period.End, rental.Total.Amount), ct);
+-        return RentalMapper.ToDto(rental);
++        return mapper.ToDto(rental);
+     }
+ }
+diff -ru pz3/src/CarRental.Application/Rentals/UseCases/RentalQueryService.cs pz4/src/CarRental.Application/Rentals/UseCases/RentalQueryService.cs
+--- pz3/src/CarRental.Application/Rentals/UseCases/RentalQueryService.cs	2026-11-02 22:14:17.177915235 +0200
++++ pz4/src/CarRental.Application/Rentals/UseCases/RentalQueryService.cs	2026-11-02 22:24:44.490756999 +0200
+@@ -3,11 +3,11 @@
+ namespace CarRental.Application.Rentals.UseCases;
+ 
+ /// <summary>Читання оренд. Залежить лише від IRentalReader: методів запису цей клас не бачить.</summary>
+-public sealed class RentalQueryService(IRentalReader rentals)
++public sealed class RentalQueryService(IRentalReader rentals, IRentalMapper mapper)
+ {
+     public async Task<RentalDto> Get(Guid id, CancellationToken ct = default) =>
+-        RentalMapper.ToDto(await rentals.Find(id, ct) ?? throw new NotFoundException("Оренду"));
++        mapper.ToDto(await rentals.Find(id, ct) ?? throw new NotFoundException("Оренду"));
+ 
+     public async Task<IReadOnlyList<RentalDto>> List(Guid? renterId, CancellationToken ct = default) =>
+-        (await rentals.List(renterId, ct)).Select(RentalMapper.ToDto).ToArray();
++        (await rentals.List(renterId, ct)).Select(mapper.ToDto).ToArray();
+ }
+diff -ru pz3/src/CarRental.Infrastructure/Audit/FileAuditLog.cs pz4/src/CarRental.Infrastructure/Audit/FileAuditLog.cs
+--- pz3/src/CarRental.Infrastructure/Audit/FileAuditLog.cs	2026-11-02 22:14:17.182915192 +0200
++++ pz4/src/CarRental.Infrastructure/Audit/FileAuditLog.cs	2026-11-02 22:24:44.513114147 +0200
+@@ -1,18 +1,20 @@
+ using System.Text.Json;
++using CarRental.Application.Common;
+ using CarRental.Application.Common.Audit;
+ 
+ namespace CarRental.Infrastructure.Audit;
+ 
+-/// <summary>Реалізація журналу аудиту: один рядок на подію у текстовому файлі.</summary>
+-public sealed class FileAuditLog(string path) : IAuditLog
++/// <summary>Реалізація журналу аудиту: один рядок на подію у текстовому файлі. Живе як Singleton.</summary>
++public sealed class FileAuditLog(string path, IClock clock) : IAuditLog
+ {
+-    private static readonly SemaphoreSlim Gate = new(1, 1);
++    // Стан належить екземпляру (а не типу): один Singleton серіалізує запис у файл.
++    private readonly SemaphoreSlim _gate = new(1, 1);
+ 
+     public async Task WriteAsync(string eventName, object payload, CancellationToken ct)
+     {
+-        var line = $"{DateTime.UtcNow:O} {eventName} {JsonSerializer.Serialize(payload, payload.GetType())}{Environment.NewLine}";
+-        await Gate.WaitAsync(ct);
++        var line = $"{clock.UtcNow:O} {eventName} {JsonSerializer.Serialize(payload, payload.GetType())}{Environment.NewLine}";
++        await _gate.WaitAsync(ct);
+         try { await File.AppendAllTextAsync(path, line, ct); }
+-        finally { Gate.Release(); }
++        finally { _gate.Release(); }
+     }
+ }
+Only in pz4/src/CarRental.Infrastructure: DependencyInjection.cs
+Only in pz4/src/CarRental.Infrastructure: Events
+Only in pz4/src/CarRental.Infrastructure: Time
+Only in pz3/src/CarRental.WebApi: CompositionRoot.cs
+diff -ru pz3/src/CarRental.WebApi/Program.cs pz4/src/CarRental.WebApi/Program.cs
+--- pz3/src/CarRental.WebApi/Program.cs	2026-11-02 22:14:17.190361923 +0200
++++ pz4/src/CarRental.WebApi/Program.cs	2026-11-02 22:25:10.200138264 +0200
+@@ -1,55 +1,35 @@
+ using System.Text.Json.Serialization;
+-using CarRental.Application.Common.Audit;
+-using CarRental.Application.Common.Events;
+-using CarRental.Application.Fleet;
+-using CarRental.Application.Rentals;
++using CarRental.Application;
++using CarRental.Application.Common;
+ using CarRental.Application.Rentals.Pricing;
+-using CarRental.Application.Rentals.UseCases;
+ using CarRental.Domain.Common;
+ using CarRental.Domain.Fleet;
+-using CarRental.Infrastructure.Audit;
+-using CarRental.Infrastructure.Integration;
+-using CarRental.Infrastructure.Notifications;
++using CarRental.Infrastructure;
+ using CarRental.Infrastructure.Persistence;
+ using CarRental.WebApi;
+ using Microsoft.EntityFrameworkCore;
+ 
+-// Точка складання: єдине місце, де відомі конкретні типи всіх шарів.
++// Точка складання: єдине місце, де відомі конкретні типи всіх шарів і життєві цикли компонентів.
+ var builder = WebApplication.CreateBuilder(args);
+ 
++// Контейнер перевіряє життєві цикли: Singleton не може залежати від Scoped,
++// а всі залежності з'ясовуються вже під час запуску (а не під час першого запиту).
++builder.Host.UseDefaultServiceProvider(o =>
++{
++    o.ValidateScopes = true;
++    o.ValidateOnBuild = true;
++});
++
+ builder.Services.AddControllers().AddJsonOptions(o =>
+     o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+ 
+ var databasePath = builder.Configuration["CarRental:DatabasePath"]
+     ?? Path.Combine(builder.Environment.ContentRootPath, "carrental.db");
+-builder.Services.AddDbContext<CarRentalDbContext>(o => o.UseSqlite($"Data Source={databasePath}"));
++var auditLogPath = builder.Configuration["CarRental:AuditLogPath"] ?? "audit.log";
+ 
+-// Контракти Application -> реалізації Infrastructure.
+-builder.Services.AddScoped<ICarStore, SqliteCarStore>();
+-builder.Services.AddScoped<IRenterStore, SqliteRenterStore>();
+-builder.Services.AddScoped<IRentalStore, SqliteRentalStore>();
+-builder.Services.AddScoped<IRentalReader>(sp => sp.GetRequiredService<IRentalStore>());
+-builder.Services.AddScoped<IFleetGateway, FleetGateway>();
+-builder.Services.AddScoped<INotificationService, ConsoleNotificationService>();
+-builder.Services.AddSingleton<IAnalyticsService, InMemoryAnalyticsService>();
+-// Шина збирається вручну (CompositionRoot), бо обробники залежать від Scoped-сховищ.
+-builder.Services.AddScoped<IEventBus>(CompositionRoot.BuildEventBus);
+-builder.Services.AddScoped<CarService>();
+-builder.Services.AddScoped<RenterService>();
+-builder.Services.AddSingleton<IAuditLog>(_ =>
+-    new FileAuditLog(builder.Configuration["CarRental:AuditLogPath"] ?? "audit.log"));
+-
+-// Правила тарифу: нове правило додається реєстрацією, PricingService не змінюється.
+-builder.Services.AddScoped<IPricingRule, ClassMultiplierRule>();
+-builder.Services.AddScoped<IPricingRule, LongRentalDiscountRule>();
+-if (builder.Configuration.GetValue<bool>("Pricing:WeekendSurcharge"))
+-    builder.Services.AddScoped<IPricingRule, WeekendSurchargeRule>();
+-builder.Services.AddScoped<IPricingService, PricingService>();
+-
+-builder.Services.AddScoped<OpenRentalHandler>();
+-builder.Services.AddScoped<CompleteRentalHandler>();
+-builder.Services.AddScoped<CancelRentalHandler>();
+-builder.Services.AddScoped<RentalQueryService>();
++builder.Services
++    .AddApplication(weekendSurcharge: builder.Configuration.GetValue<bool>("Pricing:WeekendSurcharge"))
++    .AddInfrastructure(o => o.UseSqlite($"Data Source={databasePath}"), auditLogPath);
+ 
+ var app = builder.Build();
+ 
+@@ -71,4 +51,26 @@
+ app.UseMiddleware<ErrorHandlingMiddleware>();
+ app.MapGet("/", () => "CarRental API працює. Маршрути: /api/cars, /api/renters, /api/rentals");
+ app.MapControllers();
++
++// Діагностика життєвих циклів: лише в Development, у робочому режимі ендпоінта немає.
++if (app.Environment.IsDevelopment())
++{
++    app.MapGet("/api/_diag/lifetimes", (HttpContext http, IClock singleton, IPricingService transientA, IPricingService transientB) =>
++    {
++        // Один і той самий Scoped-компонент двічі за один запит: екземпляр має збігатися.
++        var scopedA = http.RequestServices.GetRequiredService<CarRentalDbContext>();
++        var scopedB = http.RequestServices.GetRequiredService<CarRentalDbContext>();
++        return new
++        {
++            singletonClock = Id(singleton),
++            scopedDbContext_first = Id(scopedA),
++            scopedDbContext_second = Id(scopedB),
++            transientPricing_first = Id(transientA),
++            transientPricing_second = Id(transientB)
++        };
++    });
++}
++
+ app.Run();
++
++static string Id(object instance) => $"{instance.GetType().Name}#{System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(instance)}";
+diff -ru pz3/tests/CarRental.Tests/Design/SolidStructureTests.cs pz4/tests/CarRental.Tests/Design/SolidStructureTests.cs
+--- pz3/tests/CarRental.Tests/Design/SolidStructureTests.cs	2026-11-02 22:14:56.642409203 +0200
++++ pz4/tests/CarRental.Tests/Design/SolidStructureTests.cs	2026-11-02 22:26:32.069077465 +0200
+@@ -4,6 +4,7 @@
+ using CarRental.Application.Rentals.Pricing;
+ using CarRental.Application.Rentals.UseCases;
+ using CarRental.Infrastructure.Audit;
++using CarRental.Tests.Integration;
+ 
+ namespace CarRental.Tests.Design;
+ 
+@@ -17,8 +18,8 @@
+     public void Query_service_depends_only_on_the_read_side_of_the_store()
+     {
+         var dependencies = Dependencies(typeof(RentalQueryService));
+-        Assert.Equal([typeof(IRentalReader)], dependencies);
+-        Assert.False(typeof(IRentalReader).GetMethods().Any(m => m.Name is "Add" or "Save"));
++        Assert.Equal([typeof(IRentalReader), typeof(IRentalMapper)], dependencies);
++        Assert.DoesNotContain(typeof(IRentalReader).GetMethods(), m => m.Name is "Add" or "Save");
+     }
+ 
+     [Fact]
+@@ -72,7 +73,7 @@
+         var path = Path.Combine(Path.GetTempPath(), $"carrental-audit-{Guid.NewGuid():N}.log");
+         try
+         {
+-            var log = new FileAuditLog(path);
++            var log = new FileAuditLog(path, new FakeClock(new DateTime(2030, 1, 1, 0, 0, 0, DateTimeKind.Utc)));
+             await log.WriteAsync("RentalCancelled", new RentalCancelled(Guid.NewGuid(), Guid.NewGuid()), default);
+             await log.WriteAsync("RentalCancelled", new RentalCancelled(Guid.NewGuid(), Guid.NewGuid()), default);
+             var lines = await File.ReadAllLinesAsync(path);
+Only in pz4/tests/CarRental.Tests: Di
+diff -ru pz3/tests/CarRental.Tests/Events/EventBusTests.cs pz4/tests/CarRental.Tests/Events/EventBusTests.cs
+--- pz3/tests/CarRental.Tests/Events/EventBusTests.cs	2026-11-02 22:13:37.934657677 +0200
++++ pz4/tests/CarRental.Tests/Events/EventBusTests.cs	2026-11-02 22:25:52.191453789 +0200
+@@ -1,5 +1,7 @@
+ using CarRental.Application.Common.Events;
+ using CarRental.Application.Rentals.Events;
++using CarRental.Infrastructure.Events;
++using Microsoft.Extensions.DependencyInjection;
+ 
+ namespace CarRental.Tests.Events;
+ 
+@@ -17,13 +19,25 @@
+         }
+     }
+ 
++    /// <summary>Шина зі справжнім контейнером: підписники додаються реєстрацією, а не викликом Subscribe.</summary>
++    private static IEventBus BusWith(Action<IServiceCollection> register)
++    {
++        var services = new ServiceCollection();
++        services.AddSingleton<IEventBus, InProcessEventBus>();
++        register(services);
++        return services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true, ValidateOnBuild = true })
++            .GetRequiredService<IEventBus>();
++    }
++
+     [Fact]
+-    public async Task Publish_calls_every_subscriber_in_subscription_order()
++    public async Task Publish_calls_every_subscriber_in_registration_order()
+     {
+         var log = new List<string>();
+-        var bus = new InProcessEventBus();
+-        bus.Subscribe(new Recorder<Ping>("first", log));
+-        bus.Subscribe(new Recorder<Ping>("second", log));
++        var bus = BusWith(s =>
++        {
++            s.AddScoped<IEventHandler<Ping>>(_ => new Recorder<Ping>("first", log));
++            s.AddScoped<IEventHandler<Ping>>(_ => new Recorder<Ping>("second", log));
++        });
+         await bus.PublishAsync(new Ping(1), default);
+         Assert.Equal(["first:Ping { N = 1 }", "second:Ping { N = 1 }"], log);
+     }
+@@ -32,15 +46,33 @@
+     public async Task Handlers_of_other_events_are_not_called()
+     {
+         var log = new List<string>();
+-        var bus = new InProcessEventBus();
+-        bus.Subscribe(new Recorder<Pong>("pong", log));
++        var bus = BusWith(s => s.AddScoped<IEventHandler<Pong>>(_ => new Recorder<Pong>("pong", log)));
+         await bus.PublishAsync(new Ping(1), default);
+         Assert.Empty(log);
+     }
+ 
+     [Fact]
+     public async Task Event_without_subscribers_is_not_an_error() =>
+-        await new InProcessEventBus().PublishAsync(new Ping(1), default);
++        await BusWith(_ => { }).PublishAsync(new Ping(1), default);
++
++    [Fact]
++    public async Task Singleton_bus_runs_scoped_handlers_in_a_fresh_scope_per_publish()
++    {
++        var instances = new List<Guid>();
++        var bus = BusWith(s => s.AddScoped<IEventHandler<Ping>>(_ => new ScopeProbe(Guid.NewGuid(), instances)));
++        await bus.PublishAsync(new Ping(1), default);
++        await bus.PublishAsync(new Ping(2), default);
++        Assert.Equal(2, instances.Distinct().Count()); // обробник створюється заново на кожну публікацію
++    }
++
++    private sealed class ScopeProbe(Guid id, List<Guid> seen) : IEventHandler<Ping>
++    {
++        public Task HandleAsync(Ping evt, CancellationToken ct)
++        {
++            seen.Add(id);
++            return Task.CompletedTask;
++        }
++    }
+ 
+     [Fact]
+     public void Events_are_immutable_facts_with_minimal_data()
+diff -ru pz3/tests/CarRental.Tests/Events/RentalEventsTests.cs pz4/tests/CarRental.Tests/Events/RentalEventsTests.cs
+--- pz3/tests/CarRental.Tests/Events/RentalEventsTests.cs	2026-11-02 22:14:27.847953146 +0200
++++ pz4/tests/CarRental.Tests/Events/RentalEventsTests.cs	2026-11-02 22:25:52.191394168 +0200
+@@ -4,6 +4,7 @@
+ using CarRental.Application.Rentals.Events;
+ using CarRental.Domain.Common;
+ using CarRental.Tests.Integration;
++using Microsoft.Extensions.DependencyInjection;
+ 
+ namespace CarRental.Tests.Events;
+ 
+@@ -110,13 +111,13 @@
+     [Fact]
+     public async Task New_subscriber_is_added_without_changing_RentalService()
+     {
+-        using var f = new SqliteFixture();
++        var extra = new List<string>();
++        // Другий споживач тієї самої події додається лише реєстрацією в контейнері.
++        using var f = new SqliteFixture(services =>
++            services.AddScoped<IEventHandler<RentalOpened>>(_ => new ExtraHandler(extra)));
+         var (car, renter) = await SeedAsync(f);
+         await using var db = f.NewContext();
+-        var bus = f.BuildBus(db);
+-        var extra = new List<string>();
+-        bus.Subscribe(new ExtraHandler(extra)); // другий споживач тієї самої події
+-        await f.Rentals(db, bus).Open(new OpenRentalCommand(car, renter, Today.AddDays(1), Today.AddDays(4)));
++        await f.Rentals(db).Open(new OpenRentalCommand(car, renter, Today.AddDays(1), Today.AddDays(4)));
+ 
+         Assert.Single(extra);
+         Assert.Equal(["ivan@example.com"], f.Notifications.Sent); // попередні споживачі працюють як і раніше
+@@ -151,10 +152,9 @@
+     {
+         using var f = new SqliteFixture();
+         var (car, _) = await SeedAsync(f);
++        await f.Bus.PublishAsync(new RentalCompleted(Guid.NewGuid(), car, 10_900), default);
++        await f.Bus.PublishAsync(new RentalCompleted(Guid.NewGuid(), car, 10_500), default);
+         await using var db = f.NewContext();
+-        var bus = f.BuildBus(db);
+-        await bus.PublishAsync(new RentalCompleted(Guid.NewGuid(), car, 10_900), default);
+-        await bus.PublishAsync(new RentalCompleted(Guid.NewGuid(), car, 10_500), default);
+         Assert.Equal(10_900, (await f.Cars(db).Get(car)).Mileage);
+     }
+ 
+diff -ru pz3/tests/CarRental.Tests/Integration/PersistenceTests.cs pz4/tests/CarRental.Tests/Integration/PersistenceTests.cs
+--- pz3/tests/CarRental.Tests/Integration/PersistenceTests.cs	2026-11-02 22:13:37.935812612 +0200
++++ pz4/tests/CarRental.Tests/Integration/PersistenceTests.cs	2026-11-02 22:25:52.191140993 +0200
+@@ -170,12 +170,12 @@
+         var car = await CarAsync(f);
+         await using var first = f.NewContext();
+         await using var second = f.NewContext();
+-        var firstCopy = (await new CarRental.Infrastructure.Persistence.SqliteCarStore(first).Find(car.Id, default))!;
+-        var secondCopy = (await new CarRental.Infrastructure.Persistence.SqliteCarStore(second).Find(car.Id, default))!;
++        var firstCopy = (await first.Get<ICarStore>().Find(car.Id, default))!;
++        var secondCopy = (await second.Get<ICarStore>().Find(car.Id, default))!;
+         firstCopy.RecordMileage(10_100);
+         secondCopy.RecordMileage(10_200);
+-        await new CarRental.Infrastructure.Persistence.SqliteCarStore(first).Save(default);
++        await first.Get<ICarStore>().Save(default);
+         await Assert.ThrowsAsync<ConcurrentChangeException>(() =>
+-            new CarRental.Infrastructure.Persistence.SqliteCarStore(second).Save(default));
++            second.Get<ICarStore>().Save(default));
+     }
+ }
+diff -ru pz3/tests/CarRental.Tests/Integration/SqliteFixture.cs pz4/tests/CarRental.Tests/Integration/SqliteFixture.cs
+--- pz3/tests/CarRental.Tests/Integration/SqliteFixture.cs	2026-11-02 22:14:27.847847679 +0200
++++ pz4/tests/CarRental.Tests/Integration/SqliteFixture.cs	2026-11-02 22:25:37.363842834 +0200
+@@ -1,81 +1,108 @@
+-using CarRental.Application.Common.Audit;
++using CarRental.Application;
++using CarRental.Application.Common;
+ using CarRental.Application.Common.Events;
+ using CarRental.Application.Fleet;
+-using CarRental.Application.Fleet.Handlers;
+ using CarRental.Application.Rentals;
+-using CarRental.Application.Rentals.Events;
+-using CarRental.Application.Rentals.Handlers;
+ using CarRental.Application.Rentals.Pricing;
+ using CarRental.Application.Rentals.UseCases;
+-using CarRental.Infrastructure.Audit;
+-using CarRental.Infrastructure.Integration;
++using CarRental.Infrastructure;
+ using CarRental.Infrastructure.Persistence;
+ using Microsoft.Data.Sqlite;
+ using Microsoft.EntityFrameworkCore;
++using Microsoft.Extensions.DependencyInjection;
+ 
+ namespace CarRental.Tests.Integration;
+ 
++/// <summary>Годинник для тестів: час задається явно й змінюється за потреби.</summary>
++public sealed class FakeClock(DateTime utcNow) : IClock
++{
++    public DateTime UtcNow { get; set; } = utcNow;
++    public DateOnly Today => DateOnly.FromDateTime(UtcNow);
++}
++
+ /// <summary>
+-/// SQLite у пам'яті: з'єднання тримається відкритим, тож кілька DbContext бачать одну БД —
+-/// це імітує окремі запити до того самого сховища.
++/// Складання, як у застосунку: ті самі AddApplication та AddInfrastructure, але з SQLite у пам'яті,
++/// підробленим годинником, сповіщеннями й аналітикою. З'єднання тримається відкритим, тож кілька
++/// запитів (областей контейнера) бачать одну БД, як окремі HTTP-запити до одного сховища.
+ /// </summary>
+ public sealed class SqliteFixture : IDisposable
+ {
+     private readonly SqliteConnection _connection = new("Data Source=:memory:");
+-    private readonly DbContextOptions<CarRentalDbContext> _options;
+-
+-    public SqliteFixture()
+-    {
+-        _connection.Open();
+-        _options = new DbContextOptionsBuilder<CarRentalDbContext>().UseSqlite(_connection).Options;
+-        using var db = NewContext();
+-        db.Database.EnsureCreated();
+-    }
+-
+-    public CarRentalDbContext NewContext() => new(_options);
+-
+-    public CarService Cars(CarRentalDbContext db) => new(new SqliteCarStore(db));
+-    public RenterService Renters(CarRentalDbContext db) => new(new SqliteRenterStore(db));
+ 
++    public FakeClock Clock { get; } = new(DateTime.UtcNow);
+     public RecordingNotifications Notifications { get; } = new();
+     public RecordingAnalytics Analytics { get; } = new();
+     public string AuditPath { get; } = Path.Combine(Path.GetTempPath(), $"carrental-audit-{Guid.NewGuid():N}.log");
++    public ServiceProvider Provider { get; }
+ 
+-    /// <summary>Шина з тим самим набором підписників, що й у застосунку (див. CompositionRoot у WebApi).</summary>
+-    public InProcessEventBus BuildBus(CarRentalDbContext db)
++    public SqliteFixture(Action<IServiceCollection>? configure = null)
+     {
+-        var bus = new InProcessEventBus();
+-        var audit = new AuditLogHandler(new FileAuditLog(AuditPath));
+-        bus.Subscribe<RentalOpened>(new NotifyRenterOnRentalOpened(new SqliteRenterStore(db), Notifications));
+-        bus.Subscribe<RentalOpened>(new TrackRentalOnRentalOpened(Analytics));
+-        bus.Subscribe<RentalOpened>(audit);
+-        bus.Subscribe<RentalCompleted>(new UpdateCarMileageOnRentalCompleted(new SqliteCarStore(db)));
+-        bus.Subscribe<RentalCompleted>(audit);
+-        bus.Subscribe<RentalCancelled>(audit);
+-        return bus;
++        _connection.Open();
++        var services = new ServiceCollection();
++        services.AddLogging();
++        services.AddApplication().AddInfrastructure(o => o.UseSqlite(_connection), AuditPath);
++        // Підміна портів на тестові реалізації: остання реєстрація перемагає.
++        services.AddSingleton<IClock>(Clock);
++        services.AddSingleton<INotificationService>(Notifications);
++        services.AddSingleton<IAnalyticsService>(Analytics);
++        configure?.Invoke(services);
++        Provider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true, ValidateOnBuild = true });
++        using var request = NewContext();
++        request.Db.Database.EnsureCreated();
+     }
+ 
+-    /// <summary>Сценарії оренди, зібрані як у застосунку (ті самі правила тарифу).</summary>
+-    public RentalApi Rentals(CarRentalDbContext db, IEventBus? bus = null, IEnumerable<IPricingRule>? rules = null)
++    /// <summary>Нова область контейнера: імітує один HTTP-запит.</summary>
++    public Request NewContext() => new(Provider.CreateScope());
++
++    public CarService Cars(Request request) => request.Get<CarService>();
++    public RenterService Renters(Request request) => request.Get<RenterService>();
++
++    /// <summary>Шина подій застосунку (Singleton), яка створює власну область на публікацію.</summary>
++    public IEventBus Bus => Provider.GetRequiredService<IEventBus>();
++
++    /// <summary>
++    /// Сценарії оренди із контейнера. Для підміни шини чи правил тарифу сценарії збираються вручну
++    /// з решти залежностей тієї самої області (так тести показують, що змінюється лише одна залежність).
++    /// </summary>
++    public RentalApi Rentals(Request request, IEventBus? bus = null, IEnumerable<IPricingRule>? rules = null)
+     {
+-        var store = new SqliteRentalStore(db);
+-        bus ??= BuildBus(db);
+-        var pricing = new PricingService(rules ?? [new ClassMultiplierRule(), new LongRentalDiscountRule()]);
++        if (bus is null && rules is null)
++            return new RentalApi(request.Get<OpenRentalHandler>(), request.Get<CompleteRentalHandler>(),
++                request.Get<CancelRentalHandler>(), request.Get<RentalQueryService>());
++
++        bus ??= Bus;
++        var store = request.Get<IRentalStore>();
++        var mapper = request.Get<IRentalMapper>();
++        var pricing = rules is null ? request.Get<IPricingService>() : new PricingService(rules);
+         return new RentalApi(
+-            new OpenRentalHandler(store, new SqliteRenterStore(db), new FleetGateway(new SqliteCarStore(db)), pricing, bus),
+-            new CompleteRentalHandler(store, bus),
+-            new CancelRentalHandler(store, bus),
+-            new RentalQueryService(store));
++            new OpenRentalHandler(store, request.Get<IRenterStore>(), request.Get<IFleetGateway>(), pricing, Clock, mapper, bus),
++            new CompleteRentalHandler(store, mapper, bus),
++            new CancelRentalHandler(store, Clock, mapper, bus),
++            new RentalQueryService(store, mapper));
+     }
+ 
+     public void Dispose()
+     {
++        Provider.Dispose();
+         _connection.Dispose();
+         if (File.Exists(AuditPath))
+             File.Delete(AuditPath);
+     }
+ }
+ 
++/// <summary>Одна область контейнера (запит): дає компоненти й DbContext цього запиту.</summary>
++public sealed class Request(IServiceScope scope) : IDisposable, IAsyncDisposable
++{
++    public T Get<T>() where T : notnull => scope.ServiceProvider.GetRequiredService<T>();
++    public CarRentalDbContext Db => Get<CarRentalDbContext>();
++    public void Dispose() => scope.Dispose();
++    public ValueTask DisposeAsync()
++    {
++        scope.Dispose();
++        return ValueTask.CompletedTask;
++    }
++}
++
+ /// <summary>Зручний фасад над чотирма сценаріями: тести викликають їх як єдиний API.</summary>
+ public sealed class RentalApi(OpenRentalHandler open, CompleteRentalHandler complete,
+     CancelRentalHandler cancel, RentalQueryService queries)

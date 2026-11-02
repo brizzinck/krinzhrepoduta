@@ -1,0 +1,17 @@
+$ ASPNETCORE_ENVIRONMENT=Development ./serve.sh start   # у робочому режимі ендпоінта немає
+$ curl -s http://127.0.0.1:5080/api/_diag/lifetimes   # запит 1
+{
+    "singletonClock": "SystemClock#58766839",
+    "scopedDbContext_first": "CarRentalDbContext#59884855",
+    "scopedDbContext_second": "CarRentalDbContext#59884855",
+    "transientPricing_first": "PricingService#20726372",
+    "transientPricing_second": "PricingService#48397273"
+}
+$ curl -s http://127.0.0.1:5080/api/_diag/lifetimes   # запит 2
+{
+    "singletonClock": "SystemClock#58766839",
+    "scopedDbContext_first": "CarRentalDbContext#1972295",
+    "scopedDbContext_second": "CarRentalDbContext#1972295",
+    "transientPricing_first": "PricingService#49307382",
+    "transientPricing_second": "PricingService#24724999"
+}

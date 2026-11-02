@@ -1,0 +1,27 @@
+$ grep -n "class RentalService\|CalculateTotal\|switch\|private static\|DateTime" src/CarRental.Application/Rentals/RentalService.cs
+13:public sealed class RentalService(
+26:        var rental = Rental.Open(car, renter, period, CalculateTotal(car, period), Today(), busy);
+62:    private static Money CalculateTotal(RentableCar car, RentalPeriod period)
+64:        var multiplier = car.Class switch
+77:    private static DateOnly Today() => DateOnly.FromDateTime(DateTime.UtcNow);
+79:    private static RentalDto ToDto(Rental r) => new(r.Id, r.CarId, r.RenterId, r.Period.Start, r.Period.End,
+
+$ grep -n "File\.\|DateTime\|class AuditLogHandler" src/CarRental.Application/Common/Audit/AuditLogHandler.cs
+8:public sealed class AuditLogHandler(string path) :
+19:        var line = $"{DateTime.UtcNow:O} {typeof(TEvent).Name} {JsonSerializer.Serialize(evt)}{Environment.NewLine}";
+21:        try { await File.AppendAllTextAsync(path, line, ct); }
+
+$ grep -n "interface\|Task" src/CarRental.Application/Rentals/IRentalStore.cs
+5:public interface IRentalStore
+7:    Task<Rental?> Find(Guid id, CancellationToken ct);
+8:    Task<IReadOnlyList<Rental>> List(Guid? renterId, CancellationToken ct);
+10:    Task<IReadOnlyList<RentalPeriod>> ActivePeriodsOfCar(Guid carId, CancellationToken ct);
+11:    Task Add(Rental rental, CancellationToken ct);
+12:    Task Save(CancellationToken ct);
+
+$ grep -n "new " src/CarRental.WebApi/CompositionRoot.cs
+16:        var bus = new InProcessEventBus();
+18:        var audit = new AuditLogHandler(auditPath);
+20:        bus.Subscribe<RentalOpened>(new NotifyRenterOnRentalOpened(
+22:        bus.Subscribe<RentalOpened>(new TrackRentalOnRentalOpened(sp.GetRequiredService<IAnalyticsService>()));
+25:        bus.Subscribe<RentalCompleted>(new UpdateCarMileageOnRentalCompleted(sp.GetRequiredService<ICarStore>()));

@@ -1,0 +1,63 @@
+  Passed CarRental.Tests.Domain.RenterTests.Renter_turning_21_on_start_date_can_rent
+  Passed CarRental.Tests.Domain.RentalTests.Open_rejects_car_that_is_not_rentable
+  Passed CarRental.Tests.Events.EventBusTests.Handlers_of_other_events_are_not_called
+  Passed CarRental.Tests.Domain.RenterTests.Age_is_counted_in_full_years_on_given_date [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.RentalPeriod_accepts_boundaries
+  Passed CarRental.Tests.Domain.RenterTests.License_must_be_valid_until_end_of_rental [< 1 ms]
+  Passed CarRental.Tests.Domain.RenterTests.Register_rejects_bad_name_or_email(name: "", email: "a@b.c") [< 1 ms]
+  Passed CarRental.Tests.Domain.RenterTests.Register_rejects_bad_name_or_email(name: "Іван", email: "no-at-sign") [< 1 ms]
+  Passed CarRental.Tests.Domain.RenterTests.Renter_younger_than_21_on_start_date_cannot_rent [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.LicensePlate_is_normalized(input: "  KA0001AB ", expected: "KA0001AB") [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.LicensePlate_is_normalized(input: "aa1234bb", expected: "AA1234BB") [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.LicensePlate_rejects_bad_format(input: "") [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.LicensePlate_rejects_bad_format(input: "12AAAA34") [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.LicensePlate_rejects_bad_format(input: null) [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.LicensePlate_rejects_bad_format(input: "AA123BB") [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.LicensePlate_rejects_bad_format(input: "АА1234ВВ") [< 1 ms]
+  Passed CarRental.Tests.Domain.CarTests.Registered_car_is_available_with_given_state
+  Passed CarRental.Tests.Domain.CarTests.Register_rejects_nonpositive_rate_and_negative_mileage(rate: 800, mileage: -1) [< 1 ms]
+  Passed CarRental.Tests.Domain.RentalTests.Open_creates_active_rental_with_fixed_rate_and_start_mileage
+  Passed CarRental.Tests.Domain.ValueObjectTests.RentalPeriod_counts_days_and_detects_overlap [< 1 ms]
+  Passed CarRental.Tests.Domain.CarTests.Register_rejects_nonpositive_rate_and_negative_mileage(rate: 0, mileage: 100) [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.LicensePlate_equality_is_by_value [< 1 ms]
+  Passed CarRental.Tests.Domain.RentalTests.Complete_rejects_mileage_below_start_and_second_completion [< 1 ms]
+  Passed CarRental.Tests.Domain.RentalTests.Open_rejects_overlap_with_active_rental_as_conflict [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.RentalPeriod_rejects_length_outside_1_to_30_days(days: -2) [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.RentalPeriod_rejects_length_outside_1_to_30_days(days: 0) [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.RentalPeriod_rejects_length_outside_1_to_30_days(days: 31) [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.Money_rejects_negative_amount [< 1 ms]
+  Passed CarRental.Tests.Domain.ValueObjectTests.Money_rounds_to_kopecks_and_compares_by_value [< 1 ms]
+  Passed CarRental.Tests.Domain.CarTests.Describe_is_overridden_and_dispatched_virtually
+  Passed CarRental.Tests.Domain.RentalTests.Complete_records_end_mileage_and_changes_status
+  Passed CarRental.Tests.Domain.CarTests.Car_in_maintenance_is_not_rentable [< 1 ms]
+  Passed CarRental.Tests.Domain.RentalTests.Open_rejects_start_in_the_past [< 1 ms]
+  Passed CarRental.Tests.Domain.CarTests.Mileage_cannot_decrease [< 1 ms]
+  Passed CarRental.Tests.Domain.RentalTests.Cancelled_rental_cannot_be_completed [< 1 ms]
+  Passed CarRental.Tests.Domain.RentalTests.Open_allows_rental_right_after_another_ends [< 1 ms]
+  Passed CarRental.Tests.Domain.RentalTests.Cancel_is_allowed_only_before_start_and_only_for_active [< 1 ms]
+  Passed CarRental.Tests.Events.EventBusTests.Publish_calls_every_subscriber_in_subscription_order
+  Passed CarRental.Tests.Domain.RentalTests.Open_accepts_start_today [< 1 ms]
+  Passed CarRental.Tests.Events.EventBusTests.Event_without_subscribers_is_not_an_error [< 1 ms]
+  Passed CarRental.Tests.Events.EventBusTests.Events_are_immutable_facts_with_minimal_data [< 1 ms]
+  Passed CarRental.Tests.Events.RentalEventsTests.Fleet_updates_car_mileage_in_reaction_to_RentalCompleted
+  Passed CarRental.Tests.Integration.PersistenceTests.Cancelled_rental_frees_the_dates
+  Passed CarRental.Tests.Events.RentalEventsTests.New_subscriber_is_added_without_changing_RentalService
+  Passed CarRental.Tests.Integration.PersistenceTests.Car_in_maintenance_cannot_be_rented
+  Passed CarRental.Tests.Integration.PersistenceTests.Duplicate_plate_is_rejected_as_conflict
+  Passed CarRental.Tests.Events.RentalEventsTests.Complete_and_Cancel_publish_their_events
+  Passed CarRental.Tests.Integration.PersistenceTests.Car_survives_a_new_DbContext_with_normalized_plate
+  Passed CarRental.Tests.Events.RentalEventsTests.Stale_mileage_from_event_does_not_decrease_car_mileage
+  Passed CarRental.Tests.Events.RentalEventsTests.Open_publishes_RentalOpened_with_minimal_data_after_saving
+  Passed CarRental.Tests.Events.RentalEventsTests.RentalService_does_not_depend_on_consumers_of_its_events [< 1 ms]
+  Passed CarRental.Tests.Integration.PersistenceTests.Completing_rental_updates_car_mileage
+  Passed CarRental.Tests.Integration.PersistenceTests.Total_depends_on_class_and_duration(carClass: Economy, rate: 800, days: 3, expected: 2400)
+  Passed CarRental.Tests.Events.RentalEventsTests.Audit_log_gets_a_line_for_each_of_the_three_events
+  Passed CarRental.Tests.Integration.PersistenceTests.Total_depends_on_class_and_duration(carClass: Comfort, rate: 1400, days: 2, expected: 3500)
+  Passed CarRental.Tests.Events.RentalEventsTests.Rejected_operation_publishes_nothing
+  Passed CarRental.Tests.Integration.PersistenceTests.Total_depends_on_class_and_duration(carClass: Premium, rate: 2500, days: 7, expected: 25200)
+  Passed CarRental.Tests.Events.RentalEventsTests.One_event_triggers_notification_analytics_and_audit
+  Passed CarRental.Tests.Integration.PersistenceTests.Overlapping_rental_of_same_car_is_rejected_and_adjacent_is_allowed
+  Passed CarRental.Tests.Integration.PersistenceTests.Young_renter_and_missing_car_are_rejected_with_proper_errors
+  Passed CarRental.Tests.Integration.PersistenceTests.Rental_is_persisted_with_period_and_total
+  Passed CarRental.Tests.Integration.PersistenceTests.Renter_with_license_value_object_is_persisted
+  Passed CarRental.Tests.Integration.PersistenceTests.Concurrent_updates_of_one_car_are_rejected_instead_of_lost

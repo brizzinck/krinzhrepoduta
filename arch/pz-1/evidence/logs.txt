@@ -1,0 +1,9 @@
+$ ./serve.sh logs | grep -E "^(info: CarRental|warn: CarRental|fail)" -A1 | grep -v "^--"
+info: CarRental.Infrastructure.Notifications.ConsoleNotificationService[0]
+      Лист до ivan@example.com: оренду 732f8b27-c111-4814-97f8-877b060b1a2c підтверджено.
+info: CarRental.Infrastructure.Notifications.InMemoryAnalyticsService[0]
+      Аналітика: оренду 732f8b27-c111-4814-97f8-877b060b1a2c враховано, усього оренд 1, виручка 2400.00 UAH.
+info: CarRental.Infrastructure.Notifications.ConsoleNotificationService[0]
+      Лист до ivan@example.com: оренду 936b7cfd-9dd8-4ff6-b5af-ed4dc8a1ae0b підтверджено.
+info: CarRental.Infrastructure.Notifications.InMemoryAnalyticsService[0]
+      Аналітика: оренду 936b7cfd-9dd8-4ff6-b5af-ed4dc8a1ae0b враховано, усього оренд 2, виручка 4000.00 UAH.

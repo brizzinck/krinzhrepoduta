@@ -1,0 +1,4 @@
+$ diff <(normalize pz3/logs.txt) <(normalize pz4/logs.txt); diff <(normalize pz3/audit.txt) <(normalize pz4/audit.txt)
+(журнал контейнера: різниці немає)
+(журнал аудиту: різниці немає)
+(дані після перезапуску: різниці немає)

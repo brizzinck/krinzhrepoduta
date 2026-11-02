@@ -1,0 +1,9 @@
+$ grep -n "INotificationService\|IAnalyticsService\|RecordMileage\|notifications\.\|analytics\." src/CarRental.Application/Rentals/RentalService.cs   # ПЗ 1 (до)
+15:    INotificationService notifications,
+16:    IAnalyticsService analytics)
+30:        await notifications.SendRentalOpenedAsync(rental.Id, renter.Email, ct);
+31:        await analytics.TrackRentalOpenedAsync(rental.Id, rental.Total.Amount, ct);
+42:        await fleet.RecordMileage(rental.CarId, endMileage, ct);
+
+$ grep -n "INotificationService\|IAnalyticsService\|RecordMileage\|notifications\.\|analytics\." src/CarRental.Application/Rentals/RentalService.cs   # ПЗ 2 (після)
+(збігів немає, код виходу grep: 1)

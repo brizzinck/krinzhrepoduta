@@ -1,0 +1,25 @@
+$ grep -rnE "new (InProcessEventBus|AuditLogHandler|FileAuditLog|Notify\w*|Track\w*|Update\w*|Sqlite\w*|Pricing\w*|\w+Rule|\w+Service|\w+Store|\w+Gateway|\w+Handler)\(" src
+src/CarRental.Application/Rentals/Pricing/PricingService.cs:13:        var context = new PricingContext(car, period);
+src/CarRental.Infrastructure/DependencyInjection.cs:26:        services.AddSingleton<IAuditLog>(sp => new FileAuditLog(auditLogPath, sp.GetRequiredService<IClock>()));
+(код виходу: 0)
+
+$ grep -rn "DateTime.UtcNow\|DateTime.Now" src
+src/CarRental.Application/Common/IClock.cs:9:    DateTime UtcNow { get; }
+src/CarRental.Infrastructure/Time/SystemClock.cs:8:    public DateTime UtcNow => DateTime.UtcNow;
+src/CarRental.Infrastructure/Time/SystemClock.cs:10:    public DateOnly Today => DateOnly.FromDateTime(UtcNow);
+(код виходу: 0)
+
+$ grep -rnE "static (readonly )?(SemaphoreSlim|int|decimal|object|Dictionary|List)|private static [A-Za-z<>]+ [A-Z_a-z]+ =" src
+(код виходу: 1)
+
+$ grep -rn "IServiceProvider\|GetRequiredService\|GetService" src
+src/CarRental.WebApi/Program.cs:39:    var db = scope.ServiceProvider.GetRequiredService<CarRentalDbContext>();
+src/CarRental.WebApi/Program.cs:61:        var scopedA = http.RequestServices.GetRequiredService<CarRentalDbContext>();
+src/CarRental.WebApi/Program.cs:62:        var scopedB = http.RequestServices.GetRequiredService<CarRentalDbContext>();
+src/CarRental.Infrastructure/Events/InProcessEventBus.cs:18:        foreach (var handler in scope.ServiceProvider.GetServices<IEventHandler<TEvent>>())
+src/CarRental.Infrastructure/DependencyInjection.cs:26:        services.AddSingleton<IAuditLog>(sp => new FileAuditLog(auditLogPath, sp.GetRequiredService<IClock>()));
+src/CarRental.Infrastructure/DependencyInjection.cs:34:        services.AddScoped<IRentalReader>(sp => sp.GetRequiredService<IRentalStore>());
+(код виходу: 0)
+
+$ grep -rn "RentalMapper\." src
+(код виходу: 1)

@@ -1,0 +1,23 @@
+$ grep -rn "File\.\|System.IO\|DateTime" src/CarRental.Application src/CarRental.Domain
+src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs:15:        rental.Cancel(DateOnly.FromDateTime(DateTime.UtcNow));
+src/CarRental.Application/Rentals/RenterService.cs:12:        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs:24:        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+(лишилося лише читання системного часу, перенесення за IClock у ПЗ 4)
+
+$ grep -rn "switch" src/CarRental.Application
+(збігів немає, код виходу grep: 1)
+
+$ ls src/CarRental.Application/Rentals/UseCases src/CarRental.Application/Rentals/Pricing
+src/CarRental.Application/Rentals/Pricing:
+ClassMultiplierRule.cs
+IPricingRule.cs
+IPricingService.cs
+LongRentalDiscountRule.cs
+PricingService.cs
+WeekendSurchargeRule.cs
+
+src/CarRental.Application/Rentals/UseCases:
+CancelRentalHandler.cs
+CompleteRentalHandler.cs
+OpenRentalHandler.cs
+RentalQueryService.cs

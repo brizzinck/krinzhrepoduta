@@ -1,0 +1,204 @@
+1. Автомобілі автопарку, початкові дані:
+> GET /api/cars
+HTTP 200
+[
+    {
+        "id": "0ccb2d05-c800-466e-8687-0ea44b1e9b23",
+        "plate": "AA0001BB",
+        "model": "Skoda Fabia",
+        "class": "Economy",
+        "dailyRate": 800.0,
+        "mileage": 42000,
+        "status": "Available"
+    },
+    {
+        "id": "00dafa7e-e3f4-483e-9e71-ebc713dfacb9",
+        "plate": "BB2222CC",
+        "model": "Toyota Camry",
+        "class": "Comfort",
+        "dailyRate": 1400.0,
+        "mileage": 31500,
+        "status": "Available"
+    },
+    {
+        "id": "498f0d81-a570-4d9a-a233-e30ff295ca51",
+        "plate": "CC3333DD",
+        "model": "BMW 520d",
+        "class": "Premium",
+        "dailyRate": 2500.0,
+        "mileage": 18200,
+        "status": "Available"
+    }
+]
+
+2. Реєстрація орендарів, дорослого і 20-річного:
+> POST /api/renters {"fullName":"Іваненко Іван Іванович","email":"ivan@example.com","birthDate":"1990-05-20","licenseNumber":"ABC123456","licenseValidUntil":"2030-12-12"}
+HTTP 201
+{
+    "id": "fc875e11-3033-4ae0-b214-28031ff16db2",
+    "fullName": "Іваненко Іван Іванович",
+    "email": "ivan@example.com",
+    "birthDate": "1990-05-20",
+    "licenseNumber": "ABC123456",
+    "licenseValidUntil": "2030-12-12"
+}
+
+> POST /api/renters {"fullName":"Петренко Петро Петрович","email":"petro@example.com","birthDate":"2006-11-03","licenseNumber":"XYZ987654","licenseValidUntil":"2030-12-12"}
+HTTP 201
+{
+    "id": "7317d466-0944-45b0-811b-348ece4327a2",
+    "fullName": "Петренко Петро Петрович",
+    "email": "petro@example.com",
+    "birthDate": "2006-11-03",
+    "licenseNumber": "XYZ987654",
+    "licenseValidUntil": "2030-12-12"
+}
+
+3. Успішна оренда на 3 дні, очікуємо 201 і суму 2400 (3 x 800):
+> POST /api/rentals {"carId":"0ccb2d05-c800-466e-8687-0ea44b1e9b23","renterId":"fc875e11-3033-4ae0-b214-28031ff16db2","start":"2026-11-04","end":"2026-11-07"}
+HTTP 201
+{
+    "id": "142e7ed8-290b-4b41-bebb-db1f0117b2cf",
+    "carId": "0ccb2d05-c800-466e-8687-0ea44b1e9b23",
+    "renterId": "fc875e11-3033-4ae0-b214-28031ff16db2",
+    "start": "2026-11-04",
+    "end": "2026-11-07",
+    "days": 3,
+    "dailyRate": 800.0,
+    "total": 2400.0,
+    "status": "Active",
+    "startMileage": 42000,
+    "endMileage": null
+}
+
+4. Повторна оренда того самого авто на перетинні дати, очікуємо 409:
+> POST /api/rentals {"carId":"0ccb2d05-c800-466e-8687-0ea44b1e9b23","renterId":"fc875e11-3033-4ae0-b214-28031ff16db2","start":"2026-11-05","end":"2026-11-08"}
+HTTP 409
+{
+    "error": "На ці дати автомобіль уже орендований."
+}
+
+5. Орендар молодший за 21 рік, очікуємо 400:
+> POST /api/rentals {"carId":"0ccb2d05-c800-466e-8687-0ea44b1e9b23","renterId":"7317d466-0944-45b0-811b-348ece4327a2","start":"2026-11-23","end":"2026-11-25"}
+HTTP 400
+{
+    "error": "Мінімальний вік орендаря — 21 рік на дату початку оренди."
+}
+
+6. Оренда на 40 днів, очікуємо 400:
+> POST /api/rentals {"carId":"0ccb2d05-c800-466e-8687-0ea44b1e9b23","renterId":"fc875e11-3033-4ae0-b214-28031ff16db2","start":"2026-12-03","end":"2027-01-12"}
+HTTP 400
+{
+    "error": "Оренда не може тривати довше 30 днів."
+}
+
+7. Читання оренди та оренд орендаря:
+> GET /api/rentals/142e7ed8-290b-4b41-bebb-db1f0117b2cf
+HTTP 200
+{
+    "id": "142e7ed8-290b-4b41-bebb-db1f0117b2cf",
+    "carId": "0ccb2d05-c800-466e-8687-0ea44b1e9b23",
+    "renterId": "fc875e11-3033-4ae0-b214-28031ff16db2",
+    "start": "2026-11-04",
+    "end": "2026-11-07",
+    "days": 3,
+    "dailyRate": 800.0,
+    "total": 2400.0,
+    "status": "Active",
+    "startMileage": 42000,
+    "endMileage": null
+}
+
+> GET /api/rentals?renterId=fc875e11-3033-4ae0-b214-28031ff16db2
+HTTP 200
+[
+    {
+        "id": "142e7ed8-290b-4b41-bebb-db1f0117b2cf",
+        "carId": "0ccb2d05-c800-466e-8687-0ea44b1e9b23",
+        "renterId": "fc875e11-3033-4ae0-b214-28031ff16db2",
+        "start": "2026-11-04",
+        "end": "2026-11-07",
+        "days": 3,
+        "dailyRate": 800.0,
+        "total": 2400.0,
+        "status": "Active",
+        "startMileage": 42000,
+        "endMileage": null
+    }
+]
+
+8. Завершення оренди з пробігом 42450, очікуємо 200 і новий пробіг авто:
+> POST /api/rentals/142e7ed8-290b-4b41-bebb-db1f0117b2cf/complete {"endMileage":42450}
+HTTP 200
+{
+    "id": "142e7ed8-290b-4b41-bebb-db1f0117b2cf",
+    "carId": "0ccb2d05-c800-466e-8687-0ea44b1e9b23",
+    "renterId": "fc875e11-3033-4ae0-b214-28031ff16db2",
+    "start": "2026-11-04",
+    "end": "2026-11-07",
+    "days": 3,
+    "dailyRate": 800.0,
+    "total": 2400.0,
+    "status": "Completed",
+    "startMileage": 42000,
+    "endMileage": 42450
+}
+
+> GET /api/cars/0ccb2d05-c800-466e-8687-0ea44b1e9b23
+HTTP 200
+{
+    "id": "0ccb2d05-c800-466e-8687-0ea44b1e9b23",
+    "plate": "AA0001BB",
+    "model": "Skoda Fabia",
+    "class": "Economy",
+    "dailyRate": 800.0,
+    "mileage": 42450,
+    "status": "Available"
+}
+
+9. Скасування майбутньої оренди та повторне скасування, очікуємо 200, потім 400:
+> POST /api/rentals {"carId":"0ccb2d05-c800-466e-8687-0ea44b1e9b23","renterId":"fc875e11-3033-4ae0-b214-28031ff16db2","start":"2026-11-13","end":"2026-11-15"}
+HTTP 201
+{
+    "id": "04821553-3dc1-44d6-a3cb-595e2633a75c",
+    "carId": "0ccb2d05-c800-466e-8687-0ea44b1e9b23",
+    "renterId": "fc875e11-3033-4ae0-b214-28031ff16db2",
+    "start": "2026-11-13",
+    "end": "2026-11-15",
+    "days": 2,
+    "dailyRate": 800.0,
+    "total": 1600.0,
+    "status": "Active",
+    "startMileage": 42450,
+    "endMileage": null
+}
+
+> POST /api/rentals/04821553-3dc1-44d6-a3cb-595e2633a75c/cancel
+HTTP 200
+{
+    "id": "04821553-3dc1-44d6-a3cb-595e2633a75c",
+    "carId": "0ccb2d05-c800-466e-8687-0ea44b1e9b23",
+    "renterId": "fc875e11-3033-4ae0-b214-28031ff16db2",
+    "start": "2026-11-13",
+    "end": "2026-11-15",
+    "days": 2,
+    "dailyRate": 800.0,
+    "total": 1600.0,
+    "status": "Cancelled",
+    "startMileage": 42450,
+    "endMileage": null
+}
+
+> POST /api/rentals/04821553-3dc1-44d6-a3cb-595e2633a75c/cancel
+HTTP 400
+{
+    "error": "Скасувати можна лише активну оренду."
+}
+
+10. Неіснуючий ресурс, очікуємо 404:
+> GET /api/rentals/00000000-0000-0000-0000-000000000001
+HTTP 404
+{
+    "error": "Оренду не знайдено."
+}
+

@@ -1,0 +1,5 @@
+$ cat .data/audit.log
+2026-11-02T20:26:59.4733611Z RentalOpened {"RentalId":"07862358-18e8-430a-b30c-8cf38f27c52b","CarId":"12becd43-2554-4219-b9bf-3c3174a74564","RenterId":"60eb0a98-7fd8-4388-8c66-8c2287ee62b9","StartDate":"2026-11-03","EndDate":"2026-11-06","Total":2400.00}
+2026-11-02T20:26:59.8077104Z RentalCompleted {"RentalId":"07862358-18e8-430a-b30c-8cf38f27c52b","CarId":"12becd43-2554-4219-b9bf-3c3174a74564","EndMileage":42450}
+2026-11-02T20:26:59.9115057Z RentalOpened {"RentalId":"7d1178c9-6085-4299-b44d-d6fbf6f5b90f","CarId":"12becd43-2554-4219-b9bf-3c3174a74564","RenterId":"60eb0a98-7fd8-4388-8c66-8c2287ee62b9","StartDate":"2026-11-12","EndDate":"2026-11-14","Total":1600.00}
+2026-11-02T20:27:00.0001135Z RentalCancelled {"RentalId":"7d1178c9-6085-4299-b44d-d6fbf6f5b90f","CarId":"12becd43-2554-4219-b9bf-3c3174a74564"}

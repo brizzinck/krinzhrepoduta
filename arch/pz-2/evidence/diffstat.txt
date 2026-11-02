@@ -1,0 +1,21 @@
+$ git diff --no-index --stat=110 ПЗ1 ПЗ2
+ {ПЗ1 => ПЗ2}/README.md                                                |  19 +++-
+ .../src/CarRental.Application/Common/Audit/AuditLogHandler.cs         |  24 +++++
+ /dev/null => ПЗ2/src/CarRental.Application/Common/Events/IEventBus.cs |   7 ++
+ .../src/CarRental.Application/Common/Events/IEventHandler.cs          |   7 ++
+ .../src/CarRental.Application/Common/Events/InProcessEventBus.cs      |  26 +++++
+ .../Fleet/Handlers/UpdateCarMileageOnRentalCompleted.cs               |  21 ++++
+ .../src/CarRental.Application/Rentals/Events/RentalCancelled.cs       |   4 +
+ .../src/CarRental.Application/Rentals/Events/RentalCompleted.cs       |   4 +
+ .../src/CarRental.Application/Rentals/Events/RentalOpened.cs          |   4 +
+ .../Rentals/Handlers/NotifyRenterOnRentalOpened.cs                    |  16 +++
+ .../Rentals/Handlers/TrackRentalOnRentalOpened.cs                     |  11 ++
+ {ПЗ1 => ПЗ2}/src/CarRental.Application/Rentals/IFleetGateway.cs       |   2 -
+ {ПЗ1 => ПЗ2}/src/CarRental.Application/Rentals/RentalService.cs       |  17 ++--
+ {ПЗ1 => ПЗ2}/src/CarRental.Infrastructure/Integration/FleetGateway.cs |   9 --
+ /dev/null => ПЗ2/src/CarRental.WebApi/CompositionRoot.cs              |  31 ++++++
+ {ПЗ1 => ПЗ2}/src/CarRental.WebApi/Program.cs                          |   3 +
+ /dev/null => ПЗ2/tests/CarRental.Tests/Events/EventBusTests.cs        |  53 ++++++++++
+ /dev/null => ПЗ2/tests/CarRental.Tests/Events/RentalEventsTests.cs    | 175 ++++++++++++++++++++++++++++++++
+ {ПЗ1 => ПЗ2}/tests/CarRental.Tests/Integration/SqliteFixture.cs       |  39 +++++--
+ 19 files changed, 445 insertions(+), 27 deletions(-)

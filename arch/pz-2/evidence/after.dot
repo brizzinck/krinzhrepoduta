@@ -1,0 +1,17 @@
+digraph after {
+  rankdir=LR; fontname="DejaVu Sans"; nodesep=0.3; ranksep=0.8;
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=12, margin="0.2,0.1"];
+  edge [fontname="DejaVu Sans", fontsize=10];
+  svc [label="RentalService", fillcolor="#d9f2d9"];
+  bus [label="IEventBus\nInProcessEventBus", shape=component, fillcolor="#fff3b0"];
+  svc -> bus [label=" Publish(RentalOpened /\nRentalCompleted / RentalCancelled)"];
+  subgraph cluster_h { label="Обробники (підписники)"; style="rounded,dashed"; fontname="DejaVu Sans";
+    h1 [label="NotifyRenterOnRentalOpened\n(Rentals)", fillcolor="#dbeafe"];
+    h2 [label="TrackRentalOnRentalOpened\n(аналітика)", fillcolor="#dbeafe"];
+    h3 [label="UpdateCarMileageOnRentalCompleted\n(Fleet)", fillcolor="#dbeafe"];
+    h4 [label="AuditLogHandler\n(усі три події)", fillcolor="#dbeafe"];
+  }
+  bus -> h1 [label=" RentalOpened"]; bus -> h2 [label=" RentalOpened"]; bus -> h4 [label=" усі події"];
+  bus -> h3 [label=" RentalCompleted"];
+  labelloc=t; label="Після: ініціатор публікує факт і не знає про споживачів";
+}

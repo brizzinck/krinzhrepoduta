@@ -1,0 +1,2 @@
+$ diff <(normalize ПЗ1/demo.txt) <(normalize ПЗ2/demo.txt)   # GUID і дати замінено на <GUID>, <DATE>
+(різниці немає: вивід demo.sh ідентичний, код виходу diff: 0)

@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Сценарії залежать від Domain і власних контрактів, але не від технології збереження. -->
+  <ItemGroup>
+    <ProjectReference Include="../CarRental.Domain/CarRental.Domain.csproj" />
+  </ItemGroup>
+</Project>

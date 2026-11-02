@@ -1,0 +1,27 @@
+$ git diff --no-index --stat=110 ПЗ2 ПЗ3
+ {ПЗ2 => ПЗ3}/README.md                                                | 14 ++++-
+ /dev/null => ПЗ3/demo-pricing.sh                                      | 15 ++++++
+ .../src/CarRental.Application/Common/Audit/AuditLogHandler.cs         | 21 ++------
+ /dev/null => ПЗ3/src/CarRental.Application/Common/Audit/IAuditLog.cs  |  7 +++
+ {ПЗ2 => ПЗ3}/src/CarRental.Application/Rentals/IRentalStore.cs        |  8 ++-
+ .../src/CarRental.Application/Rentals/Pricing/ClassMultiplierRule.cs  | 21 ++++++++
+ .../src/CarRental.Application/Rentals/Pricing/IPricingRule.cs         | 20 +++++++
+ .../src/CarRental.Application/Rentals/Pricing/IPricingService.cs      | 10 ++++
+ .../CarRental.Application/Rentals/Pricing/LongRentalDiscountRule.cs   | 14 +++++
+ .../src/CarRental.Application/Rentals/Pricing/PricingService.cs       | 19 +++++++
+ .../src/CarRental.Application/Rentals/Pricing/WeekendSurchargeRule.cs | 20 +++++++
+ /dev/null => ПЗ3/src/CarRental.Application/Rentals/RentalMapper.cs    | 10 ++++
+ ПЗ2/src/CarRental.Application/Rentals/RentalService.cs => /dev/null   | 81 ----------------------------
+ .../src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs | 21 ++++++++
+ .../CarRental.Application/Rentals/UseCases/CompleteRentalHandler.cs   | 21 ++++++++
+ .../src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs   | 33 ++++++++++++
+ .../src/CarRental.Application/Rentals/UseCases/RentalQueryService.cs  | 13 +++++
+ /dev/null => ПЗ3/src/CarRental.Infrastructure/Audit/FileAuditLog.cs   | 18 +++++++
+ {ПЗ2 => ПЗ3}/src/CarRental.WebApi/CompositionRoot.cs                  |  3 +-
+ {ПЗ2 => ПЗ3}/src/CarRental.WebApi/Controllers/RentalsController.cs    | 18 ++++---
+ {ПЗ2 => ПЗ3}/src/CarRental.WebApi/Program.cs                          | 20 ++++++-
+ /dev/null => ПЗ3/tests/CarRental.Tests/Design/SolidStructureTests.cs  | 84 +++++++++++++++++++++++++++++
+ {ПЗ2 => ПЗ3}/tests/CarRental.Tests/Events/RentalEventsTests.cs        |  9 ++--
+ {ПЗ2 => ПЗ3}/tests/CarRental.Tests/Integration/SqliteFixture.cs       | 30 +++++++++--
+ /dev/null => ПЗ3/tests/CarRental.Tests/Pricing/PricingTests.cs        | 96 +++++++++++++++++++++++++++++++++
+ 25 files changed, 511 insertions(+), 115 deletions(-)

@@ -1,0 +1,11 @@
+digraph before {
+  rankdir=LR; fontname="DejaVu Sans"; nodesep=0.35; ranksep=0.9;
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=12, margin="0.2,0.1"];
+  edge [fontname="DejaVu Sans", fontsize=10];
+  svc [label="RentalService\n(Open / Complete)", fillcolor="#f8d7da"];
+  n [label="INotificationService\n(повідомлення орендарю)", fillcolor="#fff3b0"];
+  a [label="IAnalyticsService\n(аналітика)", fillcolor="#fff3b0"];
+  f [label="IFleetGateway.RecordMileage\n(пробіг у Fleet)", fillcolor="#fff3b0"];
+  svc -> n [label=" прямий виклик"]; svc -> a [label=" прямий виклик"]; svc -> f [label=" прямий виклик"];
+  labelloc=t; label="До: ініціатор знає про всіх споживачів (жорстка зв'язаність)";
+}

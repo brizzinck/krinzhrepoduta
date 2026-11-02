@@ -1,0 +1,24 @@
+$ dotnet list src/CarRental.Domain/CarRental.Domain.csproj reference
+There are no Project to Project references in project src/CarRental.Domain/CarRental.Domain.csproj.
+
+$ dotnet list src/CarRental.Application/CarRental.Application.csproj reference
+Project reference(s)
+--------------------
+../CarRental.Domain/CarRental.Domain.csproj
+
+$ dotnet list src/CarRental.Infrastructure/CarRental.Infrastructure.csproj reference
+Project reference(s)
+--------------------
+../CarRental.Application/CarRental.Application.csproj
+
+$ dotnet list src/CarRental.WebApi/CarRental.WebApi.csproj reference
+Project reference(s)
+--------------------
+../CarRental.Application/CarRental.Application.csproj
+../CarRental.Infrastructure/CarRental.Infrastructure.csproj
+
+$ grep -rn "Microsoft.EntityFrameworkCore\|Microsoft.AspNetCore" src/CarRental.Domain src/CarRental.Application --include=*.cs --include=*.csproj
+(код виходу grep: 1)
+
+$ grep PackageReference src/CarRental.Domain/*.csproj src/CarRental.Application/*.csproj
+src/CarRental.Application/CarRental.Application.csproj:    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.11" />

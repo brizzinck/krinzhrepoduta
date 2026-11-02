@@ -1,0 +1,212 @@
+diff --color -ru '--exclude=bin' '--exclude=obj' '--exclude=.data' pz-1/CarRental/README.md pz-2/CarRental/README.md
+--- pz-1/CarRental/README.md	2026-11-02 22:04:59.867865073 +0200
++++ pz-2/CarRental/README.md	2026-11-02 22:10:24.864020450 +0200
+@@ -1,6 +1,6 @@
+ # CarRental: прокат автомобілів (Clean Architecture та DDD)
+ 
+-ASP.NET Core API для прокату автомобілів: автопарк, орендарі, оренди. Проєкт будується поетапно на практичних заняттях з «Архітектури ПЗ»; цей знімок відповідає **практичному заняттю №1**.
++ASP.NET Core API для прокату автомобілів: автопарк, орендарі, оренди. Проєкт будується поетапно на практичних заняттях з «Архітектури ПЗ»; цей знімок відповідає **практичному заняттю №2** (події).
+ 
+ ## Мова домену (Ubiquitous Language)
+ 
+@@ -61,6 +61,23 @@
+ 
+ Контролери тонкі: приймають HTTP, викликають сервіс, повертають результат. Бізнес-правил немає ні в контролерах, ні в сховищах.
+ 
++## Події (Event-Driven Design)
++
++Сервіс оренди після збереження публікує факт через `IEventBus` і не знає, хто на нього реагує.
++
++| Подія (минулий час, мінімум даних) | Обробник | Реакція |
++|---|---|---|
++| `RentalOpened(RentalId, CarId, RenterId, StartDate, EndDate, Total)` | `NotifyRenterOnRentalOpened` | «лист» орендарю (Rentals) |
++| | `TrackRentalOnRentalOpened` | лічильники аналітики |
++| | `AuditLogHandler` | рядок у журналі аудиту |
++| `RentalCompleted(RentalId, CarId, EndMileage)` | `UpdateCarMileageOnRentalCompleted` | **Fleet** оновлює пробіг авто |
++| | `AuditLogHandler` | рядок у журналі аудиту |
++| `RentalCancelled(RentalId, CarId)` | `AuditLogHandler` | рядок у журналі аудиту |
++
++`InProcessEventBus` викликає обробники послідовно в тому самому процесі й тій самій області запиту. Підписки збираються вручну в `CompositionRoot` (WebApi). Події не виконують бізнес-логіку: перевірка доступності авто лишається синхронною частиною `Rental.Open`. Журнал аудиту пишеться у файл `CarRental:AuditLogPath` (у docker: `.data/audit.log`).
++
++Обмеження: подія та її обробники працюють без транзакції й черги (немає гарантій доставки); виняток в обробнику повертається клієнтові як помилка вже після збереження оренди.
++
+ ## Запуск (усе в docker, без встановлення .NET)
+ 
+ ```sh
+Only in pz-2/CarRental/src/CarRental.Application/Common: Audit
+Only in pz-2/CarRental/src/CarRental.Application/Common: Events
+Only in pz-2/CarRental/src/CarRental.Application/Fleet: Handlers
+Only in pz-2/CarRental/src/CarRental.Application/Rentals: Events
+Only in pz-2/CarRental/src/CarRental.Application/Rentals: Handlers
+diff --color -ru '--exclude=bin' '--exclude=obj' '--exclude=.data' pz-1/CarRental/src/CarRental.Application/Rentals/IFleetGateway.cs pz-2/CarRental/src/CarRental.Application/Rentals/IFleetGateway.cs
+--- pz-1/CarRental/src/CarRental.Application/Rentals/IFleetGateway.cs	2026-11-02 22:01:33.148949133 +0200
++++ pz-2/CarRental/src/CarRental.Application/Rentals/IFleetGateway.cs	2026-11-02 22:09:33.580763075 +0200
+@@ -9,6 +9,4 @@
+ public interface IFleetGateway
+ {
+     Task<RentableCar?> GetRentableCar(Guid carId, CancellationToken ct);
+-    /// <summary>Передає пробіг у Fleet після завершення оренди.</summary>
+-    Task RecordMileage(Guid carId, int mileage, CancellationToken ct);
+ }
+diff --color -ru '--exclude=bin' '--exclude=obj' '--exclude=.data' pz-1/CarRental/src/CarRental.Application/Rentals/RentalService.cs pz-2/CarRental/src/CarRental.Application/Rentals/RentalService.cs
+--- pz-1/CarRental/src/CarRental.Application/Rentals/RentalService.cs	2026-11-02 22:01:33.152732473 +0200
++++ pz-2/CarRental/src/CarRental.Application/Rentals/RentalService.cs	2026-11-02 22:09:33.580927794 +0200
+@@ -1,4 +1,6 @@
+ using CarRental.Application.Common;
++using CarRental.Application.Common.Events;
++using CarRental.Application.Rentals.Events;
+ using CarRental.Domain.Common;
+ using CarRental.Domain.Rentals;
+ 
+@@ -6,14 +8,13 @@
+ 
+ /// <summary>
+ /// Сценарії оренди: відкрити, завершити, скасувати, переглянути.
+-/// Перша версія: усі сценарії в одному класі, ціна рахується тут, побічні ефекти викликаються напряму.
++/// Усі сценарії в одному класі, ціна рахується тут; реакції на зміни стану виконують підписники подій.
+ /// </summary>
+ public sealed class RentalService(
+     IRentalStore rentals,
+     IRenterStore renters,
+     IFleetGateway fleet,
+-    INotificationService notifications,
+-    IAnalyticsService analytics)
++    IEventBus events)
+ {
+     public async Task<RentalDto> Open(OpenRentalCommand cmd, CancellationToken ct = default)
+     {
+@@ -26,9 +27,9 @@
+         await rentals.Add(rental, ct);
+         await rentals.Save(ct);
+ 
+-        // Прямі виклики інших компонентів після збереження.
+-        await notifications.SendRentalOpenedAsync(rental.Id, renter.Email, ct);
+-        await analytics.TrackRentalOpenedAsync(rental.Id, rental.Total.Amount, ct);
++        // Публікуємо факт; хто і як на нього реагує, сервіс не знає.
++        await events.PublishAsync(new RentalOpened(rental.Id, rental.CarId, rental.RenterId,
++            rental.Period.Start, rental.Period.End, rental.Total.Amount), ct);
+         return ToDto(rental);
+     }
+ 
+@@ -38,8 +39,7 @@
+         rental.Complete(endMileage);
+         await rentals.Save(ct);
+ 
+-        // Оновлення пробігу в контексті Fleet.
+-        await fleet.RecordMileage(rental.CarId, endMileage, ct);
++        await events.PublishAsync(new RentalCompleted(rental.Id, rental.CarId, endMileage), ct);
+         return ToDto(rental);
+     }
+ 
+@@ -48,6 +48,7 @@
+         var rental = await rentals.Find(id, ct) ?? throw new NotFoundException("Оренду");
+         rental.Cancel(Today());
+         await rentals.Save(ct);
++        await events.PublishAsync(new RentalCancelled(rental.Id, rental.CarId), ct);
+         return ToDto(rental);
+     }
+ 
+diff --color -ru '--exclude=bin' '--exclude=obj' '--exclude=.data' pz-1/CarRental/src/CarRental.Infrastructure/Integration/FleetGateway.cs pz-2/CarRental/src/CarRental.Infrastructure/Integration/FleetGateway.cs
+--- pz-1/CarRental/src/CarRental.Infrastructure/Integration/FleetGateway.cs	2026-11-02 22:02:18.396060378 +0200
++++ pz-2/CarRental/src/CarRental.Infrastructure/Integration/FleetGateway.cs	2026-11-02 22:09:33.580860718 +0200
+@@ -12,13 +12,4 @@
+         var car = await cars.Find(carId, ct);
+         return car is null ? null : new RentableCar(car.Id, car.DailyRate, car.Class, car.Mileage, car.IsRentable);
+     }
+-
+-    public async Task RecordMileage(Guid carId, int mileage, CancellationToken ct)
+-    {
+-        var car = await cars.Find(carId, ct);
+-        if (car is null)
+-            return;
+-        car.RecordMileage(mileage);
+-        await cars.Save(ct);
+-    }
+ }
+Only in pz-2/CarRental/src/CarRental.WebApi: CompositionRoot.cs
+diff --color -ru '--exclude=bin' '--exclude=obj' '--exclude=.data' pz-1/CarRental/src/CarRental.WebApi/Program.cs pz-2/CarRental/src/CarRental.WebApi/Program.cs
+--- pz-1/CarRental/src/CarRental.WebApi/Program.cs	2026-11-02 22:02:18.400925408 +0200
++++ pz-2/CarRental/src/CarRental.WebApi/Program.cs	2026-11-02 22:09:33.594530633 +0200
+@@ -1,4 +1,5 @@
+ using System.Text.Json.Serialization;
++using CarRental.Application.Common.Events;
+ using CarRental.Application.Fleet;
+ using CarRental.Application.Rentals;
+ using CarRental.Domain.Common;
+@@ -26,6 +27,8 @@
+ builder.Services.AddScoped<IFleetGateway, FleetGateway>();
+ builder.Services.AddScoped<INotificationService, ConsoleNotificationService>();
+ builder.Services.AddSingleton<IAnalyticsService, InMemoryAnalyticsService>();
++// Шина збирається вручну (CompositionRoot), бо обробники залежать від Scoped-сховищ.
++builder.Services.AddScoped<IEventBus>(CompositionRoot.BuildEventBus);
+ builder.Services.AddScoped<CarService>();
+ builder.Services.AddScoped<RenterService>();
+ builder.Services.AddScoped<RentalService>();
+Only in pz-2/CarRental/tests/CarRental.Tests: Events
+diff --color -ru '--exclude=bin' '--exclude=obj' '--exclude=.data' pz-1/CarRental/tests/CarRental.Tests/Integration/SqliteFixture.cs pz-2/CarRental/tests/CarRental.Tests/Integration/SqliteFixture.cs
+--- pz-1/CarRental/tests/CarRental.Tests/Integration/SqliteFixture.cs	2026-11-02 22:03:30.545058053 +0200
++++ pz-2/CarRental/tests/CarRental.Tests/Integration/SqliteFixture.cs	2026-11-02 22:10:02.080033874 +0200
+@@ -1,5 +1,10 @@
++using CarRental.Application.Common.Audit;
++using CarRental.Application.Common.Events;
+ using CarRental.Application.Fleet;
++using CarRental.Application.Fleet.Handlers;
+ using CarRental.Application.Rentals;
++using CarRental.Application.Rentals.Events;
++using CarRental.Application.Rentals.Handlers;
+ using CarRental.Infrastructure.Integration;
+ using CarRental.Infrastructure.Persistence;
+ using Microsoft.Data.Sqlite;
+@@ -29,17 +34,37 @@
+     public CarService Cars(CarRentalDbContext db) => new(new SqliteCarStore(db));
+     public RenterService Renters(CarRentalDbContext db) => new(new SqliteRenterStore(db));
+ 
+-    public RentalService Rentals(CarRentalDbContext db)
++    public RecordingNotifications Notifications { get; } = new();
++    public RecordingAnalytics Analytics { get; } = new();
++    public string AuditPath { get; } = Path.Combine(Path.GetTempPath(), $"carrental-audit-{Guid.NewGuid():N}.log");
++
++    /// <summary>Шина з тим самим набором підписників, що й у застосунку (див. CompositionRoot у WebApi).</summary>
++    public InProcessEventBus BuildBus(CarRentalDbContext db)
+     {
+-        var cars = new SqliteCarStore(db);
+-        return new RentalService(new SqliteRentalStore(db), new SqliteRenterStore(db), new FleetGateway(cars),
+-            new RecordingNotifications(), new RecordingAnalytics());
++        var bus = new InProcessEventBus();
++        var audit = new AuditLogHandler(AuditPath);
++        bus.Subscribe<RentalOpened>(new NotifyRenterOnRentalOpened(new SqliteRenterStore(db), Notifications));
++        bus.Subscribe<RentalOpened>(new TrackRentalOnRentalOpened(Analytics));
++        bus.Subscribe<RentalOpened>(audit);
++        bus.Subscribe<RentalCompleted>(new UpdateCarMileageOnRentalCompleted(new SqliteCarStore(db)));
++        bus.Subscribe<RentalCompleted>(audit);
++        bus.Subscribe<RentalCancelled>(audit);
++        return bus;
+     }
+ 
+-    public void Dispose() => _connection.Dispose();
++    public RentalService Rentals(CarRentalDbContext db, IEventBus? bus = null) =>
++        new(new SqliteRentalStore(db), new SqliteRenterStore(db), new FleetGateway(new SqliteCarStore(db)),
++            bus ?? BuildBus(db));
++
++    public void Dispose()
++    {
++        _connection.Dispose();
++        if (File.Exists(AuditPath))
++            File.Delete(AuditPath);
++    }
+ }
+ 
+-internal sealed class RecordingNotifications : INotificationService
++public sealed class RecordingNotifications : INotificationService
+ {
+     public List<string> Sent { get; } = [];
+     public Task SendRentalOpenedAsync(Guid rentalId, string renterEmail, CancellationToken ct)
+@@ -49,7 +74,7 @@
+     }
+ }
+ 
+-internal sealed class RecordingAnalytics : IAnalyticsService
++public sealed class RecordingAnalytics : IAnalyticsService
+ {
+     public List<decimal> Totals { get; } = [];
+     public Task TrackRentalOpenedAsync(Guid rentalId, decimal total, CancellationToken ct)

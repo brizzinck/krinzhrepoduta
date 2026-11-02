@@ -1,0 +1,15 @@
+digraph di {
+  rankdir=TB; fontname="DejaVu Sans"; nodesep=0.06; ranksep=0.4;
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=14, margin="0.12,0.06"];
+  edge [fontname="DejaVu Sans", fontsize=12];
+  prog [label="Program.cs: AddApplication() + AddInfrastructure()\nValidateScopes, ValidateOnBuild", fillcolor="#fff3b0"];
+  subgraph cluster_s { label="Singleton"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=13;
+    s [label="IClock, IAnalyticsService, IAuditLog", fillcolor="#fecaca"];
+    bus [label="IEventBus", fillcolor="#fecaca"]; }
+  subgraph cluster_c { label="Scoped (на запит / на публікацію)"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=13;
+    c [label="CarService, RenterService, RentalQueryService,\nOpen/Complete/CancelRentalHandler,\nIEventHandler<T> (на публікацію), I*Store,\nIRentalReader, IFleetGateway, CarRentalDbContext", fillcolor="#d9f2d9"]; }
+  subgraph cluster_t { label="Transient"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=13;
+    t [label="IRentalMapper, IPricingService,\nIPricingRule, INotificationService", fillcolor="#dbeafe"]; }
+  prog -> s; prog -> bus; prog -> c; prog -> t;
+  bus -> c [label=" IServiceScopeFactory:\n нова область на публікацію", style=dashed];
+}

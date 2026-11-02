@@ -1,0 +1,6 @@
+$ grep -rn "Microsoft.EntityFrameworkCore\|Microsoft.AspNetCore" src/CarRental.Domain src/CarRental.Application --include=*.cs --include=*.csproj
+(збігів немає, код виходу grep: 1)
+
+$ grep -c PackageReference src/CarRental.Domain/*.csproj src/CarRental.Application/*.csproj
+src/CarRental.Domain/CarRental.Domain.csproj:0
+src/CarRental.Application/CarRental.Application.csproj:0

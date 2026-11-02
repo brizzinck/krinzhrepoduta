@@ -1,0 +1,10 @@
+$ EXTRA_ENV=-e Pricing__WeekendSurcharge=true ./serve.sh start && ./demo-pricing.sh
+> POST /api/rentals  Skoda Fabia (800 грн/доба), 2026-11-06 .. 2026-11-09 (п'ятниця, субота, неділя)
+{
+    "start": "2026-11-06",
+    "end": "2026-11-09",
+    "days": 3,
+    "dailyRate": 800.0,
+    "total": 2640.0,
+    "status": "Active"
+}

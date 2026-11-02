@@ -1,0 +1,42 @@
+$ ./serve.sh restart   # контейнер створено заново, БД лежить у ./.data
+$ curl -s http://127.0.0.1:5080/api/rentals | python3 -m json.tool --no-ensure-ascii
+[
+    {
+        "id": "732f8b27-c111-4814-97f8-877b060b1a2c",
+        "carId": "7271a91f-3580-464a-bc24-5565b7185a4a",
+        "renterId": "beb11310-602d-44d3-9287-a1a9df5774ed",
+        "start": "2026-11-03",
+        "end": "2026-11-06",
+        "days": 3,
+        "dailyRate": 800.0,
+        "total": 2400.0,
+        "status": "Completed",
+        "startMileage": 42000,
+        "endMileage": 42450
+    },
+    {
+        "id": "936b7cfd-9dd8-4ff6-b5af-ed4dc8a1ae0b",
+        "carId": "7271a91f-3580-464a-bc24-5565b7185a4a",
+        "renterId": "beb11310-602d-44d3-9287-a1a9df5774ed",
+        "start": "2026-11-12",
+        "end": "2026-11-14",
+        "days": 2,
+        "dailyRate": 800.0,
+        "total": 1600.0,
+        "status": "Cancelled",
+        "startMileage": 42450,
+        "endMileage": null
+    }
+]
+$ curl -s http://127.0.0.1:5080/api/cars | python3 -m json.tool --no-ensure-ascii   # лише AA0001BB
+[
+    {
+        "id": "7271a91f-3580-464a-bc24-5565b7185a4a",
+        "plate": "AA0001BB",
+        "model": "Skoda Fabia",
+        "class": "Economy",
+        "dailyRate": 800.0,
+        "mileage": 42450,
+        "status": "Available"
+    }
+]

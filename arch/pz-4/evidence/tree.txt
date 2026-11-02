@@ -1,0 +1,127 @@
+$ tree -I "bin|obj|.data|TestResults" --dirsfirst CarRental
+CarRental
+├── src
+│   ├── CarRental.Application
+│   │   ├── Common
+│   │   │   ├── Audit
+│   │   │   │   ├── AuditLogHandler.cs
+│   │   │   │   └── IAuditLog.cs
+│   │   │   ├── Events
+│   │   │   │   ├── IEventBus.cs
+│   │   │   │   └── IEventHandler.cs
+│   │   │   ├── Exceptions.cs
+│   │   │   └── IClock.cs
+│   │   ├── Fleet
+│   │   │   ├── Handlers
+│   │   │   │   └── UpdateCarMileageOnRentalCompleted.cs
+│   │   │   ├── CarDto.cs
+│   │   │   ├── CarService.cs
+│   │   │   └── ICarStore.cs
+│   │   ├── Rentals
+│   │   │   ├── Events
+│   │   │   │   ├── RentalCancelled.cs
+│   │   │   │   ├── RentalCompleted.cs
+│   │   │   │   └── RentalOpened.cs
+│   │   │   ├── Handlers
+│   │   │   │   ├── NotifyRenterOnRentalOpened.cs
+│   │   │   │   └── TrackRentalOnRentalOpened.cs
+│   │   │   ├── Pricing
+│   │   │   │   ├── ClassMultiplierRule.cs
+│   │   │   │   ├── IPricingRule.cs
+│   │   │   │   ├── IPricingService.cs
+│   │   │   │   ├── LongRentalDiscountRule.cs
+│   │   │   │   ├── PricingService.cs
+│   │   │   │   └── WeekendSurchargeRule.cs
+│   │   │   ├── UseCases
+│   │   │   │   ├── CancelRentalHandler.cs
+│   │   │   │   ├── CompleteRentalHandler.cs
+│   │   │   │   ├── OpenRentalHandler.cs
+│   │   │   │   └── RentalQueryService.cs
+│   │   │   ├── IAnalyticsService.cs
+│   │   │   ├── IFleetGateway.cs
+│   │   │   ├── INotificationService.cs
+│   │   │   ├── IRentalMapper.cs
+│   │   │   ├── IRentalStore.cs
+│   │   │   ├── IRenterStore.cs
+│   │   │   ├── RentalDto.cs
+│   │   │   ├── RentalMapper.cs
+│   │   │   └── RenterService.cs
+│   │   ├── CarRental.Application.csproj
+│   │   └── DependencyInjection.cs
+│   ├── CarRental.Domain
+│   │   ├── Common
+│   │   │   ├── CarClass.cs
+│   │   │   ├── DomainRuleException.cs
+│   │   │   ├── Entity.cs
+│   │   │   └── Money.cs
+│   │   ├── Fleet
+│   │   │   ├── Car.cs
+│   │   │   ├── CarStatus.cs
+│   │   │   └── LicensePlate.cs
+│   │   ├── Rentals
+│   │   │   ├── DriverLicense.cs
+│   │   │   ├── RentableCar.cs
+│   │   │   ├── Rental.cs
+│   │   │   ├── RentalPeriod.cs
+│   │   │   ├── RentalStatus.cs
+│   │   │   └── Renter.cs
+│   │   └── CarRental.Domain.csproj
+│   ├── CarRental.Infrastructure
+│   │   ├── Audit
+│   │   │   └── FileAuditLog.cs
+│   │   ├── Events
+│   │   │   └── InProcessEventBus.cs
+│   │   ├── Integration
+│   │   │   └── FleetGateway.cs
+│   │   ├── Notifications
+│   │   │   ├── ConsoleNotificationService.cs
+│   │   │   └── InMemoryAnalyticsService.cs
+│   │   ├── Persistence
+│   │   │   ├── CarRentalDbContext.cs
+│   │   │   ├── SaveExtensions.cs
+│   │   │   ├── SqliteCarStore.cs
+│   │   │   ├── SqliteRentalStore.cs
+│   │   │   └── SqliteRenterStore.cs
+│   │   ├── Time
+│   │   │   └── SystemClock.cs
+│   │   ├── CarRental.Infrastructure.csproj
+│   │   └── DependencyInjection.cs
+│   └── CarRental.WebApi
+│       ├── Controllers
+│       │   ├── CarsController.cs
+│       │   ├── RentalsController.cs
+│       │   └── RentersController.cs
+│       ├── CarRental.WebApi.csproj
+│       ├── ErrorHandlingMiddleware.cs
+│       ├── Program.cs
+│       └── Requests.cs
+├── tests
+│   └── CarRental.Tests
+│       ├── Design
+│       │   └── SolidStructureTests.cs
+│       ├── Di
+│       │   ├── ClockTests.cs
+│       │   └── DependencyInjectionTests.cs
+│       ├── Domain
+│       │   ├── CarTests.cs
+│       │   ├── RentalTests.cs
+│       │   ├── RenterTests.cs
+│       │   └── ValueObjectTests.cs
+│       ├── Events
+│       │   ├── EventBusTests.cs
+│       │   └── RentalEventsTests.cs
+│       ├── Integration
+│       │   ├── PersistenceTests.cs
+│       │   └── SqliteFixture.cs
+│       ├── Pricing
+│       │   └── PricingTests.cs
+│       ├── CarRental.Tests.csproj
+│       └── TestData.cs
+├── CarRental.slnx
+├── demo-pricing.sh
+├── demo.sh
+├── Directory.Build.props
+├── README.md
+└── serve.sh
+
+34 directories, 90 files

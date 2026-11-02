@@ -1,0 +1,58 @@
+$ diff -u ПЗ1/RentalService.cs ПЗ2/RentalService.cs
+--- ПЗ1/src/CarRental.Application/Rentals/RentalService.cs
++++ ПЗ2/src/CarRental.Application/Rentals/RentalService.cs
+@@ -1,4 +1,6 @@
+ using CarRental.Application.Common;
++using CarRental.Application.Common.Events;
++using CarRental.Application.Rentals.Events;
+ using CarRental.Domain.Common;
+ using CarRental.Domain.Rentals;
+ 
+@@ -6,14 +8,13 @@
+ 
+ /// <summary>
+ /// Сценарії оренди: відкрити, завершити, скасувати, переглянути.
+-/// Перша версія: усі сценарії в одному класі, ціна рахується тут, побічні ефекти викликаються напряму.
++/// Усі сценарії в одному класі, ціна рахується тут; реакції на зміни стану виконують підписники подій.
+ /// </summary>
+ public sealed class RentalService(
+     IRentalStore rentals,
+     IRenterStore renters,
+     IFleetGateway fleet,
+-    INotificationService notifications,
+-    IAnalyticsService analytics)
++    IEventBus events)
+ {
+     public async Task<RentalDto> Open(OpenRentalCommand cmd, CancellationToken ct = default)
+     {
+@@ -26,9 +27,9 @@
+         await rentals.Add(rental, ct);
+         await rentals.Save(ct);
+ 
+-        // Прямі виклики інших компонентів після збереження.
+-        await notifications.SendRentalOpenedAsync(rental.Id, renter.Email, ct);
+-        await analytics.TrackRentalOpenedAsync(rental.Id, rental.Total.Amount, ct);
++        // Публікуємо факт; хто і як на нього реагує, сервіс не знає.
++        await events.PublishAsync(new RentalOpened(rental.Id, rental.CarId, rental.RenterId,
++            rental.Period.Start, rental.Period.End, rental.Total.Amount), ct);
+         return ToDto(rental);
+     }
+ 
+@@ -38,8 +39,7 @@
+         rental.Complete(endMileage);
+         await rentals.Save(ct);
+ 
+-        // Оновлення пробігу в контексті Fleet.
+-        await fleet.RecordMileage(rental.CarId, endMileage, ct);
++        await events.PublishAsync(new RentalCompleted(rental.Id, rental.CarId, endMileage), ct);
+         return ToDto(rental);
+     }
+ 
+@@ -48,6 +48,7 @@
+         var rental = await rentals.Find(id, ct) ?? throw new NotFoundException("Оренду");
+         rental.Cancel(Today());
+         await rentals.Save(ct);
++        await events.PublishAsync(new RentalCancelled(rental.Id, rental.CarId), ct);
+         return ToDto(rental);
+     }
+ 

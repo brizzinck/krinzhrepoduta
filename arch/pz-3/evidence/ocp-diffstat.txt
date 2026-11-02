@@ -1,0 +1,16 @@
+$ git diff --no-index --stat=110 ДО_OCP ПІСЛЯ_OCP   # додавання WeekendSurchargeRule
+ .../src/CarRental.Application/Rentals/Pricing/WeekendSurchargeRule.cs              | 20 ++++++++++++++++++++
+ {ДО_OCP => ПІСЛЯ_OCP}/src/CarRental.WebApi/Program.cs                              |  2 ++
+ {ДО_OCP => ПІСЛЯ_OCP}/tests/CarRental.Tests/Pricing/PricingTests.cs                | 13 +++++++++++++
+ 3 files changed, 35 insertions(+)
+
+$ git diff --no-index ДО_OCP/src/CarRental.WebApi/Program.cs ПІСЛЯ_OCP/src/CarRental.WebApi/Program.cs
+@@ -42,6 +42,8 @@ builder.Services.AddSingleton<IAuditLog>(_ =>
+ // Правила тарифу: нове правило додається реєстрацією, PricingService не змінюється.
+ builder.Services.AddScoped<IPricingRule, ClassMultiplierRule>();
+ builder.Services.AddScoped<IPricingRule, LongRentalDiscountRule>();
++if (builder.Configuration.GetValue<bool>("Pricing:WeekendSurcharge"))
++    builder.Services.AddScoped<IPricingRule, WeekendSurchargeRule>();
+ builder.Services.AddScoped<IPricingService, PricingService>();
+ 
+ builder.Services.AddScoped<OpenRentalHandler>();

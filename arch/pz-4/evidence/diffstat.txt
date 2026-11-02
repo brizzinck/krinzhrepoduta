@@ -1,0 +1,27 @@
+$ git diff --no-index --stat=110 pz3 pz4
+ {pz3 => pz4}/README.md                                                |  27 +++++--
+ {pz3 => pz4}/src/CarRental.Application/CarRental.Application.csproj   |   2 +
+ .../Common/Events/InProcessEventBus.cs => /dev/null                   |  26 -------
+ /dev/null => pz4/src/CarRental.Application/Common/IClock.cs           |  13 ++++
+ /dev/null => pz4/src/CarRental.Application/DependencyInjection.cs     |  44 +++++++++++
+ /dev/null => pz4/src/CarRental.Application/Rentals/IRentalMapper.cs   |   9 +++
+ {pz3 => pz4}/src/CarRental.Application/Rentals/RentalMapper.cs        |   6 +-
+ {pz3 => pz4}/src/CarRental.Application/Rentals/RenterService.cs       |   5 +-
+ .../src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs |   6 +-
+ .../CarRental.Application/Rentals/UseCases/CompleteRentalHandler.cs   |   4 +-
+ .../src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs   |   7 +-
+ .../src/CarRental.Application/Rentals/UseCases/RentalQueryService.cs  |   6 +-
+ {pz3 => pz4}/src/CarRental.Infrastructure/Audit/FileAuditLog.cs       |  14 ++--
+ /dev/null => pz4/src/CarRental.Infrastructure/DependencyInjection.cs  |  41 ++++++++++
+ .../src/CarRental.Infrastructure/Events/InProcessEventBus.cs          |  21 ++++++
+ /dev/null => pz4/src/CarRental.Infrastructure/Time/SystemClock.cs     |  11 +++
+ pz3/src/CarRental.WebApi/CompositionRoot.cs => /dev/null              |  30 --------
+ {pz3 => pz4}/src/CarRental.WebApi/Program.cs                          |  74 +++++++++---------
+ {pz3 => pz4}/tests/CarRental.Tests/Design/SolidStructureTests.cs      |   7 +-
+ /dev/null => pz4/tests/CarRental.Tests/Di/ClockTests.cs               |  73 ++++++++++++++++++
+ /dev/null => pz4/tests/CarRental.Tests/Di/DependencyInjectionTests.cs | 129 ++++++++++++++++++++++++++++++++
+ {pz3 => pz4}/tests/CarRental.Tests/Events/EventBusTests.cs            |  46 ++++++++++--
+ {pz3 => pz4}/tests/CarRental.Tests/Events/RentalEventsTests.cs        |  16 ++--
+ {pz3 => pz4}/tests/CarRental.Tests/Integration/PersistenceTests.cs    |   8 +-
+ {pz3 => pz4}/tests/CarRental.Tests/Integration/SqliteFixture.cs       | 111 ++++++++++++++++-----------
+ 25 files changed, 550 insertions(+), 186 deletions(-)

@@ -1,0 +1,13 @@
+digraph layers {
+  rankdir=TB; fontname="DejaVu Sans"; nodesep=0.5; ranksep=0.7;
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=12, margin="0.2,0.1"];
+  edge [fontname="DejaVu Sans", fontsize=10];
+  webapi [label="WebApi\nКонтролери, обробка помилок,\nProgram.cs (точка складання)", fillcolor="#dbeafe"];
+  infra  [label="Infrastructure\nEF Core + SQLite, *Store,\nFleetGateway, сповіщення", fillcolor="#fde7c8"];
+  app    [label="Application\nCarService, RenterService, RentalService\nконтракти: ICarStore, IRentalStore, IFleetGateway", fillcolor="#d9f2d9"];
+  domain [label="Domain\nCar, Rental, Renter, Money, LicensePlate,\nRentalPeriod, DriverLicense\n(без залежностей)", fillcolor="#f8d7da"];
+  webapi -> app [label=" посилання"];
+  webapi -> infra [label=" лише в Program.cs"];
+  infra -> app [label=" реалізує контракти"];
+  app -> domain [label=" використовує модель"];
+}
