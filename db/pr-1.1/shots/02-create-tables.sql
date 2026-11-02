@@ -1,0 +1,42 @@
+-- 1. Пункти прокату (філіали)
+CREATE TABLE branches (
+    branch_id  INT          NOT NULL AUTO_INCREMENT,
+    name       VARCHAR(60)  NOT NULL,
+    city       VARCHAR(40)  NOT NULL,
+    address    VARCHAR(100) NOT NULL,
+    phone      VARCHAR(20)  NOT NULL,
+    CONSTRAINT pk_branches PRIMARY KEY (branch_id),
+    CONSTRAINT uq_branches_name UNIQUE (name),
+    CONSTRAINT uq_branches_city_address UNIQUE (city, address)
+);
+
+-- 2. Класи автомобілів (економ, комфорт, позашляховик тощо)
+CREATE TABLE car_classes (
+    class_id         INT           NOT NULL AUTO_INCREMENT,
+    name             VARCHAR(30)   NOT NULL,
+    daily_base_rate  DECIMAL(8, 2) NOT NULL,
+    deposit_amount   DECIMAL(8, 2) NOT NULL,
+    CONSTRAINT pk_car_classes PRIMARY KEY (class_id),
+    CONSTRAINT uq_car_classes_name UNIQUE (name),
+    CONSTRAINT chk_car_classes_rate CHECK (daily_base_rate > 0),
+    CONSTRAINT chk_car_classes_deposit CHECK (deposit_amount >= 0)
+);
+
+-- 3. Марки й моделі автомобілів
+CREATE TABLE car_models (
+    model_id      INT         NOT NULL AUTO_INCREMENT,
+    class_id      INT         NOT NULL,
+    brand         VARCHAR(30) NOT NULL,
+    model_name    VARCHAR(40) NOT NULL,
+    seats         TINYINT     NOT NULL,
+    transmission  VARCHAR(10) NOT NULL,
+    fuel_type     VARCHAR(10) NOT NULL,
+    CONSTRAINT pk_car_models PRIMARY KEY (model_id),
+    CONSTRAINT fk_car_models_class FOREIGN KEY (class_id)
+        REFERENCES car_classes (class_id) ON DELETE RESTRICT,
+    CONSTRAINT uq_car_models_brand_model UNIQUE (brand, model_name),
+    CONSTRAINT chk_car_models_seats CHECK (seats BETWEEN 2 AND 9),
+    CONSTRAINT chk_car_models_transmission CHECK (transmission IN ('manual', 'automatic')),
+    CONSTRAINT chk_car_models_fuel CHECK (fuel_type IN ('petrol', 'diesel', 'hybrid', 'electric'))
+);
+

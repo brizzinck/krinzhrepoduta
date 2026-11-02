@@ -1,0 +1,115 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < c2-group-join.sql
+--------------
+SELECT Country, COUNT(*) AS customers FROM customers GROUP BY Country HAVING COUNT(*) >= 8 ORDER BY customers DESC, Country
+--------------
+
++---------+-----------+
+| Country | customers |
++---------+-----------+
+| USA     |        13 |
+| France  |        11 |
+| Germany |        11 |
+| Brazil  |         9 |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT CategoryID, MIN(UnitPrice) AS min_p, MAX(UnitPrice) AS max_p, ROUND(AVG(UnitPrice), 2) AS avg_p FROM products GROUP BY CategoryID ORDER BY CategoryID
+--------------
+
++------------+---------+----------+-------+
+| CategoryID | min_p   | max_p    | avg_p |
++------------+---------+----------+-------+
+|          1 |  4.5000 | 263.5000 | 37.98 |
+|          2 | 10.0000 |  43.9000 | 23.06 |
+|          3 |  9.2000 |  81.0000 | 25.16 |
+|          4 |  2.5000 |  55.0000 | 28.73 |
+|          5 |  7.0000 |  38.0000 | 20.25 |
+|          6 |  7.4500 | 123.7900 | 54.01 |
+|          7 | 10.0000 |  53.0000 | 32.37 |
+|          8 |  6.0000 |  62.5000 | 20.68 |
++------------+---------+----------+-------+
+8 rows in set (0.00 sec)
+
+--------------
+SELECT ProductName, UnitPrice, CASE WHEN UnitPrice < 10 THEN 'cheap' WHEN UnitPrice < 50 THEN 'normal' ELSE 'expensive' END AS price_class
+FROM products ORDER BY UnitPrice, ProductID LIMIT 6
+--------------
+
++----------------------+-----------+-------------+
+| ProductName          | UnitPrice | price_class |
++----------------------+-----------+-------------+
+| Geitost              |    2.5000 | cheap       |
+| Guarana Fantastica   |    4.5000 | cheap       |
+| Konbu                |    6.0000 | cheap       |
+| Filo Mix             |    7.0000 | cheap       |
+| Tourtiere            |    7.4500 | cheap       |
+| Rhonbrau Klosterbier |    7.7500 | cheap       |
++----------------------+-----------+-------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT p.ProductName, c.CategoryName FROM products p INNER JOIN categories c ON c.CategoryID = p.CategoryID ORDER BY p.ProductID LIMIT 4
+--------------
+
++------------------------------+--------------+
+| ProductName                  | CategoryName |
++------------------------------+--------------+
+| Chai                         | Beverages    |
+| Chang                        | Beverages    |
+| Aniseed Syrup                | Condiments   |
+| Chef Anton's Cajun Seasoning | Condiments   |
++------------------------------+--------------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT c.CustomerID, c.CompanyName, o.OrderID FROM customers c LEFT JOIN orders o ON o.CustomerID = c.CustomerID WHERE o.OrderID IS NULL
+--------------
+
++------------+--------------------------------------+---------+
+| CustomerID | CompanyName                          | OrderID |
++------------+--------------------------------------+---------+
+| FISSA      | FISSA Fabrica Inter. Salchichas S.A. |    NULL |
+| PARIS      | Paris specialites                    |    NULL |
++------------+--------------------------------------+---------+
+2 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS inner_cnt FROM customers c INNER JOIN orders o ON o.CustomerID = c.CustomerID
+--------------
+
++-----------+
+| inner_cnt |
++-----------+
+|       830 |
++-----------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS left_cnt FROM customers c LEFT JOIN orders o ON o.CustomerID = c.CustomerID
+--------------
+
++----------+
+| left_cnt |
++----------+
+|      832 |
++----------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS full_emul_cnt FROM (SELECT c.CustomerID, o.OrderID FROM customers c LEFT JOIN orders o ON o.CustomerID = c.CustomerID UNION SELECT c.CustomerID, o.OrderID FROM customers c RIGHT JOIN orders o ON o.CustomerID = c.CustomerID) t
+--------------
+
++---------------+
+| full_emul_cnt |
++---------------+
+|           832 |
++---------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS full_join_try FROM customers c FULL OUTER JOIN orders o ON o.CustomerID = c.CustomerID
+--------------
+
+ERROR 1064 (42000) at line 10: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FULL OUTER JOIN orders o ON o.CustomerID = c.CustomerID' at line 1
+Bye

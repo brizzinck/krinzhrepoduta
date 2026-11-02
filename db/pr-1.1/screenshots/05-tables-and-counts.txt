@@ -1,0 +1,23 @@
+--------------
+SELECT 'branches' AS table_name, COUNT(*) AS row_count FROM branches UNION ALL
+…
+SELECT 'rental_extras' AS table_name, COUNT(*) AS row_count FROM rental_extras
+--------------
+
++---------------+-----------+
+| table_name    | row_count |
++---------------+-----------+
+| branches      |         4 |
+| car_classes   |         5 |
+| car_models    |        12 |
+| cars          |        24 |
+| customers     |        20 |
+| employees     |         8 |
+| rentals       |        30 |
+| payments      |        81 |
+| extras        |         5 |
+| rental_extras |        21 |
++---------------+-----------+
+10 rows in set (0.01 sec)
+
+Bye

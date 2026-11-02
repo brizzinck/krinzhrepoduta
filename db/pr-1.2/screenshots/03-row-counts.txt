@@ -1,0 +1,27 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < 03-row-counts.sql
+--------------
+SELECT 'categories' AS tbl, COUNT(*) AS cnt FROM categories
+UNION ALL SELECT 'customers', COUNT(*) FROM customers
+UNION ALL SELECT 'employees', COUNT(*) FROM employees
+UNION ALL SELECT 'suppliers', COUNT(*) FROM suppliers
+UNION ALL SELECT 'shippers', COUNT(*) FROM shippers
+UNION ALL SELECT 'products', COUNT(*) FROM products
+UNION ALL SELECT 'orders', COUNT(*) FROM orders
+UNION ALL SELECT 'order details', COUNT(*) FROM `order details`
+--------------
+
++---------------+------+
+| tbl           | cnt  |
++---------------+------+
+| categories    |    8 |
+| customers     |   91 |
+| employees     |    9 |
+| suppliers     |   29 |
+| shippers      |    3 |
+| products      |   77 |
+| orders        |  830 |
+| order details | 2155 |
++---------------+------+
+8 rows in set (0.00 sec)
+
+Bye

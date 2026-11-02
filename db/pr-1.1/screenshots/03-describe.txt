@@ -1,0 +1,60 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 03-describe.sql
+--------------
+DESCRIBE cars
+--------------
+
++------------------+--------------+------+-----+-----------+----------------+
+| Field            | Type         | Null | Key | Default   | Extra          |
++------------------+--------------+------+-----+-----------+----------------+
+| car_id           | int          | NO   | PRI | NULL      | auto_increment |
+| model_id         | int          | NO   | MUL | NULL      |                |
+| branch_id        | int          | NO   | MUL | NULL      |                |
+| vin              | char(17)     | NO   | UNI | NULL      |                |
+| plate_number     | varchar(10)  | NO   | UNI | NULL      |                |
+| manufacture_year | smallint     | NO   |     | NULL      |                |
+| mileage_km       | int unsigned | NO   |     | 0         |                |
+| daily_price      | decimal(8,2) | NO   |     | NULL      |                |
+| status           | varchar(12)  | NO   |     | available |                |
++------------------+--------------+------+-----+-----------+----------------+
+9 rows in set (0.00 sec)
+
+--------------
+DESCRIBE rentals
+--------------
+
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| rental_id        | int          | NO   | PRI | NULL    | auto_increment |
+| customer_id      | int          | NO   | MUL | NULL    |                |
+| car_id           | int          | NO   | MUL | NULL    |                |
+| employee_id      | int          | YES  | MUL | NULL    |                |
+| pickup_branch_id | int          | NO   | MUL | NULL    |                |
+| return_branch_id | int          | YES  | MUL | NULL    |                |
+| start_at         | datetime     | NO   |     | NULL    |                |
+| planned_end_at   | datetime     | NO   |     | NULL    |                |
+| actual_end_at    | datetime     | YES  |     | NULL    |                |
+| daily_price      | decimal(8,2) | NO   |     | NULL    |                |
+| status           | varchar(10)  | NO   |     | booked  |                |
++------------------+--------------+------+-----+---------+----------------+
+11 rows in set (0.00 sec)
+
+--------------
+SHOW CREATE TABLE rental_extras
+--------------
+
+*************************** 1. row ***************************
+       Table: rental_extras
+Create Table: CREATE TABLE `rental_extras` (
+  `rental_id` int NOT NULL,
+  `extra_id` int NOT NULL,
+  `quantity` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`rental_id`,`extra_id`),
+  KEY `fk_rental_extras_extra` (`extra_id`),
+  CONSTRAINT `fk_rental_extras_extra` FOREIGN KEY (`extra_id`) REFERENCES `extras` (`extra_id`) ON DELETE RESTRICT,
+  CONSTRAINT `fk_rental_extras_rental` FOREIGN KEY (`rental_id`) REFERENCES `rentals` (`rental_id`) ON DELETE CASCADE,
+  CONSTRAINT `chk_rental_extras_qty` CHECK ((`quantity` > 0))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+1 row in set (0.00 sec)
+
+Bye

@@ -1,0 +1,30 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 02-intersect.sql
+--------------
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 3
+INTERSECT
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 4
+--------------
+
++-------------+
+| customer_id |
++-------------+
+|           1 |
+|           8 |
++-------------+
+2 rows in set (0.00 sec)
+
+--------------
+(SELECT customer_id FROM rentals WHERE pickup_branch_id = 3)
+EXCEPT
+((SELECT customer_id FROM rentals WHERE pickup_branch_id = 3) EXCEPT (SELECT customer_id FROM rentals WHERE pickup_branch_id = 4))
+--------------
+
++-------------+
+| customer_id |
++-------------+
+|           1 |
+|           8 |
++-------------+
+2 rows in set (0.00 sec)
+
+Bye

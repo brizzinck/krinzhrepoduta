@@ -1,0 +1,50 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 01-union.sql
+--------------
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 3
+UNION
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 4
+ORDER BY customer_id
+--------------
+
++-------------+
+| customer_id |
++-------------+
+|           1 |
+|           2 |
+|           4 |
+|           5 |
+|           7 |
+|           8 |
+|           9 |
+|          11 |
+|          12 |
+|          13 |
+|          14 |
+|          15 |
+|          16 |
++-------------+
+13 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_union FROM (SELECT customer_id FROM rentals WHERE pickup_branch_id = 3 UNION SELECT customer_id FROM rentals WHERE pickup_branch_id = 4) t
+--------------
+
++------------+
+| rows_union |
++------------+
+|         13 |
++------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_union_all FROM (SELECT customer_id FROM rentals WHERE pickup_branch_id = 3 UNION ALL SELECT customer_id FROM rentals WHERE pickup_branch_id = 4) t
+--------------
+
++----------------+
+| rows_union_all |
++----------------+
+|             20 |
++----------------+
+1 row in set (0.00 sec)
+
+Bye

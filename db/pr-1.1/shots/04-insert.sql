@@ -1,0 +1,24 @@
+INSERT INTO branches (branch_id, name, city, address, phone) VALUES
+(1, 'Прокат «Київ-Центр»', 'Київ', 'вул. Володимирська, 45', '+380445550101'),
+(2, 'Прокат «Львів-Свобода»', 'Львів', 'просп. Свободи, 28', '+380325550102'),
+(3, 'Прокат «Одеса-Дерибасівська»', 'Одеса', 'вул. Дерибасівська, 12', '+380485550103'),
+(4, 'Прокат «Дніпро-Яворницького»', 'Дніпро', 'просп. Дмитра Яворницького, 60', '+380565550104');
+INSERT INTO car_classes (class_id, name, daily_base_rate, deposit_amount) VALUES
+(1, 'Економ', 800.00, 2000.00),
+(2, 'Комфорт', 1100.00, 3000.00),
+(3, 'Позашляховик', 1600.00, 5000.00),
+(4, 'Мінівен', 1500.00, 4000.00),
+(5, 'Преміум', 2800.00, 8000.00);
+INSERT INTO car_models (model_id, class_id, brand, model_name, seats, transmission, fuel_type) VALUES
+(1, 1, 'Renault', 'Logan', 5, 'manual', 'petrol'),
+(2, 1, 'Skoda', 'Fabia', 5, 'manual', 'petrol'),
+(3, 2, 'Toyota', 'Corolla', 5, 'automatic', 'hybrid'),
+(4, 2, 'Skoda', 'Octavia', 5, 'automatic', 'diesel'),
+(5, 2, 'Volkswagen', 'Passat', 5, 'automatic', 'diesel'),
+(6, 3, 'Toyota', 'RAV4', 5, 'automatic', 'hybrid'),
+(7, 3, 'Hyundai', 'Tucson', 5, 'automatic', 'petrol'),
+(8, 3, 'Nissan', 'Qashqai', 5, 'manual', 'diesel'),
+(9, 4, 'Volkswagen', 'Caddy', 7, 'manual', 'diesel'),
+(10, 4, 'Mercedes-Benz', 'Vito', 8, 'automatic', 'diesel'),
+(11, 5, 'BMW', '5 Series', 5, 'automatic', 'diesel'),
+(12, 5, 'Tesla', 'Model 3', 5, 'automatic', 'electric');

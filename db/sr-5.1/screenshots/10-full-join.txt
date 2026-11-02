@@ -1,0 +1,26 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 10-full-join.sql
+--------------
+SELECT e.employee_id, e.full_name, r.rental_id
+FROM employees e FULL OUTER JOIN rentals r ON r.employee_id = e.employee_id
+--------------
+
+ERROR 1064 (42000) at line 1: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FULL OUTER JOIN rentals r ON r.employee_id = e.employee_id' at line 2
+--------------
+WITH fj AS (
+SELECT e.employee_id, e.full_name, r.rental_id
+FROM employees e LEFT JOIN rentals r ON r.employee_id = e.employee_id
+UNION
+SELECT e.employee_id, e.full_name, r.rental_id
+FROM employees e RIGHT JOIN rentals r ON r.employee_id = e.employee_id
+)
+SELECT COUNT(*) AS total_rows, SUM(employee_id IS NULL OR rental_id IS NULL) AS unpaired_rows FROM fj
+--------------
+
++------------+---------------+
+| total_rows | unpaired_rows |
++------------+---------------+
+|         32 |             7 |
++------------+---------------+
+1 row in set (0.00 sec)
+
+Bye

@@ -1,0 +1,43 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv < 01-create-db.sql
+--------------
+DROP DATABASE IF EXISTS car_rental
+--------------
+
+Query OK, 10 rows affected (0.03 sec)
+
+--------------
+CREATE DATABASE car_rental
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_0900_ai_ci
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+SHOW DATABASES
+--------------
+
++--------------------+
+| Database           |
++--------------------+
+| car_rental         |
+| car_rental_check   |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT @@character_set_database AS charset, @@collation_database AS collation
+--------------
+
++---------+--------------------+
+| charset | collation          |
++---------+--------------------+
+| utf8mb4 | utf8mb4_0900_ai_ci |
++---------+--------------------+
+1 row in set (0.00 sec)
+
+Bye

@@ -1,0 +1,68 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 12-bags-null.sql
+--------------
+SELECT COUNT(*) AS rows_without_distinct FROM (SELECT brand, fuel_type FROM car_models) t
+--------------
+
++-----------------------+
+| rows_without_distinct |
++-----------------------+
+|                    12 |
++-----------------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_with_distinct FROM (SELECT DISTINCT brand, fuel_type FROM car_models) t
+--------------
+
++--------------------+
+| rows_with_distinct |
++--------------------+
+|                 10 |
++--------------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS eq_null FROM rentals WHERE employee_id = NULL
+--------------
+
++---------+
+| eq_null |
++---------+
+|       0 |
++---------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS is_null FROM rentals WHERE employee_id IS NULL
+--------------
+
++---------+
+| is_null |
++---------+
+|       5 |
++---------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS not_in_result FROM employees WHERE employee_id NOT IN (SELECT employee_id FROM rentals)
+--------------
+
++---------------+
+| not_in_result |
++---------------+
+|             0 |
++---------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS not_exists_result FROM employees e WHERE NOT EXISTS (SELECT 1 FROM rentals r WHERE r.employee_id = e.employee_id)
+--------------
+
++-------------------+
+| not_exists_result |
++-------------------+
+|                 2 |
++-------------------+
+1 row in set (0.00 sec)
+
+Bye

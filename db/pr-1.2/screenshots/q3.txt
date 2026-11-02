@@ -1,0 +1,24 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q3.sql
+--------------
+SELECT c.CategoryName, ROUND(AVG(p.UnitPrice), 2) AS avg_price
+FROM products p
+JOIN categories c ON c.CategoryID = p.CategoryID
+GROUP BY c.CategoryID, c.CategoryName
+ORDER BY c.CategoryName
+--------------
+
++----------------+-----------+
+| CategoryName   | avg_price |
++----------------+-----------+
+| Beverages      |     37.98 |
+| Condiments     |     23.06 |
+| Confections    |     25.16 |
+| Dairy Products |     28.73 |
+| Grains/Cereals |     20.25 |
+| Meat/Poultry   |     54.01 |
+| Produce        |     32.37 |
+| Seafood        |     20.68 |
++----------------+-----------+
+8 rows in set (0.00 sec)
+
+Bye

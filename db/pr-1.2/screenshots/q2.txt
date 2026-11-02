@@ -1,0 +1,53 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q2.sql
+--------------
+SELECT OrderID, CustomerID, OrderDate, DAYNAME(OrderDate) AS day_name
+FROM orders
+WHERE DAYOFWEEK(OrderDate) = 3
+ORDER BY OrderDate
+LIMIT 10
+--------------
+
++---------+------------+----------------------------+----------+
+| OrderID | CustomerID | OrderDate                  | day_name |
++---------+------------+----------------------------+----------+
+|   10252 | SUPRD      | 1996-07-09 00:00:00.000000 | Tuesday  |
+|   10257 | HILAA      | 1996-07-16 00:00:00.000000 | Tuesday  |
+|   10263 | ERNSH      | 1996-07-23 00:00:00.000000 | Tuesday  |
+|   10268 | GROSR      | 1996-07-30 00:00:00.000000 | Tuesday  |
+|   10274 | VINET      | 1996-08-06 00:00:00.000000 | Tuesday  |
+|   10279 | LEHMS      | 1996-08-13 00:00:00.000000 | Tuesday  |
+|   10285 | QUICK      | 1996-08-20 00:00:00.000000 | Tuesday  |
+|   10290 | COMMI      | 1996-08-27 00:00:00.000000 | Tuesday  |
+|   10291 | QUEDE      | 1996-08-27 00:00:00.000000 | Tuesday  |
+|   10296 | LILAS      | 1996-09-03 00:00:00.000000 | Tuesday  |
++---------+------------+----------------------------+----------+
+10 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_total FROM (
+SELECT OrderID, CustomerID, OrderDate, DAYNAME(OrderDate) AS day_name
+FROM orders
+WHERE DAYOFWEEK(OrderDate) = 3
+ORDER BY OrderDate
+) AS t
+--------------
+
++------------+
+| rows_total |
++------------+
+|        168 |
++------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT SUM(DAYOFWEEK(OrderDate) = 3) AS dayofweek_eq_3, SUM(WEEKDAY(OrderDate) = 1) AS weekday_eq_1, SUM(DAYNAME(OrderDate) = 'Tuesday') AS dayname_tuesday FROM orders
+--------------
+
++----------------+--------------+-----------------+
+| dayofweek_eq_3 | weekday_eq_1 | dayname_tuesday |
++----------------+--------------+-----------------+
+|            168 |          168 |             168 |
++----------------+--------------+-----------------+
+1 row in set (0.00 sec)
+
+Bye

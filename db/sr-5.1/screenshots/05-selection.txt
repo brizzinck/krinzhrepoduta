@@ -1,0 +1,22 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 05-selection.sql
+--------------
+SELECT car_id, plate_number, daily_price, status
+FROM cars
+WHERE status = 'available' AND daily_price > 1500
+--------------
+
++--------+--------------+-------------+-----------+
+| car_id | plate_number | daily_price | status    |
++--------+--------------+-------------+-----------+
+|     13 | AA2537TO     |     1750.00 | available |
+|     14 | BC8155AH     |     1700.00 | available |
+|     15 | HH5951AK     |     1600.00 | available |
+|     16 | AE9866MK     |     1700.00 | available |
+|     17 | AA7538XI     |     1650.00 | available |
+|     22 | BC8087OO     |     2900.00 | available |
+|     23 | HH8066HI     |     3250.00 | available |
+|     24 | AE7711IB     |     3200.00 | available |
++--------+--------------+-------------+-----------+
+8 rows in set (0.00 sec)
+
+Bye

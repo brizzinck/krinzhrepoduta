@@ -1,0 +1,29 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 06-constraints-summary.sql
+--------------
+SELECT constraint_type, COUNT(*) AS cnt FROM information_schema.table_constraints WHERE table_schema = 'car_rental' GROUP BY constraint_type
+--------------
+
++-----------------+-----+
+| CONSTRAINT_TYPE | cnt |
++-----------------+-----+
+| PRIMARY KEY     |  10 |
+| UNIQUE          |  11 |
+| CHECK           |  19 |
+| FOREIGN KEY     |  12 |
++-----------------+-----+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT delete_rule, COUNT(*) AS cnt FROM information_schema.referential_constraints WHERE constraint_schema = 'car_rental' GROUP BY delete_rule
+--------------
+
++-------------+-----+
+| DELETE_RULE | cnt |
++-------------+-----+
+| RESTRICT    |  10 |
+| SET NULL    |   1 |
+| CASCADE     |   1 |
++-------------+-----+
+3 rows in set (0.00 sec)
+
+Bye

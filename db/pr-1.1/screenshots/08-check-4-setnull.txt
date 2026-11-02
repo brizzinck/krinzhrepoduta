@@ -1,0 +1,41 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental_check < 08-check-4-setnull.sql
+--------------
+SELECT COUNT(*) AS rentals_of_employee_2 FROM rentals WHERE employee_id = 2
+--------------
+
++-----------------------+
+| rentals_of_employee_2 |
++-----------------------+
+|                     1 |
++-----------------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rentals_without_employee_before FROM rentals WHERE employee_id IS NULL
+--------------
+
++---------------------------------+
+| rentals_without_employee_before |
++---------------------------------+
+|                               5 |
++---------------------------------+
+1 row in set (0.00 sec)
+
+--------------
+DELETE FROM employees WHERE employee_id = 2
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rentals_without_employee_after FROM rentals WHERE employee_id IS NULL
+--------------
+
++--------------------------------+
+| rentals_without_employee_after |
++--------------------------------+
+|                              6 |
++--------------------------------+
+1 row in set (0.00 sec)
+
+Bye

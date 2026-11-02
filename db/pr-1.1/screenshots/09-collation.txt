@@ -1,0 +1,45 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 09-collation.sql
+--------------
+SELECT customer_id, last_name FROM customers WHERE last_name = 'КОВАЛЕНКО'
+--------------
+
++-------------+-----------+
+| customer_id | last_name |
++-------------+-----------+
+|           1 | Коваленко |
++-------------+-----------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT first_name, last_name FROM customers ORDER BY first_name LIMIT 8
+--------------
+
++------------+------------+
+| first_name | last_name  |
++------------+------------+
+| Анастасія  | Бойко      |
+| Андрій     | Бондаренко |
+| Богдан     | Лисенко    |
+| Віталій    | Руденко    |
+| Дарина     | Левченко   |
+| Дмитро     | Олійник    |
+| Євгеній    | Поліщук    |
+| Ірина      | Ткаченко   |
++------------+------------+
+8 rows in set (0.00 sec)
+
+--------------
+SELECT table_name, column_name, character_set_name, collation_name FROM information_schema.columns WHERE table_schema = 'car_rental' AND table_name = 'customers' AND data_type = 'varchar' LIMIT 4
+--------------
+
++------------+----------------+--------------------+--------------------+
+| TABLE_NAME | COLUMN_NAME    | CHARACTER_SET_NAME | COLLATION_NAME     |
++------------+----------------+--------------------+--------------------+
+| customers  | email          | utf8mb4            | utf8mb4_0900_ai_ci |
+| customers  | first_name     | utf8mb4            | utf8mb4_0900_ai_ci |
+| customers  | last_name      | utf8mb4            | utf8mb4_0900_ai_ci |
+| customers  | license_number | utf8mb4            | utf8mb4_0900_ai_ci |
++------------+----------------+--------------------+--------------------+
+4 rows in set (0.00 sec)
+
+Bye

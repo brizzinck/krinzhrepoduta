@@ -1,0 +1,59 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q5.sql
+--------------
+SELECT c.CustomerID, c.CompanyName,
+       ROUND(SUM(od.UnitPrice * od.Quantity * (1 - od.Discount)), 2) AS revenue
+FROM customers c
+JOIN orders o ON o.CustomerID = c.CustomerID
+JOIN `order details` od ON od.OrderID = o.OrderID
+GROUP BY c.CustomerID, c.CompanyName
+ORDER BY revenue DESC
+LIMIT 10
+--------------
+
++------------+------------------------------+-----------+
+| CustomerID | CompanyName                  | revenue   |
++------------+------------------------------+-----------+
+| QUICK      | QUICK-Stop                   | 110277.31 |
+| ERNSH      | Ernst Handel                 | 104874.98 |
+| SAVEA      | Save-a-lot Markets           | 104361.95 |
+| RATTC      | Rattlesnake Canyon Grocery   |  51097.80 |
+| HUNGO      | Hungry Owl All-Night Grocers |  49979.91 |
+| HANAR      | Hanari Carnes                |  32841.37 |
+| KOENE      | Koniglich Essen              |  30908.38 |
+| FOLKO      | Folk och fa HB               |  29567.56 |
+| MEREP      | Mere Paillarde               |  28872.19 |
+| WHITC      | White Clover Markets         |  27363.61 |
++------------+------------------------------+-----------+
+10 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_total FROM (
+SELECT c.CustomerID, c.CompanyName,
+       ROUND(SUM(od.UnitPrice * od.Quantity * (1 - od.Discount)), 2) AS revenue
+FROM customers c
+JOIN orders o ON o.CustomerID = c.CustomerID
+JOIN `order details` od ON od.OrderID = o.OrderID
+GROUP BY c.CustomerID, c.CompanyName
+ORDER BY revenue DESC
+) AS t
+--------------
+
++------------+
+| rows_total |
++------------+
+|         89 |
++------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS customers_without_orders FROM customers c LEFT JOIN orders o ON o.CustomerID = c.CustomerID WHERE o.OrderID IS NULL
+--------------
+
++--------------------------+
+| customers_without_orders |
++--------------------------+
+|                        2 |
++--------------------------+
+1 row in set (0.00 sec)
+
+Bye

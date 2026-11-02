@@ -1,0 +1,147 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < c3-sets-subq.sql
+--------------
+SELECT Country FROM suppliers UNION SELECT Country FROM customers ORDER BY Country LIMIT 5
+--------------
+
++-----------+
+| Country   |
++-----------+
+| Argentina |
+| Australia |
+| Austria   |
+| Belgium   |
+| Brazil    |
++-----------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS union_all_cnt FROM (SELECT Country FROM suppliers UNION ALL SELECT Country FROM customers) t
+--------------
+
++---------------+
+| union_all_cnt |
++---------------+
+|           120 |
++---------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS union_cnt FROM (SELECT Country FROM suppliers UNION SELECT Country FROM customers) t
+--------------
+
++-----------+
+| union_cnt |
++-----------+
+|        25 |
++-----------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT Country FROM suppliers INTERSECT SELECT Country FROM customers ORDER BY Country
+--------------
+
++---------+
+| Country |
++---------+
+| Brazil  |
+| Canada  |
+| Denmark |
+| Finland |
+| France  |
+| Germany |
+| Italy   |
+| Norway  |
+| Spain   |
+| Sweden  |
+| UK      |
+| USA     |
++---------+
+12 rows in set (0.00 sec)
+
+--------------
+SELECT Country FROM suppliers EXCEPT SELECT Country FROM customers ORDER BY Country
+--------------
+
++-------------+
+| Country     |
++-------------+
+| Australia   |
+| Japan       |
+| Netherlands |
+| Singapore   |
++-------------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT Country FROM suppliers MINUS SELECT Country FROM customers
+--------------
+
+ERROR 1064 (42000) at line 6: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT Country FROM customers' at line 1
+--------------
+SELECT ProductName, UnitPrice FROM products WHERE UnitPrice > (SELECT AVG(UnitPrice) FROM products) ORDER BY UnitPrice DESC LIMIT 5
+--------------
+
++-------------------------+-----------+
+| ProductName             | UnitPrice |
++-------------------------+-----------+
+| Cote de Blaye           |  263.5000 |
+| Thuringer Rostbratwurst |  123.7900 |
+| Mishi Kobe Niku         |   97.0000 |
+| Sir Rodney's Marmalade  |   81.0000 |
+| Carnarvon Tigers        |   62.5000 |
++-------------------------+-----------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT CompanyName FROM customers WHERE CustomerID NOT IN (SELECT CustomerID FROM orders)
+--------------
+
++--------------------------------------+
+| CompanyName                          |
++--------------------------------------+
+| FISSA Fabrica Inter. Salchichas S.A. |
+| Paris specialites                    |
++--------------------------------------+
+2 rows in set (0.00 sec)
+
+--------------
+SELECT c.CompanyName FROM customers c WHERE EXISTS (SELECT 1 FROM orders o WHERE o.CustomerID = c.CustomerID AND o.Freight > 800)
+--------------
+
++--------------------+
+| CompanyName        |
++--------------------+
+| Queen Cozinha      |
+| QUICK-Stop         |
+| Save-a-lot Markets |
++--------------------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT CategoryID, AVG(UnitPrice) AS avg_p FROM products GROUP BY CategoryID HAVING AVG(UnitPrice) > (SELECT AVG(UnitPrice) FROM products) ORDER BY CategoryID
+--------------
+
++------------+-------------+
+| CategoryID | avg_p       |
++------------+-------------+
+|          1 | 37.97916667 |
+|          6 | 54.00666667 |
+|          7 | 32.37000000 |
++------------+-------------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT t.CategoryID, t.cnt FROM (SELECT CategoryID, COUNT(*) AS cnt FROM products GROUP BY CategoryID) t WHERE t.cnt > 10
+--------------
+
++------------+-----+
+| CategoryID | cnt |
++------------+-----+
+|          1 |  12 |
+|          2 |  12 |
+|          3 |  13 |
+|          8 |  12 |
++------------+-----+
+4 rows in set (0.00 sec)
+
+Bye

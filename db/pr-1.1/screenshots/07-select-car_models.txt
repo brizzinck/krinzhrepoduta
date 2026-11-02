@@ -1,0 +1,24 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 07-select-car_models.sql
+--------------
+SELECT * FROM car_models
+--------------
+
++----------+----------+---------------+------------+-------+--------------+-----------+
+| model_id | class_id | brand         | model_name | seats | transmission | fuel_type |
++----------+----------+---------------+------------+-------+--------------+-----------+
+|        1 |        1 | Renault       | Logan      |     5 | manual       | petrol    |
+|        2 |        1 | Skoda         | Fabia      |     5 | manual       | petrol    |
+|        3 |        2 | Toyota        | Corolla    |     5 | automatic    | hybrid    |
+|        4 |        2 | Skoda         | Octavia    |     5 | automatic    | diesel    |
+|        5 |        2 | Volkswagen    | Passat     |     5 | automatic    | diesel    |
+|        6 |        3 | Toyota        | RAV4       |     5 | automatic    | hybrid    |
+|        7 |        3 | Hyundai       | Tucson     |     5 | automatic    | petrol    |
+|        8 |        3 | Nissan        | Qashqai    |     5 | manual       | diesel    |
+|        9 |        4 | Volkswagen    | Caddy      |     7 | manual       | diesel    |
+|       10 |        4 | Mercedes-Benz | Vito       |     8 | automatic    | diesel    |
+|       11 |        5 | BMW           | 5 Series   |     5 | automatic    | diesel    |
+|       12 |        5 | Tesla         | Model 3    |     5 | automatic    | electric  |
++----------+----------+---------------+------------+-------+--------------+-----------+
+12 rows in set (0.00 sec)
+
+Bye

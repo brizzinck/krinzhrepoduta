@@ -1,0 +1,50 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental_check < 08-check-3-cascade.sql
+--------------
+INSERT INTO rentals (customer_id, car_id, employee_id, pickup_branch_id, start_at, planned_end_at, daily_price, status)
+VALUES (19, 2, 4, 2, '2026-12-01 10:00:00', '2026-12-05 10:00:00', 850.00, 'booked')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+SET @rid = LAST_INSERT_ID()
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+INSERT INTO rental_extras (rental_id, extra_id, quantity) VALUES (@rid, 1, 1), (@rid, 2, 1)
+--------------
+
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+--------------
+SELECT COUNT(*) AS extras_before_delete FROM rental_extras WHERE rental_id = @rid
+--------------
+
++----------------------+
+| extras_before_delete |
++----------------------+
+|                    2 |
++----------------------+
+1 row in set (0.00 sec)
+
+--------------
+DELETE FROM rentals WHERE rental_id = @rid
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS extras_after_delete FROM rental_extras WHERE rental_id = @rid
+--------------
+
++---------------------+
+| extras_after_delete |
++---------------------+
+|                   0 |
++---------------------+
+1 row in set (0.00 sec)
+
+Bye

@@ -1,0 +1,45 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 03-except.sql
+--------------
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 3
+EXCEPT
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 4
+--------------
+
++-------------+
+| customer_id |
++-------------+
+|          11 |
+|          13 |
+|           9 |
+|           2 |
+|          14 |
++-------------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 4
+EXCEPT
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 3
+--------------
+
++-------------+
+| customer_id |
++-------------+
+|           7 |
+|           5 |
+|          12 |
+|           4 |
+|          15 |
+|          16 |
++-------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 3
+MINUS
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 4
+--------------
+
+ERROR 1064 (42000) at line 7: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'MINUS
+SELECT customer_id FROM rentals WHERE pickup_branch_id = 4' at line 2
+Bye

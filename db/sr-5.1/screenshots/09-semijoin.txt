@@ -1,0 +1,58 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 09-semijoin.sql
+--------------
+SELECT c.customer_id, c.last_name
+FROM customers c
+WHERE EXISTS (SELECT 1 FROM rentals r WHERE r.customer_id = c.customer_id)
+--------------
+
++-------------+------------+
+| customer_id | last_name  |
++-------------+------------+
+|           1 | Коваленко  |
+|           2 | Шевченко   |
+|           3 | Бондаренко |
+|           4 | Ткаченко   |
+|           5 | Кравченко  |
+|           6 | Мельник    |
+|           7 | Олійник    |
+|           8 | Мороз      |
+|           9 | Лисенко    |
+|          10 | Савченко   |
+|          11 | Руденко    |
+|          12 | Гончаренко |
+|          13 | Поліщук    |
+|          14 | Бойко      |
+|          15 | Клименко   |
+|          16 | Павленко   |
+|          17 | Іваненко   |
+|          18 | Мазур      |
++-------------+------------+
+18 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_inner_join FROM customers c JOIN rentals r ON r.customer_id = c.customer_id
+--------------
+
++-----------------+
+| rows_inner_join |
++-----------------+
+|              30 |
++-----------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT c.customer_id, c.last_name
+FROM customers c
+LEFT JOIN rentals r ON r.customer_id = c.customer_id
+WHERE r.rental_id IS NULL
+--------------
+
++-------------+-----------+
+| customer_id | last_name |
++-------------+-----------+
+|          19 | Вовк      |
+|          20 | Левченко  |
++-------------+-----------+
+2 rows in set (0.00 sec)
+
+Bye

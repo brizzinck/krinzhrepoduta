@@ -1,0 +1,44 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 04-projection.sql
+--------------
+SELECT brand, fuel_type FROM car_models
+--------------
+
++---------------+-----------+
+| brand         | fuel_type |
++---------------+-----------+
+| Renault       | petrol    |
+| Skoda         | petrol    |
+| Toyota        | hybrid    |
+| Skoda         | diesel    |
+| Volkswagen    | diesel    |
+| Toyota        | hybrid    |
+| Hyundai       | petrol    |
+| Nissan        | diesel    |
+| Volkswagen    | diesel    |
+| Mercedes-Benz | diesel    |
+| BMW           | diesel    |
+| Tesla         | electric  |
++---------------+-----------+
+12 rows in set (0.00 sec)
+
+--------------
+SELECT DISTINCT brand, fuel_type FROM car_models
+--------------
+
++---------------+-----------+
+| brand         | fuel_type |
++---------------+-----------+
+| Renault       | petrol    |
+| Skoda         | petrol    |
+| Toyota        | hybrid    |
+| Skoda         | diesel    |
+| Volkswagen    | diesel    |
+| Hyundai       | petrol    |
+| Nissan        | diesel    |
+| Mercedes-Benz | diesel    |
+| BMW           | diesel    |
+| Tesla         | electric  |
++---------------+-----------+
+10 rows in set (0.00 sec)
+
+Bye

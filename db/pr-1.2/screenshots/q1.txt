@@ -1,0 +1,68 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q1.sql
+--------------
+SELECT ProductID, ProductName, UnitPrice
+FROM products
+WHERE UnitPrice > 20
+ORDER BY UnitPrice DESC, ProductName
+--------------
+
++-----------+----------------------------------+-----------+
+| ProductID | ProductName                      | UnitPrice |
++-----------+----------------------------------+-----------+
+|        38 | Cote de Blaye                    |  263.5000 |
+|        29 | Thuringer Rostbratwurst          |  123.7900 |
+|         9 | Mishi Kobe Niku                  |   97.0000 |
+|        20 | Sir Rodney's Marmalade           |   81.0000 |
+|        18 | Carnarvon Tigers                 |   62.5000 |
+|        59 | Raclette Courdavault             |   55.0000 |
+|        51 | Manjimup Dried Apples            |   53.0000 |
+|        62 | Tarte au sucre                   |   49.3000 |
+|        43 | Ipoh Coffee                      |   46.0000 |
+|        28 | Rossle Sauerkraut                |   45.6000 |
+|        27 | Schoggi Schokolade               |   43.9000 |
+|        63 | Vegie-spread                     |   43.9000 |
+|         8 | Northwoods Cranberry Sauce       |   40.0000 |
+|        17 | Alice Mutton                     |   39.0000 |
+|        56 | Gnocchi di nonna Alice           |   38.0000 |
+|        12 | Queso Manchego La Pastora        |   38.0000 |
+|        69 | Gudbrandsdalsost                 |   36.0000 |
+|        72 | Mozzarella di Giovanni           |   34.8000 |
+|        60 | Camembert Pierrot                |   34.0000 |
+|        64 | Wimmers gute Semmelknodel        |   33.2500 |
+|        53 | Perth Pasties                    |   32.8000 |
+|        32 | Mascarpone Fabioli               |   32.0000 |
+|        26 | Gumbar Gummibarchen              |   31.2300 |
+|        10 | Ikura                            |   31.0000 |
+|         7 | Uncle Bob's Organic Dried Pears  |   30.0000 |
+|        61 | Sirop d'erable                   |   28.5000 |
+|        37 | Gravad lax                       |   26.0000 |
+|        30 | Nord-Ost Matjeshering            |   25.8900 |
+|         6 | Grandma's Boysenberry Spread     |   25.0000 |
+|        55 | Pate chinois                     |   24.0000 |
+|        14 | Tofu                             |   23.2500 |
+|         4 | Chef Anton's Cajun Seasoning     |   22.0000 |
+|        71 | Flotemysost                      |   21.5000 |
+|         5 | Chef Anton's Gumbo Mix           |   21.3500 |
+|        65 | Louisiana Fiery Hot Pepper Sauce |   21.0500 |
+|        22 | Gustaf's Knackebrod              |   21.0000 |
+|        11 | Queso Cabrales                   |   21.0000 |
++-----------+----------------------------------+-----------+
+37 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_total FROM (
+SELECT ProductID, ProductName, UnitPrice
+FROM products
+WHERE UnitPrice > 20
+ORDER BY UnitPrice DESC, ProductName
+) AS t
+--------------
+
++------------+
+| rows_total |
++------------+
+|         37 |
++------------+
+1 row in set (0.00 sec)
+
+Bye

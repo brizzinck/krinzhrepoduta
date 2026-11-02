@@ -1,0 +1,44 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q6.sql
+--------------
+SELECT o.OrderID, o.OrderDate, o.CustomerID,
+       (SELECT CONCAT(e.FirstName, ' ', e.LastName)
+        FROM employees e
+        WHERE e.EmployeeID = o.EmployeeID) AS employee
+FROM orders o
+LIMIT 10
+--------------
+
++---------+----------------------------+------------+------------------+
+| OrderID | OrderDate                  | CustomerID | employee         |
++---------+----------------------------+------------+------------------+
+|   10248 | 1996-07-04 00:00:00.000000 | VINET      | Steven Buchanan  |
+|   10249 | 1996-07-05 00:00:00.000000 | TOMSP      | Michael Suyama   |
+|   10250 | 1996-07-08 00:00:00.000000 | HANAR      | Margaret Peacock |
+|   10251 | 1996-07-08 00:00:00.000000 | VICTE      | Janet Leverling  |
+|   10252 | 1996-07-09 00:00:00.000000 | SUPRD      | Margaret Peacock |
+|   10253 | 1996-07-10 00:00:00.000000 | HANAR      | Janet Leverling  |
+|   10254 | 1996-07-11 00:00:00.000000 | CHOPS      | Steven Buchanan  |
+|   10255 | 1996-07-12 00:00:00.000000 | RICSU      | Anne Dodsworth   |
+|   10256 | 1996-07-15 00:00:00.000000 | WELLI      | Janet Leverling  |
+|   10257 | 1996-07-16 00:00:00.000000 | HILAA      | Margaret Peacock |
++---------+----------------------------+------------+------------------+
+10 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_total FROM (
+SELECT o.OrderID, o.OrderDate, o.CustomerID,
+       (SELECT CONCAT(e.FirstName, ' ', e.LastName)
+        FROM employees e
+        WHERE e.EmployeeID = o.EmployeeID) AS employee
+FROM orders o
+) AS t
+--------------
+
++------------+
+| rows_total |
++------------+
+|        830 |
++------------+
+1 row in set (0.00 sec)
+
+Bye

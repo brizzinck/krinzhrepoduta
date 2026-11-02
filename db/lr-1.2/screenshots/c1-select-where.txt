@@ -1,0 +1,160 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < c1-select-where.sql
+--------------
+SELECT DISTINCT Country FROM customers ORDER BY Country LIMIT 5
+--------------
+
++-----------+
+| Country   |
++-----------+
+| Argentina |
+| Austria   |
+| Belgium   |
+| Brazil    |
+| Canada    |
++-----------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT EmployeeID, LastName, Region FROM employees ORDER BY Region, LastName
+--------------
+
++------------+-----------+--------+
+| EmployeeID | LastName  | Region |
++------------+-----------+--------+
+|          5 | Buchanan  | NULL   |
+|          9 | Dodsworth | NULL   |
+|          7 | King      | NULL   |
+|          6 | Suyama    | NULL   |
+|          8 | Callahan  | WA     |
+|          1 | Davolio   | WA     |
+|          2 | Fuller    | WA     |
+|          3 | Leverling | WA     |
+|          4 | Peacock   | WA     |
++------------+-----------+--------+
+9 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS all_rows, COUNT(Region) AS not_null_region, COUNT(*) - COUNT(Region) AS null_region FROM customers
+--------------
+
++----------+-----------------+-------------+
+| all_rows | not_null_region | null_region |
++----------+-----------------+-------------+
+|       91 |              31 |          60 |
++----------+-----------------+-------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT CustomerID, CompanyName, COALESCE(Region, 'n/a') AS region FROM customers ORDER BY CustomerID LIMIT 5
+--------------
+
++------------+------------------------------------+--------+
+| CustomerID | CompanyName                        | region |
++------------+------------------------------------+--------+
+| ALFKI      | Alfreds Futterkiste                | n/a    |
+| ANATR      | Ana Trujillo Emparedados y helados | n/a    |
+| ANTON      | Antonio Moreno Taqueria            | n/a    |
+| AROUT      | Around the Horn                    | n/a    |
+| BERGS      | Berglunds snabbkop                 | n/a    |
++------------+------------------------------------+--------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT ProductID, ProductName, UnitPrice FROM products WHERE UnitPrice BETWEEN 10 AND 12 ORDER BY UnitPrice, ProductID
+--------------
+
++-----------+---------------------+-----------+
+| ProductID | ProductName         | UnitPrice |
++-----------+---------------------+-----------+
+|         3 | Aniseed Syrup       |   10.0000 |
+|        21 | Sir Rodney's Scones |   10.0000 |
+|        74 | Longlife Tofu       |   10.0000 |
+|        46 | Spegesild           |   12.0000 |
++-----------+---------------------+-----------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT CompanyName FROM customers WHERE CompanyName LIKE 'A%' ORDER BY CompanyName
+--------------
+
++------------------------------------+
+| CompanyName                        |
++------------------------------------+
+| Alfreds Futterkiste                |
+| Ana Trujillo Emparedados y helados |
+| Antonio Moreno Taqueria            |
+| Around the Horn                    |
++------------------------------------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT CompanyName FROM customers WHERE CompanyName LIKE '__C%' ORDER BY CompanyName
+--------------
+
++----------------------------+
+| CompanyName                |
++----------------------------+
+| Cactus Comidas para llevar |
+| Piccolo und mehr           |
+| Ricardo Adocicados         |
+| Richter Supermarkt         |
+| Victuailles en stock       |
++----------------------------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT CustomerID, Country FROM customers WHERE Country IN ('UK', 'Spain') ORDER BY Country, CustomerID LIMIT 6
+--------------
+
++------------+---------+
+| CustomerID | Country |
++------------+---------+
+| BOLID      | Spain   |
+| FISSA      | Spain   |
+| GALED      | Spain   |
+| GODOS      | Spain   |
+| ROMEY      | Spain   |
+| AROUT      | UK      |
++------------+---------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS customers_without_region FROM customers WHERE Region IS NULL
+--------------
+
++--------------------------+
+| customers_without_region |
++--------------------------+
+|                       60 |
++--------------------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT UPPER(LEFT(ProductName, 5)) AS up5, LENGTH(ProductName) AS len, ROUND(UnitPrice * 1.2, 1) AS price_vat, CAST(UnitPrice AS SIGNED) AS price_int FROM products ORDER BY ProductID LIMIT 3
+--------------
+
++-------+-----+-----------+-----------+
+| up5   | len | price_vat | price_int |
++-------+-----+-----------+-----------+
+| CHAI  |   4 |      21.6 |        18 |
+| CHANG |   5 |      22.8 |        19 |
+| ANISE |  13 |      12.0 |        10 |
++-------+-----+-----------+-----------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT OrderID, OrderDate, YEAR(OrderDate) AS y, MONTH(OrderDate) AS m, DATE_FORMAT(OrderDate, '%d.%m.%Y') AS d, DATEDIFF(ShippedDate, OrderDate) AS days_to_ship
+FROM orders ORDER BY OrderID LIMIT 4
+--------------
+
++---------+----------------------------+------+------+------------+--------------+
+| OrderID | OrderDate                  | y    | m    | d          | days_to_ship |
++---------+----------------------------+------+------+------------+--------------+
+|   10248 | 1996-07-04 00:00:00.000000 | 1996 |    7 | 04.07.1996 |           12 |
+|   10249 | 1996-07-05 00:00:00.000000 | 1996 |    7 | 05.07.1996 |            5 |
+|   10250 | 1996-07-08 00:00:00.000000 | 1996 |    7 | 08.07.1996 |            4 |
+|   10251 | 1996-07-08 00:00:00.000000 | 1996 |    7 | 08.07.1996 |            7 |
++---------+----------------------------+------+------+------------+--------------+
+4 rows in set (0.00 sec)
+
+Bye

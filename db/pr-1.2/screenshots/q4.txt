@@ -1,0 +1,59 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q4.sql
+--------------
+SELECT e.City,
+       COUNT(DISTINCT e.EmployeeID) AS employees,
+       COUNT(DISTINCT c.CustomerID) AS customers
+FROM employees e
+LEFT JOIN customers c ON c.City = e.City
+GROUP BY e.City
+ORDER BY e.City
+--------------
+
++----------+-----------+-----------+
+| City     | employees | customers |
++----------+-----------+-----------+
+| Kirkland |         1 |         1 |
+| London   |         4 |         6 |
+| Redmond  |         1 |         0 |
+| Seattle  |         2 |         1 |
+| Tacoma   |         1 |         0 |
++----------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_total FROM (
+SELECT e.City,
+       COUNT(DISTINCT e.EmployeeID) AS employees,
+       COUNT(DISTINCT c.CustomerID) AS customers
+FROM employees e
+LEFT JOIN customers c ON c.City = e.City
+GROUP BY e.City
+ORDER BY e.City
+) AS t
+--------------
+
++------------+
+| rows_total |
++------------+
+|          5 |
++------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT e.City, COUNT(e.EmployeeID) AS employees_wrong, COUNT(c.CustomerID) AS customers_wrong
+FROM employees e LEFT JOIN customers c ON c.City = e.City
+GROUP BY e.City ORDER BY e.City
+--------------
+
++----------+-----------------+-----------------+
+| City     | employees_wrong | customers_wrong |
++----------+-----------------+-----------------+
+| Kirkland |               1 |               1 |
+| London   |              24 |              24 |
+| Redmond  |               1 |               0 |
+| Seattle  |               2 |               2 |
+| Tacoma   |               1 |               0 |
++----------+-----------------+-----------------+
+5 rows in set (0.00 sec)
+
+Bye

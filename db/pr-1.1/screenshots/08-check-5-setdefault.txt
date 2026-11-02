@@ -1,0 +1,40 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental_check < 08-check-5-setdefault.sql
+--------------
+INSERT INTO branches (branch_id, name, city, address, phone) VALUES (5, 'Тестовий пункт', 'Харків', 'вул. Тестова, 1', '+380575550105')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+CREATE TABLE demo_set_default (
+    id INT PRIMARY KEY,
+    branch_id INT NOT NULL DEFAULT 1,
+    FOREIGN KEY (branch_id) REFERENCES branches (branch_id) ON DELETE SET DEFAULT
+)
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+INSERT INTO demo_set_default (id, branch_id) VALUES (1, 5)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+DELETE FROM branches WHERE branch_id = 5
+--------------
+
+ERROR 1451 (23000) at line 8: Cannot delete or update a parent row: a foreign key constraint fails (`car_rental_check`.`demo_set_default`, CONSTRAINT `demo_set_default_ibfk_1` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`branch_id`))
+--------------
+SELECT * FROM demo_set_default
+--------------
+
++----+-----------+
+| id | branch_id |
++----+-----------+
+|  1 |         5 |
++----+-----------+
+1 row in set (0.00 sec)
+
+Bye

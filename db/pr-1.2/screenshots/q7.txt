@@ -1,0 +1,58 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q7.sql
+--------------
+SELECT CompanyName, 'Supplier' AS role FROM suppliers WHERE Country = 'Germany'
+UNION ALL
+SELECT CompanyName, 'Customer' FROM customers WHERE Country = 'Germany'
+--------------
+
++----------------------------------------+----------+
+| CompanyName                            | role     |
++----------------------------------------+----------+
+| Heli Su?waren GmbH & Co. KG            | Supplier |
+| Plutzer Lebensmittelgro?markte AG      | Supplier |
+| Nord-Ost-Fisch Handelsgesellschaft mbH | Supplier |
+| Alfreds Futterkiste                    | Customer |
+| Blauer See Delikatessen                | Customer |
+| Drachenblut Delikatessen               | Customer |
+| Frankenversand                         | Customer |
+| Koniglich Essen                        | Customer |
+| Lehmanns Marktstand                    | Customer |
+| Morgenstern Gesundkost                 | Customer |
+| Ottilies Kaseladen                     | Customer |
+| QUICK-Stop                             | Customer |
+| Toms Spezialitaten                     | Customer |
+| Die Wandernde Kuh                      | Customer |
++----------------------------------------+----------+
+14 rows in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_union_all FROM (
+SELECT CompanyName, 'Supplier' AS role FROM suppliers WHERE Country = 'Germany'
+UNION ALL
+SELECT CompanyName, 'Customer' FROM customers WHERE Country = 'Germany'
+) AS t
+--------------
+
++----------------+
+| rows_union_all |
++----------------+
+|             14 |
++----------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS rows_union FROM (
+SELECT CompanyName, 'Supplier' AS role FROM suppliers WHERE Country = 'Germany'
+UNION
+SELECT CompanyName, 'Customer' FROM customers WHERE Country = 'Germany'
+) AS t
+--------------
+
++------------+
+| rows_union |
++------------+
+|         14 |
++------------+
+1 row in set (0.00 sec)
+
+Bye
