@@ -1,0 +1,28 @@
+# build output
+target/
+build/
+bin/
+obj/
+out/
+*.class
+.gradle/
+local.properties
+__pycache__/
+*.pyc
+node_modules/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# generated files: ./build.sh
+*.pdf
+*.docx
+*.pptx
+*.apk
+*.zip
+*.jar
+
+# local secrets
+td.env

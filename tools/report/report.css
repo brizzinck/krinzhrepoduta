@@ -1,0 +1,83 @@
+/* Print stylesheet for PDF reports: A4, TNR 14, 1.5 spacing, 1.25 cm indent.
+   Margins: left 30 mm, right 15 mm, top and bottom 20 mm. Page number bottom right. */
+@page {
+  size: A4;
+  margin: 20mm 15mm 20mm 30mm;
+  @bottom-right { content: counter(page); font: 12pt "ReportSerif", "Times New Roman", serif; }
+}
+@page :first { @bottom-right { content: none; } }
+
+/* Only regular Times New Roman is installed. Bold and italic come from Liberation Serif,
+   which is metric-compatible with TNR, so the layout does not change. */
+@font-face { font-family: "ReportSerif"; font-weight: 400; font-style: normal; src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"); }
+@font-face { font-family: "ReportSerif"; font-weight: 700; font-style: normal; src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT"), local("Liberation Serif Bold"), local("LiberationSerif-Bold"); }
+@font-face { font-family: "ReportSerif"; font-weight: 400; font-style: italic; src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Liberation Serif Italic"), local("LiberationSerif-Italic"); }
+@font-face { font-family: "ReportSerif"; font-weight: 700; font-style: italic; src: local("Times New Roman Bold Italic"), local("Liberation Serif Bold Italic"), local("LiberationSerif-BoldItalic"); }
+
+html { background: #fff; }
+body {
+  margin: 0; padding: 0; max-width: none;
+  font-family: "ReportSerif", "Times New Roman", serif; font-size: 14pt; line-height: 1.5; color: #000;
+  text-align: justify; hyphens: auto;
+}
+p { margin: 0; text-indent: 1.25cm; }
+h1, h2, h3 { font-size: 14pt; font-weight: bold; margin: 12pt 0 6pt; line-height: 1.5; break-after: avoid; }
+h1 { text-align: center; }
+h2, h3 { text-indent: 1.25cm; text-align: left; }
+a { color: #1f4e9d; }
+ul, ol { margin: 0; padding-left: 1.9cm; }
+li p, td p, th p { text-indent: 0; }
+li { text-align: left; }
+
+code { font-family: "Courier New", monospace; font-size: 12pt; }
+pre {
+  font-family: "Courier New", monospace; font-size: 10pt; line-height: 1.15; text-align: left;
+  background: #f4f4f4; border: 0.5pt solid #ccc; padding: 4pt 6pt; margin: 4pt 0;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+pre code { font-size: 10pt; }
+div.sourceCode { margin: 4pt 0; }
+/* Small listing (.small class on a fenced block) */
+pre.small, pre.small code { font-size: 8pt; line-height: 1.1; }
+pre.small { break-inside: avoid; }
+
+table { border-collapse: collapse; width: 100%; margin: 6pt 0; font-size: 12pt; line-height: 1.2; break-inside: auto; }
+th, td { border: 0.5pt solid #000; padding: 2pt 4pt; text-align: left; vertical-align: top; }
+/* Long code and URLs inside cells wrap instead of widening the table past the page. */
+td, th { overflow-wrap: anywhere; }
+td code, th code { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 10pt; }
+th { font-weight: bold; }
+caption, .table-caption { caption-side: top; text-align: left; font-size: 12pt; padding-bottom: 3pt; }
+
+figure { margin: 6pt 0; text-align: center; break-inside: avoid; }
+figure img, p > img { max-width: 100%; max-height: 200mm; }
+figcaption { font-size: 12pt; text-align: center; margin-top: 3pt; }
+
+/* Listing and table captions: paragraph with the caption class */
+div.caption p, p.caption { text-indent: 0; font-size: 12pt; text-align: left; margin-top: 6pt; }
+
+.page-break { break-after: page; }
+
+/* Title page */
+.title-page {
+  height: 255mm; display: flex; flex-direction: column; justify-content: space-between;
+  break-after: page; text-align: center;
+}
+.title-page p { text-indent: 0; text-align: center; }
+.tp-title-org p { font-weight: bold; }
+.tp-main { margin-top: -20mm; }
+.tp-title-report p { font-weight: bold; text-transform: uppercase; letter-spacing: 2pt; font-size: 18pt; }
+.tp-title-topic p { font-weight: bold; margin-top: 4pt; }
+.tp-sign { align-self: flex-end; width: 80mm; }
+.tp-sign p { text-align: left; }
+.title-page + .page-break { display: none; }
+
+/* Pandoc syntax highlighting without coloured backgrounds */
+pre > code.sourceCode > span, code.sourceCode > span { display: inline; text-indent: 0; padding-left: 0; }
+pre, pre code { text-indent: 0; }
+code span.kw, code span.cf { color: #00007f; font-weight: bold; }
+code span.dt { color: #7f0055; }
+code span.st, code span.ch { color: #2a00ff; }
+code span.co { color: #3f7f5f; font-style: italic; }
+code span.dv, code span.fl { color: #098658; }
+code span.an, code span.at { color: #646464; }
