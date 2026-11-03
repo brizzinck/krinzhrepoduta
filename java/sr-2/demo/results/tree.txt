@@ -1,0 +1,13 @@
+> find src -type f | sort
+src/main/java/com/example/demo/client/CameraClient.java
+src/main/java/com/example/demo/controller/CameraController.java
+src/main/java/com/example/demo/DemoApplication.java
+src/main/java/com/example/demo/dto/CameraInfoDto.java
+src/main/java/com/example/demo/dto/CameraItemDto.java
+src/main/java/com/example/demo/dto/CameraListDto.java
+src/main/java/com/example/demo/dto/SnapshotDto.java
+src/main/java/com/example/demo/entity/CameraEntity.java
+src/main/java/com/example/demo/repository/CameraRepository.java
+src/main/java/com/example/demo/service/CameraService.java
+src/main/resources/application.properties
+(код завершення: 0)

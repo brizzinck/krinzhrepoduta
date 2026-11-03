@@ -1,0 +1,9 @@
+GET /info: метод GET, адреса http://localhost:8080/api/v1/camera/info, код 200, записів id у тілі 1
+POST /snapshot: метод POST, адреса http://localhost:8080/api/v1/camera/snapshot, код 200, записів id у тілі 0
+POST /import: метод POST, адреса http://localhost:8080/api/v1/camera/import, код 200, записів id у тілі 4
+GET /saved: метод GET, адреса http://localhost:8080/api/v1/camera/saved, код 200, записів id у тілі 4
+GET /saved/1: метод GET, адреса http://localhost:8080/api/v1/camera/saved/1, код 200, записів id у тілі 1
+DELETE /saved/1: метод DELETE, адреса http://localhost:8080/api/v1/camera/saved/1, код 204, записів id у тілі 0
+GET /saved/1 після видалення: метод GET, адреса http://localhost:8080/api/v1/camera/saved/1, код 404, записів id у тілі 0
+POST /import повторно: метод POST, адреса http://localhost:8080/api/v1/camera/import, код 200, записів id у тілі 4
+GET /saved після повторного імпорту: метод GET, адреса http://localhost:8080/api/v1/camera/saved, код 200, записів id у тілі 4

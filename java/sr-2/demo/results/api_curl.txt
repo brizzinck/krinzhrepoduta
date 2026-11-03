@@ -1,0 +1,73 @@
+> curl -i http://localhost:8080/api/v1/camera/info
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 03 Nov 2026 12:00:33 GMT
+
+{"id":123,"device_type":"camera","status":"online","features":["motion_detection","night_vision","audio"],"location":{"room":"office","floor":2}}(код завершення: 0)
+
+> curl -s -X POST http://localhost:8080/api/v1/camera/snapshot -H 'Accept: image/jpeg' -D - -o results/snapshot.jpg
+HTTP/1.1 200 
+Content-Type: image/jpeg
+Content-Length: 106972
+Date: Tue, 03 Nov 2026 12:00:33 GMT
+
+(код завершення: 0)
+
+> file results/snapshot.jpg
+results/snapshot.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, baseline, precision 8, 900x600, components 3
+(код завершення: 0)
+
+> curl -i -X POST http://localhost:8080/api/v1/camera/import
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 03 Nov 2026 12:00:34 GMT
+
+[{"id":1,"name":"Main Entrance","deviceType":"IP_CAMERA","status":"ONLINE","room":"Main Entrance","floor":1},{"id":2,"name":"Parking Camera","deviceType":"IP_CAMERA","status":"ONLINE","room":"Parking","floor":0},{"id":3,"name":"Warehouse Camera","deviceType":"IP_CAMERA","status":"OFFLINE","room":"Warehouse","floor":2},{"id":4,"name":"Office Camera","deviceType":"IP_CAMERA","status":"ONLINE","room":"Office 204","floor":2}](код завершення: 0)
+
+> curl -i http://localhost:8080/api/v1/camera/saved
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 03 Nov 2026 12:00:34 GMT
+
+[{"id":1,"name":"Main Entrance","deviceType":"IP_CAMERA","status":"ONLINE","room":"Main Entrance","floor":1},{"id":2,"name":"Parking Camera","deviceType":"IP_CAMERA","status":"ONLINE","room":"Parking","floor":0},{"id":3,"name":"Warehouse Camera","deviceType":"IP_CAMERA","status":"OFFLINE","room":"Warehouse","floor":2},{"id":4,"name":"Office Camera","deviceType":"IP_CAMERA","status":"ONLINE","room":"Office 204","floor":2}](код завершення: 0)
+
+> curl -i http://localhost:8080/api/v1/camera/saved/1
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 03 Nov 2026 12:00:34 GMT
+
+{"id":1,"name":"Main Entrance","deviceType":"IP_CAMERA","status":"ONLINE","room":"Main Entrance","floor":1}(код завершення: 0)
+
+> curl -i -X DELETE http://localhost:8080/api/v1/camera/saved/1
+HTTP/1.1 204 
+Date: Tue, 03 Nov 2026 12:00:34 GMT
+
+(код завершення: 0)
+
+> curl -i http://localhost:8080/api/v1/camera/saved/1
+HTTP/1.1 404 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 03 Nov 2026 12:00:34 GMT
+
+{"timestamp":"2026-11-03T12:00:34.170+00:00","status":404,"error":"Not Found","path":"/api/v1/camera/saved/1"}(код завершення: 0)
+
+> curl -i -X POST http://localhost:8080/api/v1/camera/import
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 03 Nov 2026 12:00:34 GMT
+
+[{"id":1,"name":"Main Entrance","deviceType":"IP_CAMERA","status":"ONLINE","room":"Main Entrance","floor":1},{"id":2,"name":"Parking Camera","deviceType":"IP_CAMERA","status":"ONLINE","room":"Parking","floor":0},{"id":3,"name":"Warehouse Camera","deviceType":"IP_CAMERA","status":"OFFLINE","room":"Warehouse","floor":2},{"id":4,"name":"Office Camera","deviceType":"IP_CAMERA","status":"ONLINE","room":"Office 204","floor":2}](код завершення: 0)
+
+> curl -i http://localhost:8080/api/v1/camera/saved
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 03 Nov 2026 12:00:34 GMT
+
+[{"id":1,"name":"Main Entrance","deviceType":"IP_CAMERA","status":"ONLINE","room":"Main Entrance","floor":1},{"id":2,"name":"Parking Camera","deviceType":"IP_CAMERA","status":"ONLINE","room":"Parking","floor":0},{"id":3,"name":"Warehouse Camera","deviceType":"IP_CAMERA","status":"OFFLINE","room":"Warehouse","floor":2},{"id":4,"name":"Office Camera","deviceType":"IP_CAMERA","status":"ONLINE","room":"Office 204","floor":2}](код завершення: 0)

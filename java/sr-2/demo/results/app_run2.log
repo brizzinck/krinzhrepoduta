@@ -1,0 +1,72 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-11-03T12:01:16.084Z  INFO 1 --- [demo] [           main] com.example.demo.DemoApplication         : Starting DemoApplication v0.0.1-SNAPSHOT using Java 21.0.12.1 with PID 1 (/w/target/demo-0.0.1-SNAPSHOT.jar started by ubuntu in /w)
+2026-11-03T12:01:16.086Z  INFO 1 --- [demo] [           main] com.example.demo.DemoApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-11-03T12:01:16.622Z  INFO 1 --- [demo] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-03T12:01:16.650Z  INFO 1 --- [demo] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 1 JPA repository interface.
+2026-11-03T12:01:16.764Z  INFO 1 --- [demo] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=46c4c9ad-4a39-39ae-83a6-220a201959dc
+2026-11-03T12:01:17.016Z  INFO 1 --- [demo] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-11-03T12:01:17.030Z  INFO 1 --- [demo] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-03T12:01:17.031Z  INFO 1 --- [demo] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-11-03T12:01:17.057Z  INFO 1 --- [demo] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-11-03T12:01:17.057Z  INFO 1 --- [demo] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 930 ms
+2026-11-03T12:01:17.078Z  INFO 1 --- [demo] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-03T12:01:17.228Z  INFO 1 --- [demo] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/cameradb user=SA
+2026-11-03T12:01:17.229Z  INFO 1 --- [demo] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-03T12:01:17.244Z  INFO 1 --- [demo] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/cameradb'
+2026-11-03T12:01:17.382Z  INFO 1 --- [demo] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-11-03T12:01:17.438Z  INFO 1 --- [demo] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-11-03T12:01:17.468Z  INFO 1 --- [demo] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-11-03T12:01:17.715Z  INFO 1 --- [demo] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-03T12:01:18.237Z  INFO 1 --- [demo] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-03T12:01:18.272Z  INFO 1 --- [demo] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-03T12:01:19.181Z  INFO 1 --- [demo] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-11-03T12:01:19.238Z  INFO 1 --- [demo] [           main] com.example.demo.DemoApplication         : Started DemoApplication in 3.467 seconds (process running for 3.824)
+2026-11-03T12:01:19.459Z  INFO 1 --- [demo] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-03T12:01:19.459Z  INFO 1 --- [demo] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-03T12:01:19.460Z  INFO 1 --- [demo] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-11-03T12:01:19.685Z  INFO 1 --- [demo] [nio-8080-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 199 ms
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0
+2026-11-03T12:01:20.915Z  INFO 1 --- [demo] [io-8080-exec-10] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 30 ms
+2026-11-03T12:01:59.757Z  INFO 1 --- [demo] [nio-8080-exec-9] com.example.demo.service.CameraService   : Getting camera info
+2026-11-03T12:02:00.112Z  INFO 1 --- [demo] [nio-8080-exec-9] com.example.demo.service.CameraService   : Camera info received: CameraInfoDto[id=123, device_type=camera, status=online, features=[motion_detection, night_vision, audio], location=Location[room=office, floor=2]]
+2026-11-03T12:02:01.486Z  INFO 1 --- [demo] [io-8080-exec-10] com.example.demo.service.CameraService   : Capturing snapshot
+2026-11-03T12:02:01.653Z  INFO 1 --- [demo] [io-8080-exec-10] com.example.demo.service.CameraService   : Snapshot received
+2026-11-03T12:02:03.197Z  INFO 1 --- [demo] [nio-8080-exec-1] com.example.demo.service.CameraService   : Importing 4 cameras
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0
+2026-11-03T12:03:30.636Z  INFO 1 --- [demo] [io-8080-exec-10] com.example.demo.service.CameraService   : Getting camera info
+2026-11-03T12:03:30.872Z  INFO 1 --- [demo] [io-8080-exec-10] com.example.demo.service.CameraService   : Camera info received: CameraInfoDto[id=123, device_type=camera, status=online, features=[motion_detection, night_vision, audio], location=Location[room=office, floor=2]]
+2026-11-03T12:03:32.767Z  INFO 1 --- [demo] [nio-8080-exec-1] com.example.demo.service.CameraService   : Capturing snapshot
+2026-11-03T12:03:33.301Z  INFO 1 --- [demo] [nio-8080-exec-1] com.example.demo.service.CameraService   : Snapshot received
+2026-11-03T12:03:35.832Z  INFO 1 --- [demo] [nio-8080-exec-2] com.example.demo.service.CameraService   : Importing 4 cameras
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+2026-11-03T12:03:43.713Z  INFO 1 --- [demo] [nio-8080-exec-8] com.example.demo.service.CameraService   : Deleted camera 1
+Hibernate: delete from cameras where id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+2026-11-03T12:03:48.769Z  INFO 1 --- [demo] [nio-8080-exec-7] com.example.demo.service.CameraService   : Importing 4 cameras
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0 where ce1_0.id=?
+Hibernate: insert into cameras (device_type,floor,name,room,status,id) values (?,?,?,?,?,?)
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0
+Hibernate: select ce1_0.id,ce1_0.device_type,ce1_0.floor,ce1_0.name,ce1_0.room,ce1_0.status from cameras ce1_0

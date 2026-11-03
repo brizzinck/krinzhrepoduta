@@ -1,0 +1,19 @@
+> curl -s -o /dev/null -w '%{http_code} %{size_download}' https://dummyjson.com/c/da8f-feef-4b02-9ca0
+200 493
+(код завершення: 0)
+
+> curl -s -o /dev/null -w '%{http_code} %{size_download}' -X PUT https://dummyjson.com/c/382a-be11-44ef-8b0c
+200 142644
+(код завершення: 0)
+
+> curl -s -o /dev/null -w '%{http_code} %{size_download}' https://dummyjson.com/c/0716-c5cb-4391-afc3
+200 145
+(код завершення: 0)
+
+> curl -s -o /dev/null -w '%{http_code} %{size_download}' https://dummyjson.com/c/da8f-feef-4b02-9ca0   (після знімків)
+200 493
+(код завершення: 0)
+
+> curl -s -o /dev/null -w '%{http_code} %{size_download}' -X PUT https://dummyjson.com/c/382a-be11-44ef-8b0c   (після знімків)
+200 142644
+(код завершення: 0)
