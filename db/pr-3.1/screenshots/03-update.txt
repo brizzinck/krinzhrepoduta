@@ -1,0 +1,29 @@
+$ ./run.sh < demo/03-update.txt
+Підключено до БД: car_rental
+1 Показати таблицю   2 Знайти за ключем   3 Додати   4 Змінити   5 Видалити
+6 Активні оренди (JOIN)   7 Вільні авто (фільтр)   8 Виручка філій (агрегація)
+9 Меню   0 Вихід
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 4
+car_id: 25
+Порожнє значення: стовпець не змінюється
+model_id: 
+branch_id: 
+vin: 
+plate_number: 
+manufacture_year: 
+mileage_km: 12500
+daily_price: 1350.50
+status: maintenance
+Змінено рядків: 1
+
+Ваш вибір: 0
+Роботу завершено
+$ mysql -t car_rental -e "SELECT car_id, plate_number, mileage_km, daily_price, status FROM cars WHERE car_id = 25;"
++--------+--------------+------------+-------------+-------------+
+| car_id | plate_number | mileage_km | daily_price | status      |
++--------+--------------+------------+-------------+-------------+
+|     25 | AA0001TT     |      12500 |     1350.50 | maintenance |
++--------+--------------+------------+-------------+-------------+

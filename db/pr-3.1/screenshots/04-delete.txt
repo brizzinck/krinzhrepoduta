@@ -1,0 +1,27 @@
+$ ./run.sh < demo/04-delete.txt
+Підключено до БД: car_rental
+1 Показати таблицю   2 Знайти за ключем   3 Додати   4 Змінити   5 Видалити
+6 Активні оренди (JOIN)   7 Вільні авто (фільтр)   8 Виручка філій (агрегація)
+9 Меню   0 Вихід
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 4
+car_id: 25
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 4
+car_id: 25
+car_id | model_id | branch_id | vin | plate_number | manufacture_year | mileage_km | daily_price | status
+Рядків: 0
+
+Ваш вибір: 0
+Роботу завершено
+$ mysql -t car_rental -e "SELECT COUNT(*) AS cars_total, MAX(car_id) AS max_id FROM cars;"
++------------+--------+
+| cars_total | max_id |
++------------+--------+
+|         24 |     24 |
++------------+--------+

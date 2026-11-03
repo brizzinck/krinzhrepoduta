@@ -1,0 +1,541 @@
+$ ./run.sh < demo/07-crud-all.txt
+Підключено до БД: car_rental
+1 Показати таблицю   2 Знайти за ключем   3 Додати   4 Змінити   5 Видалити
+6 Активні оренди (JOIN)   7 Вільні авто (фільтр)   8 Виручка філій (агрегація)
+9 Меню   0 Вихід
+
+Ваш вибір: 3
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 1
+Порожнє значення: DEFAULT або NULL
+name: Прокат «Тест»
+city: Вінниця
+address: вул. Тестова, 1
+phone: +380430000001
+Додано рядок, ключ: 5
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 1
+branch_id: 5
+branch_id | name          | city    | address         | phone        
+5         | Прокат «Тест» | Вінниця | вул. Тестова, 1 | +380430000001
+Рядків: 1
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 1
+branch_id: 5
+Порожнє значення: стовпець не змінюється
+name: 
+city: 
+address: вул. Тестова, 2
+phone: 
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 1
+branch_id: 5
+branch_id | name          | city    | address         | phone        
+5         | Прокат «Тест» | Вінниця | вул. Тестова, 2 | +380430000001
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 1
+branch_id: 5
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 1
+branch_id: 5
+branch_id | name | city | address | phone
+Рядків: 0
+
+Ваш вибір: 3
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 2
+Порожнє значення: DEFAULT або NULL
+name: Тестовий
+daily_base_rate: 700
+deposit_amount: 1500
+Додано рядок, ключ: 6
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 2
+class_id: 6
+class_id | name     | daily_base_rate | deposit_amount
+6        | Тестовий | 700.00          | 1500.00       
+Рядків: 1
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 2
+class_id: 6
+Порожнє значення: стовпець не змінюється
+name: 
+daily_base_rate: 750
+deposit_amount: 
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 2
+class_id: 6
+class_id | name     | daily_base_rate | deposit_amount
+6        | Тестовий | 750.00          | 1500.00       
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 2
+class_id: 6
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 2
+class_id: 6
+class_id | name | daily_base_rate | deposit_amount
+Рядків: 0
+
+Ваш вибір: 3
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 3
+Порожнє значення: DEFAULT або NULL
+class_id: 1
+brand: Skoda
+model_name: Fabia Test
+seats: 5
+transmission: manual
+fuel_type: petrol
+Додано рядок, ключ: 13
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 3
+model_id: 13
+model_id | class_id | brand | model_name | seats | transmission | fuel_type
+13       | 1        | Skoda | Fabia Test | 5     | manual       | petrol   
+Рядків: 1
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 3
+model_id: 13
+Порожнє значення: стовпець не змінюється
+class_id: 
+brand: 
+model_name: 
+seats: 4
+transmission: 
+fuel_type: 
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 3
+model_id: 13
+model_id | class_id | brand | model_name | seats | transmission | fuel_type
+13       | 1        | Skoda | Fabia Test | 4     | manual       | petrol   
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 3
+model_id: 13
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 3
+model_id: 13
+model_id | class_id | brand | model_name | seats | transmission | fuel_type
+Рядків: 0
+
+Ваш вибір: 3
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 4
+Порожнє значення: DEFAULT або NULL
+model_id: 1
+branch_id: 1
+vin: WVWZZZ1KZDP123456
+plate_number: AA0001TT
+manufacture_year: 2024
+mileage_km: 
+daily_price: 1500.00
+status: 
+Додано рядок, ключ: 25
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 4
+car_id: 25
+car_id | model_id | branch_id | vin               | plate_number | manufacture_year | mileage_km | daily_price | status   
+25     | 1        | 1         | WVWZZZ1KZDP123456 | AA0001TT     | 2024             | 0          | 1500.00     | available
+Рядків: 1
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 4
+car_id: 25
+Порожнє значення: стовпець не змінюється
+model_id: 
+branch_id: 
+vin: 
+plate_number: 
+manufacture_year: 
+mileage_km: 12500
+daily_price: 
+status: 
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 4
+car_id: 25
+car_id | model_id | branch_id | vin               | plate_number | manufacture_year | mileage_km | daily_price | status   
+25     | 1        | 1         | WVWZZZ1KZDP123456 | AA0001TT     | 2024             | 12500      | 1500.00     | available
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 4
+car_id: 25
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 4
+car_id: 25
+car_id | model_id | branch_id | vin | plate_number | manufacture_year | mileage_km | daily_price | status
+Рядків: 0
+
+Ваш вибір: 3
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 5
+Порожнє значення: DEFAULT або NULL
+first_name: Іван
+last_name: Тестовий
+middle_name: 
+phone: +380500000001
+email: ivan.test@example.com
+birth_date: 1990-05-05
+license_number: TST100001
+license_expires: 2030-05-05
+registered_at: 
+Додано рядок, ключ: 21
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 5
+customer_id: 21
+customer_id | first_name | last_name | middle_name | phone         | email                 | birth_date | license_number | license_expires | registered_at      
+21          | Іван       | Тестовий  | NULL        | +380500000001 | ivan.test@example.com | 1990-05-05 | TST100001      | 2030-05-05      | 2026-11-03 12:16:38
+Рядків: 1
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 5
+customer_id: 21
+Порожнє значення: стовпець не змінюється
+first_name: 
+last_name: 
+middle_name: Петрович
+phone: 
+email: 
+birth_date: 
+license_number: 
+license_expires: 
+registered_at: 
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 5
+customer_id: 21
+customer_id | first_name | last_name | middle_name | phone         | email                 | birth_date | license_number | license_expires | registered_at      
+21          | Іван       | Тестовий  | Петрович    | +380500000001 | ivan.test@example.com | 1990-05-05 | TST100001      | 2030-05-05      | 2026-11-03 12:16:38
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 5
+customer_id: 21
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 5
+customer_id: 21
+customer_id | first_name | last_name | middle_name | phone | email | birth_date | license_number | license_expires | registered_at
+Рядків: 0
+
+Ваш вибір: 3
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 6
+Порожнє значення: DEFAULT або NULL
+branch_id: 1
+full_name: Тест Тестович
+position: agent
+phone: +380500000002
+hired_at: 2026-01-15
+Додано рядок, ключ: 9
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 6
+employee_id: 9
+employee_id | branch_id | full_name     | position | phone         | hired_at  
+9           | 1         | Тест Тестович | agent    | +380500000002 | 2026-01-15
+Рядків: 1
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 6
+employee_id: 9
+Порожнє значення: стовпець не змінюється
+branch_id: 
+full_name: 
+position: manager
+phone: 
+hired_at: 
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 6
+employee_id: 9
+employee_id | branch_id | full_name     | position | phone         | hired_at  
+9           | 1         | Тест Тестович | manager  | +380500000002 | 2026-01-15
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 6
+employee_id: 9
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 6
+employee_id: 9
+employee_id | branch_id | full_name | position | phone | hired_at
+Рядків: 0
+
+Ваш вибір: 3
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 7
+Порожнє значення: DEFAULT або NULL
+customer_id: 1
+car_id: 2
+employee_id: 1
+pickup_branch_id: 1
+return_branch_id: 
+start_at: 2026-11-10 10:00:00
+planned_end_at: 2026-11-12 10:00:00
+actual_end_at: 
+daily_price: 850.00
+status: 
+Додано рядок, ключ: 31
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 7
+rental_id: 31
+rental_id | customer_id | car_id | employee_id | pickup_branch_id | return_branch_id | start_at            | planned_end_at      | actual_end_at | daily_price | status
+31        | 1           | 2      | 1           | 1                | NULL             | 2026-11-10 10:00:00 | 2026-11-12 10:00:00 | NULL          | 850.00      | booked
+Рядків: 1
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 7
+rental_id: 31
+Порожнє значення: стовпець не змінюється
+customer_id: 
+car_id: 
+employee_id: 
+pickup_branch_id: 
+return_branch_id: 
+start_at: 
+planned_end_at: 
+actual_end_at: 
+daily_price: 
+status: active
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 7
+rental_id: 31
+rental_id | customer_id | car_id | employee_id | pickup_branch_id | return_branch_id | start_at            | planned_end_at      | actual_end_at | daily_price | status
+31        | 1           | 2      | 1           | 1                | NULL             | 2026-11-10 10:00:00 | 2026-11-12 10:00:00 | NULL          | 850.00      | active
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 7
+rental_id: 31
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 7
+rental_id: 31
+rental_id | customer_id | car_id | employee_id | pickup_branch_id | return_branch_id | start_at | planned_end_at | actual_end_at | daily_price | status
+Рядків: 0
+
+Ваш вибір: 3
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 8
+Порожнє значення: DEFAULT або NULL
+rental_id: 1
+amount: 500.00
+kind: rent
+method: card
+paid_at: 
+Додано рядок, ключ: 82
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 8
+payment_id: 82
+payment_id | rental_id | amount | kind | method | paid_at            
+82         | 1         | 500.00 | rent | card   | 2026-11-03 12:16:38
+Рядків: 1
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 8
+payment_id: 82
+Порожнє значення: стовпець не змінюється
+rental_id: 
+amount: 600.00
+kind: 
+method: 
+paid_at: 
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 8
+payment_id: 82
+payment_id | rental_id | amount | kind | method | paid_at            
+82         | 1         | 600.00 | rent | card   | 2026-11-03 12:16:38
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 8
+payment_id: 82
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 8
+payment_id: 82
+payment_id | rental_id | amount | kind | method | paid_at
+Рядків: 0
+
+Ваш вибір: 3
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 9
+Порожнє значення: DEFAULT або NULL
+name: Тестова послуга
+price_per_day: 55.00
+Додано рядок, ключ: 6
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 9
+extra_id: 6
+extra_id | name            | price_per_day
+6        | Тестова послуга | 55.00        
+Рядків: 1
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 9
+extra_id: 6
+Порожнє значення: стовпець не змінюється
+name: 
+price_per_day: 60.00
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 9
+extra_id: 6
+extra_id | name            | price_per_day
+6        | Тестова послуга | 60.00        
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 9
+extra_id: 6
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 9
+extra_id: 6
+extra_id | name | price_per_day
+Рядків: 0
+
+Ваш вибір: 3
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 10
+rental_id: 30
+extra_id: 1
+Порожнє значення: DEFAULT або NULL
+quantity: 2
+Додано рядок
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 10
+rental_id: 30
+extra_id: 1
+rental_id | extra_id | quantity
+30        | 1        | 2       
+Рядків: 1
+
+Ваш вибір: 4
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 10
+rental_id: 30
+extra_id: 1
+Порожнє значення: стовпець не змінюється
+quantity: 3
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 10
+rental_id: 30
+extra_id: 1
+rental_id | extra_id | quantity
+30        | 1        | 3       
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 10
+rental_id: 30
+extra_id: 1
+Видалено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 10
+rental_id: 30
+extra_id: 1
+rental_id | extra_id | quantity
+Рядків: 0
+
+Ваш вибір: 0
+Роботу завершено

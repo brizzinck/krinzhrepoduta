@@ -1,0 +1,26 @@
+$ ./run.sh < demo/01-read.txt
+Підключено до БД: car_rental
+1 Показати таблицю   2 Знайти за ключем   3 Додати   4 Змінити   5 Видалити
+6 Активні оренди (JOIN)   7 Вільні авто (фільтр)   8 Виручка філій (агрегація)
+9 Меню   0 Вихід
+
+Ваш вибір: 1
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 1
+branch_id | name                         | city   | address                        | phone        
+1         | Прокат «Київ-Центр»          | Київ   | вул. Володимирська, 45         | +380445550101
+2         | Прокат «Львів-Свобода»       | Львів  | просп. Свободи, 28             | +380325550102
+3         | Прокат «Одеса-Дерибасівська» | Одеса  | вул. Дерибасівська, 12         | +380485550103
+4         | Прокат «Дніпро-Яворницького» | Дніпро | просп. Дмитра Яворницького, 60 | +380565550104
+Рядків: 4
+
+Ваш вибір: 2
+1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+Таблиця: 4
+car_id: 2
+car_id | model_id | branch_id | vin               | plate_number | manufacture_year | mileage_km | daily_price | status   
+2      | 1        | 2         | VF1GNNRZ4M5JJW9K1 | BC6956MK     | 2020             | 126912     | 850.00      | available
+Рядків: 1
+
+Ваш вибір: 0
+Роботу завершено
