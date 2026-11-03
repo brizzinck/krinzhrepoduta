@@ -755,7 +755,7 @@
                   "new": false
                 },
                 {
-                  "status": "Open",
+                  "status": "Mitigated",
                   "severity": "Medium",
                   "mitigation": "Загальні повідомлення про помилки, вимкнений debug/actuator (передбачено в архітектурі). (ASVS: V16.5.1, V13.4.2)",
                   "description": "Службові подробиці помилок допомагають зловмиснику (SQL, класи, версії).",
@@ -807,7 +807,7 @@
                   "new": false
                 },
                 {
-                  "status": "Open",
+                  "status": "Mitigated",
                   "severity": "High",
                   "mitigation": "DTO з allow-list полів, роль виставляє лише сервер (передбачено в архітектурі). (ASVS: V8.2.1, V2.2.1)",
                   "description": "Додатковий параметр у формі реєстрації підвищує роль до адміністратора.",

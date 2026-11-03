@@ -26,6 +26,12 @@ echo
 echo "# Безпечний JSON-ендпоінт: так само 413"
 python3 -I -c 'print("{\"login\":\"" + "a"*5_000_000 + "\"}", end="")' > "$TMP/big.json"
 curl -s -w '\n  HTTP %{http_code}\n' -X POST "$BASE/api/register" -H 'Content-Type: application/json' --data-binary @"$TMP/big.json"
+echo
+echo "# Chunked-запит без Content-Length: фільтр рахує прочитані байти, теж 413"
+echo "\$ curl -s -X POST $BASE/api/register -H 'Content-Type: application/json' -H 'Transfer-Encoding: chunked' --data-binary @big.json"
+curl -s -w '\n  HTTP %{http_code}\n' -X POST "$BASE/api/register" -H 'Content-Type: application/json' -H 'Transfer-Encoding: chunked' --data-binary @"$TMP/big.json"
+echo "\$ curl -s -X POST $BASE/register -H 'Transfer-Encoding: chunked' --data-binary @big.txt -H 'Content-Type: application/x-www-form-urlencoded'"
+curl -s -w '\n  HTTP %{http_code}\n' -X POST "$BASE/register" -H 'Content-Type: application/x-www-form-urlencoded' -H 'Transfer-Encoding: chunked' --data-binary @"$TMP/big.txt"
 
 post_form "Дата-переповнення: birthDate=99999999999999999999" login=client01 "${OK[@]:0:4}" birthDate=99999999999999999999
 

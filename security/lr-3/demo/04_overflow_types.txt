@@ -2,7 +2,7 @@
 
 # Вразлива реєстрація: логін 10 000 символів, поле БД VARCHAR(32). Результат: 500 і подробиці помилки
 $ curl -s -X POST http://localhost:8080/demo/vuln/register -d login=<a x10000> ... | head -c 420
-{"timestamp":"2026-11-02T22:15:46.405+00:00","status":500,"error":"Internal Server Error","exception":"org.springframework.dao.DataIntegrityViolationException","trace":"org.springframework.dao.DataIntegrityViolationException: StatementCallback; SQL [INSERT INTO users (login, first_name, email, password_hash, phone, birth_date) VALUES ('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ... [скорочено]
+{"timestamp":"2026-11-03T15:45:44.138+00:00","status":500,"error":"Internal Server Error","exception":"org.springframework.dao.DataIntegrityViolationException","trace":"org.springframework.dao.DataIntegrityViolationException: StatementCallback; SQL [INSERT INTO users (login, first_name, email, password_hash, phone, birth_date) VALUES ('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ... [скорочено]
   HTTP 500
 
 # Безпечна форма: логін 10 000 символів
@@ -20,6 +20,14 @@ $ curl -s -X POST http://localhost:8080/register --data-binary @big.txt -H 'Cont
 {"error":"Тіло запиту завелике, максимум 16384 байтів"}
   HTTP 413
 
+# Chunked-запит без Content-Length: фільтр рахує прочитані байти, теж 413
+$ curl -s -X POST http://localhost:8080/api/register -H 'Content-Type: application/json' -H 'Transfer-Encoding: chunked' --data-binary @big.json
+{"error":"Тіло запиту завелике, максимум 16384 байтів"}
+  HTTP 413
+$ curl -s -X POST http://localhost:8080/register -H 'Transfer-Encoding: chunked' --data-binary @big.txt -H 'Content-Type: application/x-www-form-urlencoded'
+{"error":"Тіло запиту завелике, максимум 16384 байтів"}
+  HTTP 413
+
 # Дата-переповнення: birthDate=99999999999999999999
 $ curl -s -X POST http://localhost:8080/register -d login=client01 -d firstName=Олена -d email=o@example.com -d password=Secret123 -d phone=+380501234567 -d birthDate=99999999999999999999 
   HTTP 400
@@ -29,7 +37,7 @@ $ curl -s -X POST http://localhost:8080/register -d login=client01 -d firstName=
 
 # Вразливо: ручний parseInt без обробки помилки
 $ curl -s -w '  HTTP %{http_code}' 'http://localhost:8080/demo/vuln/page?n=2147483648' | head -c 330
-{"timestamp":"2026-11-02T22:15:46.557+00:00","status":500,"error":"Internal Server Error","exception":"java.lang.NumberFormatException","trace":"java.lang.NumberFormatException: For input string: \"2147483648\"\n\tat java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)\n\tat java.base/java.lang ...
+{"timestamp":"2026-11-03T15:45:44.402+00:00","status":500,"error":"Internal Server Error","exception":"java.lang.NumberFormatException","trace":"java.lang.NumberFormatException: For input string: \"2147483648\"\n\tat java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)\n\tat java.base/java.lang ...
 
 # Безпечно: параметр типу int, помилка типу дає 400 без внутрішніх подробиць
   n=2147483648: {"error":"Некоректний параметр запиту: перевірте наявність і тип значення"} [HTTP 400]
@@ -104,5 +112,5 @@ $ curl -s -X POST http://localhost:8080/api/register -H 'Content-Type: applicati
 {"error":"Некоректне тіло запиту: перевірте формат JSON і типи полів"}
   HTTP 400
 $ curl -s -X POST http://localhost:8080/api/register ... поля з помилками
-{"error":"Помилка валідації","fields":{"login":"Логін має містити від 5 до 32 символів","phone":"Телефон: необов'язковий + і від 10 до 15 цифр, без пробілів","password":"Пароль має містити принаймні одну велику літеру","email":"E-mail має містити @ та доменне ім'я, наприклад name@example.com","birthDate":"Дата народження не може бути в майбутньому","firstName":"Ім'я має містити лише літери"}}
+{"error":"Помилка валідації","fields":{"email":"E-mail має містити @ та доменне ім'я, наприклад name@example.com","firstName":"Ім'я має містити лише літери","birthDate":"Дата народження не може бути в майбутньому","password":"Пароль має містити принаймні одну велику літеру","login":"Логін має містити від 5 до 32 символів","phone":"Телефон: необов'язковий + і від 10 до 15 цифр, без пробілів"}}
   HTTP 400
