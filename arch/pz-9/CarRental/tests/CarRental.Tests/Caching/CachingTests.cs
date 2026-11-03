@@ -1,3 +1,4 @@
+using CarRental.Application.Fleet.Handlers;
 using CarRental.Application.Common.Caching;
 using CarRental.Application.Common.Events;
 using CarRental.Application.Rentals.Events;
@@ -141,7 +142,11 @@ public class CachingTests
     public async Task Failure_of_a_later_handler_does_not_leave_stale_data_in_cache()
     {
         using var f = new SqliteFixture(services =>
-            services.AddScoped<IEventHandler<RentalCompleted>, FailingHandler>());
+        {
+            var mileage = services.First(d => d.ServiceType == typeof(IEventHandler<RentalCompleted>)
+                && d.ImplementationType == typeof(UpdateCarMileageOnRentalCompleted));
+            services.Insert(services.IndexOf(mileage), ServiceDescriptor.Scoped<IEventHandler<RentalCompleted>, FailingHandler>());
+        });
         var (car, renter) = await SeedAsync(f);
         var today = f.Clock.Today;
         Guid id;

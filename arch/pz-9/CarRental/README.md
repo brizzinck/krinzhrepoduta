@@ -127,7 +127,7 @@ ASPNETCORE_ENVIRONMENT=Development ./serve.sh start   # з діагностик�
 | `POST /api/rentals/{id}/complete` | завершити `{endMileage}` |
 | `POST /api/rentals/{id}/cancel` | скасувати |
 
-Помилки: правило порушено, 400; не знайдено, 404; перетин оренд, дубль номера або одночасна зміна, 409.
+Помилки валідації: 400, тіло `ValidationProblemDetails`. Правило порушено: 400. Не знайдено: 404. Перетин оренд або одночасна зміна: 409.
 
 ## Кешування (ПЗ 9)
 
