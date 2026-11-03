@@ -40,5 +40,5 @@ dd41e3a551f359efbe675e8f3aa7b405bf48bdb1d9002b3dad38338d9c293aad  src/main/java/
              new Film("", 100, "Режисер", 2020);
 (код завершення: 1)
 
-> grep -rnE instanceof|getClass\(\)|\((Film|Song|Podcast|Audiobook)\) *[a-z] src/main/java
+> grep -rnE 'instanceof|getClass\(\)|\((Film|Song|Podcast|Audiobook)\) *[a-z]' src/main/java
 (код завершення: 1)

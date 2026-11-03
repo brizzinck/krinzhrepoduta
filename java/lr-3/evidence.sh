@@ -12,4 +12,5 @@ $T/runlog.sh $R -- git diff --no-index --stat $A/LibraryReport.java $B/LibraryRe
 $T/runlog.sh $R -- git diff --no-index --stat $A/MediaContent.java $B/MediaContent.java
 $T/runlog.sh $R -- sha256sum $A/LibraryReport.java $B/LibraryReport.java
 $T/runlog.sh $R -- diff -u $A/Main.java $B/Main.java
-$T/runlog.sh $R -- grep -rnE "instanceof|getClass\(\)|\((Film|Song|Podcast|Audiobook)\) *[a-z]" src/main/java
+G='instanceof|getClass\(\)|\((Film|Song|Podcast|Audiobook)\) *[a-z]'
+$T/runlog.sh -d "grep -rnE '$G' src/main/java" $R -- grep -rnE "$G" src/main/java

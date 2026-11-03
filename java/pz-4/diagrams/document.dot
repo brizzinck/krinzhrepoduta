@@ -1,8 +1,8 @@
 digraph G {
   rankdir=BT; nodesep=0.6; ranksep=0.9;
   graph [fontname="Liberation Sans", bgcolor="white"];
-  node [shape=record, fontname="Liberation Sans", fontsize=11, style=filled, fillcolor="#f5f5f5"];
-  edge [fontname="Liberation Sans", fontsize=10];
+  node [shape=record, fontname="Liberation Sans", fontsize=14, style=filled, fillcolor="#f5f5f5"];
+  edge [fontname="Liberation Sans", fontsize=12];
 
   Document [fillcolor="#fde9c9", label="{«abstract»\nDocument|# title : String\l|«abstract» render() : String\l+ info() : String\l}"];
   Report [label="{Report|+ render() : String\l+ print()\l+ export()\l+ describe() : String\l}"];
