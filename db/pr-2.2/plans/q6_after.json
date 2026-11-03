@@ -1,56 +1,56 @@
 {
- "query_block": {
-  "select_id": 1,
-  "cost_info": {
-   "query_cost": "852.65"
-  },
-  "nested_loop": [
-   {
-    "table": {
-     "table_name": "o",
-     "access_type": "ALL",
-     "rows_examined_per_scan": 830,
-     "rows_produced_per_join": 830,
-     "filtered": "100.00",
-     "cost_info": {
-      "read_cost": "2.25",
-      "eval_cost": "83.00",
-      "prefix_cost": "85.25",
-      "data_read_per_join": "564K"
-     },
-     "used_columns": [
-      "OrderID",
-      "CustomerID",
-      "EmployeeID",
-      "OrderDate"
-     ]
-    }
-   },
-   {
-    "table": {
-     "table_name": "e",
-     "access_type": "ALL",
-     "possible_keys": [
-      "PRIMARY"
-     ],
-     "rows_examined_per_scan": 9,
-     "rows_produced_per_join": 7470,
-     "filtered": "100.00",
-     "using_join_buffer": "hash join",
-     "cost_info": {
-      "read_cost": "20.40",
-      "eval_cost": "747.00",
-      "prefix_cost": "852.65",
-      "data_read_per_join": "14M"
-     },
-     "used_columns": [
-      "EmployeeID",
-      "LastName",
-      "FirstName"
-     ],
-     "attached_condition": "<if>(is_not_null_compl(e), (`northwind_opt`.`e`.`EmployeeID` = `northwind_opt`.`o`.`EmployeeID`), true)"
-    }
-   }
-  ]
- }
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "852.65"
+    },
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "o",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 830,
+          "rows_produced_per_join": 830,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "2.25",
+            "eval_cost": "83.00",
+            "prefix_cost": "85.25",
+            "data_read_per_join": "564K"
+          },
+          "used_columns": [
+            "OrderID",
+            "CustomerID",
+            "EmployeeID",
+            "OrderDate"
+          ]
+        }
+      },
+      {
+        "table": {
+          "table_name": "e",
+          "access_type": "ALL",
+          "possible_keys": [
+            "PRIMARY"
+          ],
+          "rows_examined_per_scan": 9,
+          "rows_produced_per_join": 7470,
+          "filtered": "100.00",
+          "using_join_buffer": "hash join",
+          "cost_info": {
+            "read_cost": "20.40",
+            "eval_cost": "747.00",
+            "prefix_cost": "852.65",
+            "data_read_per_join": "14M"
+          },
+          "used_columns": [
+            "EmployeeID",
+            "LastName",
+            "FirstName"
+          ],
+          "attached_condition": "<if>(is_not_null_compl(e), (`northwind_opt`.`e`.`EmployeeID` = `northwind_opt`.`o`.`EmployeeID`), true)"
+        }
+      }
+    ]
+  }
 }

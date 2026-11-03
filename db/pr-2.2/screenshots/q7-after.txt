@@ -1,28 +1,16 @@
-$ mysql -B northwind_opt -e 'EXPLAIN запит 7' | cut -f2,3,5,7,10,12 | column -t -s$'\t'
+$ ./qstat.sh q7 after
+# EXPLAIN, основні стовпці
 select_type  table      type  key                    rows  Extra
 PRIMARY      suppliers  ref   idx_suppliers_country  3     Using index
 UNION        customers  ref   idx_customers_country  11    Using index
-$ mysql -N -B -r northwind_opt -e 'EXPLAIN ANALYZE запит 7'
--> Append  (cost=1.99 rows=14) (actual time=0.0144..0.0273 rows=14 loops=1)
-    -> Stream results  (cost=0.564 rows=3) (actual time=0.0131..0.0166 rows=3 loops=1)
-        -> Covering index lookup on suppliers using idx_suppliers_country (Country='Germany')  (cost=0.564 rows=3) (actual time=0.0104..0.0133 rows=3 loops=1)
-    -> Stream results  (cost=1.42 rows=11) (actual time=0.00447..0.00767 rows=11 loops=1)
-        -> Covering index lookup on customers using idx_customers_country (Country='Germany')  (cost=1.42 rows=11) (actual time=0.00412..0.0061 rows=11 loops=1)
-
-# query_cost з EXPLAIN FORMAT=JSON (plans/q7_after.json): 1.98
-$ mysql -t northwind_opt < handler.sql   # FLUSH STATUS, запит, SHOW SESSION STATUS
-+-----------------------+-------+
-| Variable_name         | Value |
-+-----------------------+-------+
-| Handler_read_first    | 0     |
-| Handler_read_key      | 2     |
-| Handler_read_next     | 14    |
-| Handler_read_rnd_next | 0     |
-+-----------------------+-------+
-# запит виконано 500 разів поспіль, статистика з performance_schema
-$ mysql -t northwind_opt < digest.sql
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
-| runs | avg_ms | min_ms | max_ms | rows_exam | rows_sent | tmp_tables | sort_rows |
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
-|  500 |  0.031 |  0.019 |  0.234 |        14 |        14 |          0 |         0 |
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
+# EXPLAIN ANALYZE
+-> Append  (cost=1.99 rows=14) (actual time=0.0125..0.0232 rows=14 loops=1)
+    -> Stream results  (cost=0.564 rows=3) (actual time=0.0114..0.0148 rows=3 loops=1)
+        -> Covering index lookup on suppliers using idx_suppliers_country (Country='Germany')  (cost=0.564 rows=3) (actual time=0.00896..0.012 rows=3 loops=1)
+    -> Stream results  (cost=1.42 rows=11) (actual time=0.00344..0.00581 rows=11 loops=1)
+        -> Covering index lookup on customers using idx_customers_country (Country='Germany')  (cost=1.42 rows=11) (actual time=0.00324..0.00462 rows=11 loops=1)
+query_cost: 0.56 + 1.42 = 1.98
+Handler_read_*: first=0 key=2 next=14 rnd_next=0
+# 500 запусків поспіль, час за performance_schema
+runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
+500   0.02    0.018   0.208   14         14         0           0

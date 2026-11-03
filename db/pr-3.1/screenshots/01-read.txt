@@ -5,7 +5,8 @@ $ ./run.sh < demo/01-read.txt
 9 Меню   0 Вихід
 
 Ваш вибір: 1
-1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+1.branches  2.car_classes  3.car_models  4.cars  5.customers
+6.employees  7.rentals  8.payments  9.extras  10.rental_extras
 Таблиця: 1
 branch_id | name                         | city   | address                        | phone        
 1         | Прокат «Київ-Центр»          | Київ   | вул. Володимирська, 45         | +380445550101
@@ -15,7 +16,8 @@ branch_id | name                         | city   | address                     
 Рядків: 4
 
 Ваш вибір: 2
-1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+1.branches  2.car_classes  3.car_models  4.cars  5.customers
+6.employees  7.rentals  8.payments  9.extras  10.rental_extras
 Таблиця: 4
 car_id: 2
 car_id | model_id | branch_id | vin               | plate_number | manufacture_year | mileage_km | daily_price | status   

@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind_defense < defense_queries.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind_defense < defense_queries.sql
 --------------
 CREATE PROCEDURE ShipProduct(IN p_id INT, IN p_qty INT)
 …
@@ -110,14 +110,14 @@ CREATE TABLE ProductsUpdateLog (
     OldPrice DECIMAL(19,4), NewPrice DECIMAL(19,4), ChangedAt DATETIME DEFAULT CURRENT_TIMESTAMP)
 --------------
 
-Query OK, 0 rows affected (0.01 sec)
+Query OK, 0 rows affected (0.00 sec)
 
 --------------
 CREATE TRIGGER trg_products_au AFTER UPDATE ON products FOR EACH ROW
     INSERT INTO ProductsUpdateLog (ProductID, OldPrice, NewPrice) VALUES (OLD.ProductID, OLD.UnitPrice, NEW.UnitPrice)
 --------------
 
-Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.01 sec)
 
 --------------
 UPDATE products SET UnitPrice = UnitPrice + 1 WHERE ProductID = 2
@@ -167,7 +167,7 @@ Query OK, 0 rows affected (0.00 sec)
 UPDATE v_german_customers SET City = 'Berlin' WHERE CustomerID = 'ALFKI'
 --------------
 
-Query OK, 1 row affected (0.01 sec)
+Query OK, 1 row affected (0.00 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
 --------------
@@ -180,7 +180,7 @@ Query OK, 0 rows affected (0.00 sec)
 UPDATE v_city_counts SET cnt = 0 WHERE City = 'Berlin'
 --------------
 
-ERROR 1288 (HY000) at line 43: The target table v_city_counts of the UPDATE is not updatable
+ERROR 1288 (HY000) at line 54: The target table v_city_counts of the UPDATE is not updatable
 --------------
 CREATE ROLE 'nw_reader'
 --------------
@@ -228,6 +228,6 @@ Query OK, 0 rows affected (0.00 sec)
 DROP ROLE 'nw_reader'
 --------------
 
-Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.01 sec)
 
 Bye

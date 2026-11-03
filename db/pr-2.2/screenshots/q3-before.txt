@@ -1,29 +1,17 @@
-$ mysql -B northwind_opt -e 'EXPLAIN запит 3' | cut -f2,3,5,7,10,12 | column -t -s$'\t'
+$ ./qstat.sh q3 before
+# EXPLAIN, основні стовпці
 select_type  table  type  key                     rows  Extra
 SIMPLE       c      ALL   NULL                    8     Using temporary; Using filesort
 SIMPLE       p      ref   FK_Products_Categories  9     NULL
-$ mysql -N -B -r northwind_opt -e 'EXPLAIN ANALYZE запит 3'
--> Sort: c.CategoryName  (actual time=0.111..0.112 rows=8 loops=1)
-    -> Table scan on <temporary>  (actual time=0.101..0.101 rows=8 loops=1)
-        -> Aggregate using temporary table  (actual time=0.0998..0.0998 rows=8 loops=1)
-            -> Nested loop inner join  (cost=22.7 rows=77) (actual time=0.0269..0.0628 rows=77 loops=1)
-                -> Table scan on c  (cost=8.96 rows=8) (actual time=0.0121..0.0129 rows=8 loops=1)
-                -> Index lookup on p using FK_Products_Categories (CategoryID=c.CategoryID)  (cost=0.87 rows=9.62) (actual time=0.00453..0.00555 rows=9.62 loops=8)
-
-# query_cost з EXPLAIN FORMAT=JSON (plans/q3_before.json): 22.66
-$ mysql -t northwind_opt < handler.sql   # FLUSH STATUS, запит, SHOW SESSION STATUS
-+-----------------------+-------+
-| Variable_name         | Value |
-+-----------------------+-------+
-| Handler_read_first    | 1     |
-| Handler_read_key      | 86    |
-| Handler_read_next     | 77    |
-| Handler_read_rnd_next | 18    |
-+-----------------------+-------+
-# запит виконано 500 разів поспіль, статистика з performance_schema
-$ mysql -t northwind_opt < digest.sql
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
-| runs | avg_ms | min_ms | max_ms | rows_exam | rows_sent | tmp_tables | sort_rows |
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
-|  500 |  0.099 |  0.063 |  1.121 |        93 |         8 |          1 |         8 |
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
+# EXPLAIN ANALYZE
+-> Sort: c.CategoryName  (actual time=0.159..0.159 rows=8 loops=1)
+    -> Table scan on <temporary>  (actual time=0.142..0.143 rows=8 loops=1)
+        -> Aggregate using temporary table  (actual time=0.141..0.141 rows=8 loops=1)
+            -> Nested loop inner join  (cost=22.7 rows=77) (actual time=0.0604..0.0997 rows=77 loops=1)
+                -> Table scan on c  (cost=8.96 rows=8) (actual time=0.0239..0.0255 rows=8 loops=1)
+                -> Index lookup on p using FK_Products_Categories (CategoryID=c.CategoryID)  (cost=0.87 rows=9.62) (actual time=0.00727..0.00839 rows=9.62 loops=8)
+query_cost: 22.66
+Handler_read_*: first=1 key=86 next=77 rnd_next=18
+# 500 запусків поспіль, час за performance_schema
+runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
+500   0.072   0.062   0.319   93         8          1           8

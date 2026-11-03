@@ -112,9 +112,8 @@ public class Main {
 
     private static Table askTable() {
         for (int i = 0; i < Table.ALL.size(); i++) {
-            System.out.print((i + 1) + "." + Table.ALL.get(i).name() + "  ");
+            System.out.print((i + 1) + "." + Table.ALL.get(i).name() + ((i + 1) % 5 == 0 ? "\n" : "  "));
         }
-        System.out.println();
         int number = Integer.parseInt(ask("Таблиця"));
         if (number < 1 || number > Table.ALL.size()) {
             throw new NumberFormatException();

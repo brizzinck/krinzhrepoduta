@@ -1,32 +1,20 @@
-$ mysql -B northwind_opt -e 'EXPLAIN запит 5' | cut -f2,3,5,7,10,12 | column -t -s$'\t'
+$ ./qstat.sh q5 before
+# EXPLAIN, основні стовпці
 select_type  table  type  key                  rows  Extra
 SIMPLE       c      ALL   NULL                 91    Using temporary; Using filesort
 SIMPLE       o      ref   FK_Orders_Customers  9     Using index
 SIMPLE       od     ref   PRIMARY              2     NULL
-$ mysql -N -B -r northwind_opt -e 'EXPLAIN ANALYZE запит 5'
--> Sort: revenue DESC  (actual time=2.14..2.15 rows=89 loops=1)
-    -> Table scan on <temporary>  (actual time=2.11..2.11 rows=89 loops=1)
-        -> Aggregate using temporary table  (actual time=2.1..2.1 rows=89 loops=1)
-            -> Nested loop inner join  (cost=762 rows=2203) (actual time=0.0297..1.16 rows=2155 loops=1)
-                -> Nested loop inner join  (cost=118 rows=849) (actual time=0.024..0.244 rows=830 loops=1)
-                    -> Table scan on c  (cost=9.35 rows=91) (actual time=0.014..0.0247 rows=91 loops=1)
-                    -> Covering index lookup on o using FK_Orders_Customers (CustomerID=c.CustomerID)  (cost=0.267 rows=9.33) (actual time=0.00126..0.00198 rows=9.12 loops=91)
-                -> Index lookup on od using PRIMARY (OrderID=o.OrderID)  (cost=0.5 rows=2.6) (actual time=665e-6..925e-6 rows=2.6 loops=830)
-
-# query_cost з EXPLAIN FORMAT=JSON (plans/q5_before.json): 762.21
-$ mysql -t northwind_opt < handler.sql   # FLUSH STATUS, запит, SHOW SESSION STATUS
-+-----------------------+-------+
-| Variable_name         | Value |
-+-----------------------+-------+
-| Handler_read_first    | 1     |
-| Handler_read_key      | 3077  |
-| Handler_read_next     | 2985  |
-| Handler_read_rnd_next | 182   |
-+-----------------------+-------+
-# запит виконано 500 разів поспіль, статистика з performance_schema
-$ mysql -t northwind_opt < digest.sql
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
-| runs | avg_ms | min_ms | max_ms | rows_exam | rows_sent | tmp_tables | sort_rows |
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
-|  500 |  2.014 |  1.743 |  5.023 |      3165 |        89 |          1 |        89 |
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
+# EXPLAIN ANALYZE
+-> Sort: revenue DESC  (actual time=2.3..2.3 rows=89 loops=1)
+    -> Table scan on <temporary>  (actual time=2.25..2.27 rows=89 loops=1)
+        -> Aggregate using temporary table  (actual time=2.25..2.25 rows=89 loops=1)
+            -> Nested loop inner join  (cost=762 rows=2203) (actual time=0.0312..1.26 rows=2155 loops=1)
+                -> Nested loop inner join  (cost=118 rows=849) (actual time=0.0251..0.27 rows=830 loops=1)
+                    -> Table scan on c  (cost=9.35 rows=91) (actual time=0.0142..0.0272 rows=91 loops=1)
+                    -> Covering index lookup on o using FK_Orders_Customers (CustomerID=c.CustomerID)  (cost=0.267 rows=9.33) (actual time=0.00138..0.00219 rows=9.12 loops=91)
+                -> Index lookup on od using PRIMARY (OrderID=o.OrderID)  (cost=0.5 rows=2.6) (actual time=720e-6..0.001 rows=2.6 loops=830)
+query_cost: 762.21
+Handler_read_*: first=1 key=3077 next=2985 rnd_next=182
+# 500 запусків поспіль, час за performance_schema
+runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
+500   2.069   1.691   4.816   3165       89         1           89

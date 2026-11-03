@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 05e_drop_user.sql
+$ ../_shared/mysql.sh -t -v -n --force --skip-comments northwind < 05e_drop_user.sql
 --------------
 DROP USER 'LavrishkoVladyslavTCR32'@'%'
 --------------

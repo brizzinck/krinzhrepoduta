@@ -1,4 +1,4 @@
-$ mysql -uLavrishkoVladyslavTCR32 -p --default-character-set=cp1251 -t -v northwind < 05b_user_ok.sql
+$ MYSQL_PWD=Lavr_dev_2026 ../_shared/mysql.sh -uLavrishkoVladyslavTCR32 -t -v -n --force --skip-comments northwind < 05b_user_ok.sql
 --------------
 CREATE TABLE user_test (id INT PRIMARY KEY, note VARCHAR(40))
 --------------

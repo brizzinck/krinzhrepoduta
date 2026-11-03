@@ -1,30 +1,18 @@
-$ mysql -B northwind_opt -e 'EXPLAIN запит 4' | cut -f2,3,5,7,10,12 | column -t -s$'\t'
+$ ./qstat.sh q4 before
+# EXPLAIN, основні стовпці
 select_type  table  type  key   rows  Extra
 SIMPLE       e      ALL   NULL  9     Using temporary; Using filesort
 SIMPLE       c      ALL   NULL  91    Using where; Using join buffer (hash join)
-$ mysql -N -B -r northwind_opt -e 'EXPLAIN ANALYZE запит 4'
--> Group aggregate: count(distinct employees.EmployeeID), count(distinct customers.CustomerID)  (actual time=0.0801..0.0868 rows=5 loops=1)
-    -> Sort: e.City  (actual time=0.0754..0.0763 rows=29 loops=1)
-        -> Stream results  (cost=83.2 rows=819) (actual time=0.0573..0.0643 rows=29 loops=1)
-            -> Left hash join (c.City = e.City)  (cost=83.2 rows=819) (actual time=0.0536..0.0581 rows=29 loops=1)
-                -> Table scan on e  (cost=19.1 rows=9) (actual time=0.0144..0.0157 rows=9 loops=1)
+# EXPLAIN ANALYZE
+-> Group aggregate: count(distinct employees.EmployeeID), count(distinct customers.CustomerID)  (actual time=0.0831..0.0912 rows=5 loops=1)
+    -> Sort: e.City  (actual time=0.0782..0.0792 rows=29 loops=1)
+        -> Stream results  (cost=83.2 rows=819) (actual time=0.0596..0.0659 rows=29 loops=1)
+            -> Left hash join (c.City = e.City)  (cost=83.2 rows=819) (actual time=0.0537..0.0577 rows=29 loops=1)
+                -> Table scan on e  (cost=19.1 rows=9) (actual time=0.0156..0.0169 rows=9 loops=1)
                 -> Hash
-                    -> Table scan on c  (cost=1.04 rows=91) (actual time=0.00459..0.0169 rows=91 loops=1)
-
-# query_cost з EXPLAIN FORMAT=JSON (plans/q4_before.json): 920.26
-$ mysql -t northwind_opt < handler.sql   # FLUSH STATUS, запит, SHOW SESSION STATUS
-+-----------------------+-------+
-| Variable_name         | Value |
-+-----------------------+-------+
-| Handler_read_first    | 2     |
-| Handler_read_key      | 2     |
-| Handler_read_next     | 0     |
-| Handler_read_rnd_next | 102   |
-+-----------------------+-------+
-# запит виконано 500 разів поспіль, статистика з performance_schema
-$ mysql -t northwind_opt < digest.sql
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
-| runs | avg_ms | min_ms | max_ms | rows_exam | rows_sent | tmp_tables | sort_rows |
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
-|  500 |  0.065 |   0.05 |  0.332 |       129 |         5 |          4 |        29 |
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
+                    -> Table scan on c  (cost=1.04 rows=91) (actual time=0.00489..0.0168 rows=91 loops=1)
+query_cost: 920.26
+Handler_read_*: first=2 key=2 next=0 rnd_next=102
+# 500 запусків поспіль, час за performance_schema
+runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
+500   0.056   0.049   0.426   129        5          4           29

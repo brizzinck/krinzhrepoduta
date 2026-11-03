@@ -1,104 +1,104 @@
 {
- "query_block": {
-  "select_id": 1,
-  "cost_info": {
-   "query_cost": "762.21"
-  },
-  "ordering_operation": {
-   "using_filesort": true,
-   "grouping_operation": {
-    "using_temporary_table": true,
-    "using_filesort": false,
-    "nested_loop": [
-     {
-      "table": {
-       "table_name": "c",
-       "access_type": "ALL",
-       "possible_keys": [
-        "PRIMARY"
-       ],
-       "rows_examined_per_scan": 91,
-       "rows_produced_per_join": 91,
-       "filtered": "100.00",
-       "cost_info": {
-        "read_cost": "0.25",
-        "eval_cost": "9.10",
-        "prefix_cost": "9.35",
-        "data_read_per_join": "96K"
-       },
-       "used_columns": [
-        "CustomerID",
-        "CompanyName"
-       ]
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "762.21"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "grouping_operation": {
+        "using_temporary_table": true,
+        "using_filesort": false,
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "c",
+              "access_type": "ALL",
+              "possible_keys": [
+                "PRIMARY"
+              ],
+              "rows_examined_per_scan": 91,
+              "rows_produced_per_join": 91,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "9.10",
+                "prefix_cost": "9.35",
+                "data_read_per_join": "96K"
+              },
+              "used_columns": [
+                "CustomerID",
+                "CompanyName"
+              ]
+            }
+          },
+          {
+            "table": {
+              "table_name": "o",
+              "access_type": "ref",
+              "possible_keys": [
+                "PRIMARY",
+                "FK_Orders_Customers"
+              ],
+              "key": "FK_Orders_Customers",
+              "used_key_parts": [
+                "CustomerID"
+              ],
+              "key_length": "21",
+              "ref": [
+                "northwind_opt.c.CustomerID"
+              ],
+              "rows_examined_per_scan": 9,
+              "rows_produced_per_join": 848,
+              "filtered": "100.00",
+              "using_index": true,
+              "cost_info": {
+                "read_cost": "23.33",
+                "eval_cost": "84.87",
+                "prefix_cost": "117.54",
+                "data_read_per_join": "576K"
+              },
+              "used_columns": [
+                "OrderID",
+                "CustomerID"
+              ]
+            }
+          },
+          {
+            "table": {
+              "table_name": "od",
+              "access_type": "ref",
+              "possible_keys": [
+                "PRIMARY"
+              ],
+              "key": "PRIMARY",
+              "used_key_parts": [
+                "OrderID"
+              ],
+              "key_length": "4",
+              "ref": [
+                "northwind_opt.o.OrderID"
+              ],
+              "rows_examined_per_scan": 2,
+              "rows_produced_per_join": 2203,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "424.33",
+                "eval_cost": "220.34",
+                "prefix_cost": "762.21",
+                "data_read_per_join": "51K"
+              },
+              "used_columns": [
+                "OrderID",
+                "ProductID",
+                "UnitPrice",
+                "Quantity",
+                "Discount"
+              ]
+            }
+          }
+        ]
       }
-     },
-     {
-      "table": {
-       "table_name": "o",
-       "access_type": "ref",
-       "possible_keys": [
-        "PRIMARY",
-        "FK_Orders_Customers"
-       ],
-       "key": "FK_Orders_Customers",
-       "used_key_parts": [
-        "CustomerID"
-       ],
-       "key_length": "21",
-       "ref": [
-        "northwind_opt.c.CustomerID"
-       ],
-       "rows_examined_per_scan": 9,
-       "rows_produced_per_join": 848,
-       "filtered": "100.00",
-       "using_index": true,
-       "cost_info": {
-        "read_cost": "23.33",
-        "eval_cost": "84.87",
-        "prefix_cost": "117.54",
-        "data_read_per_join": "576K"
-       },
-       "used_columns": [
-        "OrderID",
-        "CustomerID"
-       ]
-      }
-     },
-     {
-      "table": {
-       "table_name": "od",
-       "access_type": "ref",
-       "possible_keys": [
-        "PRIMARY"
-       ],
-       "key": "PRIMARY",
-       "used_key_parts": [
-        "OrderID"
-       ],
-       "key_length": "4",
-       "ref": [
-        "northwind_opt.o.OrderID"
-       ],
-       "rows_examined_per_scan": 2,
-       "rows_produced_per_join": 2203,
-       "filtered": "100.00",
-       "cost_info": {
-        "read_cost": "424.33",
-        "eval_cost": "220.34",
-        "prefix_cost": "762.21",
-        "data_read_per_join": "51K"
-       },
-       "used_columns": [
-        "OrderID",
-        "ProductID",
-        "UnitPrice",
-        "Quantity",
-        "Discount"
-       ]
-      }
-     }
-    ]
-   }
+    }
   }
- }
 }

@@ -1,21 +1,6 @@
 -- ПР 2.2, завдання 1: сторінки й індекси на таблиці test_index (MySQL 8.4, InnoDB, база northwind_opt).
--- Після кожного кроку знято статистику сторінок (ibdstat.py) і обсяги (ANALYZE TABLE та запит нижче).
+-- Кожен крок починається рядком із номером. Запуск кроку: ./step.sh 02. Статистика після кроку: ./stat.sh test_index.
 USE northwind_opt;
-
--- Аналог sp_spaceused
--- SELECT TABLE_NAME AS name, TABLE_ROWS AS `rows`, (SELECT COUNT(*) FROM test_index) AS exact_rows,
---        ROUND((DATA_LENGTH + INDEX_LENGTH) / 1024) AS reserved_kb, ROUND(DATA_LENGTH / 1024) AS data_kb,
---        ROUND(INDEX_LENGTH / 1024) AS index_kb, ROUND(DATA_FREE / 1024) AS unused_kb
--- FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'northwind_opt' AND TABLE_NAME = 'test_index';
-
--- Аналог sys.indexes
--- SELECT t.NAME AS table_name, i.NAME AS index_name, i.TYPE AS type,
---        CASE WHEN i.NAME = 'GEN_CLUST_INDEX' THEN 'CLUSTERED (прихований)'
---             WHEN i.NAME = 'PRIMARY' THEN 'CLUSTERED (PRIMARY KEY)'
---             ELSE 'NONCLUSTERED' END AS type_desc
--- FROM information_schema.INNODB_INDEXES i
--- JOIN information_schema.INNODB_TABLES t USING (TABLE_ID)
--- WHERE t.NAME = 'northwind_opt/test_index';
 
 -- 00. Службові процедури-цикли (аналог WHILE із методички)
 DROP TABLE IF EXISTS test_index;
@@ -117,6 +102,16 @@ CALL fill_seq(1, 18630);
 -- 09. 18631-й рядок
 INSERT INTO test_index VALUES (18631, ' a', 'b ');
 
+-- 10a. межа 2 і 3 рівнів: 66137 рядків
+TRUNCATE TABLE test_index;
+SET SESSION cte_max_recursion_depth = 1000000;
+INSERT INTO test_index WITH RECURSIVE s(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM s WHERE n < 66137) SELECT n, ' a', 'b ' FROM s;
+
+-- 10b. межа 2 і 3 рівнів: 66138 рядків
+TRUNCATE TABLE test_index;
+SET SESSION cte_max_recursion_depth = 1000000;
+INSERT INTO test_index WITH RECURSIVE s(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM s WHERE n < 66138) SELECT n, ' a', 'b ' FROM s;
+
 -- 11. дубль кластеризованого ключа
 TRUNCATE TABLE test_index;
 CALL fill_seq(1, 5);
@@ -175,3 +170,11 @@ INSERT INTO test_index VALUES (28865, ' 000028865', 'b ');
 -- 19. перебудова обох індексів (OPTIMIZE TABLE)
 OPTIMIZE TABLE test_index;
 
+-- indexes. Аналог sys.indexes: індекси таблиці та їхній тип
+SELECT t.NAME AS table_name, i.NAME AS index_name, i.TYPE AS type,
+       CASE WHEN i.NAME = 'GEN_CLUST_INDEX' THEN 'CLUSTERED (hidden)'
+            WHEN i.NAME = 'PRIMARY' THEN 'CLUSTERED (PRIMARY KEY)'
+            ELSE 'NONCLUSTERED' END AS type_desc
+FROM information_schema.INNODB_INDEXES i
+JOIN information_schema.INNODB_TABLES t USING (TABLE_ID)
+WHERE t.NAME = 'northwind_opt/test_index';

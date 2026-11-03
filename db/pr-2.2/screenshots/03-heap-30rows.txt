@@ -1,12 +1,11 @@
-$ mysql -t northwind_opt < 03-heap-30rows.sql
+$ ./step.sh 03
 # CALL fill_seq(2, 30);
-$ python3 ibdstat.py test_index.ibd GEN_CLUST_INDEX=1852@4
+$ ./stat.sh test_index
 +-----------------+-------+-------+-------+---------+----------+----------+
 | index_name      | depth | level | pages | records | used_pct | frag_pct |
 +-----------------+-------+-------+-------+---------+----------+----------+
 | GEN_CLUST_INDEX |     1 |     0 |     1 |      30 |    52.15 |     0.00 |
 +-----------------+-------+-------+-------+---------+----------+----------+
-$ mysql -t northwind_opt < spaceused.sql
 +------------+------+------------+-------------+---------+----------+-----------+
 | name       | rows | exact_rows | reserved_kb | data_kb | index_kb | unused_kb |
 +------------+------+------------+-------------+---------+----------+-----------+

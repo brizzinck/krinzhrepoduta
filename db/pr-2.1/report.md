@@ -58,15 +58,17 @@ DELIMITER ;
 
 ```{.sql .small}
 CREATE TABLE productslog (
-    LogID INT AUTO_INCREMENT PRIMARY KEY, ProductID INT, ProductName VARCHAR(40), SupplierID INT,
-    CategoryID INT, UnitPrice DECIMAL(19,4), UnitsInStock SMALLINT,
+    LogID INT AUTO_INCREMENT PRIMARY KEY, ProductID INT, ProductName VARCHAR(40),
+    SupplierID INT, CategoryID INT, UnitPrice DECIMAL(19,4), UnitsInStock SMALLINT,
     LogDate DATETIME DEFAULT CURRENT_TIMESTAMP);
 CREATE TRIGGER trg_products_ai AFTER INSERT ON products FOR EACH ROW
-    INSERT INTO productslog (ProductID, ProductName, SupplierID, CategoryID, UnitPrice, UnitsInStock)
-    VALUES (NEW.ProductID, NEW.ProductName, NEW.SupplierID, NEW.CategoryID, NEW.UnitPrice, NEW.UnitsInStock);
+    INSERT INTO productslog (ProductID, ProductName, SupplierID, CategoryID,
+                             UnitPrice, UnitsInStock)
+    VALUES (NEW.ProductID, NEW.ProductName, NEW.SupplierID, NEW.CategoryID,
+            NEW.UnitPrice, NEW.UnitsInStock);
 ```
 
-Ім'я таблиці записане без пробілу. Замість таблиці `inserted` із T-SQL у MySQL є псевдорядок `NEW`, а тригер спрацьовує на кожен рядок. Тому `INSERT` із двома рядками дав два записи в журналі (рис. 5). Продукта 78 у журналі немає: його додано до створення тригера.
+Ім'я таблиці записане без пробілу. Замість таблиці `inserted` із T-SQL у MySQL є псевдорядок `NEW`, а тригер спрацьовує на кожен рядок. Тому `INSERT` із двома рядками дав два записи в журналі (рис. 5). Продукту 78 у журналі немає: його додано до створення тригера.
 
 | Рисунок 4 — Виклик `AddProduct` | Рисунок 5 — Спрацювання тригера |
 |:-----------|:-----------|
@@ -86,7 +88,7 @@ FROM orders o;
 
 ## Завдання 5. Користувач
 
-Ім'я записане латиницею: `LavrishkoVladyslavTCR32`. Команди видно на знімках. `DENY` у MySQL немає, забороною є відсутність привілею, тому `Create` відкликано через `REVOKE`. Після цього `CREATE TABLE` дає помилку 1142, а `INSERT` і `SELECT` працюють. Після `DROP USER` вхід дає помилку 1045.
+Ім'я записане латиницею: `LavrishkoVladyslavTCR32` (рис. 7–12). `DENY` у MySQL немає, забороною є відсутність привілею, тому `Create` відкликано через `REVOKE`. Після цього `CREATE TABLE` дає помилку 1142, а `INSERT` і `SELECT` працюють: прапор `--force` на рис. 10 каже клієнту не зупинятися на помилці. Після `DROP USER` вхід дає помилку 1045.
 
 | Рисунок 6 — Вибірка з view | Рисунок 7 — Створення користувача і `GRANT` |
 |:-----------|:-----------|
@@ -104,4 +106,4 @@ FROM orders o;
 
 ## Висновки
 
-Я виконав п'ять завдань варіанта 2 на базі Northwind. `ROLLBACK` скасував зміну адреси, а дві сесії показали брудне читання на `READ UNCOMMITTED` і його відсутність на `READ COMMITTED`. Процедура `AddProduct` додає продукт і повертає його ключ, а тригер записує кожен новий рядок у `productslog`. View на основі запиту 6 дає ті самі 830 рядків. Для користувача пройдено весь цикл від `CREATE USER` до `DROP USER`. Опановано відмінності MySQL від T-SQL: `CALL` замість `EXEC`, `NEW` замість `inserted`, `REVOKE` замість `DENY`.
+П'ять завдань варіанта 2 виконані на базі Northwind. `ROLLBACK` скасував зміну адреси, а дві сесії показали брудне читання на `READ UNCOMMITTED` і його відсутність на `READ COMMITTED`. Процедура `AddProduct` додає продукт і повертає його ключ, а тригер записує кожен новий рядок у `productslog`. Для користувача я пройшов весь цикл від `CREATE USER` до `DROP USER`. Я розібрався, чим MySQL відрізняється від T-SQL: `CALL` замість `EXEC`, `NEW` замість `inserted`, `REVOKE` замість `DENY`.

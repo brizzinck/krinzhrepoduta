@@ -1,27 +1,15 @@
-$ mysql -B northwind_opt -e 'EXPLAIN запит 4' | cut -f2,3,5,7,10,12 | column -t -s$'\t'
+$ ./qstat.sh q4 after
+# EXPLAIN, основні стовпці
 select_type  table  type   key                 rows  Extra
 SIMPLE       e      index  idx_employees_city  9     Using index
 SIMPLE       c      ref    idx_customers_city  1     Using index
-$ mysql -N -B -r northwind_opt -e 'EXPLAIN ANALYZE запит 4'
--> Group aggregate: count(distinct e.EmployeeID), count(distinct c.CustomerID)  (cost=23.7 rows=5) (actual time=0.0367..0.055 rows=5 loops=1)
-    -> Nested loop left join  (cost=22.6 rows=11.9) (actual time=0.0248..0.0411 rows=29 loops=1)
-        -> Covering index scan on e using idx_employees_city  (cost=19.1 rows=9) (actual time=0.0137..0.0161 rows=9 loops=1)
-        -> Covering index lookup on c using idx_customers_city (City=e.City)  (cost=0.265 rows=1.32) (actual time=0.00172..0.00233 rows=3 loops=9)
-
-# query_cost з EXPLAIN FORMAT=JSON (plans/q4_after.json): 22.55
-$ mysql -t northwind_opt < handler.sql   # FLUSH STATUS, запит, SHOW SESSION STATUS
-+-----------------------+-------+
-| Variable_name         | Value |
-+-----------------------+-------+
-| Handler_read_first    | 1     |
-| Handler_read_key      | 10    |
-| Handler_read_next     | 36    |
-| Handler_read_rnd_next | 0     |
-+-----------------------+-------+
-# запит виконано 500 разів поспіль, статистика з performance_schema
-$ mysql -t northwind_opt < digest.sql
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
-| runs | avg_ms | min_ms | max_ms | rows_exam | rows_sent | tmp_tables | sort_rows |
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
-|  500 |  0.037 |  0.026 |  0.405 |        36 |         5 |          2 |         0 |
-+------+--------+--------+--------+-----------+-----------+------------+-----------+
+# EXPLAIN ANALYZE
+-> Group aggregate: count(distinct e.EmployeeID), count(distinct c.CustomerID)  (cost=23.7 rows=5) (actual time=0.0361..0.0539 rows=5 loops=1)
+    -> Nested loop left join  (cost=22.6 rows=11.9) (actual time=0.0246..0.041 rows=29 loops=1)
+        -> Covering index scan on e using idx_employees_city  (cost=19.1 rows=9) (actual time=0.0143..0.0168 rows=9 loops=1)
+        -> Covering index lookup on c using idx_customers_city (City=e.City)  (cost=0.265 rows=1.32) (actual time=0.00163..0.00225 rows=3 loops=9)
+query_cost: 22.55
+Handler_read_*: first=1 key=10 next=36 rnd_next=0
+# 500 запусків поспіль, час за performance_schema
+runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
+500   0.042   0.026   0.265   36         5          2           0

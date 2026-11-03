@@ -69,7 +69,8 @@ ORDER BY a.daily_price;
 
 -- Агрегація: виручка філій (оренда і штрафи, без застав і повернень)
 SELECT b.name AS branch, COUNT(DISTINCT r.rental_id) AS rentals,
-       COUNT(p.payment_id) AS payments, SUM(p.amount) AS total, ROUND(AVG(p.amount), 2) AS avg_payment
+       COUNT(p.payment_id) AS payments, SUM(p.amount) AS total,
+       ROUND(AVG(p.amount), 2) AS avg_payment
 FROM branches b
 JOIN rentals r ON r.pickup_branch_id = b.branch_id
 JOIN payments p ON p.rental_id = r.rental_id
@@ -97,4 +98,4 @@ GROUP BY b.branch_id, b.name ORDER BY total DESC;
 
 ## Висновки
 
-Я створив консольний додаток на Java і JDBC, який підключається до бази `car_rental` із першої роботи. CRUD працює для всіх 10 таблиць через один клас `TableDao`, це перевірено сценарієм без жодної помилки. У додатку реалізовано три запити: `JOIN` п'яти таблиць, фільтр за містом і ціною з параметрами від користувача та виручку філій через `SUM`, `AVG`, `COUNT`. Порушення `UNIQUE`, `CHECK`, `FOREIGN KEY` і `NOT NULL` не зупиняють програму. Я опанував `Connection`, `PreparedStatement`, `ResultSet` і `try-with-resources`, а також шаблон DAO як відповідник класів ADO.NET.
+Я створив консольний додаток на Java і JDBC, який підключається до бази `car_rental` із першої роботи. CRUD працює для всіх 10 таблиць через один клас `TableDao`. У додатку реалізовано три запити: `JOIN` п'яти таблиць, фільтр за містом і ціною з параметрами від користувача та виручку філій через `SUM`, `AVG`, `COUNT`. Порушення `UNIQUE`, `CHECK`, `FOREIGN KEY` і `NOT NULL` не зупиняють програму. Я опанував `Connection`, `PreparedStatement`, `ResultSet` і `try-with-resources`, а також шаблон DAO як відповідник класів ADO.NET.

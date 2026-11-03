@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 02_call.sql
+$ ../_shared/mysql.sh -t -v -n --force --skip-comments northwind < 02_call.sql
 --------------
 CALL AddProduct('Test Product A', 1, 1, '10 boxes x 20 bags', 25.5, 100, 0, 10, 0, @new_id)
 --------------

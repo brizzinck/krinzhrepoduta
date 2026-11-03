@@ -1,7 +1,7 @@
-$ mysql -t northwind_opt < 07-clustered-create.sql
+$ ./step.sh 07
 # TRUNCATE TABLE test_index;
 # ALTER TABLE test_index ADD PRIMARY KEY (id);
-$ mysql -t northwind_opt < check_indexes.sql
+$ ./step.sh indexes
 +--------------------------+------------+------+-------------------------+
 | table_name               | index_name | type | type_desc               |
 +--------------------------+------------+------+-------------------------+

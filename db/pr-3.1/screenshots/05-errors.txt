@@ -5,7 +5,8 @@ $ ./run.sh < demo/05-errors.txt
 9 Меню   0 Вихід
 
 Ваш вибір: 3
-1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+1.branches  2.car_classes  3.car_models  4.cars  5.customers
+6.employees  7.rentals  8.payments  9.extras  10.rental_extras
 Таблиця: 1
 Порожнє значення: DEFAULT або NULL
 name: Прокат «Київ-Центр»
@@ -15,7 +16,8 @@ phone: +380440000000
 Помилка 1062: таке значення вже є (UNIQUE). Duplicate entry 'Прокат «Київ-Центр»' for key 'branches.uq_branches_name'
 
 Ваш вибір: 3
-1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+1.branches  2.car_classes  3.car_models  4.cars  5.customers
+6.employees  7.rentals  8.payments  9.extras  10.rental_extras
 Таблиця: 2
 Порожнє значення: DEFAULT або NULL
 name: Тестовий
@@ -24,13 +26,15 @@ deposit_amount: 100
 Помилка 3819: порушено обмеження CHECK. Check constraint 'chk_car_classes_rate' is violated.
 
 Ваш вибір: 5
-1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+1.branches  2.car_classes  3.car_models  4.cars  5.customers
+6.employees  7.rentals  8.payments  9.extras  10.rental_extras
 Таблиця: 1
 branch_id: 1
 Помилка 1451: на рядок посилаються інші таблиці (FOREIGN KEY). Cannot delete or update a parent row: a foreign key constraint fails (`car_rental`.`cars`, CONSTRAINT `fk_cars_branch` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`branch_id`) ON DELETE RESTRICT)
 
 Ваш вибір: 3
-1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+1.branches  2.car_classes  3.car_models  4.cars  5.customers
+6.employees  7.rentals  8.payments  9.extras  10.rental_extras
 Таблиця: 9
 Порожнє значення: DEFAULT або NULL
 name: 
@@ -38,7 +42,8 @@ price_per_day: 10
 Помилка 1364: не заповнено обов'язковий стовпець (NOT NULL). Field 'name' doesn't have a default value
 
 Ваш вибір: 2
-1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+1.branches  2.car_classes  3.car_models  4.cars  5.customers
+6.employees  7.rentals  8.payments  9.extras  10.rental_extras
 Таблиця: 4
 car_id: абв
 Помилка вводу: очікується число

@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 04_select.sql
+$ ../_shared/mysql.sh -t -v -n --force --skip-comments northwind < 04_select.sql
 --------------
 SELECT * FROM v_orders_with_employees ORDER BY OrderID LIMIT 3
 --------------

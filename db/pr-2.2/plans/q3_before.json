@@ -1,70 +1,70 @@
 {
- "query_block": {
-  "select_id": 1,
-  "cost_info": {
-   "query_cost": "22.66"
-  },
-  "ordering_operation": {
-   "using_filesort": true,
-   "grouping_operation": {
-    "using_temporary_table": true,
-    "using_filesort": false,
-    "nested_loop": [
-     {
-      "table": {
-       "table_name": "c",
-       "access_type": "ALL",
-       "possible_keys": [
-        "PRIMARY"
-       ],
-       "rows_examined_per_scan": 8,
-       "rows_produced_per_join": 8,
-       "filtered": "100.00",
-       "cost_info": {
-        "read_cost": "8.16",
-        "eval_cost": "0.80",
-        "prefix_cost": "8.96",
-        "data_read_per_join": "768"
-       },
-       "used_columns": [
-        "CategoryID",
-        "CategoryName"
-       ]
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "22.66"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "grouping_operation": {
+        "using_temporary_table": true,
+        "using_filesort": false,
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "c",
+              "access_type": "ALL",
+              "possible_keys": [
+                "PRIMARY"
+              ],
+              "rows_examined_per_scan": 8,
+              "rows_produced_per_join": 8,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "8.16",
+                "eval_cost": "0.80",
+                "prefix_cost": "8.96",
+                "data_read_per_join": "768"
+              },
+              "used_columns": [
+                "CategoryID",
+                "CategoryName"
+              ]
+            }
+          },
+          {
+            "table": {
+              "table_name": "p",
+              "access_type": "ref",
+              "possible_keys": [
+                "FK_Products_Categories"
+              ],
+              "key": "FK_Products_Categories",
+              "used_key_parts": [
+                "CategoryID"
+              ],
+              "key_length": "5",
+              "ref": [
+                "northwind_opt.c.CategoryID"
+              ],
+              "rows_examined_per_scan": 9,
+              "rows_produced_per_join": 77,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "6.00",
+                "eval_cost": "7.70",
+                "prefix_cost": "22.66",
+                "data_read_per_join": "20K"
+              },
+              "used_columns": [
+                "ProductID",
+                "CategoryID",
+                "UnitPrice"
+              ]
+            }
+          }
+        ]
       }
-     },
-     {
-      "table": {
-       "table_name": "p",
-       "access_type": "ref",
-       "possible_keys": [
-        "FK_Products_Categories"
-       ],
-       "key": "FK_Products_Categories",
-       "used_key_parts": [
-        "CategoryID"
-       ],
-       "key_length": "5",
-       "ref": [
-        "northwind_opt.c.CategoryID"
-       ],
-       "rows_examined_per_scan": 9,
-       "rows_produced_per_join": 77,
-       "filtered": "100.00",
-       "cost_info": {
-        "read_cost": "6.00",
-        "eval_cost": "7.70",
-        "prefix_cost": "22.66",
-        "data_read_per_join": "20K"
-       },
-       "used_columns": [
-        "ProductID",
-        "CategoryID",
-        "UnitPrice"
-       ]
-      }
-     }
-    ]
-   }
+    }
   }
- }
 }

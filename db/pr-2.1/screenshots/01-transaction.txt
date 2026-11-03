@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 01_transaction.sql
+$ ../_shared/mysql.sh -t -v -n --force --skip-comments northwind < 01_transaction.sql
 --------------
 SELECT CustomerID, Address FROM customers WHERE CustomerID = 'ALFKI'
 --------------
@@ -24,11 +24,11 @@ UPDATE customers SET Address = 'вул. Тестова, 1' WHERE CustomerID = 'A
 SELECT CustomerID, Address FROM customers WHERE CustomerID = 'ALFKI'
 --------------
 
-+------------+-----------------+
-| CustomerID | Address         |
-+------------+-----------------+
-| ALFKI      | вул. Тестова, 1 |
-+------------+-----------------+
++------------+---------------------------+
+| CustomerID | Address                   |
++------------+---------------------------+
+| ALFKI      | вул. Тестова, 1           |
++------------+---------------------------+
 --------------
 ROLLBACK
 --------------

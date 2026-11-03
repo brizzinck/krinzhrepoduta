@@ -5,7 +5,8 @@ $ ./run.sh < demo/03-update.txt
 9 Меню   0 Вихід
 
 Ваш вибір: 4
-1.branches  2.car_classes  3.car_models  4.cars  5.customers  6.employees  7.rentals  8.payments  9.extras  10.rental_extras  
+1.branches  2.car_classes  3.car_models  4.cars  5.customers
+6.employees  7.rentals  8.payments  9.extras  10.rental_extras
 Таблиця: 4
 car_id: 25
 Порожнє значення: стовпець не змінюється

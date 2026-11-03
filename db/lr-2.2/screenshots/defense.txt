@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind_defense < defense_queries.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind_defense < defense_queries.sql
 --------------
 CREATE INDEX idx_orders_date ON orders (OrderDate)
 --------------
@@ -37,13 +37,13 @@ EXPLAIN SELECT OrderID FROM orders WHERE OrderDate >= '1997-01-01' AND OrderDate
 +----+-------------+--------+------------+-------+-----------------+-----------------+---------+------+------+----------+--------------------------+
 |  1 | SIMPLE      | orders | NULL       | range | idx_orders_date | idx_orders_date | 9       | NULL |  408 |   100.00 | Using where; Using index |
 +----+-------------+--------+------------+-------+-----------------+-----------------+---------+------+------+----------+--------------------------+
-1 row in set, 1 warning (0.00 sec)
+1 row in set, 1 warning (0.01 sec)
 
 --------------
 CREATE INDEX idx_customers_name ON customers (CompanyName)
 --------------
 
-Query OK, 0 rows affected (0.01 sec)
+Query OK, 0 rows affected (0.00 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
 --------------
@@ -83,7 +83,7 @@ EXPLAIN SELECT ContactName FROM customers WHERE CompanyName LIKE '%a'
 CREATE INDEX idx_products_disc ON products (Discontinued)
 --------------
 
-Query OK, 0 rows affected (0.01 sec)
+Query OK, 0 rows affected (0.00 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
 --------------
@@ -135,7 +135,7 @@ EXPLAIN SELECT ProductName FROM products WHERE Discontinued = 1
 ALTER TABLE orders ALTER INDEX idx_orders_date INVISIBLE
 --------------
 
-Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.01 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
 --------------
@@ -177,7 +177,7 @@ EXPLAIN SELECT DISTINCT c.CustomerID FROM customers c JOIN orders o ON o.Custome
 |  1 | SIMPLE      | c     | NULL       | index | PRIMARY,idx_customers_name | idx_customers_name  | 162     | NULL                           |   91 |   100.00 | Using index; Using temporary |
 |  1 | SIMPLE      | o     | NULL       | ref   | FK_Orders_Customers        | FK_Orders_Customers | 21      | northwind_defense.c.CustomerID |    9 |   100.00 | Using index; Distinct        |
 +----+-------------+-------+------------+-------+----------------------------+---------------------+---------+--------------------------------+------+----------+------------------------------+
-2 rows in set, 1 warning (0.01 sec)
+2 rows in set, 1 warning (0.00 sec)
 
 --------------
 EXPLAIN SELECT c.CustomerID FROM customers c WHERE EXISTS (SELECT 1 FROM orders o WHERE o.CustomerID = c.CustomerID)

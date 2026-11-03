@@ -1,13 +1,12 @@
-$ mysql -t northwind_opt < 06-heap-241row.sql
+$ ./step.sh 06
 # INSERT INTO test_index VALUES (241, ' a', 'b ');
-$ python3 ibdstat.py test_index.ibd GEN_CLUST_INDEX=1852@4
+$ ./stat.sh test_index
 +-----------------+-------+-------+-------+---------+----------+----------+
 | index_name      | depth | level | pages | records | used_pct | frag_pct |
 +-----------------+-------+-------+-------+---------+----------+----------+
 | GEN_CLUST_INDEX |     2 |     0 |     5 |     241 |    83.31 |     0.00 |
 | GEN_CLUST_INDEX |     2 |     1 |     1 |       5 |     1.26 |     0.00 |
 +-----------------+-------+-------+-------+---------+----------+----------+
-$ mysql -t northwind_opt < spaceused.sql
 +------------+------+------------+-------------+---------+----------+-----------+
 | name       | rows | exact_rows | reserved_kb | data_kb | index_kb | unused_kb |
 +------------+------+------------+-------------+---------+----------+-----------+

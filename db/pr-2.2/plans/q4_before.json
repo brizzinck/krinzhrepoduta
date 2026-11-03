@@ -1,60 +1,60 @@
 {
- "query_block": {
-  "select_id": 1,
-  "cost_info": {
-   "query_cost": "920.26"
-  },
-  "ordering_operation": {
-   "using_filesort": false,
-   "grouping_operation": {
-    "using_temporary_table": true,
-    "using_filesort": true,
+  "query_block": {
+    "select_id": 1,
     "cost_info": {
-     "sort_cost": "819.00"
+      "query_cost": "920.26"
     },
-    "nested_loop": [
-     {
-      "table": {
-       "table_name": "e",
-       "access_type": "ALL",
-       "rows_examined_per_scan": 9,
-       "rows_produced_per_join": 9,
-       "filtered": "100.00",
-       "cost_info": {
-        "read_cost": "18.21",
-        "eval_cost": "0.90",
-        "prefix_cost": "19.11",
-        "data_read_per_join": "17K"
-       },
-       "used_columns": [
-        "EmployeeID",
-        "City"
-       ]
+    "ordering_operation": {
+      "using_filesort": false,
+      "grouping_operation": {
+        "using_temporary_table": true,
+        "using_filesort": true,
+        "cost_info": {
+          "sort_cost": "819.00"
+        },
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "e",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 9,
+              "rows_produced_per_join": 9,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "18.21",
+                "eval_cost": "0.90",
+                "prefix_cost": "19.11",
+                "data_read_per_join": "17K"
+              },
+              "used_columns": [
+                "EmployeeID",
+                "City"
+              ]
+            }
+          },
+          {
+            "table": {
+              "table_name": "c",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 91,
+              "rows_produced_per_join": 819,
+              "filtered": "100.00",
+              "using_join_buffer": "hash join",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "81.90",
+                "prefix_cost": "101.26",
+                "data_read_per_join": "870K"
+              },
+              "used_columns": [
+                "CustomerID",
+                "City"
+              ],
+              "attached_condition": "<if>(is_not_null_compl(c), (`northwind_opt`.`c`.`City` = `northwind_opt`.`e`.`City`), true)"
+            }
+          }
+        ]
       }
-     },
-     {
-      "table": {
-       "table_name": "c",
-       "access_type": "ALL",
-       "rows_examined_per_scan": 91,
-       "rows_produced_per_join": 819,
-       "filtered": "100.00",
-       "using_join_buffer": "hash join",
-       "cost_info": {
-        "read_cost": "0.25",
-        "eval_cost": "81.90",
-        "prefix_cost": "101.26",
-        "data_read_per_join": "870K"
-       },
-       "used_columns": [
-        "CustomerID",
-        "City"
-       ],
-       "attached_condition": "<if>(is_not_null_compl(c), (`northwind_opt`.`c`.`City` = `northwind_opt`.`e`.`City`), true)"
-      }
-     }
-    ]
-   }
+    }
   }
- }
 }

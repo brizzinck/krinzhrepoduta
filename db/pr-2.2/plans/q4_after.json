@@ -1,75 +1,75 @@
 {
- "query_block": {
-  "select_id": 1,
-  "cost_info": {
-   "query_cost": "22.55"
-  },
-  "ordering_operation": {
-   "using_filesort": false,
-   "grouping_operation": {
-    "using_filesort": false,
-    "nested_loop": [
-     {
-      "table": {
-       "table_name": "e",
-       "access_type": "index",
-       "possible_keys": [
-        "idx_employees_city"
-       ],
-       "key": "idx_employees_city",
-       "used_key_parts": [
-        "City"
-       ],
-       "key_length": "63",
-       "rows_examined_per_scan": 9,
-       "rows_produced_per_join": 9,
-       "filtered": "100.00",
-       "using_index": true,
-       "cost_info": {
-        "read_cost": "18.21",
-        "eval_cost": "0.90",
-        "prefix_cost": "19.11",
-        "data_read_per_join": "17K"
-       },
-       "used_columns": [
-        "EmployeeID",
-        "City"
-       ]
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "22.55"
+    },
+    "ordering_operation": {
+      "using_filesort": false,
+      "grouping_operation": {
+        "using_filesort": false,
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "e",
+              "access_type": "index",
+              "possible_keys": [
+                "idx_employees_city"
+              ],
+              "key": "idx_employees_city",
+              "used_key_parts": [
+                "City"
+              ],
+              "key_length": "63",
+              "rows_examined_per_scan": 9,
+              "rows_produced_per_join": 9,
+              "filtered": "100.00",
+              "using_index": true,
+              "cost_info": {
+                "read_cost": "18.21",
+                "eval_cost": "0.90",
+                "prefix_cost": "19.11",
+                "data_read_per_join": "17K"
+              },
+              "used_columns": [
+                "EmployeeID",
+                "City"
+              ]
+            }
+          },
+          {
+            "table": {
+              "table_name": "c",
+              "access_type": "ref",
+              "possible_keys": [
+                "idx_customers_city"
+              ],
+              "key": "idx_customers_city",
+              "used_key_parts": [
+                "City"
+              ],
+              "key_length": "63",
+              "ref": [
+                "northwind_opt.e.City"
+              ],
+              "rows_examined_per_scan": 1,
+              "rows_produced_per_join": 11,
+              "filtered": "100.00",
+              "using_index": true,
+              "cost_info": {
+                "read_cost": "2.26",
+                "eval_cost": "1.19",
+                "prefix_cost": "22.55",
+                "data_read_per_join": "12K"
+              },
+              "used_columns": [
+                "CustomerID",
+                "City"
+              ]
+            }
+          }
+        ]
       }
-     },
-     {
-      "table": {
-       "table_name": "c",
-       "access_type": "ref",
-       "possible_keys": [
-        "idx_customers_city"
-       ],
-       "key": "idx_customers_city",
-       "used_key_parts": [
-        "City"
-       ],
-       "key_length": "63",
-       "ref": [
-        "northwind_opt.e.City"
-       ],
-       "rows_examined_per_scan": 1,
-       "rows_produced_per_join": 11,
-       "filtered": "100.00",
-       "using_index": true,
-       "cost_info": {
-        "read_cost": "2.26",
-        "eval_cost": "1.19",
-        "prefix_cost": "22.55",
-        "data_read_per_join": "12K"
-       },
-       "used_columns": [
-        "CustomerID",
-        "City"
-       ]
-      }
-     }
-    ]
-   }
+    }
   }
- }
 }

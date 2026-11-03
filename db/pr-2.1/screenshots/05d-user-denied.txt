@@ -1,9 +1,9 @@
-$ mysql -uLavrishkoVladyslavTCR32 -p --default-character-set=cp1251 -t -v northwind < 05d_user_denied.sql
+$ MYSQL_PWD=Lavr_dev_2026 ../_shared/mysql.sh -uLavrishkoVladyslavTCR32 -t -v -n --force --skip-comments northwind < 05d_user_denied.sql
 --------------
 CREATE TABLE user_test2 (id INT PRIMARY KEY)
 --------------
 
-ERROR 1142 (42000) at line 1: CREATE command denied to user 'LavrishkoVladyslavTCR32'@'localhost' for table 'user_test2'
+ERROR 1142 (42000) at line 2: CREATE command denied to user 'LavrishkoVladyslavTCR32'@'localhost' for table 'user_test2'
 --------------
 INSERT INTO user_test VALUES (3, 'third')
 --------------

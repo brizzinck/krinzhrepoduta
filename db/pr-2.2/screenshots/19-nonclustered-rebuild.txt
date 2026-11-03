@@ -1,4 +1,4 @@
-$ mysql -t northwind_opt < 19-nonclustered-rebuild.sql
+$ ./step.sh 19
 # OPTIMIZE TABLE test_index;
 +--------------------------+----------+----------+-------------------------------------------------------------------+
 | Table                    | Op       | Msg_type | Msg_text                                                          |
@@ -6,7 +6,7 @@ $ mysql -t northwind_opt < 19-nonclustered-rebuild.sql
 | northwind_opt.test_index | optimize | note     | Table does not support optimize, doing recreate + analyze instead |
 | northwind_opt.test_index | optimize | status   | OK                                                                |
 +--------------------------+----------+----------+-------------------------------------------------------------------+
-$ python3 ibdstat.py test_index.ibd PRIMARY=1871@4 idx_ncl_pole1=1872@5
+$ ./stat.sh test_index
 +---------------+-------+-------+-------+---------+----------+----------+
 | index_name    | depth | level | pages | records | used_pct | frag_pct |
 +---------------+-------+-------+-------+---------+----------+----------+
@@ -15,7 +15,6 @@ $ python3 ibdstat.py test_index.ibd PRIMARY=1871@4 idx_ncl_pole1=1872@5
 | idx_ncl_pole1 |     2 |     0 |    81 |   28865 |    99.75 |     4.94 |
 | idx_ncl_pole1 |     2 |     1 |     1 |      81 |    25.26 |     0.00 |
 +---------------+-------+-------+-------+---------+----------+----------+
-$ mysql -t northwind_opt < spaceused.sql
 +------------+-------+------------+-------------+---------+----------+-----------+
 | name       | rows  | exact_rows | reserved_kb | data_kb | index_kb | unused_kb |
 +------------+-------+------------+-------------+---------+----------+-----------+

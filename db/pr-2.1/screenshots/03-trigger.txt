@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 03_call.sql
+$ ../_shared/mysql.sh -t -v -n --force --skip-comments northwind < 03_call.sql
 --------------
 SELECT TRIGGER_NAME, ACTION_TIMING, EVENT_MANIPULATION, EVENT_OBJECT_TABLE
 FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA = 'northwind'
@@ -20,7 +20,7 @@ SELECT * FROM productslog
 +-------+-----------+----------------+------------+------------+-----------+--------------+---------------------+
 | LogID | ProductID | ProductName    | SupplierID | CategoryID | UnitPrice | UnitsInStock | LogDate             |
 +-------+-----------+----------------+------------+------------+-----------+--------------+---------------------+
-|     1 |        79 | Test Product B |          2 |          2 |   10.0000 |           50 | 2026-11-03 12:01:05 |
+|     1 |        79 | Test Product B |          2 |          2 |   10.0000 |           50 | 2026-11-03 13:27:01 |
 +-------+-----------+----------------+------------+------------+-----------+--------------+---------------------+
 --------------
 INSERT INTO products (ProductName, SupplierID, CategoryID, UnitPrice, UnitsInStock)
@@ -34,7 +34,7 @@ SELECT * FROM productslog
 +-------+-----------+----------------+------------+------------+-----------+--------------+---------------------+
 | LogID | ProductID | ProductName    | SupplierID | CategoryID | UnitPrice | UnitsInStock | LogDate             |
 +-------+-----------+----------------+------------+------------+-----------+--------------+---------------------+
-|     1 |        79 | Test Product B |          2 |          2 |   10.0000 |           50 | 2026-11-03 12:01:05 |
-|     2 |        80 | Test Product C |          3 |          3 |    7.0000 |           10 | 2026-11-03 12:01:05 |
-|     3 |        81 | Test Product D |          3 |          3 |    8.0000 |           20 | 2026-11-03 12:01:05 |
+|     1 |        79 | Test Product B |          2 |          2 |   10.0000 |           50 | 2026-11-03 13:27:01 |
+|     2 |        80 | Test Product C |          3 |          3 |    7.0000 |           10 | 2026-11-03 13:27:01 |
+|     3 |        81 | Test Product D |          3 |          3 |    8.0000 |           20 | 2026-11-03 13:27:01 |
 +-------+-----------+----------------+------------+------------+-----------+--------------+---------------------+

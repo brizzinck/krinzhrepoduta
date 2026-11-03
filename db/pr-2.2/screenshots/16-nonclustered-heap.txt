@@ -1,9 +1,9 @@
-$ mysql -t northwind_opt < 16-nonclustered-heap.sql
+$ ./step.sh 16
 # TRUNCATE TABLE test_index;
 # ALTER TABLE test_index DROP PRIMARY KEY;
 # CREATE INDEX idx_ncl_pole1 ON test_index (pole1);
 # CALL fill_fmt(24472, 0);
-$ python3 ibdstat.py test_index.ibd GEN_CLUST_INDEX=1866@4 idx_ncl_pole1=1867@5
+$ ./stat.sh test_index
 +-----------------+-------+-------+-------+---------+----------+----------+
 | index_name      | depth | level | pages | records | used_pct | frag_pct |
 +-----------------+-------+-------+-------+---------+----------+----------+
@@ -12,7 +12,6 @@ $ python3 ibdstat.py test_index.ibd GEN_CLUST_INDEX=1866@4 idx_ncl_pole1=1867@5
 | idx_ncl_pole1   |     2 |     0 |    94 |   24472 |    76.23 |    31.91 |
 | idx_ncl_pole1   |     2 |     1 |     1 |      94 |    30.32 |     0.00 |
 +-----------------+-------+-------+-------+---------+----------+----------+
-$ mysql -t northwind_opt < spaceused.sql
 +------------+-------+------------+-------------+---------+----------+-----------+
 | name       | rows  | exact_rows | reserved_kb | data_kb | index_kb | unused_kb |
 +------------+-------+------------+-------------+---------+----------+-----------+

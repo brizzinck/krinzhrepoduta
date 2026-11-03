@@ -1,22 +1,21 @@
-$ mysql -t northwind_opt < 01-heap-create.sql
+$ ./step.sh 01
 # CREATE TABLE test_index (
 #   id INT NOT NULL,
 #   pole1 CHAR(36) CHARACTER SET ascii NOT NULL,
 #   pole2 CHAR(216) CHARACTER SET ascii NOT NULL
 # );
-$ mysql -t northwind_opt < check_indexes.sql
-+--------------------------+-----------------+------+------------------------+
-| table_name               | index_name      | type | type_desc              |
-+--------------------------+-----------------+------+------------------------+
-| northwind_opt/test_index | GEN_CLUST_INDEX |    1 | CLUSTERED (прихований) |
-+--------------------------+-----------------+------+------------------------+
-$ python3 ibdstat.py test_index.ibd GEN_CLUST_INDEX=1852@4
+$ ./step.sh indexes
++--------------------------+-----------------+------+--------------------+
+| table_name               | index_name      | type | type_desc          |
++--------------------------+-----------------+------+--------------------+
+| northwind_opt/test_index | GEN_CLUST_INDEX |    1 | CLUSTERED (hidden) |
++--------------------------+-----------------+------+--------------------+
+$ ./stat.sh test_index
 +-----------------+-------+-------+-------+---------+----------+----------+
 | index_name      | depth | level | pages | records | used_pct | frag_pct |
 +-----------------+-------+-------+-------+---------+----------+----------+
 | GEN_CLUST_INDEX |     1 |     0 |     1 |       0 |     0.81 |     0.00 |
 +-----------------+-------+-------+-------+---------+----------+----------+
-$ mysql -t northwind_opt < spaceused.sql
 +------------+------+------------+-------------+---------+----------+-----------+
 | name       | rows | exact_rows | reserved_kb | data_kb | index_kb | unused_kb |
 +------------+------+------------+-------------+---------+----------+-----------+
