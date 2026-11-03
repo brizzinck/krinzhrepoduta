@@ -1,11 +1,18 @@
-> LANG=POSIX java -jar target/env-check-1.0.jar   (навмисно, імітація несправного кодування)
+> LC_ALL=POSIX java -jar target/env-check-1.0.jar   (навмисно, імітація несправного кодування)
 JVM: 21.0.12.1+1-LTS (Eclipse Adoptium)
 OS: Linux (amd64)
 Reversed (Commons Lang): avaJ
 ?????? ?? ??????!
 (код завершення: 0)
 
-> java -jar target/env-check-1.0.jar   (LANG=C.UTF-8, як у tools/java.sh)
+> java -jar target/env-check-1.0.jar   (образ має LC_ALL=en_US.UTF-8)
+JVM: 21.0.12.1+1-LTS (Eclipse Adoptium)
+OS: Linux (amd64)
+Reversed (Commons Lang): avaJ
+Привіт зі збірки!
+(код завершення: 0)
+
+> LANG=POSIX java -jar target/env-check-1.0.jar   (LANG перекрито LC_ALL образу)
 JVM: 21.0.12.1+1-LTS (Eclipse Adoptium)
 OS: Linux (amd64)
 Reversed (Commons Lang): avaJ

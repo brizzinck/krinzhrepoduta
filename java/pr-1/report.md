@@ -14,11 +14,11 @@ city-year: "Київ – 2026"
 
 # 1. Мета роботи та завдання
 
-Набути навичок створення Maven-проєкту на JDK 21, підключення зовнішньої залежності, збірки й запуску артефакту та базового аналізу байт-коду. Варіантів немає. Завдання: Maven-проєкт на JDK 21 із залежністю Apache Commons Lang; `Main` виводить версію JVM, ОС, результат методу із залежності й рядок українською; збірка `mvn clean package`, запуск артефакту; пояснення 2-3 інструкцій байт-коду з `javap -c`. Критерії: збірка без помилок, коректні дані JVM і ОС, кирилиця без «крякозябрів», байт-код пояснено.
+Набути навичок створення Maven-проєкту на JDK 21, підключення зовнішньої залежності, збірки й запуску артефакту та базового аналізу байт-коду. Варіантів немає. Завдання: Maven-проєкт на JDK 21 із залежністю Apache Commons Lang; `Main` виводить версію JVM, ОС, результат методу із залежності й рядок українською; збірка `mvn clean package`, запуск артефакту; пояснення 2-3 інструкцій байт-коду з `javap -c`.
 
 # 2. Середовище, код і рішення
 
-Рішення. Збірка й запуск виконані в docker-образі `maven:3.9-eclipse-temurin-21` (JDK 21.0.12.1, Maven 3.9.16), а не в IntelliJ IDEA: нічого не встановлювалось у систему, а `mvn clean package` однаковий в IDE й у терміналі. `JAVA_HOME` і PATH для Windows не налаштовувались. Запуск іде з `LANG=C.UTF-8`, щоб кодування виводу не залежало від образу.
+Рішення. Я збирав і запускав проєкт у docker-образі `maven:3.9-eclipse-temurin-21` (JDK 21.0.12.1, Maven 3.9.16), а не в IntelliJ IDEA: нічого не встановлювалось у систему, а `mvn clean package` однаковий в IDE й у терміналі. `JAVA_HOME` і PATH для Windows не налаштовувались. Кирилиця у виводі коректна, бо в образі задано локаль `LC_ALL=en_US.UTF-8`.
 
 ```text
 > java -version
@@ -61,13 +61,18 @@ public class Main {
 
 ```text
 > mvn clean package
+…
 [INFO] --- compiler:3.15.0:compile (default-compile) @ env-check ---
+…
 [INFO] Compiling 1 source file with javac [debug release 21] to target/classes
 …
 [INFO] Building jar: /w/target/env-check-1.0.jar
+…
 [INFO] BUILD SUCCESS
+…
 
 > unzip -p target/env-check-1.0.jar META-INF/MANIFEST.MF
+…
 Class-Path: lib/commons-lang3-3.17.0.jar
 Main-Class: ua.duikt.lavrishko.env.Main
 
@@ -102,7 +107,7 @@ Reversed (Commons Lang): avaJ
 
 # 5. Журнал інцидентів
 
-Інцидент 1: `no main manifest attribute`. Перший запуск звичайного JAR:
+Інцидент 1: `no main manifest attribute`. Я запустив звичайний JAR, і JVM відмовилась його виконувати:
 
 ```text
 > java -jar target/env-check-1.0.jar
@@ -110,39 +115,41 @@ no main manifest attribute, in target/env-check-1.0.jar
 (код завершення: 1)
 ```
 
-`maven-jar-plugin` за замовчуванням не пише `Main-Class` у маніфест. Виправлено `<mainClass>` у налаштуванні плагіна.
+`maven-jar-plugin` за замовчуванням не пише `Main-Class` у маніфест. Я додав `<mainClass>` у налаштування плагіна.
 
-Інцидент 2: `NoClassDefFoundError`. Після виправлення JAR запустився, але впав на виклику залежності:
+Інцидент 2: `NoClassDefFoundError`. Після цього JAR запустився, але впав на виклику залежності:
 
 ```text
 > java -jar target/env-check-1.0.jar
 JVM: 21.0.12.1+1-LTS (Eclipse Adoptium)
 OS: Linux (amd64)
 Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/commons/lang3/StringUtils
+…
 Caused by: java.lang.ClassNotFoundException: org.apache.commons.lang3.StringUtils
+…
 (код завершення: 1)
 ```
 
-JAR містить лише власні класи, а під час запуску залежності немає в classpath. Виправлено `copy-dependencies` у `target/lib` і `Class-Path: lib/…` у маніфесті.
+JAR містить лише власні класи, а під час запуску залежності немає в classpath. Я налаштував `copy-dependencies` у `target/lib` і `Class-Path: lib/…` у маніфесті.
 
-Інцидент 3: кирилиця як `?` (відтворено навмисно). Сама проблема не виникла, бо образ має UTF-8. Для показу той самий JAR запущено з локаллю `POSIX`:
+Інцидент 3: кирилиця як `?` (відтворено навмисно). Сама проблема не виникла, бо в образі задано `LC_ALL=en_US.UTF-8`. Для показу той самий JAR запущено з локаллю `POSIX`. Змінна `LC_ALL` має перевагу над `LANG`, тому `LANG=POSIX` у цьому образі нічого не ламає, і перевизначати треба саме `LC_ALL`:
 
 ```text
-> LANG=POSIX java -jar target/env-check-1.0.jar
+> LC_ALL=POSIX java -jar target/env-check-1.0.jar   (навмисно, імітація несправного кодування)
 …
 ?????? ?? ??????!
-> java -jar target/env-check-1.0.jar   (LANG=C.UTF-8)
+> java -jar target/env-check-1.0.jar   (образ має LC_ALL=en_US.UTF-8)
 …
 Привіт зі збірки!
 ```
 
-Кодування стандартного виводу JVM бере з локалі терміналу, для `POSIX` це ASCII. Виправлення: `LANG=C.UTF-8` або на Windows `chcp 65001` і `-Dstdout.encoding=UTF-8`.
+Кодування стандартного виводу JVM бере з локалі, для `POSIX` це ASCII. Виправлення: UTF-8 локаль (`LC_ALL=C.UTF-8` або `LANG=C.UTF-8`, якщо `LC_ALL` не задано), на Windows `chcp 65001` і `-Dstdout.encoding=UTF-8`.
 
 Інцидент 4: версія JDK. Розбіжностей немає: `java`/`javac` 21.0.12.1 і `release 21`.
 
 # 6. Висновки
 
-Створено Maven-проєкт `env-check` на JDK 21 із залежністю `commons-lang3`, зібрано його командою `mvn clean package` і запущено артефакт. Програма виводить версію JVM, ОС, результат `StringUtils.reverse` і український рядок без спотворень. Під час роботи стало видно, що звичайний JAR не містить залежностей і маніфесту з `Main-Class`, тому потрібні плагіни Maven. Через `javap -c` пояснено інструкції `getstatic`, `ldc`, `invokevirtual` і `return` методу `greet()`. З'ясовано, що кодування стандартного виводу залежить від локалі терміналу, а не від файлів. Усе виконано в docker замість IntelliJ IDEA, результат збірки від цього не залежить.
+Створено Maven-проєкт `env-check` на JDK 21 із залежністю `commons-lang3`, зібрано його командою `mvn clean package` і запущено артефакт. Програма виводить версію JVM, ОС, результат `StringUtils.reverse` і український рядок без спотворень. Під час роботи стало видно, що звичайний JAR не містить залежностей і маніфесту з `Main-Class`, тому потрібні плагіни Maven. Через `javap -c` пояснено інструкції `getstatic`, `ldc`, `invokevirtual` і `return` методу `greet()`. Я з'ясував, що кодування стандартного виводу залежить від локалі, а не від файлів, і що `LC_ALL` перекриває `LANG`. Усе виконано в docker замість IntelliJ IDEA, результат збірки від цього не залежить.
 
 # 7. Посилання на репозиторій
 

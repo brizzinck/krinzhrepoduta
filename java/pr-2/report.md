@@ -39,7 +39,7 @@ public class Account {
     private final String id;        // дослід 5
 ```
 
-Звернення до всіх чотирьох полів з іншого класу пакета `model` (`AccessProbeAll`) і з `Main` пакета `app` (`MainAll`): `String a = account.pin; double b = account.balance; String c = account.number; String d = account.owner;`.
+Звернення до всіх чотирьох полів з іншого класу пакета `model` (`AccessProbeAll`) і з `Main` пакета `app` (`MainAll`): `String a = account.pin; double b = account.balance; String c = account.number; String d = account.owner;`. Повідомлення `javac` тут і в досліді 5 скорочено до рядків з помилками, повні лежать у `results/`.
 
 ```
 > javac … compile-errors/E1_access_model/*.java
@@ -52,7 +52,9 @@ MainAll.java:11: error: number has protected access in Account
 3 errors
 ```
 
-З пакета `model` не компілюється лише `private`. З `Main` в іншому пакеті лишається тільки `public`: за замовчуванням доступ обмежено пакетом `model`, а `protected` відкритий пакету й підкласам, `Main` не підклас `Account`. Таблицю складено за фактичним виводом `javac`, вона збігається з очікуваною:
+З пакета `model` не компілюється лише `private`. З `Main` в іншому пакеті лишається тільки `public`: за замовчуванням доступ обмежено пакетом `model`, а `protected` відкритий пакету й підкласам, `Main` не підклас `Account`. Таблицю 1 я склав за фактичним виводом `javac`, вона збігається з очікуваною.
+
+: Таблиця 1 – Доступ до полів `Account` з двох пакетів
 
 | Рівень доступу (поле) | З іншого класу пакета model | З Main у пакеті app |
 |---|---|---|
@@ -61,7 +63,7 @@ MainAll.java:11: error: number has protected access in Account
 | `protected` (`number`) | так | ні |
 | `public` (`owner`) | так | так |
 
-Робочий код без хибних звернень компілюється (`results/compile_ok.txt`). `Main` читає `number` і `balance` через публічні геттери, а `protected` доступний підкласу `ProbeSub` з пакета `app`:
+Робочий код без хибних звернень компілюється (`results/compile_ok.txt`). `Main` читає `number` і `balance` через публічні геттери, а `protected` доступний підкласу `ProbeSub` з пакета `app` (у дослідах 2-5 показано частини того самого виводу):
 
 ```
 > java -cp target/classes ua.duikt.lavrishko.pr2.app.Main
@@ -73,8 +75,11 @@ owner   (public):           Іваненко І. І.
 З Main у пакеті app:
 owner (public): Іваненко І. І.
 number через public-геттер: UA-100001
+balance через public-геттер: 1500.5
+pin через метод класу: checkPin("0000") = true
 Підклас в іншому пакеті:
 protected number з підкласу в app: UA-777777
+…
 ```
 
 # 4. Дослід 2. Три конструктори
@@ -148,25 +153,25 @@ id (своє в кожного):    ID-7, ID-8, ID-9
 
 # 7. Дослід 5. final
 
-Поле `id` оголошено `private final` (значення задається в конструкторі), у методі `dailyLimit()` оголошено `final int limit = 5;`. Спроби перезаписати зроблено в окремих фрагментах з таким самим оголошенням: `this.id = newId;` у методі `rename` (`AccountFinalField`) і `limit = 6;` (`FinalLocal`):
+Поле `id` оголошено `private final` (значення задається в конструкторі), у методі `dailyLimit()` оголошено `final int limit = 5;`, і метод повертає `limit * 1000`. Спроби перезаписати зроблено в окремих фрагментах з таким самим оголошенням: `this.id = newId;` у методі `rename` (`AccountFinalField`) і `limit = 6;` (`FinalLocal`):
 
 ```
 > javac … compile-errors/E3_final_field/*.java
 AccountFinalField.java:10: error: cannot assign a value to final variable id
 > javac … compile-errors/E4_final_local/*.java
 FinalLocal.java:5: error: cannot assign a value to final variable limit
+> java -cp target/classes ua.duikt.lavrishko.pr2.app.Main
+…
 Дослід 5: final
 final-поле id: ID-10
 final-змінна limit у методі, dailyLimit(): 5000
 ```
 
-`dailyLimit()` повертає `limit * 1000`.
-
 У конструкторі `this.id = nextId()` допустимо, бо це перше й єдине присвоєння, у методі після ініціалізації воно заборонено; те саме для локальної змінної: перше присвоєння в оголошенні, `limit = 6` уже друге.
 
 # 8. Висновки
 
-Модифікатори доступу працюють так, як описано в методичці, що підтвердили повідомлення `javac`: `private` недоступний навіть іншому класу того самого пакета, доступ за замовчуванням відкритий пакету `model`, але закритий для `Main` у пакеті `app`, `protected` додатково доступний підкласам, `public` доступний усім. Три конструктори (без параметрів, з параметрами, з `this(…)`) дали очікувану ініціалізацію, а `this(…)` прибирає дублювання. Без `this` у конструкторі параметр затіняє поле: код компілюється, але поля лишаються `null` і `0.0`. Статичне поле `count` спільне для всіх об'єктів і доступне через ім'я класу, а `owner` та `id` свої в кожного. `final`-поле й `final`-змінну не можна перезаписати: компілятор відмовляє повідомленням `cannot assign a value to final variable`. Поля зручно робити `private` і відкривати доступ через методи.
+Повідомлення `javac` підтвердили правила доступу: `private` недоступний навіть іншому класу того самого пакета, доступ за замовчуванням відкритий пакету `model`, але закритий для `Main` у пакеті `app`, `protected` додатково доступний підкласам, `public` доступний усім. Виклик `this(…)` у третьому конструкторі прибрав дублювання ініціалізації. Без `this` у конструкторі параметр затіняє поле: код компілюється, але поля лишаються `null` і `0.0`. Статичне поле `count` спільне для всіх об'єктів і доступне через ім'я класу, а `owner` та `id` свої в кожного. Повторне присвоєння `final`-полю чи `final`-змінній компілятор відхиляє. Поле `pin` я читаю лише через `checkPin`, тому воно лишається закритим навіть для `Main`.
 
 # 9. Посилання на репозиторій
 
