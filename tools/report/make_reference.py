@@ -62,8 +62,10 @@ def styles_xml():
         f'<w:pPr>{body_ppr}</w:pPr><w:rPr>{FONT}<w:sz w:val="28"/><w:szCs w:val="28"/><w:lang w:val="uk-UA"/></w:rPr></w:style>',
         pstyle("BodyText", "Body Text", custom=False),
         pstyle("FirstParagraph", "First Paragraph", next_="BodyText"),
-        # Compact: tight list items and table cell text.
+        # Compact: tight list items.
         pstyle("Compact", "Compact", f'<w:spacing w:before="0" w:after="0" {LINE_15}/>{no_ind}<w:jc w:val="left"/>'),
+        # Table cells (title.lua wraps cell content in this style): 12 pt, single spacing.
+        pstyle("TableText", "Table Text", f'<w:spacing w:before="0" w:after="0" {LINE_1}/>{no_ind}<w:jc w:val="left"/>', small),
         pstyle("Title", "Title", f"{no_ind}{center}", '<w:b/><w:sz w:val="32"/>', custom=False),
         pstyle("Subtitle", "Subtitle", f"{no_ind}{center}", custom=False),
         pstyle("Author", "Author", f"{no_ind}{center}"),
@@ -79,10 +81,15 @@ def styles_xml():
         pstyle("FootnoteBlockText", "Footnote Block Text", f'<w:spacing w:after="0" {LINE_1}/>{no_ind}', small),
         # Listings: Courier New 10, single spacing, no indent.
         pstyle("SourceCode", "Source Code",
-               f'<w:wordWrap w:val="off"/><w:spacing w:before="60" w:after="60" {LINE_1}/>{no_ind}<w:jc w:val="left"/>'
-               '<w:shd w:val="clear" w:color="auto" w:fill="F4F4F4"/>',
+               '<w:shd w:val="clear" w:color="auto" w:fill="F4F4F4"/><w:wordWrap w:val="off"/>'
+               f'<w:spacing w:before="60" w:after="60" {LINE_1}/>{no_ind}<w:jc w:val="left"/>',
                f'{MONO}<w:sz w:val="20"/><w:szCs w:val="20"/>', next_="BodyText"),
-        pstyle("VerbatimChar", "Verbatim Char", rpr=f'{MONO}<w:sz w:val="24"/><w:szCs w:val="24"/>',
+        # Listings with the .small class (built by title.lua): Courier New 8.
+        pstyle("SmallCode", "Small Code",
+               '<w:shd w:val="clear" w:color="auto" w:fill="F4F4F4"/>'
+               f'<w:spacing w:before="60" w:after="60" {LINE_1}/>{no_ind}<w:jc w:val="left"/>',
+               f'{MONO}<w:sz w:val="16"/><w:szCs w:val="16"/>', next_="BodyText"),
+        pstyle("VerbatimChar", "Verbatim Char", rpr=f'{MONO}<w:sz w:val="20"/><w:szCs w:val="20"/>',
                based=None, char=True),
         pstyle("Caption", "caption", f'<w:spacing w:before="60" w:after="120" {LINE_1}/>{no_ind}{center}',
                small, custom=False),
@@ -100,13 +107,13 @@ def styles_xml():
         # Title page (custom-style paragraphs from title.lua).
         pstyle("TitleTop", "Title Top", f'<w:spacing w:before="0" w:after="0" {LINE_15}/>{no_ind}{center}'),
         pstyle("TitleOrg", "Title Org", f'<w:spacing w:before="0" w:after="0" {LINE_15}/>{no_ind}{center}', "<w:b/><w:bCs/>"),
-        pstyle("TitleReport", "Title Report", f'<w:spacing w:before="2400" w:after="0" {LINE_15}/>{no_ind}{center}',
+        pstyle("TitleReport", "Title Report", f'<w:spacing w:before="1800" w:after="0" {LINE_15}/>{no_ind}{center}',
                '<w:b/><w:bCs/><w:caps/><w:spacing w:val="40"/><w:sz w:val="36"/><w:szCs w:val="36"/>'),
         pstyle("TitleLine", "Title Line", f'<w:spacing w:before="0" w:after="0" {LINE_15}/>{no_ind}{center}'),
         pstyle("TitleTopic", "Title Topic", f'<w:spacing w:before="120" w:after="0" {LINE_15}/>{no_ind}{center}', "<w:b/><w:bCs/>"),
-        pstyle("TitleSignFirst", "Title Sign First", f'<w:spacing w:before="2400" w:after="0" {LINE_15}/><w:ind w:left="5103" w:firstLine="0"/><w:jc w:val="left"/>'),
+        pstyle("TitleSignFirst", "Title Sign First", f'<w:spacing w:before="1800" w:after="0" {LINE_15}/><w:ind w:left="5103" w:firstLine="0"/><w:jc w:val="left"/>'),
         pstyle("TitleSign", "Title Sign", f'<w:spacing w:before="0" w:after="0" {LINE_15}/><w:ind w:left="5103" w:firstLine="0"/><w:jc w:val="left"/>'),
-        pstyle("TitleCity", "Title City", f'<w:spacing w:before="2000" w:after="0" {LINE_15}/>{no_ind}{center}'),
+        pstyle("TitleCity", "Title City", f'<w:spacing w:before="1400" w:after="0" {LINE_15}/>{no_ind}{center}'),
         # Tables: solid borders, 12 pt cell text.
         '<w:style w:type="table" w:default="1" w:styleId="Table"><w:name w:val="Table"/><w:qFormat/>'
         '<w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:ind w:firstLine="0"/><w:jc w:val="left"/></w:pPr>'

@@ -13,26 +13,26 @@ city-year: "Київ – 2026"
 
 # 1. Мета роботи та виконані завдання
 
-Мета роботи: продовжити проєкт Utility Hub після ПР 1 і ЛР 1 та додати локальний менеджер паролів із генератором, CRUD, шифруванням і входом через PIN або біометрію.
+Мета роботи: додати до Utility Hub локальний менеджер паролів із генератором, CRUD, шифруванням і входом через PIN або біометрію.
 
 Я активував плитку «Паролі», зробив вибір способу захисту, вхід через PIN і `BiometricPrompt`, сховище записів і генератор на 8–32 символи. Для підвищеної оцінки додатково шифрую `service`, `login`, `note` і блокую сховище, якщо воно понад 30 с не на екрані.
 
-Відмінності від методички: `"\d{4,8}"` не компілюється (`illegal escape character`), тому в коді `"\\d{4,8}"`. `Toast` про біометрію скорочено, бо Android 14 показує два рядки. Додано `requestFocus()` для помилки PIN, `allowBackup="false"` і тему з ЛР 1 на нових екранах.
+Відмінності від методички: `"\d{4,8}"` не компілюється (`illegal escape character`), тому в коді `"\\d{4,8}"`. `Toast` про біометрію скорочено: Android 14 показує два рядки. Додано `requestFocus()` для помилки PIN, `allowBackup="false"` і тему з ЛР 1 на нових екранах. Блок `if` у `GridPageFragment` доповнено, а не замінено (п. 7): лишилась плитка № 3.
 
-Збірка: Gradle у Docker, Java 17, `minSdk 24`, `targetSdk 34`. Запуск: емулятор Android 14 (API 34). Код і журнали: [тека роботи](https://github.com/brizzinck/krinzhrepoduta/tree/main/mobile_dev/pr-2).
+Збірка: Gradle у Docker, Java 17 (JDK 21), `minSdk 24`, `targetSdk 34`. Запуск: емулятор Android 14 (API 34). Код і журнали: [тека роботи](https://github.com/brizzinck/krinzhrepoduta/tree/main/mobile_dev/pr-2).
 
-![Рис. 1. Запуск на емуляторі та дозволи APK (INTERNET немає)](img/pr2_08_emulator_run.png){width=12.5cm}
+![Рис. 1. Запуск на емуляторі та дозволи APK (INTERNET немає)](img/pr2_08_emulator_run.png){width=12cm}
 
 # 2. Створені файли
 
 | Файли | Призначення |
-|-------------------------------------|---------------|
-| `SecuritySetupActivity.java`, `activity_security_setup.xml` | вибір PIN або біометрії |
-| `UnlockActivity.java`, `activity_unlock.xml` | вхід: PIN або біометрія |
+|---------------------------------------|--------------|
+| `SecuritySetupActivity.java`, `activity_security_setup.xml` | вибір захисту |
+| `UnlockActivity.java`, `activity_unlock.xml` | вхід у сховище |
 | `PasswordVaultActivity.java`, `activity_password_vault.xml` | список, блокування |
 | `PasswordEditActivity.java`, `activity_password_edit.xml` | редактор, генератор |
 | `PasswordAdapter.java`, `item_password.xml` | картка запису |
-| `PasswordItem.java`, `ic_password.xml` | модель, іконка плитки |
+| `PasswordItem.java`, `ic_password.xml` | модель, іконка |
 | `CryptoManager.java` | AES/GCM, Keystore |
 | `PinSecurityHelper.java` | salt і хеш PIN |
 | `VaultSession.java` | сесія, автоблокування |
@@ -61,10 +61,11 @@ KeyGenParameterSpec spec = new KeyGenParameterSpec.Builder(KEY_ALIAS,
         .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
         .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
         .setRandomizedEncryptionRequired(true).build();
-// encrypt
-cipher.init(Cipher.ENCRYPT_MODE, key);
-return Base64.encodeToString(cipher.getIV(), Base64.NO_WRAP) + ":"
-        + Base64.encodeToString(cipher.doFinal(plain), Base64.NO_WRAP);
+cipher.init(Cipher.ENCRYPT_MODE, key);   // encrypt
+byte[] iv = cipher.getIV();
+byte[] encrypted = cipher.doFinal(plainText.getBytes(StandardCharsets.UTF_8));
+return Base64.encodeToString(iv, Base64.NO_WRAP) + ":"
+        + Base64.encodeToString(encrypted, Base64.NO_WRAP);
 ```
 
 `BiometricPrompt` (`UnlockActivity`): застосунок отримує лише результат перевірки.
@@ -103,26 +104,24 @@ prefs.edit().putString(KEY_ITEMS, array.toString()).apply();
 
 | Рис. 2 | Рис. 3 | Рис. 4 | Рис. 5 |
 |:---:|:---:|:---:|:---:|
-| ![](img/pr2_01_main_tile.png){width=3.9cm} | ![](img/pr2_02_setup.png){width=3.9cm} | ![](img/pr2_03_biometric_prompt.png){width=3.9cm} | ![](img/pr2_06_biometric_rejected.png){width=3.9cm} |
+| ![](img/pr2_01_main_tile.png){width=3.6cm} | ![](img/pr2_02_setup.png){width=3.6cm} | ![](img/pr2_03_biometric_prompt.png){width=3.6cm} | ![](img/pr2_06_biometric_rejected.png){width=3.6cm} |
 | **Рис. 6** | **Рис. 7** | **Рис. 8** | **Рис. 9** |
-| ![](img/pr2_07_vault_after_biometric.png){width=3.9cm} | ![](img/pr2_04_vault.png){width=3.9cm} | ![](img/pr2_05_edit_generated.png){width=3.9cm} | ![](img/t06_biometric_none.png){width=3.9cm} |
+| ![](img/pr2_07_vault_after_biometric.png){width=3.6cm} | ![](img/pr2_04_vault.png){width=3.6cm} | ![](img/pr2_05_edit_generated.png){width=3.6cm} | ![](img/t06_biometric_none.png){width=3.6cm} |
 
 Рис. 2: плитка «Паролі». Рис. 3: вибір захисту. Рис. 4: `BiometricPrompt`. Рис. 5: чужий відбиток відхилено. Рис. 6: вхід відбитком успішний. Рис. 7: три тестові записи. Рис. 8: згенерований пароль. Рис. 9: біометрію не налаштовано. Усі дані тестові.
-
-`adb screencap` на захищеному вікні `BiometricPrompt` дає порожній файл, тому рис. 4 і 5 зняв командою емулятора `screenrecord screenshot`. Відбиток імітував через `adb -e emu finger touch N`.
 
 # 5. Обов’язкове тестування
 
 | № | Тест | Результат на емуляторі |
-|--|----------|---------------------------|
+|---|----------|----------------------------|
 | 1 | Перший запуск | `SecuritySetupActivity`; без вибору `Toast`, далі не пускає |
-| 2 | PIN 123 / 123456789 | 123: помилка; девʼяту цифру поле не приймає (`maxLength=8`) |
+| 2 | PIN 123/123456789 | 123: помилка; 9-ту цифру поле не приймає (`maxLength=8`) |
 | 3 | Різні PIN | помилка, `security_method` не збережено |
 | 4 | Правильний PIN | відкрито сховище |
 | 5 | Неправильний PIN | «Неправильний PIN», сховище закрите |
 | 6 | Без біометрії | 0 відбитків: `Toast`, режим не збережено (рис. 9) |
-| 7 | Біометрія успішна | відбиток 1: відкрито сховище (рис. 6), `accept=1` |
-| 8 | Невірний відбиток | відбиток 2: «Not recognized», `reject=1`, вхід закрито (рис. 5) |
+| 7 | Біометрія успішна | відбиток 1 (імітація: `adb -e emu finger touch 1`): відкрито сховище (рис. 6), `accept=1` |
+| 8 | Невірний відбиток | відбиток 2: «Біометрію не розпізнано» (`onAuthenticationFailed`), `reject=1`, вхід закрито (рис. 5) |
 | 9 | Генератор 8/16/32 | по 3 паролі: довжина й групи відповідають вибраним |
 | 10 | CRUD | запис створено, логін змінено, інший запис видалено |
 | 11 | Показати/сховати | маска, далі `Test-Pass-01`, потім знову маска |

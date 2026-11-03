@@ -35,14 +35,59 @@ local function para(style, text)
   return pandoc.Div({ pandoc.Para(pandoc.Inlines(text)) }, attr)
 end
 
-local function page_break()
-  if FORMAT:match("docx") then
-    return pandoc.RawBlock("openxml", '<w:p><w:r><w:br w:type="page"/></w:r></w:p>')
-  end
-  return pandoc.RawBlock("html", '<div class="page-break"></div>')
+-- DOCX only: what report.css does for the PDF but a reference.docx style cannot reach.
+local function docx_layout(doc)
+  return doc:walk({
+    -- Cell text is 12 pt with single spacing; plain Compact would inherit 1.5 from Normal.
+    Table = function(tbl)
+      local function restyle(cell)
+        if #cell.contents == 0 then return cell end -- pandoc itself adds the required empty paragraph
+        local blocks = pandoc.List()
+        for _, b in ipairs(cell.contents) do
+          blocks:insert(b.t == "Plain" and pandoc.Para(b.content) or b)
+        end
+        cell.contents = { pandoc.Div(blocks, pandoc.Attr("", {}, { ["custom-style"] = "Table Text" })) }
+        return cell
+      end
+      local function each_row(rows)
+        for _, row in ipairs(rows) do
+          for i, cell in ipairs(row.cells) do row.cells[i] = restyle(cell) end
+        end
+      end
+      each_row(tbl.head.rows)
+      for _, body in ipairs(tbl.bodies) do
+        each_row(body.head)
+        each_row(body.body)
+      end
+      each_row(tbl.foot.rows)
+      return tbl
+    end,
+    -- Forced page breaks written in report.md for the PDF. The tiny paragraph opens the next
+    -- page by itself, so a full page cannot push it over and leave an empty one.
+    Div = function(div)
+      if (div.attributes.style or ""):match("break%-before:%s*page") then
+        return pandoc.RawBlock("openxml", '<w:p><w:pPr><w:pageBreakBefore/>'
+          .. '<w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/>'
+          .. '<w:rPr><w:sz w:val="2"/></w:rPr></w:pPr></w:p>')
+      end
+    end,
+    -- .small listings are 8 pt in report.css. Pandoc always forces its own style on code
+    -- blocks, so these become plain paragraphs (no syntax colours in the DOCX).
+    CodeBlock = function(block)
+      if not block.classes:includes("small") then return nil end
+      local runs = {}
+      for line in (block.text .. "\n"):gmatch("(.-)\n") do
+        local text = line:gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;")
+        table.insert(runs, '<w:r><w:t xml:space="preserve">' .. text .. "</w:t></w:r>")
+      end
+      return pandoc.RawBlock("openxml", '<w:p><w:pPr><w:pStyle w:val="SmallCode"/></w:pPr>'
+        .. table.concat(runs, "<w:r><w:br/></w:r>") .. "</w:p>")
+    end,
+  })
 end
 
 function Pandoc(doc)
+  if FORMAT:match("docx") then doc = docx_layout(doc) end
   local m = doc.meta
   if m.university == nil then return doc end
 
@@ -78,7 +123,13 @@ function Pandoc(doc)
     for _, l in ipairs(lines(m.teacher)) do add_sign(l) end
   end
 
-  table.insert(bottom, para("Title City", m["city-year"] and stringify(m["city-year"]) or "Київ – 2026"))
+  local city = para("Title City", m["city-year"] and stringify(m["city-year"]) or "Київ – 2026")
+  if FORMAT:match("docx") then
+    -- The break lives in the last title paragraph: a separate paragraph would spill onto
+    -- the next page of a full title page and leave it empty.
+    table.insert(city.content[1].content, pandoc.RawInline("openxml", '<w:r><w:br w:type="page"/></w:r>'))
+  end
+  table.insert(bottom, city)
 
   local title = {}
   local function group(cls, blocks)
@@ -99,7 +150,9 @@ function Pandoc(doc)
   else
     table.insert(blocks, pandoc.Div(title, pandoc.Attr("", { "title-page" })))
   end
-  table.insert(blocks, page_break())
+  if not FORMAT:match("docx") then
+    table.insert(blocks, pandoc.RawBlock("html", '<div class="page-break"></div>'))
+  end
   for _, b in ipairs(doc.blocks) do table.insert(blocks, b) end
   doc.blocks = blocks
   return doc
