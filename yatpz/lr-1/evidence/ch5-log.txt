@@ -1,0 +1,25 @@
+
+Аналітика доступна, 2026-11-03 12:16:05 UTC
+  запит: POST http://webanalyticsengine.thetestingmap.org/web_analytics_engine.php
+  відповідь: 404 http://webanalyticsengine.thetestingmap.org/web_analytics_engine.php
+  через 6 с: url=http://testingchallenges.thetestingmap.org/challenge5.php
+  текст сторінки: Country | Email | First Name* | Last Name
+
+Аналітика недоступна (адресу заблоковано), 2026-11-03 12:16:17 UTC
+  запит: POST http://webanalyticsengine.thetestingmap.org/web_analytics_engine.php
+  збій: http://webanalyticsengine.thetestingmap.org/web_analytics_engine.php (NS_ERROR_FAILURE)
+  запит: GET http://testingchallenges.thetestingmap.org/web_analytics_engine.php
+  відповідь: 200 http://testingchallenges.thetestingmap.org/web_analytics_engine.php
+  через 14 с: url=http://testingchallenges.thetestingmap.org/challenge5.php
+  текст сторінки: YOU HAVE DONE IT. | The script that sends the data to the analytics engine should always have a check if the analytics engine responds or not within a time frame so that the users can complete their actions. | You can test for this by blocking the request to the analytics engine or by changing the address of the analytics engine in the HOSTS file, with a bogus address that does not exist. | Please
+
+Без блокування (двигун відповідає сам), спостереження 14 с, 2026-11-03 12:16:56 UTC
+  відповідь: 404 http://webanalyticsengine.thetestingmap.org/web_analytics_engine.php
+  через 5 с: Country | Email | First Name* | Last Name
+  відповідь: 200 http://testingchallenges.thetestingmap.org/web_analytics_engine.php
+  через 14 с: YOU HAVE DONE IT. | The script that sends the data to the analytics engine should always have a check if the analytics engine responds or not within a time frame so that the users can complete their actions. | You can test for this by blocking the request to the analytics engine or by changing the a
+
+Адресу заблоковано, повтор, 2026-11-03 12:17:14 UTC
+  через 5 с: Country | Email | First Name* | Last Name
+  відповідь: 200 http://testingchallenges.thetestingmap.org/web_analytics_engine.php
+  через 14 с: YOU HAVE DONE IT. | The script that sends the data to the analytics engine should always have a check if the analytics engine responds or not within a time frame so that the users can complete their actions. | You can test for this by blocking the request to the analytics engine or by changing the a

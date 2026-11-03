@@ -1,0 +1,51 @@
+Challenge #4, 2026-11-03 12:03:14 UTC
+початковий стан: Please enter a valid CNP number.* | Valid CNP numbers added 1 out of 5 | This challenge was created with Oana Casapu and Andrei Nicolae during a | workshop at the Autumn Testing Camp organized by Tabara de Testare
+1800515010016: Please enter a valid CNP number.* | Valid CNP numbers added 2 out of 5 | This challenge was created with Oana Casapu and Andrei Nicolae during a | workshop at the Autumn Testing Camp organized by Tabara de Testare
+2991231520026: Please enter a valid CNP number.* | Valid CNP numbers added 3 out of 5 | This challenge was created with Oana Casapu and Andrei Nicolae during a | workshop at the Autumn Testing Camp organized by Tabara de Testare
+5000229120036: Please enter a valid CNP number.* | Valid CNP numbers added 4 out of 5 | This challenge was created with Oana Casapu and Andrei Nicolae during a | workshop at the Autumn Testing Camp organized by Tabara de Testare
+6040430400046: e
+
+Чиста сесія, 2026-11-03 12:04:09 UTC
+перше відкриття: Valid CNP numbers added out of 5 This ch
+перезавантаження без введення: Valid CNP numbers added out of 5 This ch
+ще одне перезавантаження без введення: Valid CNP numbers added out of 5 This ch
+
+Неправильні значення на тій самій сесії:
+1800515010017: Valid CNP numbers added out of 5 This ch
+1801315010013: Valid CNP numbers added out of 5 This ch
+
+Чиста сесія, п'ять різних CNP:
+перше відкриття: Valid CNP numbers added out of 5 This ch
+1750131230011: Valid CNP numbers added 1 out of 5 This 
+1800515010016: Valid CNP numbers added 1 out of 5 This 
+2991231520026: Valid CNP numbers added 3 out of 5 This 
+5000229120036: Valid CNP numbers added 4 out of 5 This 
+6040430400046: YOU HAVE DONE IT. Please enter your name
+завершено після значення 6040430400046
+
+Повтор лічильника: чиста сесія, ті самі значення в порядку файла, 2026-11-03 12:05:14 UTC
+відкриття: Valid CNP numbers added out of 5 T
+1800515010016: Valid CNP numbers added 1 out of 5
+2991231520026: Valid CNP numbers added 2 out of 5
+5000229120036: Valid CNP numbers added 3 out of 5
+6040430400046: Valid CNP numbers added 4 out of 5
+1750131230011: YOU HAVE DONE IT. Please enter you
+завершено
+
+Повтор: чиста сесія, те саме значення двічі
+відкриття: Valid CNP numbers added out of 5 T
+1800515010016: Valid CNP numbers added 1 out of 5
+1800515010016: Valid CNP numbers added 1 out of 5
+1800515010016: Valid CNP numbers added 1 out of 5
+
+Чиста сесія: спершу відправка в Challenge #2, потім відкриття #4
+#4 після відправки в #2: Valid CNP numbers added out of 5 T
+
+Повтор порядку 1750..., 1800..., 2026-11-03 12:06:27 UTC
+відкриття: Valid CNP numbers added out of 5 T
+1750131230011: Valid CNP numbers added 1 out of 5
+1800515010016: Valid CNP numbers added 2 out of 5
+2991231520026: Valid CNP numbers added 3 out of 5
+
+Чиста сесія: завершення #2 (type=text, abc), потім відкриття #4
+#4 після завершення #2: Valid CNP numbers added 1 out of 5

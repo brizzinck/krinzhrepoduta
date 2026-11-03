@@ -1,0 +1,35 @@
+Challenge #2, 2026-11-03 12:02:25 UTC
+
+1. Ціле число (контроль)
+  введено: 5; стан поля: type=number, value="5", checkValidity=true, повідомлення=""
+  POST: valuesadded=5&formSubmit=Submit
+  форма відправлена: так
+  текст сторінки: Testing Challenge #2 - bypass html 5 validations | Enter a numeric value*
+
+2. Десятковий дріб через крапку
+  введено: 1.5; стан поля: type=number, value="1.5", checkValidity=false, повідомлення="Будь ласка, виберіть допустиме значення. Двома найближчими допустимими значеннями є 1 та 2."
+  форма відправлена: ні
+  текст сторінки: Testing Challenge #2 - bypass html 5 validations | Enter a numeric value*
+
+3. Літери
+  введено: abc; стан поля: type=number, value="", checkValidity=false, повідомлення="Введіть число."
+  форма відправлена: ні
+  текст сторінки: Testing Challenge #2 - bypass html 5 validations | Enter a numeric value*
+
+4. Експоненційний запис
+  введено: 1e3; стан поля: type=number, value="1e3", checkValidity=true, повідомлення=""
+  POST: valuesadded=1e3&formSubmit=Submit
+  форма відправлена: так
+  текст сторінки: Testing Challenge #2 - bypass html 5 validations | Enter a numeric value*
+
+5. Атрибут novalidate у формі, дріб
+  введено: 1.5; стан поля: type=number, value="1.5", checkValidity=false, повідомлення="Будь ласка, виберіть допустиме значення. Двома найближчими допустимими значеннями є 1 та 2."
+  POST: valuesadded=1.5&formSubmit=Submit
+  форма відправлена: так
+  текст сторінки: Testing Challenge #2 - bypass html 5 validations | Enter a numeric value*
+
+6. Поле змінено на type=text у DevTools, літери
+  введено: abc; стан поля: type=text, value="abc", checkValidity=true, повідомлення=""
+  POST: valuesadded=abc&formSubmit=Submit
+  форма відправлена: так
+  текст сторінки: Testing Challenge #2 - bypass html 5 validations | YOU HAVE DONE IT. Please enter your name.* | Add your e-mail in case you want to be notified when new challenges are available. | 

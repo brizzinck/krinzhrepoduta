@@ -1,0 +1,94 @@
+Challenge #8, 2026-11-03 12:13:46 UTC
+Стан до запитів:
+Auctions
+Time 12:13:47pm
+Saved
+Selling Description Start date End date
+Saved lot Lab item 12:50 12:59 Delete
+In progress
+Selling Description Start date End date
+Running lot 2 Lab item 12:13 12:45
+Running lot Lab item 12:12 12:45
+Finished
+Selling Description Start date End date
+Short lot Lab item 12:12 12:13 Archive
+
+Delete для In progress (item=2, Running lot): GET challenge8.php?action=delete&item=2
+Сторінка: url=http://testingchallenges.thetestingmap.org/challenge8.php?action=delete&item=2
+Стан після:
+Auctions
+Time 12:13:50pm
+Saved
+Selling Description Start date End date
+Saved lot Lab item 12:50 12:59 Delete
+In progress
+Selling Description Start date End date
+Running lot 2 Lab item 12:13 12:45
+Finished
+Selling Description Start date End date
+Short lot Lab item 12:12 12:13 Archive
+Повідомлення сайту: немає
+
+Archive для In progress (item=4, Running lot 2): GET challenge8.php?action=archive&item=4
+Сторінка: url=http://testingchallenges.thetestingmap.org/challenge8.php?action=archive&item=4
+Стан після:
+Auctions
+Time 12:13:53pm
+Saved
+Selling Description Start date End date
+Saved lot Lab item 12:50 12:59 Delete
+In progress
+Selling Description Start date End date
+Running lot 2 Lab item 12:13 12:45
+Finished
+Selling Description Start date End date
+Short lot Lab item 12:12 12:13 Archive
+Повідомлення сайту: немає
+
+Archive: GET challenge8.php?action=archive&item=3, 2026-11-03 12:15:51 UTC
+Стан після:
+Auctions
+Time 12:15:48pm
+Saved
+Selling Description Start date End date
+Saved lot Lab item 12:50 12:59 Delete
+In progress
+no events in progress...
+Finished
+Selling Description Start date End date
+Short lot Lab item 12:12 12:13 Archive
+YOU HAVE DONE IT.
+Please enter your name.*
+EMAIL
+If you want to be notified of new challenges
+Посилання: Delete challenge8.php?action=delete&item=1, Archive challenge8.php?action=archive&item=2; значки: 
+
+Другий прохід, чиста сесія, 2026-11-03 12:17:31 UTC
+Стан до запитів:
+Time 12:17:49pm
+Saved
+no events saved...
+In progress
+Selling Description Start date End date
+Run B Lab item 12:17 12:37
+Run A Lab item 12:17 12:37
+Finished
+no finished events...
+Після delete item=2:
+Time 12:17:53pm
+Saved
+no events saved...
+In progress
+Selling Description Start date End date
+Run A Lab item 12:17 12:37
+Finished
+no finished events...
+Після archive item=1:
+Time 12:17:56pm
+Saved
+no events saved...
+In progress
+no events in progress...
+Finished
+no finished events...
+Сайт показав завершення: true

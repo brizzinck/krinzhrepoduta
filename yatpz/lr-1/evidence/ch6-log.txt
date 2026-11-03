@@ -1,0 +1,86 @@
+Challenge #6, 2026-11-03 12:06:52 UTC
+значення за замовчуванням: 03/11/2017 14:16; Checks found: 0 out of 16
+01. день 00: "00/12/2017 12:00" | Checks found: 1 out of 16 | Please select date and time* |   | Checks found: 1 out of 16 | Date with day = zero
+02. день 32 у 31-денному місяці: "32/12/2017 12:00" | Checks found: 2 out of 16 | Please select date and time* |   | Checks found: 2 out of 16 | 32 days for 31 days months | Date with day = zero
+03. день 31 у 30-денному місяці (листопад): "31/11/2017 12:00" | Checks found: 3 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 3 out of 16 | 32 days for 31 days months | 31 days for 30 days months | Date with day = zero
+04. 29 лютого в невисокосному 2017: "29/02/2017 12:00" | Checks found: 4 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 4 out of 16 | 32 days for 31 days months | 31 days for 30 days months | Inexistent date 29 for February 2017 | Date with da
+05. день 31 у квітні: "31/04/2017 12:00" | Checks found: 4 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 4 out of 16 | 32 days for 31 days months | 31 days for 30 days months | Inexistent date 29 for February 2017 | Date with da
+06. день 31 у червні: "31/06/2017 12:00" | Checks found: 4 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 4 out of 16 | 32 days for 31 days months | 31 days for 30 days months | Inexistent date 29 for February 2017 | Date with da
+07. день 31 у вересні: "31/09/2017 12:00" | Checks found: 4 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 4 out of 16 | 32 days for 31 days months | 31 days for 30 days months | Inexistent date 29 for February 2017 | Date with da
+08. місяць 00: "15/00/2017 12:00" | Checks found: 5 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 5 out of 16 | 32 days for 31 days months | 31 days for 30 days months | Inexistent date 29 for February 2017 | Lower limit 
+09. місяць 13: "15/13/2017 12:00" | Checks found: 6 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 6 out of 16 | Higher limit for the month 13 | 32 days for 31 days months | 31 days for 30 days months | Inexistent date 29 
+10. година 24: "15/12/2017 24:00" | Checks found: 7 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 7 out of 16 | Higher limit for the month 13 | 32 days for 31 days months | 31 days for 30 days months | Hour bigger then ma
+11. хвилина 60: "15/12/2017 12:60" | Checks found: 8 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 8 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days f
+12. рік 2016, остання хвилина: "31/12/2016 23:59" | Checks found: 9 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 9 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days f
+13. рік 2018, перша хвилина: "01/01/2018 00:00" | Checks found: 10 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 10 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days 
+14. менше години наперед (59 хв): "03/11/2017 14:06" | Checks found: 10 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 10 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days 
+15. рівно зараз: "03/11/2017 13:08" | Checks found: 11 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 11 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days 
+16. на 1 хв у минулому: "03/11/2017 13:07" | Checks found: 11 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 11 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days 
+17. контроль: допустима межа, рівно 1 год наперед: "03/11/2017 14:08" | Checks found: 11 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 11 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days 
+18. година 25: "15/12/2017 25:00" | Checks found: 11 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 11 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days 
+19. день 32 у січні: "32/01/2017 12:00" | Checks found: 11 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 11 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days 
+20. день 30 лютого: "30/02/2017 12:00" | Checks found: 11 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 11 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days 
+21. рік 2018 з іншим днем: "15/06/2018 12:00" | Checks found: 11 out of 16 | Please select date and time* |   | Click here to view a hint | Checks found: 11 out of 16 | Maximum invalid value for minutes 60 | Higher limit for the month 13 | 32 days for 31 days months | 31 days 
+
+Другий прохід, 2026-11-03 12:09:12 UTC
+хвилина -1: "15/12/2017 12:-1" | Checks found: 12 out of 16 | нове: Minimum invalid value for minutes: -1
+година -1: "15/12/2017 -1:00" | Checks found: 12 out of 16 | нове: немає
+день -1: "-1/12/2017 12:00" | Checks found: 12 out of 16 | нове: немає
+місяць -1: "15/-1/2017 12:00" | Checks found: 12 out of 16 | нове: немає
+хвилина 61: "15/12/2017 12:61" | Checks found: 12 out of 16 | нове: немає
+день 00 і місяць 00: "00/00/2017 12:00" | Checks found: 12 out of 16 | нове: немає
+рік 0000: "15/12/0000 12:00" | Checks found: 12 out of 16 | нове: немає
+рік 9999: "15/12/9999 12:00" | Checks found: 12 out of 16 | нове: немає
+одна цифра в дні: "1/12/2017 12:00" | Checks found: 12 out of 16 | нове: немає
+одна цифра в годині: "15/12/2017 1:00" | Checks found: 12 out of 16 | нове: немає
+Усі знайдені перевірки:
+  Maximum invalid value for minutes 60
+  Minimum invalid value for minutes: -1
+  Higher limit for the month 13
+  32 days for 31 days months
+  31 days for 30 days months
+  Date less than 1 hour
+  Hour bigger then maxim valid 24
+  Inexistent date 29 for February 2017
+  Lower limit for the month 00
+  Date with day = zero
+  First date after 2017, January 2018 00:00
+  First date before 2017, December 2016 23:59
+
+Третій прохід, 2026-11-03 12:10:11 UTC
+година -01: "15/12/2017 -01:00" | Checks found: 12 out of 16 | нове: немає
+день -01: "-01/12/2017 12:00" | Checks found: 12 out of 16 | нове: немає
+місяць -01: "15/-01/2017 12:00" | Checks found: 12 out of 16 | нове: немає
+31 лютого: "31/02/2017 12:00" | Checks found: 12 out of 16 | нове: немає
+00 секунд: 24:01: "15/12/2017 24:01" | Checks found: 12 out of 16 | нове: немає
+29 лютого 2016: "29/02/2016 12:00" | Checks found: 12 out of 16 | нове: немає
+31 грудня 2017 о 24:00: "31/12/2017 24:00" | Checks found: 12 out of 16 | нове: немає
+Усі знайдені перевірки:
+  Maximum invalid value for minutes 60
+  Minimum invalid value for minutes: -1
+  Higher limit for the month 13
+  32 days for 31 days months
+  31 days for 30 days months
+  Date less than 1 hour
+  Hour bigger then maxim valid 24
+  Inexistent date 29 for February 2017
+  Lower limit for the month 00
+  Date with day = zero
+  First date after 2017, January 2018 00:00
+  First date before 2017, December 2016 23:59
+
+Межа 1 години, прохід 1, 2026-11-03 12:18:17 UTC
+на 59 хв наперед (default 03/11/2017 14:28): "03/11/2017 14:17" | Checks found: 0 out of 16 | список порожній
+на 45 хв наперед (default 03/11/2017 14:28): "03/11/2017 14:03" | Checks found: 0 out of 16 | список порожній
+на 30 хв наперед (default 03/11/2017 14:28): "03/11/2017 13:48" | Checks found: 0 out of 16 | список порожній
+на 10 хв наперед (default 03/11/2017 14:28): "03/11/2017 13:28" | Checks found: 1 out of 16 | Date less than 1 hour
+на 1 хв наперед (default 03/11/2017 14:28): "03/11/2017 13:19" | Checks found: 1 out of 16 | Date less than 1 hour
+на 0 хв наперед (default 03/11/2017 14:28): "03/11/2017 13:18" | Checks found: 1 out of 16 | Date less than 1 hour
+
+Межа 1 години, прохід 2, 2026-11-03 12:18:46 UTC
+на 59 хв наперед (default 03/11/2017 14:28): "03/11/2017 14:17" | Checks found: 0 out of 16 | список порожній
+на 45 хв наперед (default 03/11/2017 14:28): "03/11/2017 14:03" | Checks found: 0 out of 16 | список порожній
+на 30 хв наперед (default 03/11/2017 14:28): "03/11/2017 13:48" | Checks found: 0 out of 16 | список порожній
+на 10 хв наперед (default 03/11/2017 14:29): "03/11/2017 13:29" | Checks found: 1 out of 16 | Date less than 1 hour
+на 1 хв наперед (default 03/11/2017 14:29): "03/11/2017 13:20" | Checks found: 1 out of 16 | Date less than 1 hour
+на 0 хв наперед (default 03/11/2017 14:29): "03/11/2017 13:19" | Checks found: 1 out of 16 | Date less than 1 hour
