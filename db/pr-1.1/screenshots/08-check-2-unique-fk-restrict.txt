@@ -1,19 +1,19 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental_check < 08-check-2-unique-fk-restrict.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental_check < shots/08-check-2-unique-fk-restrict.sql
 --------------
 INSERT INTO cars (model_id, branch_id, vin, plate_number, manufacture_year, mileage_km, daily_price, status)
 SELECT 1, 1, vin, 'AA0003AA', 2022, 0, 900.00, 'available' FROM cars WHERE car_id = 2
 --------------
 
-ERROR 1062 (23000) at line 1: Duplicate entry 'VF1GNNRZ4M5JJW9K1' for key 'cars.uq_cars_vin'
+ERROR 1062 (23000) at line 2: Duplicate entry 'VF1GNNRZ4M5JJW9K1' for key 'cars.uq_cars_vin'
 --------------
 INSERT INTO cars (model_id, branch_id, vin, plate_number, manufacture_year, mileage_km, daily_price, status)
 VALUES (999, 1, 'VF1TESTCHECK00004', 'AA0004AA', 2022, 0, 900.00, 'available')
 --------------
 
-ERROR 1452 (23000) at line 3: Cannot add or update a child row: a foreign key constraint fails (`car_rental_check`.`cars`, CONSTRAINT `fk_cars_model` FOREIGN KEY (`model_id`) REFERENCES `car_models` (`model_id`) ON DELETE RESTRICT)
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`car_rental_check`.`cars`, CONSTRAINT `fk_cars_model` FOREIGN KEY (`model_id`) REFERENCES `car_models` (`model_id`) ON DELETE RESTRICT)
 --------------
 DELETE FROM branches WHERE branch_id = 1
 --------------
 
-ERROR 1451 (23000) at line 5: Cannot delete or update a parent row: a foreign key constraint fails (`car_rental_check`.`cars`, CONSTRAINT `fk_cars_branch` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`branch_id`) ON DELETE RESTRICT)
+ERROR 1451 (23000) at line 10: Cannot delete or update a parent row: a foreign key constraint fails (`car_rental_check`.`cars`, CONSTRAINT `fk_cars_branch` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`branch_id`) ON DELETE RESTRICT)
 Bye

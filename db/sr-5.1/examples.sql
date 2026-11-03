@@ -1,4 +1,5 @@
 -- СР 5.1. Реляційна алгебра: приклади на базі car_rental (MySQL 8.4).
+-- Запускати з --force: ../_shared/mysql.sh --force -t < examples.sql (помилки 1064 для MINUS і FULL OUTER JOIN навмисні).
 USE car_rental;
 
 -- 1. Об'єднання (UNION)

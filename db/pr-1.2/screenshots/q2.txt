@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q2.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind < shots/q2.sql
 --------------
 SELECT OrderID, CustomerID, OrderDate, DAYNAME(OrderDate) AS day_name
 FROM orders
@@ -48,6 +48,6 @@ SELECT SUM(DAYOFWEEK(OrderDate) = 3) AS dayofweek_eq_3, SUM(WEEKDAY(OrderDate) =
 +----------------+--------------+-----------------+
 |            168 |          168 |             168 |
 +----------------+--------------+-----------------+
-1 row in set (0.00 sec)
+1 row in set (0.01 sec)
 
 Bye

@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q6.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind < shots/q6.sql
 --------------
 SELECT o.OrderID, o.OrderDate, o.CustomerID,
        (SELECT CONCAT(e.FirstName, ' ', e.LastName)

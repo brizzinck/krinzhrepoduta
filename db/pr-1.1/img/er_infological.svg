@@ -389,20 +389,19 @@
 <!-- rent -->
 <g id="node26" class="node">
 <title>rent</title>
-<polygon fill="#e8eef9" stroke="black" stroke-width="1.6" points="542.5,-333.38 434.5,-333.38 434.5,-293.78 542.5,-293.78 542.5,-333.38"/>
-<polygon fill="none" stroke="black" stroke-width="1.6" points="546.5,-337.38 430.5,-337.38 430.5,-289.78 546.5,-289.78 546.5,-337.38"/>
+<polygon fill="#e8eef9" stroke="black" stroke-width="1.6" points="555.45,-313.58 521.98,-338.49 455.02,-338.49 421.55,-313.58 455.02,-288.68 521.98,-288.68 555.45,-313.58"/>
 <text xml:space="preserve" text-anchor="middle" x="488.5" y="-307.73" font-family="DejaVu Sans" font-size="18.00">Оренда</text>
 </g>
 <!-- rent_a0 -->
 <g id="node27" class="node">
 <title>rent_a0</title>
-<ellipse fill="none" stroke="black" cx="377.62" cy="-354.62" rx="67" ry="18.38"/>
-<text xml:space="preserve" text-anchor="start" x="338.25" y="-351.32" font-family="DejaVu Sans" text-decoration="underline" font-size="14.00">Код оренди</text>
+<ellipse fill="none" stroke="black" cx="350.26" cy="-406.46" rx="67" ry="18.38"/>
+<text xml:space="preserve" text-anchor="start" x="310.89" y="-403.16" font-family="DejaVu Sans" text-decoration="underline" font-size="14.00">Код оренди</text>
 </g>
 <!-- rent&#45;&#45;rent_a0 -->
 <g id="edge20" class="edge">
 <title>rent&#45;&#45;rent_a0</title>
-<path fill="none" stroke="black" stroke-width="0.8" d="M429.81,-335.31C425.87,-336.77 421.94,-338.22 418.12,-339.64"/>
+<path fill="none" stroke="black" stroke-width="0.8" d="M452.9,-337.5C428.9,-353.63 397.79,-374.53 376.14,-389.08"/>
 </g>
 <!-- rent_a1 -->
 <g id="node28" class="node">
@@ -413,7 +412,7 @@
 <!-- rent&#45;&#45;rent_a1 -->
 <g id="edge21" class="edge">
 <title>rent&#45;&#45;rent_a1</title>
-<path fill="none" stroke="black" stroke-width="0.8" d="M476.07,-337.96C471.16,-347.59 465.61,-358.46 461.06,-367.38"/>
+<path fill="none" stroke="black" stroke-width="0.8" d="M475.45,-339.17C470.75,-348.39 465.54,-358.6 461.21,-367.09"/>
 </g>
 <!-- rent_a2 -->
 <g id="node29" class="node">
@@ -424,35 +423,35 @@
 <!-- rent&#45;&#45;rent_a2 -->
 <g id="edge22" class="edge">
 <title>rent&#45;&#45;rent_a2</title>
-<path fill="none" stroke="black" stroke-width="0.8" d="M498.46,-338.06C506.11,-356.87 516.51,-382.43 523.47,-399.53"/>
+<path fill="none" stroke="black" stroke-width="0.8" d="M498.89,-339.12C506.46,-357.72 516.53,-382.48 523.36,-399.26"/>
 </g>
 <!-- rent&#45;&#45;r5 -->
 <g id="edge38" class="edge">
 <title>rent&#45;&#45;r5</title>
-<path fill="none" stroke="black" stroke-width="1.4" d="M429.97,-313.58C416.48,-313.58 402.14,-313.58 388.66,-313.58"/>
-<polygon fill="white" stroke="none" points="398.59,-300.08 398.59,-327.08 417.34,-327.08 417.34,-300.08 398.59,-300.08"/>
-<text xml:space="preserve" text-anchor="start" x="401.59" y="-308.93" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">N</text>
+<path fill="none" stroke="black" stroke-width="1.4" d="M420.41,-313.58C409.84,-313.58 399.01,-313.58 388.67,-313.58"/>
+<polygon fill="white" stroke="none" points="389.03,-300.08 389.03,-327.08 407.78,-327.08 407.78,-300.08 389.03,-300.08"/>
+<text xml:space="preserve" text-anchor="start" x="392.03" y="-308.93" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">N</text>
 </g>
 <!-- rent&#45;&#45;r6 -->
 <g id="edge40" class="edge">
 <title>rent&#45;&#45;r6</title>
-<path fill="none" stroke="black" stroke-width="1.4" d="M520.94,-337.91C550.53,-360.11 593.71,-392.49 621.04,-412.99"/>
-<polygon fill="white" stroke="none" points="529.16,-337.61 529.16,-364.61 547.91,-364.61 547.91,-337.61 529.16,-337.61"/>
-<text xml:space="preserve" text-anchor="start" x="532.16" y="-346.46" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">N</text>
+<path fill="none" stroke="black" stroke-width="1.4" d="M522.48,-339.07C552.12,-361.3 594.45,-393.05 621.3,-413.19"/>
+<polygon fill="white" stroke="none" points="530.71,-338.77 530.71,-365.77 549.46,-365.77 549.46,-338.77 530.71,-338.77"/>
+<text xml:space="preserve" text-anchor="start" x="533.71" y="-347.62" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">N</text>
 </g>
 <!-- rent&#45;&#45;r7 -->
 <g id="edge42" class="edge">
 <title>rent&#45;&#45;r7</title>
-<path fill="none" stroke="black" stroke-width="1.4" d="M520.94,-289.26C550.99,-266.72 595.03,-233.69 622.28,-213.25"/>
-<polygon fill="white" stroke="none" points="529.16,-262.56 529.16,-289.56 547.91,-289.56 547.91,-262.56 529.16,-262.56"/>
-<text xml:space="preserve" text-anchor="start" x="532.16" y="-271.41" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">N</text>
+<path fill="none" stroke="black" stroke-width="1.4" d="M522.48,-288.1C552.48,-265.6 595.49,-233.34 622.28,-213.25"/>
+<polygon fill="white" stroke="none" points="530.71,-261.4 530.71,-288.4 549.46,-288.4 549.46,-261.4 530.71,-261.4"/>
+<text xml:space="preserve" text-anchor="start" x="533.71" y="-270.25" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">N</text>
 </g>
 <!-- rent&#45;&#45;r8 -->
 <g id="edge44" class="edge">
 <title>rent&#45;&#45;r8</title>
-<path fill="none" stroke="black" stroke-width="1.4" d="M547.03,-313.58C550.47,-313.58 553.96,-313.58 557.48,-313.58"/>
-<polygon fill="white" stroke="none" points="559.66,-300.08 559.66,-327.08 578.41,-327.08 578.41,-300.08 559.66,-300.08"/>
-<text xml:space="preserve" text-anchor="start" x="562.66" y="-308.93" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">N</text>
+<path fill="none" stroke="black" stroke-width="1.4" d="M556.6,-313.58C556.85,-313.58 557.1,-313.58 557.35,-313.58"/>
+<polygon fill="white" stroke="none" points="569.22,-300.08 569.22,-327.08 587.97,-327.08 587.97,-300.08 569.22,-300.08"/>
+<text xml:space="preserve" text-anchor="start" x="572.22" y="-308.93" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">N</text>
 </g>
 <!-- r9 -->
 <g id="node46" class="node">
@@ -463,9 +462,9 @@
 <!-- rent&#45;&#45;r9 -->
 <g id="edge45" class="edge">
 <title>rent&#45;&#45;r9</title>
-<path fill="none" stroke="black" stroke-width="1.4" d="M488.5,-289.26C488.5,-270.93 488.5,-245.66 488.5,-225.87"/>
-<polygon fill="white" stroke="none" points="481.75,-253.76 481.75,-280.76 495.25,-280.76 495.25,-253.76 481.75,-253.76"/>
-<text xml:space="preserve" text-anchor="start" x="484.75" y="-262.61" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">1</text>
+<path fill="none" stroke="black" stroke-width="1.4" d="M488.5,-288.1C488.5,-269.83 488.5,-245.12 488.5,-225.71"/>
+<polygon fill="white" stroke="none" points="481.75,-252.6 481.75,-279.6 495.25,-279.6 495.25,-252.6 481.75,-252.6"/>
+<text xml:space="preserve" text-anchor="start" x="484.75" y="-261.45" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">1</text>
 </g>
 <!-- r10 -->
 <g id="node47" class="node">
@@ -476,9 +475,9 @@
 <!-- rent&#45;&#45;r10 -->
 <g id="edge47" class="edge">
 <title>rent&#45;&#45;r10</title>
-<path fill="none" stroke="black" stroke-width="1.4" d="M456.06,-289.26C425.83,-266.58 381.44,-233.29 354.23,-212.88"/>
-<polygon fill="white" stroke="none" points="427.59,-262.56 427.59,-289.56 449.34,-289.56 449.34,-262.56 427.59,-262.56"/>
-<text xml:space="preserve" text-anchor="start" x="430.59" y="-271.41" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">M</text>
+<path fill="none" stroke="black" stroke-width="1.4" d="M454.52,-288.1C424.34,-265.46 380.98,-232.95 354.23,-212.88"/>
+<polygon fill="white" stroke="none" points="426.04,-261.4 426.04,-288.4 447.79,-288.4 447.79,-261.4 426.04,-261.4"/>
+<text xml:space="preserve" text-anchor="start" x="429.04" y="-270.25" font-family="DejaVu Sans" font-weight="bold" font-size="17.00" fill="#a00000">M</text>
 </g>
 <!-- pay -->
 <g id="node30" class="node">

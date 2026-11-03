@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q1.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind < shots/q1.sql
 --------------
 SELECT ProductID, ProductName, UnitPrice
 FROM products

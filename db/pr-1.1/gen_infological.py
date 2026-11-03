@@ -12,7 +12,7 @@ ENT = {
     "branch": ("Філіал",     "основна", (2, 1), [("Код філіалу", 1, 20, 1.65), ("Назва", 0, 340, 1.4), ("Місто", 0, 55, 1.2)]),
     "emp":    ("Працівник",  "основна", (2, 0), [("Код працівника", 1, 15, 1.85), ("ПІБ", 0, 320, 1.3), ("Посада", 0, 270, 1.0)]),
     "cust":   ("Клієнт",     "основна", (0, 1), [("Код клієнта", 1, 160, 1.5), ("ПІБ", 0, 110, 1.05), ("Телефон", 0, 215, 1.4)]),
-    "rent":   ("Оренда",     "асоціативна", (1, 1), [("Код оренди", 1, 155, 1.7), ("Початок", 0, 112, 1.35), ("Повернення", 0, 72, 1.9)]),
+    "rent":   ("Оренда",     "асоціативна", (1, 1), [("Код оренди", 1, 140, 2.5), ("Початок", 0, 112, 1.35), ("Повернення", 0, 72, 1.9)]),
     "pay":    ("Платіж",     "основна", (1, 0), [("Код платежу", 1, 200, 1.6), ("Сума", 0, 270, 0.9), ("Вид", 0, 330, 1.2)]),
     "extra":  ("Послуга",    "основна", (0, 0), [("Код послуги", 1, 160, 1.5), ("Назва", 0, 215, 1.35), ("Ціна", 0, 270, 0.9)]),
 }
@@ -37,8 +37,9 @@ print('  layout=neato; splines=false; overlap=true; pad=0.2;')
 print('  node [fontname="DejaVu Sans", fontsize=13]; edge [fontname="DejaVu Sans", fontsize=13, fontcolor="#a00000", labeldistance=2.0, labelangle=0];')
 for eid, (name, cls, (c, r), attrs) in ENT.items():
     x, y = pos(c, r)
-    per = 2 if cls == "асоціативна" else 1
-    print(f'  {eid} [label="{name}", shape=box, style=filled, fillcolor="#e8eef9", penwidth=1.6, peripheries={per}, width=1.5, height=0.55, fontsize=18, pos="{x:.2f},{y:.2f}!"];')
+    # асоціативна сутність, як у матеріалах курсу, шестикутник; основні сутності прямокутники
+    shape = "hexagon" if cls == "асоціативна" else "box"
+    print(f'  {eid} [label="{name}", shape={shape}, style=filled, fillcolor="#e8eef9", penwidth=1.6, width=1.5, height=0.55, fontsize=18, pos="{x:.2f},{y:.2f}!"];')
     for i, (a, key, ang, d) in enumerate(attrs):
         ax, ay = x + d * math.cos(math.radians(ang)) * 1.0, y + d * math.sin(math.radians(ang)) * 0.8
         lab = f"<<U>{a}</U>>" if key else f'"{a}"'

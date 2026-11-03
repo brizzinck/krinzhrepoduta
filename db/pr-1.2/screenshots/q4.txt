@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q4.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind < shots/q4.sql
 --------------
 SELECT e.City,
        COUNT(DISTINCT e.EmployeeID) AS employees,

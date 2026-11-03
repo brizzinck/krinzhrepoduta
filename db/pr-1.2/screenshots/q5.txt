@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q5.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind < shots/q5.sql
 --------------
 SELECT c.CustomerID, c.CompanyName,
        ROUND(SUM(od.UnitPrice * od.Quantity * (1 - od.Discount)), 2) AS revenue

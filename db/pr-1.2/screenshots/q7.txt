@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q7.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind < shots/q7.sql
 --------------
 SELECT CompanyName, 'Supplier' AS role FROM suppliers WHERE Country = 'Germany'
 UNION ALL

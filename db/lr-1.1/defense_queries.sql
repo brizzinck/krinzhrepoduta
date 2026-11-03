@@ -32,7 +32,7 @@ SELECT name, daily_base_rate FROM car_classes WHERE name = 'Економ';
 UPDATE car_classes SET daily_base_rate = ROUND(daily_base_rate * 1.10, 2) WHERE name = 'Економ';
 SELECT name, daily_base_rate FROM car_classes WHERE name = 'Економ';
 
--- 4. Видалити тестовий рядок і побачити каскад
+-- 4. Видалити автомобіль без оренд і побачити каскад
 DELETE FROM cars WHERE car_id = 2;
 SELECT COUNT(*) AS policies_left FROM insurance_policies;
 

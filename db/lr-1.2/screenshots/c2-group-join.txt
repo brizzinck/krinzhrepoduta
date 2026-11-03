@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < c2-group-join.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind < shots/c2-group-join.sql
 --------------
 SELECT Country, COUNT(*) AS customers FROM customers GROUP BY Country HAVING COUNT(*) >= 8 ORDER BY customers DESC, Country
 --------------
@@ -111,5 +111,5 @@ SELECT COUNT(*) AS full_emul_cnt FROM (SELECT c.CustomerID, o.OrderID FROM custo
 SELECT COUNT(*) AS full_join_try FROM customers c FULL OUTER JOIN orders o ON o.CustomerID = c.CustomerID
 --------------
 
-ERROR 1064 (42000) at line 10: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FULL OUTER JOIN orders o ON o.CustomerID = c.CustomerID' at line 1
+ERROR 1064 (42000) at line 12: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FULL OUTER JOIN orders o ON o.CustomerID = c.CustomerID' at line 1
 Bye

@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 10-full-join.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/10-full-join.sql
 --------------
 SELECT e.employee_id, e.full_name, r.rental_id
 FROM employees e FULL OUTER JOIN rentals r ON r.employee_id = e.employee_id

@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < q3.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind < shots/q3.sql
 --------------
 SELECT c.CategoryName, ROUND(AVG(p.UnitPrice), 2) AS avg_price
 FROM products p
