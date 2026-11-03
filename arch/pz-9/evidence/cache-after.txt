@@ -1,0 +1,35 @@
+$ docker ps
+carrental-api  mcr.microsoft.com/dotnet/sdk:10.0  Up 4 seconds
+carrental-memcached  memcached:1.6-alpine  Up 4 seconds
+
+$ ./demo-cache.sh
+1. Два читання однієї оренди:
+перше: HTTP 200, 0.066800 с, статус Active, SQL-запитів: 3
+друге: HTTP 200, 0.015074 с, статус Active, SQL-запитів: 0
+
+2. Лічильники сервера Memcached:
+STAT get_hits 1
+STAT get_misses 1
+STAT curr_items 1
+
+3. Інвалідація: завершення оренди, потім читання:
+POST complete: HTTP 200
+після завершення: HTTP 200, 0.009185 с, статус Completed, SQL-запитів: 3
+ще раз: HTTP 200, 0.003069 с, статус Completed, SQL-запитів: 0
+
+4. Memcached зупинено, застосунок читає з БД:
+кеш вимкнено, перше: HTTP 200, 0.008207 с, статус Completed, SQL-запитів: 3
+кеш вимкнено, друге: HTTP 200, 0.004695 с, статус Completed, SQL-запитів: 3
+
+5. Memcached знову запущено:
+після повернення, перше: HTTP 200, 0.005873 с, статус Completed, SQL-запитів: 3
+після повернення, друге: HTTP 200, 0.002108 с, статус Completed, SQL-запитів: 0
+STAT get_hits 1
+STAT get_misses 0
+STAT curr_items 1
+
+6. Зміна в обхід застосунку: кеш віддає старе до кінця TTL:
+прочитано в кеш: HTTP 200, 0.003584 с, статус Active, SQL-запитів: 3
+UPDATE напряму в БД: змінено рядків 1
+одразу після UPDATE: HTTP 200, 0.002212 с, статус Active, SQL-запитів: 0
+через 61 с: HTTP 200, 0.006965 с, статус Cancelled, SQL-запитів: 3

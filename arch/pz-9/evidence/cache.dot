@@ -1,0 +1,15 @@
+digraph cache {
+  rankdir=LR; fontname="DejaVu Sans"; nodesep=0.22; ranksep=0.35;
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=12, margin="0.08,0.05"];
+  edge [fontname="DejaVu Sans", fontsize=10];
+  c [label="RentalsController", fillcolor="#dbeafe"];
+  subgraph cluster_a { label="Application"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=12;
+    d [label="CachedRentalQueryService\n(декоратор, TTL 60 с)", fillcolor="#fecaca"];
+    q [label="RentalQueryService", fillcolor="#d9f2d9"];
+    h [label="Complete / Cancel\nсценарії", fillcolor="#d9f2d9"];
+    i [label="InvalidateRentalCache\n(обробник події)", fillcolor="#fecaca"]; }
+  m [label="Memcached\nrental:{id}", shape=cylinder, fillcolor="#fff3b0"];
+  b [label="SQLite", shape=cylinder, fillcolor="#eeeeee"];
+  c -> d [label="GET"]; d -> m [label="читання, запис"]; d -> q [label="промах"]; q -> b;
+  c -> h [label="POST"]; h -> b [label="фіксація"]; h -> i [label="подія"]; i -> m [label="видалення"];
+}

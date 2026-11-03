@@ -1,0 +1,3 @@
+$ dotnet test --filter FullyQualifiedName~CachingTests
+Total tests: 9
+     Passed: 9

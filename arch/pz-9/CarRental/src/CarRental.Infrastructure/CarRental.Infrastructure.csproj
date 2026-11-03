@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Реалізує контракти Application; технічні пакети БД підключаються лише тут. -->
+  <ItemGroup>
+    <PackageReference Include="EnyimMemcachedCore" Version="3.5.2" />
+    <ProjectReference Include="../CarRental.Application/CarRental.Application.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.11" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.5" />
+  </ItemGroup>
+</Project>
