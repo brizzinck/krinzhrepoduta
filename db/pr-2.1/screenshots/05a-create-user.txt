@@ -1,0 +1,19 @@
+$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 05a_create_user.sql
+--------------
+CREATE USER 'LavrishkoVladyslavTCR32'@'%' IDENTIFIED BY 'Lavr_dev_2026'
+--------------
+
+--------------
+GRANT CREATE, INSERT, UPDATE, DELETE, SELECT ON northwind.* TO 'LavrishkoVladyslavTCR32'@'%'
+--------------
+
+--------------
+SHOW GRANTS FOR 'LavrishkoVladyslavTCR32'@'%'
+--------------
+
++------------------------------------------------------------------------------------------------+
+| Grants for LavrishkoVladyslavTCR32@%                                                           |
++------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `LavrishkoVladyslavTCR32`@`%`                                            |
+| GRANT SELECT, INSERT, UPDATE, DELETE, CREATE ON `northwind`.* TO `LavrishkoVladyslavTCR32`@`%` |
++------------------------------------------------------------------------------------------------+

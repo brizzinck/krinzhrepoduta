@@ -1,0 +1,233 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind_defense < defense_queries.sql
+--------------
+CREATE PROCEDURE ShipProduct(IN p_id INT, IN p_qty INT)
+…
+END
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT UnitsInStock FROM products WHERE ProductID = 1
+--------------
+
++--------------+
+| UnitsInStock |
++--------------+
+|           39 |
++--------------+
+1 row in set (0.00 sec)
+
+--------------
+CALL ShipProduct(1, 4)
+--------------
+
++---------+
+| result  |
++---------+
+| Success |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CALL ShipProduct(1, 100000)
+--------------
+
++--------+
+| result |
++--------+
+| Failed |
++--------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT UnitsInStock FROM products WHERE ProductID = 1
+--------------
+
++--------------+
+| UnitsInStock |
++--------------+
+|           35 |
++--------------+
+1 row in set (0.00 sec)
+
+--------------
+START TRANSACTION
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+UPDATE customers SET City = 'Kyiv' WHERE CustomerID = 'ALFKI'
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+SAVEPOINT after_city
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+UPDATE customers SET Country = 'Ukraine' WHERE CustomerID = 'ALFKI'
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+ROLLBACK TO SAVEPOINT after_city
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+COMMIT
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT CustomerID, City, Country FROM customers WHERE CustomerID = 'ALFKI'
+--------------
+
++------------+------+---------+
+| CustomerID | City | Country |
++------------+------+---------+
+| ALFKI      | Kyiv | Germany |
++------------+------+---------+
+1 row in set (0.00 sec)
+
+--------------
+CREATE TABLE ProductsUpdateLog (
+    LogID INT AUTO_INCREMENT PRIMARY KEY, ProductID INT,
+    OldPrice DECIMAL(19,4), NewPrice DECIMAL(19,4), ChangedAt DATETIME DEFAULT CURRENT_TIMESTAMP)
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+CREATE TRIGGER trg_products_au AFTER UPDATE ON products FOR EACH ROW
+    INSERT INTO ProductsUpdateLog (ProductID, OldPrice, NewPrice) VALUES (OLD.ProductID, OLD.UnitPrice, NEW.UnitPrice)
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+UPDATE products SET UnitPrice = UnitPrice + 1 WHERE ProductID = 2
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+SELECT LogID, ProductID, OldPrice, NewPrice FROM ProductsUpdateLog
+--------------
+
++-------+-----------+----------+----------+
+| LogID | ProductID | OldPrice | NewPrice |
++-------+-----------+----------+----------+
+|     1 |         2 |  19.0000 |  20.0000 |
++-------+-----------+----------+----------+
+1 row in set (0.00 sec)
+
+--------------
+CREATE FUNCTION OrderTotal(p_order INT) RETURNS DECIMAL(12,2) READS SQL DATA
+    RETURN (SELECT ROUND(SUM(UnitPrice * Quantity * (1 - Discount)), 2) FROM `order details` WHERE OrderID = p_order)
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT OrderID, OrderTotal(OrderID) AS total FROM orders ORDER BY OrderID LIMIT 3
+--------------
+
++---------+---------+
+| OrderID | total   |
++---------+---------+
+|   10248 |  440.00 |
+|   10249 | 1863.40 |
+|   10250 | 1552.60 |
++---------+---------+
+3 rows in set (0.00 sec)
+
+--------------
+CREATE VIEW v_german_customers AS SELECT CustomerID, CompanyName, City FROM customers WHERE Country = 'Germany'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+UPDATE v_german_customers SET City = 'Berlin' WHERE CustomerID = 'ALFKI'
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+CREATE VIEW v_city_counts AS SELECT City, COUNT(*) AS cnt FROM customers GROUP BY City
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+UPDATE v_city_counts SET cnt = 0 WHERE City = 'Berlin'
+--------------
+
+ERROR 1288 (HY000) at line 43: The target table v_city_counts of the UPDATE is not updatable
+--------------
+CREATE ROLE 'nw_reader'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+GRANT SELECT ON northwind_defense.* TO 'nw_reader'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE USER 'lavrishko_ro'@'%' IDENTIFIED BY 'Lavr_dev_2026'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+GRANT 'nw_reader' TO 'lavrishko_ro'@'%'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SHOW GRANTS FOR 'lavrishko_ro'@'%' USING 'nw_reader'
+--------------
+
++-------------------------------------------------------------+
+| Grants for lavrishko_ro@%                                   |
++-------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `lavrishko_ro`@`%`                    |
+| GRANT SELECT ON `northwind_defense`.* TO `lavrishko_ro`@`%` |
+| GRANT `nw_reader`@`%` TO `lavrishko_ro`@`%`                 |
++-------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+--------------
+DROP USER 'lavrishko_ro'@'%'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DROP ROLE 'nw_reader'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+Bye

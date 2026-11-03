@@ -1,0 +1,25 @@
+$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 02_call.sql
+--------------
+CALL AddProduct('Test Product A', 1, 1, '10 boxes x 20 bags', 25.5, 100, 0, 10, 0, @new_id)
+--------------
+
+--------------
+SELECT @new_id AS new_product_id
+--------------
+
++----------------+
+| new_product_id |
++----------------+
+|             78 |
++----------------+
+--------------
+SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM products ORDER BY ProductID DESC LIMIT 3
+--------------
+
++-----------+---------------------------------+-----------+--------------+
+| ProductID | ProductName                     | UnitPrice | UnitsInStock |
++-----------+---------------------------------+-----------+--------------+
+|        78 | Test Product A                  |   25.5000 |          100 |
+|        77 | Original Frankfurter grune So?e |   13.0000 |           32 |
+|        76 | Lakkalikoori                    |   18.0000 |           57 |
++-----------+---------------------------------+-----------+--------------+

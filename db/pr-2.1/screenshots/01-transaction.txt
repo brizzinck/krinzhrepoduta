@@ -1,0 +1,44 @@
+$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 01_transaction.sql
+--------------
+SELECT CustomerID, Address FROM customers WHERE CustomerID = 'ALFKI'
+--------------
+
++------------+---------------+
+| CustomerID | Address       |
++------------+---------------+
+| ALFKI      | Obere Str. 57 |
++------------+---------------+
+--------------
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+--------------
+
+--------------
+START TRANSACTION
+--------------
+
+--------------
+UPDATE customers SET Address = 'вул. Тестова, 1' WHERE CustomerID = 'ALFKI'
+--------------
+
+--------------
+SELECT CustomerID, Address FROM customers WHERE CustomerID = 'ALFKI'
+--------------
+
++------------+-----------------+
+| CustomerID | Address         |
++------------+-----------------+
+| ALFKI      | вул. Тестова, 1 |
++------------+-----------------+
+--------------
+ROLLBACK
+--------------
+
+--------------
+SELECT CustomerID, Address FROM customers WHERE CustomerID = 'ALFKI'
+--------------
+
++------------+---------------+
+| CustomerID | Address       |
++------------+---------------+
+| ALFKI      | Obere Str. 57 |
++------------+---------------+

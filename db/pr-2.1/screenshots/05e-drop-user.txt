@@ -1,0 +1,18 @@
+$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 05e_drop_user.sql
+--------------
+DROP USER 'LavrishkoVladyslavTCR32'@'%'
+--------------
+
+--------------
+SELECT COUNT(*) AS users_left FROM mysql.user WHERE user LIKE 'Lavrishko%'
+--------------
+
++------------+
+| users_left |
++------------+
+|          0 |
++------------+
+--------------
+DROP TABLE northwind.user_test
+--------------
+

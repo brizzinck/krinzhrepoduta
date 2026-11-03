@@ -1,0 +1,26 @@
+$ mysql -uLavrishkoVladyslavTCR32 -p --default-character-set=cp1251 -t -v northwind < 05b_user_ok.sql
+--------------
+CREATE TABLE user_test (id INT PRIMARY KEY, note VARCHAR(40))
+--------------
+
+--------------
+INSERT INTO user_test VALUES (1, 'first'), (2, 'second')
+--------------
+
+--------------
+UPDATE user_test SET note = 'changed' WHERE id = 2
+--------------
+
+--------------
+DELETE FROM user_test WHERE id = 1
+--------------
+
+--------------
+SELECT * FROM user_test
+--------------
+
++----+---------+
+| id | note    |
++----+---------+
+|  2 | changed |
++----+---------+

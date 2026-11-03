@@ -1,0 +1,15 @@
+$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 05c_revoke.sql
+--------------
+REVOKE CREATE ON northwind.* FROM 'LavrishkoVladyslavTCR32'@'%'
+--------------
+
+--------------
+SHOW GRANTS FOR 'LavrishkoVladyslavTCR32'@'%'
+--------------
+
++----------------------------------------------------------------------------------------+
+| Grants for LavrishkoVladyslavTCR32@%                                                   |
++----------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `LavrishkoVladyslavTCR32`@`%`                                    |
+| GRANT SELECT, INSERT, UPDATE, DELETE ON `northwind`.* TO `LavrishkoVladyslavTCR32`@`%` |
++----------------------------------------------------------------------------------------+

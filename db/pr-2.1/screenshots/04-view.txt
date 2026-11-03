@@ -1,0 +1,21 @@
+$ mysql -uroot --default-character-set=cp1251 -t -v northwind < 04_select.sql
+--------------
+SELECT * FROM v_orders_with_employees ORDER BY OrderID LIMIT 3
+--------------
+
++---------+----------------------------+------------+------------------+
+| OrderID | OrderDate                  | CustomerID | employee         |
++---------+----------------------------+------------+------------------+
+|   10248 | 1996-07-04 00:00:00.000000 | VINET      | Steven Buchanan  |
+|   10249 | 1996-07-05 00:00:00.000000 | TOMSP      | Michael Suyama   |
+|   10250 | 1996-07-08 00:00:00.000000 | HANAR      | Margaret Peacock |
++---------+----------------------------+------------+------------------+
+--------------
+SELECT COUNT(*) AS rows_in_view FROM v_orders_with_employees
+--------------
+
++--------------+
+| rows_in_view |
++--------------+
+|          830 |
++--------------+
