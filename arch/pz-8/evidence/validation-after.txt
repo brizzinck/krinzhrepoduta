@@ -1,0 +1,119 @@
+Автомобілів до запитів: 3
+
+1. Автомобіль: кілька помилок формату одразу:
+> POST /api/cars {"plate":"123","model":"","class":"Economy","dailyRate":-5,"mileage":-1}
+HTTP 400
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "errors": {
+        "Model": [
+            "Вкажіть модель."
+        ],
+        "Plate": [
+            "Номер має формат AA1234BB."
+        ],
+        "Mileage": [
+            "Пробіг не може бути від'ємним."
+        ],
+        "DailyRate": [
+            "Добова ставка має бути більшою за нуль."
+        ]
+    },
+    "traceId": "00-8e24f9d27e67e1e8eff5a8312537c037-28a750ac1caf2a31-00"
+}
+
+2. Автомобіль: невідомий клас (семантика):
+> POST /api/cars {"plate":"ZZ9999ZZ","model":"Bus","class":"Bus","dailyRate":500,"mileage":0}
+HTTP 400
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "errors": {
+        "Class": [
+            "Невідомий клас автомобіля. Допустимі: Economy, Comfort, Premium."
+        ]
+    },
+    "traceId": "00-325fa80a4af76b3818d17098899b92f6-e00d10e3bbb96ac0-00"
+}
+
+3. Автомобіль: номер уже існує (перевірка через БД):
+> POST /api/cars {"plate":"AA0001BB","model":"Copy","class":"Economy","dailyRate":500,"mileage":0}
+HTTP 400
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "errors": {
+        "Plate": [
+            "Автомобіль із таким номером уже зареєстрований."
+        ]
+    },
+    "traceId": "00-f686d6817c1b3b49d9cfb518fcbabe25-73360877740bdf9c-00"
+}
+
+4. Орендар: кілька помилок формату:
+> POST /api/renters {"fullName":"","email":"not-mail","birthDate":"1990-05-20","licenseNumber":"1","licenseValidUntil":"2035-01-01"}
+HTTP 400
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "errors": {
+        "Email": [
+            "Електронна адреса має некоректний формат."
+        ],
+        "FullName": [
+            "Вкажіть ПІБ."
+        ],
+        "LicenseNumber": [
+            "Номер посвідчення має містити від 5 до 20 символів."
+        ]
+    },
+    "traceId": "00-84014f5d9ba90b58a6fe5610ad016243-eb49a1d91acbbfb5-00"
+}
+
+5. Оренда: порожні ідентифікатори й кінець раніше початку:
+> POST /api/rentals {"carId":"00000000-0000-0000-0000-000000000000","renterId":"00000000-0000-0000-0000-000000000000","start":"2026-11-08","end":"2026-11-04"}
+HTTP 400
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "errors": {
+        "End": [
+            "Дата повернення має бути пізніше за дату початку."
+        ],
+        "CarId": [
+            "Вкажіть автомобіль."
+        ],
+        "RenterId": [
+            "Вкажіть орендаря."
+        ]
+    },
+    "traceId": "00-24c5b5d414e7524dc08405c70b87cd4c-5d35d207d603b106-00"
+}
+
+6. Оренда: орендар 20 років, посвідчення закінчується раніше, початок у минулому (перевірки через БД):
+> POST /api/rentals {"carId":"38a1f7fc-262b-44ae-a533-222b56e1f0bf","renterId":"58be98ad-8935-455d-9b2d-37f214382a67","start":"2026-11-02","end":"2026-11-07"}
+HTTP 400
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "errors": {
+        "Start": [
+            "Оренда не може починатися в минулому."
+        ],
+        "RenterId": [
+            "Мінімальний вік орендаря 21 рік на дату початку оренди.",
+            "Посвідчення водія не діє до кінця оренди."
+        ]
+    },
+    "traceId": "00-6171b3572a33c4c069e6bf7d5bffe350-ea3daff3e030dd34-00"
+}
+
+Автомобілів після запитів: 3
+Оренд цього орендаря: 0

@@ -1,0 +1,3 @@
+$ dotnet test --filter FullyQualifiedName~ValidatorTests
+Total tests: 20
+     Passed: 20
