@@ -1,0 +1,11 @@
+$ npx playwright test tests/login.spec.ts tests/purchase.spec.ts
+
+Running 5 tests using 5 workers
+
+  ✓  2 [chromium] › tests/login.spec.ts:27:7 › Вхід › 3. Порожні поля (1.3s)
+  ✓  3 [chromium] › tests/login.spec.ts:8:7 › Вхід › 1. Успішний вхід (1.4s)
+  ✓  5 [chromium] › tests/login.spec.ts:18:7 › Вхід › 2. Заблокований користувач (1.4s)
+  ✓  4 [chromium] › tests/purchase.spec.ts:15:7 › Покупка › 4. Два товари в кошику (1.5s)
+  ✓  1 [chromium] › tests/purchase.spec.ts:27:7 › Покупка › 5. Оформлення замовлення (1.6s)
+
+  5 passed (2.4s)

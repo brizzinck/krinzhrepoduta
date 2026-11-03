@@ -1,0 +1,24 @@
+$ npx playwright test --repeat-each=3
+
+Running 18 tests using 8 workers
+
+  ✓   5 [chromium] › tests/login.spec.ts:27:7 › Вхід › 3. Порожні поля (749ms)
+  ✓   4 [chromium] › tests/login.spec.ts:8:7 › Вхід › 1. Успішний вхід (887ms)
+  ✓   7 [chromium] › tests/login.spec.ts:8:7 › Вхід › 1. Успішний вхід (884ms)
+  ✓   2 [chromium] › tests/purchase.spec.ts:15:7 › Покупка › 4. Два товари в кошику (995ms)
+  ✓   8 [chromium] › tests/login.spec.ts:18:7 › Вхід › 2. Заблокований користувач (974ms)
+  ✓   3 [chromium] › tests/purchase.spec.ts:27:7 › Покупка › 5. Оформлення замовлення (1.3s)
+  ✓   9 [chromium] › tests/login.spec.ts:27:7 › Вхід › 3. Порожні поля (705ms)
+  ✓  10 [chromium] › tests/login.spec.ts:18:7 › Вхід › 2. Заблокований користувач (665ms)
+  ✓  11 [chromium] › tests/purchase.spec.ts:15:7 › Покупка › 4. Два товари в кошику (955ms)
+  ✓  12 [chromium] › tests/purchase.spec.ts:27:7 › Покупка › 5. Оформлення замовлення (1.1s)
+  ✓  14 [chromium] › tests/login.spec.ts:8:7 › Вхід › 1. Успішний вхід (1.0s)
+  ✓  15 [chromium] › tests/login.spec.ts:18:7 › Вхід › 2. Заблокований користувач (817ms)
+  ✓  16 [chromium] › tests/login.spec.ts:27:7 › Вхід › 3. Порожні поля (700ms)
+  ✓  17 [chromium] › tests/purchase.spec.ts:15:7 › Покупка › 4. Два товари в кошику (777ms)
+  ✓  18 [chromium] › tests/purchase.spec.ts:27:7 › Покупка › 5. Оформлення замовлення (919ms)
+  ✘   6 [chromium] › tests/bonus/problem-user.spec.ts:6:7 › Бонус: problem_user › Відомий баг: поле Last Name не приймає текст на Checkout (6.1s)
+  ✘   1 [chromium] › tests/bonus/problem-user.spec.ts:6:7 › Бонус: problem_user › Відомий баг: поле Last Name не приймає текст на Checkout (6.4s)
+  ✘  13 [chromium] › tests/bonus/problem-user.spec.ts:6:7 › Бонус: problem_user › Відомий баг: поле Last Name не приймає текст на Checkout (6.2s)
+
+  18 passed (8.6s)
