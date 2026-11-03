@@ -26,7 +26,7 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 
 # 3. Дослід 1. Перевірювані й неперевірювані винятки
 
-Без обробки. Конструктор `FileReader(String)` оголошує `throws FileNotFoundException`; виклик у `main` без `try-catch` і `throws` не компілюється:
+Спершу я лишив виклик без обробки. Конструктор `FileReader(String)` оголошує `throws FileNotFoundException`; виклик у `main` без `try-catch` і `throws` не компілюється:
 
 ```
 > javac … compile-errors/E1_unreported/*.java
@@ -37,7 +37,7 @@ Unreported.java:6: error: unreported exception FileNotFoundException; must be ca
 
 `FileNotFoundException` перевірюваний (наслідує `IOException`), тож компілятор вимагає рішення: перехопити або оголосити в `throws`.
 
-try-catch і throws. Перший метод обробляє виняток сам, другий передає його викликачу:
+Далі я переписав його двома способами. Перший метод обробляє виняток сам, другий передає його викликачу:
 
 ```java
     public static void readFirstLineWithCatch(String path) {
@@ -68,7 +68,7 @@ Exception in thread "main" java.io.FileNotFoundException: nofile.txt (No such fi
 
 З `try-catch` програма продовжує роботу (код 0), з `throws` виняток дійшов до `main` і завершив її (код 1). Виправлені варіанти компілюються (`results/fixed.txt`).
 
-Неперевірювані. `total / divisor` і `values[index]` компілюються без `throws` і `try-catch` (`results/compile_ok.txt`), а помилка проявляється лише під час виконання:
+Неперевірювані винятки поводяться інакше: `total / divisor` і `values[index]` компілюються без `throws` і `try-catch` (`results/compile_ok.txt`), а помилка проявляється лише під час виконання:
 
 ```
 > java … Main exp1 div 0
@@ -140,16 +140,17 @@ getCause():   java.lang.NumberFormatException: For input string: "abc"
 Три рядки з кирилицею записано через `BufferedWriter` двома способами: без `close()` (`writeWithoutClose`) і в `try (BufferedWriter writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) { … }`.
 
 ```
-> ls -l files/no_close.txt && cat files/no_close.txt
+> ls -l files/no_close.txt
 -rw-r--r-- 1 skalse skalse 0 Nov  2 22:31 files/no_close.txt
-> ls -l files/with_close.txt && cat files/with_close.txt
+> ls -l files/with_close.txt
 -rw-r--r-- 1 skalse skalse 135 Nov  2 22:31 files/with_close.txt
+> cat files/with_close.txt
 Привіт зі складу
 Артикул A-101: молоко, залишок 15
 Артикул A-102: хліб, залишок 40
 ```
 
-Без `close()` файл порожній (0 байтів, без помилки): 83 символи лишились у буфері на 8192 символи, який скидається лише за `flush()`/`close()`. `try-with-resources` викликає `close()` автоматично навіть за винятку. 135 байтів проти 83 символів: кирилиця в UTF-8 займає по 2 байти.
+Без `close()` файл порожній (0 байтів, без помилки): 83 символи лишились у буфері на 8192 символи, який скидається під час `flush()`/`close()` або коли заповниться. `try-with-resources` викликає `close()` автоматично навіть за винятку. 135 байтів проти 83 символів: кирилиця в UTF-8 займає по 2 байти.
 
 Читання файлу з `with_close.txt` через `BufferedReader(new InputStreamReader(new FileInputStream(…), charset))`:
 
