@@ -1,0 +1,5 @@
+$ grep -rn "CarRental.Domain" src/CarRental.WebApi/Controllers src/CarRental.WebApi/Requests.cs
+(код виходу: 1)
+
+$ grep -rn "ToDto\|IRentalMapper\|RentalMapper" src
+(код виходу: 1)

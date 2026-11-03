@@ -1,0 +1,13 @@
+$ dotnet test -c Release --filter FullyQualifiedName~Mapping --logger "console;verbosity=normal"
+  Passed CarRental.Tests.Mapping.MappingTests.Reverse_map_to_a_domain_value_object_goes_through_its_invariants [56 ms]
+  Passed CarRental.Tests.Mapping.MappingTests.Registered_renter_response_hides_license_and_birth_date [< 1 ms]
+  Passed CarRental.Tests.Mapping.MappingTests.Details_contain_nested_car_renter_period_and_money [7 ms]
+  Passed CarRental.Tests.Mapping.MappingTests.Collection_is_mapped_to_flat_list_items [9 ms]
+  Passed CarRental.Tests.Mapping.MappingTests.Request_and_command_are_mapped_in_both_directions [1 ms]
+  Passed CarRental.Tests.Mapping.MappingTests.Car_is_mapped_through_two_levels_to_the_api_response [3 ms]
+  Passed CarRental.Tests.Mapping.MappingTests.Response_json_does_not_expose_internal_fields [9 ms]
+  Passed CarRental.Tests.Mapping.MappingTests.Controllers_do_not_use_domain_types_in_their_signatures [1 ms]
+  Passed CarRental.Tests.Mapping.MappingTests.Configuration_of_all_profiles_is_valid [7 ms]
+  Passed CarRental.Tests.Mapping.MappingTests.Custom_converter_turns_money_into_amount_currency_and_text [< 1 ms]
+Total tests: 10
+     Passed: 10

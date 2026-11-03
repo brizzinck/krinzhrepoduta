@@ -1,0 +1,30 @@
+$ git diff --no-index --stat ../pz-5/CarRental/src CarRental/src
+ .../src/CarRental.Application/CarRental.Application.csproj      |   1 +
+ .../src/CarRental.Application/DependencyInjection.cs            |   5 +-
+ .../src/CarRental.Application/Fleet/CarDto.cs => /dev/null      |   4 -
+ .../src/CarRental.Application/Fleet/CarService.cs               |  24 ++---
+ .../src/CarRental.Application/Fleet/Dto/CarDtos.cs              |   7 ++
+ .../src/CarRental.Application/Mapping/CarProfile.cs             |  17 ++++
+ .../src/CarRental.Application/Mapping/MoneyConverter.cs         |  12 +++
+ .../src/CarRental.Application/Mapping/RentalProfile.cs          |  35 ++++++++
+ .../src/CarRental.Application/Mapping/RenterProfile.cs          |  17 ++++
+ .../src/CarRental.Application/Rentals/Dto/RentalDtos.cs         |  32 +++++++
+ .../src/CarRental.Application/Rentals/IFleetGateway.cs          |   4 +
+ .../CarRental.Application/Rentals/IRentalMapper.cs => /dev/null |   9 --
+ .../src/CarRental.Application/Rentals/IRenterRepository.cs      |   5 +-
+ .../src/CarRental.Application/Rentals/RentalDto.cs => /dev/null |  10 ---
+ .../CarRental.Application/Rentals/RentalMapper.cs => /dev/null  |  10 ---
+ .../src/CarRental.Application/Rentals/RenterService.cs          |  17 ++--
+ .../Rentals/UseCases/CancelRentalHandler.cs                     |   8 +-
+ .../Rentals/UseCases/CompleteRentalHandler.cs                   |   8 +-
+ .../CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs |   8 +-
+ .../Rentals/UseCases/RentalQueryService.cs                      |  20 +++--
+ .../src/CarRental.Infrastructure/DependencyInjection.cs         |   1 +
+ .../src/CarRental.Infrastructure/Integration/FleetGateway.cs    |  10 ++-
+ .../src/CarRental.WebApi/Controllers/CarsController.cs          |  19 ++--
+ .../src/CarRental.WebApi/Controllers/RentalsController.cs       |  18 ++--
+ .../src/CarRental.WebApi/Controllers/RentersController.cs       |   7 +-
+ .../src/CarRental.WebApi/Mapping/ApiProfile.cs                  |  18 ++++
+ .../CarRental => CarRental}/src/CarRental.WebApi/Program.cs     |   8 +-
+ .../CarRental => CarRental}/src/CarRental.WebApi/Requests.cs    |  10 ++-
+ 121 files changed, 693 insertions(+), 128 deletions(-)

@@ -1,0 +1,15 @@
+digraph m {
+  rankdir=LR; fontname="DejaVu Sans"; nodesep=0.2; ranksep=0.4;
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=13, margin="0.1,0.06"];
+  edge [fontname="DejaVu Sans", fontsize=11];
+  subgraph cluster_d { label="Domain"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=12;
+    c [label="Car", fillcolor="#fff3b0"]; r [label="Rental, Renter,\nMoney, RentalPeriod", fillcolor="#fff3b0"]; }
+  subgraph cluster_a { label="Application: профілі AutoMapper"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=12;
+    cd [label="CarDto", fillcolor="#d9f2d9"];
+    rd [label="RentalCreatedDto, RentalListItemDto,\nRentalDetailsDto, RentalClosedDto", fillcolor="#d9f2d9"];
+    cmd [label="OpenRentalCommand,\nRegister*Command", fillcolor="#d9f2d9"]; }
+  subgraph cluster_w { label="WebApi: ApiProfile"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=12;
+    cr [label="CarResponse", fillcolor="#dbeafe"];
+    req [label="OpenRentalRequest,\nRegister*Request", fillcolor="#dbeafe"]; }
+  c -> cd -> cr; r -> rd; req -> cmd [dir=both, label="ReverseMap"];
+}
