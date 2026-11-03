@@ -19,13 +19,13 @@ city-year: "Київ – 2026"
 
 # 1. Мета роботи
 
-Підключити до застосунку Camera API файлову базу H2, зберігати список камер із зовнішнього сервісу через Spring Data JPA та Hibernate, а результат перевірити у Swagger UI та H2 Console. Варіантів немає. У методичці робота має назву «Практична робота № 2», у Classroom це самостійна робота № 2.
+Підключити до застосунку Camera API файлову базу H2, зберігати список камер із зовнішнього сервісу через Spring Data JPA та Hibernate, а результат перевірити у Swagger UI та H2 Console. У методичці робота має назву «Практична робота № 2», у Classroom це самостійна робота № 2.
 
 Проєкт зібрано Maven на JDK 21 у docker-образі `maven:3.9-eclipse-temurin-21`. IntelliJ IDEA не використовувалась, тому код показано знімками термінала зі справжніх файлів проєкту.
 
 # 2. Хід виконання
 
-Крок 1. Продовжено проєкт із самостійної роботи № 1. Попередні ендпоїнти працюють:
+Крок 1. Я продовжив проєкт із самостійної роботи № 1. Попередні ендпоїнти працюють:
 
 ```{.text .small}
 > curl -i http://localhost:8080/api/v1/camera/info
@@ -37,11 +37,11 @@ Content-Type: image/jpeg
 Content-Length: 106972
 ```
 
-Крок 2. У `pom.xml` додано Spring Data JPA та H2 зі scope `runtime`. Spring Data JPA дає інтерфейси, Hibernate відображає об'єкти на таблиці, H2 зберігає дані.
+Крок 2. У `pom.xml` я додав Spring Data JPA та H2 зі scope `runtime`. Spring Data JPA дає інтерфейси, Hibernate відображає об'єкти на таблиці, H2 зберігає дані.
 
 ![Рисунок 1. Залежності у pom.xml](demo/screenshots/code_pom.png){width=62%}
 
-Крок 3. У `application.properties` налаштовано файлову базу, JPA, H2 Console, шлях списку камер і таймаути Feign. Тека `data/` є в `.gitignore`, файл бази не комітиться.
+Крок 3. У `application.properties` я налаштував файлову базу, JPA, H2 Console, шлях списку камер і таймаути Feign. Тека `data/` є в `.gitignore`, файл бази не комітиться.
 
 ![Рисунок 2. Налаштування application.properties](demo/screenshots/code_properties.png){width=62%}
 
@@ -51,13 +51,13 @@ Content-Length: 106972
 
 ![Рисунок 4. Новий метод CameraClient](demo/screenshots/code_client.png){width=62%}
 
-Кроки 6 і 7. `CameraEntity` описує таблицю `cameras`. Поле `id` приходить ззовні, тому `@GeneratedValue` немає, а `location` зберігається двома стовпцями. `CameraRepository` успадковує від `JpaRepository` методи `saveAll`, `findAll`, `findById` і `delete`.
+Кроки 6 і 7. DTO описує JSON зовнішнього сервісу з вкладеним `location`, а `CameraEntity` описує рядок таблиці `cameras`, де `location` розкладено на два стовпці. Поле `id` приходить ззовні, тому `@GeneratedValue` немає. `CameraRepository` успадковує від `JpaRepository` методи `saveAll`, `findAll`, `findById` і `delete`.
 
 ![Рисунок 5. CameraEntity](demo/screenshots/code_entity.png){width=62%}
 
 ![Рисунок 6. CameraRepository](demo/screenshots/code_repository.png){width=62%}
 
-Крок 8. `CameraService` отримує список через Feign, перевіряє його, перетворює DTO на Entity і зберігає. Некоректна відповідь сервісу дає 502, відсутня камера дає 404.
+Крок 8. `CameraService` отримує список через Feign, перевіряє його, перетворює DTO на Entity і зберігає. Порожній список або камера без `id` дають 502, відсутня камера дає 404.
 
 ![Рисунок 7. CameraService: імпорт і перетворення DTO на Entity](demo/screenshots/code_service_import.png){width=80%}
 
@@ -72,7 +72,7 @@ Content-Length: 106972
 Крок 10. У H2 Console (`jdbc:h2:file:./data/cameradb`, користувач `sa`, порожній пароль) таблиця `CAMERAS` має чотири записи, із них три зі статусом `ONLINE`.
 
 ::: {.pair}
-![](demo/screenshots/h2_all.png){width=41%} ![](demo/screenshots/h2_online.png){width=41%}
+![](demo/screenshots/h2_all.png){width=49%} ![](demo/screenshots/h2_online.png){width=49%}
 
 Рисунок 11. H2 Console: усі камери та фільтр за статусом
 :::
@@ -93,26 +93,13 @@ Content-Length: 106972
 Рисунок 14. GET /saved/1 після видалення: код 404; повторний POST /import: код 200
 :::
 
-Крок 12. Підсумкова структура: пакети `client`, `controller`, `dto`, `entity`, `repository`, `service`.
+Крок 12. Підсумкова схема шляху даних: контролер викликає сервіс, а той бере дані із зовнішнього сервісу через Feign і зберігає їх у H2 через репозиторій.
 
-```{.text .small}
-> find src -type f | sort
-src/main/java/com/example/demo/client/CameraClient.java
-src/main/java/com/example/demo/controller/CameraController.java
-src/main/java/com/example/demo/DemoApplication.java
-src/main/java/com/example/demo/dto/CameraInfoDto.java
-src/main/java/com/example/demo/dto/CameraItemDto.java
-src/main/java/com/example/demo/dto/CameraListDto.java
-src/main/java/com/example/demo/dto/SnapshotDto.java
-src/main/java/com/example/demo/entity/CameraEntity.java
-src/main/java/com/example/demo/repository/CameraRepository.java
-src/main/java/com/example/demo/service/CameraService.java
-src/main/resources/application.properties
-```
+![Рисунок 15. Шлях даних застосунку](diagrams/flow.png){width=78%}
 
 # 3. HTTP-відповіді та результат видалення
 
-Ту саму послідовність перевірено через `curl`, вивід скорочено, повний лежить у `demo/results/api_curl.txt`:
+Спершу я перевірив послідовність через `curl` на чистій базі, далі перезапустив застосунок і повторив її у Swagger UI. Вивід скорочено, повний лежить у `demo/results/api_curl.txt`:
 
 ```{.text .small}
 > curl -i http://localhost:8080/api/v1/camera/saved/1
@@ -143,7 +130,7 @@ Hibernate: insert into cameras (device_type,floor,name,room,status,id) values (?
 
 # 4. Висновки
 
-До застосунку Camera API підключено файлову базу H2, а попередні ендпоїнти `GET /info` і `POST /snapshot` працюють як раніше. Список із чотирьох камер надходить через OpenFeign, перетворюється з DTO на `CameraEntity` і зберігається через `JpaRepository`. Чотири нові операції дають імпорт, перегляд, пошук за `id` і видалення з кодами 200, 204 та 404. У H2 Console таблиця має чотири записи, три з них `ONLINE`. Повторний імпорт повернув видалену камеру й не створив дублів, що видно з журналу Hibernate. Файлова база зберегла дані після перезапуску. Під час роботи я розібрався, чим Entity відрізняється від DTO і чому зовнішній `id` робить `saveAll` оновленням, а не вставкою дубля.
+До застосунку Camera API підключено файлову базу H2, а попередні ендпоїнти `GET /info` і `POST /snapshot` працюють як раніше. Список із чотирьох камер надходить через OpenFeign, перетворюється з DTO на `CameraEntity` і зберігається через `JpaRepository`. Чотири нові операції дають імпорт, перегляд, пошук за `id` і видалення з кодами 200, 204 та 404. У H2 Console таблиця має чотири записи, три з них `ONLINE`. Повторний імпорт повернув видалену камеру й не створив дублів, що видно з журналу Hibernate. Під час роботи я розібрався, чому зовнішній `id` не дає `saveAll` вставити дубль.
 
 # 5. Посилання на репозиторій
 

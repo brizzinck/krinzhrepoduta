@@ -27,7 +27,7 @@ src/main/java/ua/duikt/lavrishko/converter/Menu.java:0
 src/main/java/ua/duikt/lavrishko/converter/Main.java:0
 (код завершення: 1)
 
-> docker run --rm -v target/converter.jar:/app/converter.jar:ro eclipse-temurin:21-jre java -jar /app/converter.jar --table   (лише JRE і один файл)
+> docker run --rm -v "$PWD/target/converter.jar:/app/converter.jar:ro" eclipse-temurin:21-jre java -jar /app/converter.jar --table   (лише JRE і один файл)
 од.   cm²            m²             a              ha             acre
 cm²   1              0.0001         0.000001       1E-8           2.47105381467E-8
 m²    10000          1              0.01           0.0001         0.000247105381467

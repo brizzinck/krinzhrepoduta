@@ -1,0 +1,18 @@
+digraph flow {
+  rankdir=LR; nodesep=0.3; ranksep=0.45;
+  node [shape=box, fontname="DejaVu Sans", fontsize=11, style=rounded];
+  edge [fontname="DejaVu Sans", fontsize=9];
+  Client [label="Swagger UI\nабо curl"];
+  Ctrl [label="CameraController"];
+  Svc [label="CameraService"];
+  Feign [label="CameraClient\n(Feign)"];
+  Ext [label="Зовнішній\nсервіс"];
+  Repo [label="CameraRepository"];
+  H2 [label="H2\n(файл)", shape=cylinder, style=""];
+  Client -> Ctrl [label="HTTP"];
+  Ctrl -> Svc;
+  Svc -> Feign [label="DTO"];
+  Feign -> Ext;
+  Svc -> Repo [label="Entity"];
+  Repo -> H2;
+}

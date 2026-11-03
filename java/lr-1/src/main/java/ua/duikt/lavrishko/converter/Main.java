@@ -16,7 +16,7 @@ public final class Main {
     }
 
     public static void main(String[] args) {
-        // Кодування задано явно, щоб результат не залежав від налаштувань системи.
+        // Кодування задано явно: JVM завжди видає UTF-8, тому термінал теж має бути в UTF-8.
         PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         if (args.length == 1 && args[0].equals("--table")) {
             printTable(out);
