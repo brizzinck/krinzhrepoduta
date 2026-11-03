@@ -4,7 +4,7 @@ namespace CarRental.Application.Rentals.Pricing;
 
 /// <summary>
 /// Надбавка 10%, якщо в оренду потрапляє субота чи неділя. Приклад розширення без зміни наявного коду:
-/// це окремий файл і два рядки реєстрації (умова `if` та `AddScoped`) (вмикається налаштуванням Pricing:WeekendSurcharge).
+/// це окремий файл і два рядки реєстрації: умова `if` та `AddScoped`. Вмикається налаштуванням Pricing:WeekendSurcharge.
 /// </summary>
 public sealed class WeekendSurchargeRule : IPricingRule
 {

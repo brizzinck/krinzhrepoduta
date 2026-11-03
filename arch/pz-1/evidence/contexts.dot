@@ -5,7 +5,7 @@ digraph contexts {
   subgraph cluster_rentals {
     label="Bounded context: Rentals (оренда)"; style="rounded,dashed"; color="#3b6ea5"; fontname="DejaVu Sans";
     rental [label="Rental\n(корінь агрегату)", fillcolor="#dbeafe"];
-    renter [label="Renter\n+ DriverLicense (VO)", fillcolor="#dbeafe"];
+    renter [label="Renter\n(корінь агрегату)\n+ DriverLicense (VO)", fillcolor="#dbeafe"];
     period [label="RentalPeriod (VO)", fillcolor="#eef4fb"];
     rentable [label="RentableCar\n(проєкція авто для оренди)", fillcolor="#eef4fb"];
     rental -> renter [label=" RenterId", style=dashed];
