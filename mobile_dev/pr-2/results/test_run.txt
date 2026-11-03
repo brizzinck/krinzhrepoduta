@@ -1,0 +1,150 @@
+Пристрій: sdk_gphone64_x86_64 API 34 qemu 1
+Сенсори: ID(0), oemStrength: 15, updatedStrength: 15, modality 2, state: 0, cookie: 0
+
+Тест 1. Перший запуск модуля
+екран: com.example.utilityhub/.activities.SecuritySetupActivity
+після збереження без вибору екран: com.example.utilityhub/.activities.SecuritySetupActivity | vault_prefs: cat: shared_prefs/vault_prefs.xml: No such file or directory
+
+Тест 6. Біометрія не налаштована
+зареєстровані відбитки: "prints":[{"id":0,"count":0,"accept":0,"reject":0,"acquire":0,"lockout":0,"permanentLockout":0,"acceptCrypto":0,"rejectCrypto":0,"acquireCrypto":0}]}
+екран: com.example.utilityhub/.activities.SecuritySetupActivity | vault_prefs: cat: shared_prefs/vault_prefs.xml: No such file or directory
+
+Тест 2. PIN 123 і 123456789
+PIN 123, екран: com.example.utilityhub/.activities.SecuritySetupActivity | vault_prefs: cat: shared_prefs/vault_prefs.xml: No such file or directory
+введено 9 цифр, у полі символів: 8 (maxLength=8 відкидає девʼяту)
+
+Тест 3. Різні PIN
+екран: com.example.utilityhub/.activities.SecuritySetupActivity | vault_prefs: cat: shared_prefs/vault_prefs.xml: No such file or directory
+
+Збереження PIN
+екран: com.example.utilityhub/.activities.UnlockActivity
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="pin_kdf">PBKDF2WithHmacSHA256</string>
+    <string name="pin_hash">Nc5rIHCVkDYIjvYrAjPxXDdK7FNLHwqJ6Go7pKmo1cI=</string>
+    <string name="security_method">PIN</string>
+    <string name="pin_salt">h4l06UDgelUfrbA/9c8Djw==</string>
+</map>
+PIN у файлі відкрито: False
+
+Тест 5. Неправильний PIN
+екран: com.example.utilityhub/.activities.UnlockActivity
+
+Тест 4. Правильний PIN
+екран: com.example.utilityhub/.activities.PasswordVaultActivity
+
+Тест 9. Генератор 8/16/32
+підпис Довжина: 8 | довжина 8 | групи aA0! | 6IA3@&ro
+підпис Довжина: 8 | довжина 8 | групи aA0! | Oh7+iE*U
+підпис Довжина: 8 | довжина 8 | групи aA0! | %QX+BHr1
+підпис Довжина: 16 | довжина 16 | групи aA0! | 8kd7wjBq$=4=J-tW
+підпис Довжина: 16 | довжина 16 | групи aA0! | p2&+PHK@d?+=)BiH
+підпис Довжина: 16 | довжина 16 | групи aA0! | 10@Z=MiA_VG1uCMi
+підпис Довжина: 32 | довжина 32 | групи aA0! | $6F3ynb_HK_X#7BIqvoxe$5fNd+9H8Fr
+підпис Довжина: 32 | довжина 32 | групи aA0! | 9O1$jAWY$P9WvICjH!FqUOdVL=@4AiJ0
+підпис Довжина: 32 | довжина 32 | групи aA0! | #JeiFy5=onFbs#G34+n*ZfX(v7oQf#c#
+лише малі й цифри, довжина 16 | групи a0 | ag6foemjlwk42w7v
+лише малі й цифри, довжина 16 | групи a0 | k7yic4jw7y7d3ox9
+лише малі й цифри, довжина 16 | групи a0 | oqpea0etpqykhjcf
+лише цифри, довжина 16 | групи 0 | 0666999663961445
+усі групи вимкнено, пароль не змінився: True
+екран: com.example.utilityhub/.activities.PasswordVaultActivity
+
+Тест 10. CRUD
+створено, записи: ['TestTemp']
+видалено, записи: []
+згенеровано для запису TestForum, довжина 20
+записи: [('TestMail', 'Логін: test.user@example.com'), ('TestBank', 'Логін: demo_client'), ('TestForum', 'Логін: student@example.com')]
+редагування, заголовок: Редагування запису | сервіс: TestMail
+після редагування: Логін: edited.user@example.com
+
+Тест 11. Показати і сховати
+за замовчуванням: ••••••••
+після Показати: Test-Pass-01 | кнопка: СХОВАТИ
+після Сховати: •••••••• | кнопка: ПОКАЗАТИ
+
+Тест 12. Копіювання
+вставлено з буфера в поле пароля: Test-Pass-01 | збігається: True
+
+Шифрування у SharedPreferences
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="password_items_json">[{&quot;id&quot;:&quot;da245db2-6a6b-4927-af4f-e843f5f2695e&quot;,&quot;service&quot;:&quot;4I8+r9t2MKZHRZIs:edKIH9DHQ0SR89LAO8+nte3Ie47BU8qL&quot;,&quot;login&quot;:&quot;xqSoczgx6suYjHGq:RD2BQ9Ey2KPPyVwQhhrqGgmHREcdLzqj3+hhEVIH0uGZCZtuAsl4&quot;,&quot;encryptedPassword&quot;:&quot;CxLr13a+6ibsWuXt:JBFqgfTabiQG\/VuAQKz8AyPPwlRIyohqxigSEg==&quot;,&quot;note&quot;:&quot;dfbodD34Y0oaXPLo:4nFQS0JEfPRRJcqqncg5AL13+N9xlKZpxQ==&quot;},{&quot;id&quot;:&quot;16a9460b-fd2d-4d2c-ab78-86250076c0a8&quot;,&quot;service&quot;:&quot;cpBsYWb2L5754KhL:w8RcnOqYiz\/ecu6sB2+IHLD9w3x28C4V&quot;,&quot;login&quot;:&quot;VRPpqtH19JhVqyDE:5JXWg7SSOHDZyy75Tn66ZmpOAPMbVewqAft1&quot;,&quot;encryptedPassword&quot;:&quot;6CT5b6LI3V7Pvf4D:PUA+Em2R0Y7R8WZSIaN58P+yDyoOmarN2fynWXhiNO8=&quot;,&quot;note&quot;:&quot;xgAnkqFWvzAaqcUm:Hbt2omPzWdriECo1RMja7w==&quot;},{&quot;id&quot;:&quot;54202361-8ee1-48a9-836e-36afe4d8ea03&quot;,&quot;service&quot;:&quot;OhECo3jvm0L9w8EP:n\/Wp4blnd1BUUogI1SbSnm3JCVHdtlfyig==&quot;,&quot;login&quot;:&quot;7xH8kOHjEguS+pXw:kqsA3GMzmSEtKwpntFm7DzBl+4vXbu5HQ0dI7j3MzE43HnY=&quot;,&quot;encryptedPassword&quot;:&quot;dFdAGLsfYKDxvvso:f62yx8va7MxlReZB5hU+eEOCFUStpq0Pa8lRkFTwjxitxWNi&quot;,&quot;note&quot;:&quot;1LSPGzwaEM09VMEC:Jx9B4v2CUrZWS0SMlwuFeA==&quot;}]</string>
+</map>
+відкрито у файлі 'TestMail' : False
+відкрито у файлі 'TestBank' : False
+відкрито у файлі 'TestForum' : False
+відкрито у файлі 'edited.user' : False
+відкрито у файлі 'demo_client' : False
+відкрито у файлі 'test note' : False
+відкрито у файлі 'Test-Pass-01' : False
+
+Тест 13. Перезапуск застосунку
+прямий запуск сховища: java.lang.SecurityException: Permission Denial: starting Intent { flg=0x10000000 cmp=com.example.utilityhub/.a
+екран після плитки: com.example.utilityhub/.activities.UnlockActivity
+екран: com.example.utilityhub/.activities.PasswordVaultActivity | записи: ['TestMail', 'TestBank', 'TestForum']
+
+Тест 15. Без мережі
+аеро-режим: enabled
+розшифрування офлайн, довжина пароля другого запису: 16
+дозволи у встановленому APK: android.permission.USE_BIOMETRIC
+ android.permission.USE_BIOMETRIC: granted=true
+
+Додаткове: автоблокування
+фон 5 с: com.example.utilityhub/.activities.PasswordVaultActivity
+фон 35 с: com.example.utilityhub/.activities.UnlockActivity
+після PIN: com.example.utilityhub/.activities.PasswordVaultActivity
+редактор: com.example.utilityhub/.activities.PasswordEditActivity
+редактор, фон 35 с: com.example.utilityhub/.activities.UnlockActivity
+після PIN: com.example.utilityhub/.activities.PasswordVaultActivity
+
+Тест 14. Заблокувати
+екран: com.example.utilityhub/.activities.UnlockActivity
+після Назад: com.example.utilityhub/.MainActivity
+плитка знову веде на: com.example.utilityhub/.activities.UnlockActivity
+
+Регресія ЛР 1 і тема
+com.example.utilityhub/.activities.CurrencyActivity
+com.example.utilityhub/.activities.SettingsActivity
+зелена тема: com.example.utilityhub/.activities.UnlockActivity
+com.example.utilityhub/.activities.PasswordVaultActivity
+
+Журнал на чутливі дані і падіння
+у logcat '4821' : 6
+у logcat 'Test-Pass-01' : 2
+у logcat 'Temp-Pass-00' : 0
+crash-буфер: '0'
+
+Тести 7 і 8. Реєстрація відбитка
+Pin set to '1234'
+екран: com.android.settings/.biometrics.fingerprint.FingerprintEnrollFindSensor
+торкань сенсора: 3
+екран: com.android.settings/.biometrics.fingerprint.FingerprintEnrollFinish ['Fingerprint added']
+відбитки: "prints":[{"id":0,"count":1,"accept":0,"reject":0,"acquire":0,"lockout":0,"permanentLockout":0,"acceptCrypto":0,"rejectCrypto":0,"acquireCrypto":0}]}
+
+Тест 7. Вибір біометрії і успішний вхід
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="security_method">BIOMETRIC</string>
+</map>
+екран: com.example.utilityhub/.activities.UnlockActivity ['Вхід до сховища паролів', 'Підтвердьте особу біометрією', 'Touch the fingerprint sensor', 'Скасувати']
+
+Тест 8. Незареєстрований відбиток 2
+екран: com.example.utilityhub/.activities.UnlockActivity
+лічильники: "prints":[{"id":0,"count":1,"accept":0,"reject":1,"acquire":1,"lockout":0,"permanentLockout":0,"acceptCrypto":0,"rejectCrypto":0,"acquireCrypto":0}]}
+у діалозі: None
+
+Скасування і повтор
+екран: com.example.utilityhub/.activities.UnlockActivity | статус: Скасувати
+діалог: ['Вхід до сховища паролів']
+
+Тест 7. Зареєстрований відбиток 1
+екран: com.example.utilityhub/.activities.PasswordVaultActivity
+лічильники: "prints":[{"id":0,"count":1,"accept":1,"reject":1,"acquire":2,"lockout":0,"permanentLockout":0,"acceptCrypto":0,"rejectCrypto":0,"acquireCrypto":0}]}
+запис після входу відбитком: TestBio Bio-Pass-02
+
+Перезапуск у режимі біометрії
+екран: com.example.utilityhub/.activities.UnlockActivity ['Вхід до сховища паролів']
+екран після відбитка 1: com.example.utilityhub/.activities.PasswordVaultActivity | записи: ['TestBio']
+
+crash-буфер наприкінці: '0'

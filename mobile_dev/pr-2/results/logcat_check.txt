@@ -1,0 +1,17 @@
+$ adb shell "logcat -d | grep -E \"4821|Test-Pass-01|Temp-Pass-00|Bio-Pass-02\"" (рядки обрізано до 200 символів)
+11-03 12:24:55.712   548  1067 D CompatibilityChangeReporter: Compat change id reported: 158482162; UID 1000; state: ENABLED
+11-03 12:24:56.959  4299  4431 D CompatibilityChangeReporter: Compat change id reported: 158482162; UID 10128; state: ENABLED
+11-03 12:24:56.959   548  1031 D CompatibilityChangeReporter: Compat change id reported: 158482162; UID 10128; state: ENABLED
+11-03 12:25:08.234   360  4821 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+11-03 12:25:08.292   360  4821 I resolv  : res_nsend: used send_dg 91 terrno: 0
+11-03 12:25:08.292   360  4821 I resolv  : doQuery: rcode=0, ancount=2, return value=91
+11-03 12:31:37.866  1587  1587 W AutoPasteSuggestionHelper: AutoPasteSuggestionHelper.createProactiveSuggestions():382 Failed to create item chips. Clip items are [ClipItem{ id = 1793709062885, timest
+11-03 12:32:41.977  1587  1587 W AutoPasteSuggestionHelper: AutoPasteSuggestionHelper.createProactiveSuggestions():382 Failed to create item chips. Clip items are [ClipItem{ id = 1793709062885, timest
+$ adb shell "ps -A -o PID,NAME | grep -E \"^ *1587 \""
+ 1587 com.google.android.inputmethod.latin
+$ adb shell pidof com.example.utilityhub
+11949
+$ adb shell "logcat -d --pid=<pid застосунку> | grep -cE \"4821|Pass-0\""
+0
+$ grep -rnE "Log\.|System\.out|printStackTrace" app/src/main/java | wc -l
+0

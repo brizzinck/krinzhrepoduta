@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission
+        android:name="android.permission.USE_FINGERPRINT"
+        android:maxSdkVersion="27" />
+
+    <!-- Ключ із Keystore не потрапляє в резервну копію, тому копія зашифрованих даних була б марною -->
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.UtilityHub">
+
+        <!-- Головний екран: єдина точка входу (MAIN/LAUNCHER) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.CurrencyActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.SecuritySetupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.UnlockActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PasswordVaultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PasswordEditActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>

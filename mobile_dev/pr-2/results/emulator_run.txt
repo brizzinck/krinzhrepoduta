@@ -1,0 +1,21 @@
+$ adb devices
+List of devices attached
+emulator-5554	device
+
+$ adb shell getprop ro.build.version.release
+14
+$ adb shell getprop ro.kernel.qemu
+1
+$ adb install -r app-debug.apk
+Performing Streamed Install
+Success
+$ /opt/android-sdk-linux/build-tools/34.0.0/aapt2 dump permissions app-debug.apk
+package: com.example.utilityhub
+uses-permission: name='android.permission.USE_BIOMETRIC'
+uses-permission: name='android.permission.USE_FINGERPRINT' maxSdkVersion='27'
+permission: com.example.utilityhub.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+uses-permission: name='com.example.utilityhub.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
+$ adb shell am start -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -n com.example.utilityhub/.MainActivity
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.utilityhub/.MainActivity }
+$ adb shell dumpsys activity activities | grep -m1 topResumedActivity
+    topResumedActivity=ActivityRecord{c06d59b u0 com.example.utilityhub/.MainActivity t13}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="24dp">
+    <TextView
+        android:id="@+id/textUnlockTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Вхід до сховища паролів"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/pinUnlockContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <EditText
+            android:id="@+id/editUnlockPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Введіть PIN"
+            android:inputType="numberPassword"
+            android:maxLength="8" />
+        <Button
+            android:id="@+id/btnUnlockPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Увійти" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnRetryBiometric"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Повторити біометричну перевірку"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/textUnlockStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center" />
+</LinearLayout>
