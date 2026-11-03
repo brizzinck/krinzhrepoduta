@@ -1,0 +1,19 @@
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+Creating summariser <summary>
+Created the tree successfully using /test/pr4_simple.jmx
+Starting standalone test @ 2026 Nov 3 12:02:40 UTC (1793707360696)
+Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
+summary +    570 in 00:00:19 =   29.5/s Avg:   227 Min:    65 Max:   801 Err:     0 (0.00%) Active: 13 Started: 13 Finished: 0
+summary +   1266 in 00:00:30 =   42.2/s Avg:   543 Min:   170 Max:  7704 Err:     0 (0.00%) Active: 33 Started: 33 Finished: 0
+summary =   1836 in 00:00:49 =   37.2/s Avg:   445 Min:    65 Max:  7704 Err:     0 (0.00%)
+summary +   1294 in 00:00:30 =   43.3/s Avg:   888 Min:   230 Max:  7620 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+summary =   3130 in 00:01:19 =   39.5/s Avg:   628 Min:    65 Max:  7704 Err:     0 (0.00%)
+summary +   1214 in 00:00:30 =   40.5/s Avg:   988 Min:   324 Max: 12568 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+summary =   4344 in 00:01:49 =   39.8/s Avg:   729 Min:    65 Max: 12568 Err:     0 (0.00%)
+summary +    445 in 00:00:12 =   37.4/s Avg:  1091 Min:   320 Max:  4446 Err:     0 (0.00%) Active: 0 Started: 40 Finished: 40
+summary =   4789 in 00:02:01 =   39.5/s Avg:   762 Min:    65 Max: 12568 Err:     0 (0.00%)
+Tidying up ...    @ 2026 Nov 3 12:04:41 UTC (1793707481903)
+... end of run
