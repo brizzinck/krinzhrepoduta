@@ -1,0 +1,15 @@
+$ curl -sI https://jsonplaceholder.typicode.com/posts
+content-type: application/json; charset=utf-8
+cf-cache-status: HIT
+server: cloudflare
+# 27520 bytes without gzip; 7034 bytes with gzip
+$ curl -sI https://jsonplaceholder.typicode.com/comments?postId=1
+content-type: application/json; charset=utf-8
+cf-cache-status: HIT
+server: cloudflare
+# 1510 bytes without gzip; 647 bytes with gzip
+$ curl -sI https://jsonplaceholder.typicode.com/comments
+content-type: application/json; charset=utf-8
+cf-cache-status: HIT
+server: cloudflare
+# 157745 bytes without gzip; 40410 bytes with gzip

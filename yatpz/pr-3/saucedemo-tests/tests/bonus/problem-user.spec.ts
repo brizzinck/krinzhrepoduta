@@ -10,8 +10,6 @@ test.describe('Бонус: problem_user', () => {
       type: 'known bug',
       description: 'problem_user: текст із Last Name потрапляє в First Name, оформлення не завершити',
     });
-    test.fail();
-
     await loginPage.open();
     await loginPage.login('problem_user', 'secret_sauce');
     await inventoryPage.addToCart('Sauce Labs Backpack');
@@ -20,6 +18,7 @@ test.describe('Бонус: problem_user', () => {
     await checkoutPage.fillInfoAndContinue('Test', 'User', '12345');
 
     // очікуємо перехід на наступний крок, тобто відсутність помилки
+    test.fail();
     await expect(checkoutPage.errorMessage()).toBeHidden();
   });
 });

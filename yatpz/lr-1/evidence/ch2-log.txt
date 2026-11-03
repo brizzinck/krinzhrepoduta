@@ -28,7 +28,7 @@ Challenge #2, 2026-11-03 12:02:25 UTC
   форма відправлена: так
   текст сторінки: Testing Challenge #2 - bypass html 5 validations | Enter a numeric value*
 
-6. Поле змінено на type=text у DevTools, літери
+6. Поле змінено на type=text, літери
   введено: abc; стан поля: type=text, value="abc", checkValidity=true, повідомлення=""
   POST: valuesadded=abc&formSubmit=Submit
   форма відправлена: так

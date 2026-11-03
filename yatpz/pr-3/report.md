@@ -13,7 +13,7 @@ city-year: "Київ – 2026"
 
 # Мета та об'єкт тестування
 
-Мета: побудувати невеликий проєкт автотестів за патерном Page Object Model, у якому тести працюють лише через класи сторінок. Об'єкт: <https://www.saucedemo.com> (Swag Labs). Проєкт лежить у [теці saucedemo-tests репозиторію](https://github.com/brizzinck/krinzhrepoduta/tree/main/yatpz/pr-3/saucedemo-tests), без `node_modules` (встановлення: `npm install`).
+Мета: побудувати невеликий проєкт автотестів за патерном Page Object Model, у якому тести працюють лише через класи сторінок. Об'єкт: <https://www.saucedemo.com> (Swag Labs). Проєкт лежить у [теці saucedemo-tests репозиторію](https://github.com/brizzinck/krinzhrepoduta/tree/main/yatpz/pr-3/saucedemo-tests), без `node_modules` (встановлення: `npm install`, `npx playwright install chromium`).
 
 # Структура проєкту
 
@@ -70,7 +70,7 @@ Expected: відкривається наступний крок оформле�
 
 Тест я позначив через `test.fail()` з анотацією `known bug`: набір лишається зеленим, а коли сайт виправлять, тест пройде і Playwright покаже це як помилку, тож позначку доведеться зняти.
 
-Другий бонус: у `fixtures.ts` через `test.extend` оголошено фікстури `loginPage`, `inventoryPage`, `cartPage`, `checkoutPage`. Бонусний тест отримує їх у параметрах, без `new`. Основні п'ять тестів я лишив із явним створенням класів, як показано в завданні.
+Другий бонус: у `fixtures.ts` через `test.extend` оголошено фікстури `loginPage`, `inventoryPage`, `cartPage`, `checkoutPage`. Бонусний тест отримує їх у параметрах, без `new`. Основні п'ять тестів я лишив із явним створенням класів.
 
 # Висновок
 
