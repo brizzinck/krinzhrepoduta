@@ -1,0 +1,14 @@
+digraph flow {
+  rankdir=LR; fontname="DejaVu Sans"; nodesep=0.25; ranksep=0.35;
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=13, margin="0.1,0.06"];
+  edge [fontname="DejaVu Sans", fontsize=11];
+  ctl [label="RentalsController\n(WebApi)", fillcolor="#dbeafe"];
+  subgraph cluster_a { label="Application: лише абстракції"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=12;
+    h [label="OpenRentalHandler", fillcolor="#d9f2d9"];
+    u [label="IUnitOfWork\nCars, Renters, Rentals,\nSaveChangesAsync", fillcolor="#d9f2d9"]; }
+  subgraph cluster_i { label="Infrastructure: EF Core"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=12;
+    r [label="CarRepository,\nRenterRepository,\nRentalRepository", fillcolor="#fff3b0"];
+    d [label="CarRentalDbContext\n(одна транзакція)", fillcolor="#fff3b0"]; }
+  db [label="SQLite", shape=cylinder, fillcolor="#fecaca"];
+  ctl -> h -> u -> r -> d -> db;
+}

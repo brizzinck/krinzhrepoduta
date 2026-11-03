@@ -1,0 +1,42 @@
+$ grep -rn "ICarStore\|IRenterStore\|IRentalStore" src --include=*.cs | grep -v "^src/CarRental.Infrastructure"
+src/CarRental.Application/Rentals/Handlers/NotifyRenterOnRentalOpened.cs:7:public sealed class NotifyRenterOnRentalOpened(IRenterStore renters, INotificationService notifications)
+src/CarRental.Application/Rentals/RenterService.cs:7:public sealed class RenterService(IRenterStore store, IClock clock)
+src/CarRental.Application/Rentals/IRentalStore.cs:13:public interface IRentalStore : IRentalReader
+src/CarRental.Application/Rentals/IRenterStore.cs:5:public interface IRenterStore
+src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs:10:public sealed class CancelRentalHandler(IRentalStore rentals, IClock clock, IRentalMapper mapper, IEventBus events)
+src/CarRental.Application/Rentals/UseCases/CompleteRentalHandler.cs:10:public sealed class CompleteRentalHandler(IRentalStore rentals, IRentalMapper mapper, IEventBus events)
+src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs:11:    IRentalStore rentals,
+src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs:12:    IRenterStore renters,
+src/CarRental.Application/Fleet/Handlers/UpdateCarMileageOnRentalCompleted.cs:10:public sealed class UpdateCarMileageOnRentalCompleted(ICarStore cars) : IEventHandler<RentalCompleted>
+src/CarRental.Application/Fleet/ICarStore.cs:6:public interface ICarStore
+src/CarRental.Application/Fleet/CarService.cs:8:public sealed class CarService(ICarStore store)
+(код виходу: 0)
+
+$ grep -rn "\.Save(" src --include=*.cs
+src/CarRental.Application/Rentals/RenterService.cs:14:        await store.Save(ct);
+src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs:16:        await rentals.Save(ct);
+src/CarRental.Application/Rentals/UseCases/CompleteRentalHandler.cs:16:        await rentals.Save(ct);
+src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs:28:        await rentals.Save(ct);
+src/CarRental.Application/Fleet/Handlers/UpdateCarMileageOnRentalCompleted.cs:19:        await cars.Save(ct);
+src/CarRental.Application/Fleet/CarService.cs:24:        await store.Save(ct);
+src/CarRental.Application/Fleet/CarService.cs:32:        await store.Save(ct);
+(код виходу: 0)
+
+$ grep -rn "Microsoft.EntityFrameworkCore\|DbContext\|DbUpdate" src/CarRental.Application src/CarRental.Domain
+(код виходу: 1)
+
+$ grep -rn "Microsoft.EntityFrameworkCore\|DbContext\|DbUpdate" src/CarRental.Infrastructure --include=*.cs | grep -v CarRentalDbContext.cs
+src/CarRental.Infrastructure/DependencyInjection.cs:12:using Microsoft.EntityFrameworkCore;
+src/CarRental.Infrastructure/DependencyInjection.cs:21:        Action<DbContextOptionsBuilder> configureDatabase, string auditLogPath)
+src/CarRental.Infrastructure/DependencyInjection.cs:29:        // Scoped: DbContext і всі сховища на один запит (одна одиниця роботи з БД).
+src/CarRental.Infrastructure/DependencyInjection.cs:30:        services.AddDbContext<CarRentalDbContext>(configureDatabase);
+src/CarRental.Infrastructure/Persistence/SqliteRenterStore.cs:3:using Microsoft.EntityFrameworkCore;
+src/CarRental.Infrastructure/Persistence/SqliteRenterStore.cs:7:public sealed class SqliteRenterStore(CarRentalDbContext db) : IRenterStore
+src/CarRental.Infrastructure/Persistence/SaveExtensions.cs:2:using Microsoft.EntityFrameworkCore;
+src/CarRental.Infrastructure/Persistence/SaveExtensions.cs:9:    public static async Task SaveOrConflict(this DbContext db, CancellationToken ct)
+src/CarRental.Infrastructure/Persistence/SaveExtensions.cs:12:        catch (DbUpdateConcurrencyException) { throw new ConcurrentChangeException(); }
+src/CarRental.Infrastructure/Persistence/SqliteCarStore.cs:3:using Microsoft.EntityFrameworkCore;
+src/CarRental.Infrastructure/Persistence/SqliteCarStore.cs:8:public sealed class SqliteCarStore(CarRentalDbContext db) : ICarStore
+src/CarRental.Infrastructure/Persistence/SqliteRentalStore.cs:3:using Microsoft.EntityFrameworkCore;
+src/CarRental.Infrastructure/Persistence/SqliteRentalStore.cs:7:public sealed class SqliteRentalStore(CarRentalDbContext db) : IRentalStore
+(код виходу: 0)

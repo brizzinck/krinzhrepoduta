@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Сценарії залежать від Domain і власних контрактів, але не від технології збереження. -->
+  <ItemGroup>
+    <ProjectReference Include="../CarRental.Domain/CarRental.Domain.csproj" />
+    <!-- Лише абстракції контейнера: Application реєструє власні компоненти й не залежить від реалізації. -->
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.11" />
+  </ItemGroup>
+</Project>

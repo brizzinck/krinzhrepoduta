@@ -1,0 +1,28 @@
+ .../src/CarRental.Application/Common/Persistence/IRepository.cs |  24 +++++++++++++++++++++++
+ .../src/CarRental.Application/Common/Persistence/IUnitOfWork.cs |  17 ++++++++++++++++
+ .../src/CarRental.Application/Fleet/CarService.cs               |  17 ++++++++--------
+ .../Fleet/Handlers/UpdateCarMileageOnRentalCompleted.cs         |   9 +++++----
+ .../src/CarRental.Application/Fleet/ICarRepository.cs           |  14 ++++++++++++++
+ .../src/CarRental.Application/Fleet/ICarStore.cs => /dev/null   |  14 --------------
+ .../Rentals/Handlers/NotifyRenterOnRentalOpened.cs              |   7 ++++---
+ .../src/CarRental.Application/Rentals/IRentalRepository.cs      |  18 +++++++++++++++++
+ .../CarRental.Application/Rentals/IRentalStore.cs => /dev/null  |  19 ------------------
+ .../src/CarRental.Application/Rentals/IRenterRepository.cs      |   7 +++++++
+ .../CarRental.Application/Rentals/IRenterStore.cs => /dev/null  |  10 ----------
+ .../src/CarRental.Application/Rentals/RenterService.cs          |   9 +++++----
+ .../Rentals/UseCases/CancelRentalHandler.cs                     |   7 ++++---
+ .../Rentals/UseCases/CompleteRentalHandler.cs                   |   7 ++++---
+ .../CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs |  17 +++++++++-------
+ .../Rentals/UseCases/RentalQueryService.cs                      |   4 ++--
+ .../src/CarRental.Infrastructure/DependencyInjection.cs         |  14 +++++++++-----
+ .../src/CarRental.Infrastructure/Integration/FleetGateway.cs    |   4 ++--
+ .../Persistence/Repositories/CarRepository.cs                   |  20 +++++++++++++++++++
+ .../Persistence/Repositories/EfRepository.cs                    |  27 ++++++++++++++++++++++++++
+ .../Persistence/Repositories/RentalRepository.cs                |  23 +++++++---------------
+ .../Persistence/Repositories/RenterRepository.cs                |   6 ++++++
+ .../Persistence/SaveExtensions.cs => /dev/null                  |  14 --------------
+ .../Persistence/SqliteCarStore.cs => /dev/null                  |  26 -------------------------
+ .../Persistence/SqliteRenterStore.cs => /dev/null               |  19 ------------------
+ .../src/CarRental.Infrastructure/Persistence/UnitOfWork.cs      |  29 ++++++++++++++++++++++++++++
+ .../CarRental.Infrastructure.csproj.FileListAbsolute.txt        |  17 ----------------
+ 87 files changed, 231 insertions(+), 210 deletions(-)

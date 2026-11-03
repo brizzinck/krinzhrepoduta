@@ -1,0 +1,16 @@
+$ grep -rn "Microsoft.EntityFrameworkCore\|DbContext" src/CarRental.Application src/CarRental.Domain
+(код виходу: 1)
+
+$ grep -rn "ICarStore\|IRenterStore\|IRentalStore\|\.Save(" src
+(код виходу: 1)
+
+$ grep -rn "SaveChangesAsync" src/CarRental.Application
+src/CarRental.Application/Common/Persistence/IRepository.cs:14:/// Репозиторій лише готує зміни; фіксує їх Unit of Work (IUnitOfWork.SaveChangesAsync).
+src/CarRental.Application/Common/Persistence/IUnitOfWork.cs:16:    Task<int> SaveChangesAsync(CancellationToken ct);
+src/CarRental.Application/Rentals/RenterService.cs:15:        await uow.SaveChangesAsync(ct);
+src/CarRental.Application/Rentals/UseCases/CancelRentalHandler.cs:17:        await uow.SaveChangesAsync(ct);
+src/CarRental.Application/Rentals/UseCases/CompleteRentalHandler.cs:17:        await uow.SaveChangesAsync(ct);
+src/CarRental.Application/Rentals/UseCases/OpenRentalHandler.cs:31:        await uow.SaveChangesAsync(ct);
+src/CarRental.Application/Fleet/Handlers/UpdateCarMileageOnRentalCompleted.cs:20:        await uow.SaveChangesAsync(ct);
+src/CarRental.Application/Fleet/CarService.cs:25:        await uow.SaveChangesAsync(ct);
+src/CarRental.Application/Fleet/CarService.cs:33:        await uow.SaveChangesAsync(ct);

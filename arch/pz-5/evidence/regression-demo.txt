@@ -1,0 +1,2 @@
+$ diff <(normalize pz4/demo.txt) <(normalize pz5/demo.txt)   # GUID і дати замінено на <GUID>, <DATE>
+(код виходу diff: 0)

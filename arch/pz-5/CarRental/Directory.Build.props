@@ -1,0 +1,8 @@
+<Project>
+  <!-- Спільні параметри всіх проєктів: цільова платформа змінюється в одному місці. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>
