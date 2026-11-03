@@ -4,11 +4,11 @@ select_type         table  type    key      rows  Extra
 PRIMARY             o      ALL     NULL     830   NULL
 DEPENDENT SUBQUERY  e      eq_ref  PRIMARY  1     NULL
 # EXPLAIN ANALYZE
--> Table scan on o  (cost=85.2 rows=830) (actual time=0.0261..0.131 rows=830 loops=1)
+…
 -> Select #2 (subquery in projection; dependent)
-    -> Single-row index lookup on e using PRIMARY (EmployeeID=o.EmployeeID)  (cost=1.06 rows=1) (actual time=758e-6..786e-6 rows=1 loops=830)
+    -> Single-row index lookup on e using PRIMARY (EmployeeID=o.EmployeeID) … (actual time=758e-6..786e-6 rows=1 loops=830)
 query_cost: 85.25
 Handler_read_*: first=1 key=831 next=0 rnd_next=831
 # 500 запусків поспіль, час за performance_schema
-runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
-500   0.776   0.648   1.899   1660       830        0           0
+… avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables …
+… 0.776   0.648   1.899   1660       830        0          …

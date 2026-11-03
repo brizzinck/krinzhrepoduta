@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 07-select-car_models.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/07-select-car_models.sql
 --------------
 SELECT * FROM car_models
 --------------

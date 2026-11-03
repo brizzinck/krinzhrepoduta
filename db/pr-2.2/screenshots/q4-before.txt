@@ -1,18 +1,15 @@
 $ ./qstat.sh q4 before
 # EXPLAIN, основні стовпці
-select_type  table  type  key   rows  Extra
-SIMPLE       e      ALL   NULL  9     Using temporary; Using filesort
-SIMPLE       c      ALL   NULL  91    Using where; Using join buffer (hash join)
+… table  type  key   rows  Extra
+… e      ALL   NULL  9     Using temporary; Using filesort
+… c      ALL   NULL  91    Using where; Using join buffer (hash join)
 # EXPLAIN ANALYZE
 -> Group aggregate: count(distinct employees.EmployeeID), count(distinct customers.CustomerID)  (actual time=0.0831..0.0912 rows=5 loops=1)
-    -> Sort: e.City  (actual time=0.0782..0.0792 rows=29 loops=1)
-        -> Stream results  (cost=83.2 rows=819) (actual time=0.0596..0.0659 rows=29 loops=1)
-            -> Left hash join (c.City = e.City)  (cost=83.2 rows=819) (actual time=0.0537..0.0577 rows=29 loops=1)
-                -> Table scan on e  (cost=19.1 rows=9) (actual time=0.0156..0.0169 rows=9 loops=1)
-                -> Hash
-                    -> Table scan on c  (cost=1.04 rows=91) (actual time=0.00489..0.0168 rows=91 loops=1)
+    …
+            -> Left hash join (c.City = e.City) … (actual time=0.0537..0.0577 rows=29 loops=1)
+                …
 query_cost: 920.26
 Handler_read_*: first=2 key=2 next=0 rnd_next=102
 # 500 запусків поспіль, час за performance_schema
-runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
-500   0.056   0.049   0.426   129        5          4           29
+… avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables …
+… 0.056   0.049   0.426   129        5          4          …

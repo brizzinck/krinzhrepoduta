@@ -1,20 +1,16 @@
 $ ./qstat.sh q5_new after
 # EXPLAIN, основні стовпці
-select_type  table  type   key                  rows  Extra
-SIMPLE       c      index  PRIMARY              91    Using temporary; Using filesort
-SIMPLE       o      ref    FK_Orders_Customers  9     Using index
-SIMPLE       od     ref    PRIMARY              2     NULL
+… table  type   key                  rows  Extra
+… c      index  PRIMARY              91    Using temporary; Using filesort
+… o      ref    FK_Orders_Customers  9     Using index
+… od     ref    PRIMARY              2     NULL
 # EXPLAIN ANALYZE
 -> Sort: revenue DESC  (actual time=1.59..1.6 rows=89 loops=1)
-    -> Stream results  (cost=983 rows=91) (actual time=0.06..1.57 rows=89 loops=1)
-        -> Group aggregate: sum(((od.UnitPrice * od.Quantity) * (1 - od.Discount)))  (cost=983 rows=91) (actual time=0.0564..1.55 rows=89 loops=1)
-            -> Nested loop inner join  (cost=762 rows=2203) (actual time=0.0302..1.14 rows=2155 loops=1)
-                -> Nested loop inner join  (cost=118 rows=849) (actual time=0.0247..0.248 rows=830 loops=1)
-                    -> Index scan on c using PRIMARY  (cost=9.35 rows=91) (actual time=0.014..0.0247 rows=91 loops=1)
-                    -> Covering index lookup on o using FK_Orders_Customers (CustomerID=c.CustomerID)  (cost=0.267 rows=9.33) (actual time=0.00129..0.00201 rows=9.12 loops=91)
-                -> Index lookup on od using PRIMARY (OrderID=o.OrderID)  (cost=0.5 rows=2.6) (actual time=666e-6..896e-6 rows=2.6 loops=830)
+    …
+        -> Group aggregate: sum(((od.UnitPrice * od.Quantity) * (1 - od.Discount))) … (actual time=0.0564..1.55 rows=89 loops=1)
+            …
 query_cost: 762.21
 Handler_read_*: first=1 key=922 next=3076 rnd_next=0
 # 500 запусків поспіль, час за performance_schema
-runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
-500   1.28    1.185   3.715   3165       89         0           89
+… avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables …
+… 1.28    1.185   3.715   3165       89         0          …

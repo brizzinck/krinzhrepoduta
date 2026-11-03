@@ -260,7 +260,7 @@ registered_at:
 Таблиця: 5
 customer_id: 21
 customer_id | first_name | last_name | middle_name | phone         | email                 | birth_date | license_number | license_expires | registered_at      
-21          | Іван       | Тестовий  | NULL        | +380500000001 | ivan.test@example.com | 1990-05-05 | TST100001      | 2030-05-05      | 2026-11-03 13:27:33
+21          | Іван       | Тестовий  | NULL        | +380500000001 | ivan.test@example.com | 1990-05-05 | TST100001      | 2030-05-05      | 2026-11-03 18:28:43
 Рядків: 1
 
 Ваш вибір: 4
@@ -286,7 +286,7 @@ registered_at:
 Таблиця: 5
 customer_id: 21
 customer_id | first_name | last_name | middle_name | phone         | email                 | birth_date | license_number | license_expires | registered_at      
-21          | Іван       | Тестовий  | Петрович    | +380500000001 | ivan.test@example.com | 1990-05-05 | TST100001      | 2030-05-05      | 2026-11-03 13:27:33
+21          | Іван       | Тестовий  | Петрович    | +380500000001 | ivan.test@example.com | 1990-05-05 | TST100001      | 2030-05-05      | 2026-11-03 18:28:43
 Рядків: 1
 
 Ваш вибір: 5
@@ -448,7 +448,7 @@ paid_at:
 Таблиця: 8
 payment_id: 82
 payment_id | rental_id | amount | kind | method | paid_at            
-82         | 1         | 500.00 | rent | card   | 2026-11-03 13:27:34
+82         | 1         | 500.00 | rent | card   | 2026-11-03 18:28:43
 Рядків: 1
 
 Ваш вибір: 4
@@ -470,7 +470,7 @@ paid_at:
 Таблиця: 8
 payment_id: 82
 payment_id | rental_id | amount | kind | method | paid_at            
-82         | 1         | 600.00 | rent | card   | 2026-11-03 13:27:34
+82         | 1         | 600.00 | rent | card   | 2026-11-03 18:28:43
 Рядків: 1
 
 Ваш вибір: 5

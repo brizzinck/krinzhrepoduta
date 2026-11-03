@@ -1,15 +1,14 @@
 $ ./qstat.sh q4 after
 # EXPLAIN, основні стовпці
-select_type  table  type   key                 rows  Extra
-SIMPLE       e      index  idx_employees_city  9     Using index
-SIMPLE       c      ref    idx_customers_city  1     Using index
+… table  type   key                 rows  Extra
+… e      index  idx_employees_city  9     Using index
+… c      ref    idx_customers_city  1     Using index
 # EXPLAIN ANALYZE
--> Group aggregate: count(distinct e.EmployeeID), count(distinct c.CustomerID)  (cost=23.7 rows=5) (actual time=0.0361..0.0539 rows=5 loops=1)
-    -> Nested loop left join  (cost=22.6 rows=11.9) (actual time=0.0246..0.041 rows=29 loops=1)
-        -> Covering index scan on e using idx_employees_city  (cost=19.1 rows=9) (actual time=0.0143..0.0168 rows=9 loops=1)
-        -> Covering index lookup on c using idx_customers_city (City=e.City)  (cost=0.265 rows=1.32) (actual time=0.00163..0.00225 rows=3 loops=9)
+-> Group aggregate: count(distinct e.EmployeeID), count(distinct c.CustomerID) … (actual time=0.0361..0.0539 rows=5 loops=1)
+    …
+        -> Covering index lookup on c using idx_customers_city (City=e.City) … (actual time=0.00163..0.00225 rows=3 loops=9)
 query_cost: 22.55
 Handler_read_*: first=1 key=10 next=36 rnd_next=0
 # 500 запусків поспіль, час за performance_schema
-runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
-500   0.042   0.026   0.265   36         5          2           0
+… avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables …
+… 0.042   0.026   0.265   36         5          2          …

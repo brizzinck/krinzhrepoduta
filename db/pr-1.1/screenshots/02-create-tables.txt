@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 02-create-tables.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/02-create-tables.sql
 --------------
 CREATE TABLE branches (
     branch_id  INT          NOT NULL AUTO_INCREMENT,
@@ -27,7 +27,7 @@ CREATE TABLE car_classes (
 )
 --------------
 
-Query OK, 0 rows affected (0.01 sec)
+Query OK, 0 rows affected (0.00 sec)
 
 --------------
 CREATE TABLE car_models (
@@ -48,6 +48,6 @@ CREATE TABLE car_models (
 )
 --------------
 
-Query OK, 0 rows affected (0.02 sec)
+Query OK, 0 rows affected (0.01 sec)
 
 Bye

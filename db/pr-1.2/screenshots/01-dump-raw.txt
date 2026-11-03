@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind_raw < 01-dump-raw.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind_raw < shots/01-dump-raw.sql
 --------------
 SELECT COLUMN_TYPE AS discount_type FROM information_schema.COLUMNS
 WHERE TABLE_SCHEMA = 'northwind_raw' AND TABLE_NAME = 'order details' AND COLUMN_NAME = 'Discount'

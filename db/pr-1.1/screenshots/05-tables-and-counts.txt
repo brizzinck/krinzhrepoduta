@@ -1,9 +1,4 @@
---------------
-SELECT 'branches' AS table_name, COUNT(*) AS row_count FROM branches UNION ALL
-…
-SELECT 'rental_extras' AS table_name, COUNT(*) AS row_count FROM rental_extras
---------------
-
+$ ../_shared/mysql.sh -t car_rental < shots/05-tables-and-counts.sql
 +---------------+-----------+
 | table_name    | row_count |
 +---------------+-----------+
@@ -18,6 +13,3 @@ SELECT 'rental_extras' AS table_name, COUNT(*) AS row_count FROM rental_extras
 | extras        |         5 |
 | rental_extras |        21 |
 +---------------+-----------+
-10 rows in set (0.01 sec)
-
-Bye

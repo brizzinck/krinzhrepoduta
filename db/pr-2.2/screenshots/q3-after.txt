@@ -1,17 +1,13 @@
 $ ./qstat.sh q3 after
 # EXPLAIN, основні стовпці
-select_type  table  type  key                     rows  Extra
-SIMPLE       c      ALL   NULL                    8     Using temporary; Using filesort
-SIMPLE       p      ref   idx_products_cat_price  9     Using index
+… table  type  key                     rows  Extra
+… c      ALL   NULL                    8     Using temporary; Using filesort
+… p      ref   idx_products_cat_price  9     Using index
 # EXPLAIN ANALYZE
--> Sort: c.CategoryName  (actual time=0.142..0.143 rows=8 loops=1)
-    -> Table scan on <temporary>  (actual time=0.126..0.127 rows=8 loops=1)
-        -> Aggregate using temporary table  (actual time=0.125..0.125 rows=8 loops=1)
-            -> Nested loop inner join  (cost=18.7 rows=77) (actual time=0.0274..0.0625 rows=77 loops=1)
-                -> Table scan on c  (cost=8.96 rows=8) (actual time=0.0154..0.0171 rows=8 loops=1)
-                -> Covering index lookup on p using idx_products_cat_price (CategoryID=c.CategoryID)  (cost=0.375 rows=9.62) (actual time=0.00262..0.00443 rows=9.62 loops=8)
+…
+                -> Covering index lookup on p using idx_products_cat_price (CategoryID=c.CategoryID) … (actual time=0.00262..0.00443 rows=9.62 loops=8)
 query_cost: 18.70
 Handler_read_*: first=1 key=86 next=77 rnd_next=18
 # 500 запусків поспіль, час за performance_schema
-runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
-500   0.061   0.042   0.282   93         8          1           8
+… avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables …
+… 0.061   0.042   0.282   93         8          1          …

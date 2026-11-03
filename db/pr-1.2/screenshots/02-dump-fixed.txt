@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < 02-dump-fixed.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind < shots/02-dump-fixed.sql
 --------------
 SELECT COLUMN_TYPE AS discount_type FROM information_schema.COLUMNS
 WHERE TABLE_SCHEMA = 'northwind' AND TABLE_NAME = 'order details' AND COLUMN_NAME = 'Discount'
@@ -55,7 +55,7 @@ WHERE YEAR(o.OrderDate) = 1997
 +--------------+
 |  617085.2035 |
 +--------------+
-1 row in set (0.00 sec)
+1 row in set (0.01 sec)
 
 --------------
 SELECT c.CompanyName, ROUND(SUM(od.UnitPrice * od.Quantity * (1 - od.Discount)), 3) AS revenue

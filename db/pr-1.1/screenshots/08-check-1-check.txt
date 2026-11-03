@@ -1,20 +1,20 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental_check < 08-check-1-check.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental_check < shots/08-check-1-check.sql
 --------------
 INSERT INTO cars (model_id, branch_id, vin, plate_number, manufacture_year, mileage_km, daily_price, status)
 VALUES (1, 1, 'VF1TESTCHECK00001', 'AA0001AA', 2022, 0, 0.00, 'available')
 --------------
 
-ERROR 3819 (HY000) at line 1: Check constraint 'chk_cars_price' is violated.
+ERROR 3819 (HY000) at line 2: Check constraint 'chk_cars_price' is violated.
 --------------
 INSERT INTO cars (model_id, branch_id, vin, plate_number, manufacture_year, mileage_km, daily_price, status)
 VALUES (1, 1, 'VF1TESTCHECK00002', 'AA0002AA', 2022, 0, 900.00, 'sold')
 --------------
 
-ERROR 3819 (HY000) at line 3: Check constraint 'chk_cars_status' is violated.
+ERROR 3819 (HY000) at line 6: Check constraint 'chk_cars_status' is violated.
 --------------
 INSERT INTO rentals (customer_id, car_id, employee_id, pickup_branch_id, start_at, planned_end_at, daily_price, status)
 VALUES (1, 2, 4, 2, '2026-12-10 10:00:00', '2026-12-09 10:00:00', 850.00, 'booked')
 --------------
 
-ERROR 3819 (HY000) at line 5: Check constraint 'chk_rentals_planned' is violated.
+ERROR 3819 (HY000) at line 10: Check constraint 'chk_rentals_planned' is violated.
 Bye

@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental_check < 08-check-4-setnull.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental_check < shots/08-check-4-setnull.sql
 --------------
 SELECT COUNT(*) AS rentals_of_employee_2 FROM rentals WHERE employee_id = 2
 --------------

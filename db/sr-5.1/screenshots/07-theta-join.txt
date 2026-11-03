@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 07-theta-join.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/07-theta-join.sql
 --------------
 SELECT r.rental_id, r.car_id, r.daily_price AS contract_price, c.daily_price AS current_price
 FROM rentals r

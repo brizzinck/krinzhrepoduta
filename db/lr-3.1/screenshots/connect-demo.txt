@@ -1,4 +1,4 @@
-$ java -cp ../pr-3.1/target/rentalapp.jar ConnectDemo.java
+$ ./run.sh
 З'єднання відкрито: car_rental
 Додано рядків: 1
 1 | Дитяче автокрісло | 100.00

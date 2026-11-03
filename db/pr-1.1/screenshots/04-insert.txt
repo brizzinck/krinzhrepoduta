@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 04-insert.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/04-insert.sql
 --------------
 INSERT INTO branches (branch_id, name, city, address, phone) VALUES
 (1, 'Прокат «Київ-Центр»', 'Київ', 'вул. Володимирська, 45', '+380445550101'),
@@ -7,7 +7,7 @@ INSERT INTO branches (branch_id, name, city, address, phone) VALUES
 (4, 'Прокат «Дніпро-Яворницького»', 'Дніпро', 'просп. Дмитра Яворницького, 60', '+380565550104')
 --------------
 
-Query OK, 4 rows affected (0.00 sec)
+Query OK, 4 rows affected (0.01 sec)
 Records: 4  Duplicates: 0  Warnings: 0
 
 --------------

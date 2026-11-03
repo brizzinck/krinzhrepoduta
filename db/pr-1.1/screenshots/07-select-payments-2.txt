@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 07-select-payments-2.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/07-select-payments-2.sql
 --------------
 SELECT * FROM payments WHERE payment_id > 41
 --------------

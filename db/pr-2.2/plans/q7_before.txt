@@ -1,0 +1,18 @@
+$ ./qstat.sh q7 before
+# EXPLAIN, основні стовпці
+select_type  table      type  key   rows  Extra
+PRIMARY      suppliers  ALL   NULL  29    Using where
+UNION        customers  ALL   NULL  91    Using where
+# EXPLAIN ANALYZE
+-> Append  (cost=12.5 rows=12) (actual time=0.0221..0.0452 rows=14 loops=1)
+    -> Stream results  (cost=3.15 rows=2.9) (actual time=0.0209..0.0254 rows=3 loops=1)
+        -> Filter: (suppliers.Country = 'Germany')  (cost=3.15 rows=2.9) (actual time=0.0175..0.0217 rows=3 loops=1)
+            -> Table scan on suppliers  (cost=3.15 rows=29) (actual time=0.0127..0.019 rows=29 loops=1)
+    -> Stream results  (cost=9.35 rows=9.1) (actual time=0.00394..0.0172 rows=11 loops=1)
+        -> Filter: (customers.Country = 'Germany')  (cost=9.35 rows=9.1) (actual time=0.00374..0.0162 rows=11 loops=1)
+            -> Table scan on customers  (cost=9.35 rows=91) (actual time=0.00359..0.0129 rows=91 loops=1)
+query_cost: 3.15 + 9.35 = 12.5
+Handler_read_*: first=2 key=2 next=0 rnd_next=122
+# 500 запусків поспіль, час за performance_schema
+runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
+500   0.038   0.024   0.274   120        14         0           0

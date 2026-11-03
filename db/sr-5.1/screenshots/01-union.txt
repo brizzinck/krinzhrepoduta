@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 01-union.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/01-union.sql
 --------------
 SELECT customer_id FROM rentals WHERE pickup_branch_id = 3
 UNION

@@ -1,16 +1,15 @@
 $ ./qstat.sh q7 after
 # EXPLAIN, основні стовпці
-select_type  table      type  key                    rows  Extra
-PRIMARY      suppliers  ref   idx_suppliers_country  3     Using index
-UNION        customers  ref   idx_customers_country  11    Using index
+… table      type  key                    rows  Extra
+… suppliers  ref   idx_suppliers_country  3     Using index
+… customers  ref   idx_customers_country  11    Using index
 # EXPLAIN ANALYZE
--> Append  (cost=1.99 rows=14) (actual time=0.0125..0.0232 rows=14 loops=1)
-    -> Stream results  (cost=0.564 rows=3) (actual time=0.0114..0.0148 rows=3 loops=1)
-        -> Covering index lookup on suppliers using idx_suppliers_country (Country='Germany')  (cost=0.564 rows=3) (actual time=0.00896..0.012 rows=3 loops=1)
-    -> Stream results  (cost=1.42 rows=11) (actual time=0.00344..0.00581 rows=11 loops=1)
-        -> Covering index lookup on customers using idx_customers_country (Country='Germany')  (cost=1.42 rows=11) (actual time=0.00324..0.00462 rows=11 loops=1)
+-> Append … (actual time=0.0125..0.0232 rows=14 loops=1)
+    …
+        -> Covering index lookup on suppliers using idx_suppliers_country (Country='Germany') … (actual time=0.00896..0.012 rows=3 loops=1)
+    …
 query_cost: 0.56 + 1.42 = 1.98
 Handler_read_*: first=0 key=2 next=14 rnd_next=0
 # 500 запусків поспіль, час за performance_schema
-runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
-500   0.02    0.018   0.208   14         14         0           0
+… avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables …
+… 0.02    0.018   0.208   14         14         0          …

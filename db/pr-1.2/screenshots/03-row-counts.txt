@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind < 03-row-counts.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments northwind < shots/03-row-counts.sql
 --------------
 SELECT 'categories' AS tbl, COUNT(*) AS cnt FROM categories
 UNION ALL SELECT 'customers', COUNT(*) FROM customers

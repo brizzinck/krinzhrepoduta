@@ -1,0 +1,15 @@
+$ ./qstat.sh q6_new after
+# EXPLAIN, основні стовпці
+select_type  table  type  key   rows  Extra
+SIMPLE       o      ALL   NULL  830   NULL
+SIMPLE       e      ALL   NULL  9     Using where; Using join buffer (hash join)
+# EXPLAIN ANALYZE
+-> Left hash join (e.EmployeeID = o.EmployeeID)  (cost=767 rows=7470) (actual time=0.0724..0.339 rows=830 loops=1)
+    -> Table scan on o  (cost=85.2 rows=830) (actual time=0.0292..0.17 rows=830 loops=1)
+    -> Hash
+        -> Table scan on e  (cost=0.0257 rows=9) (actual time=0.0214..0.0259 rows=9 loops=1)
+query_cost: 852.65
+Handler_read_*: first=2 key=2 next=0 rnd_next=841
+# 500 запусків поспіль, час за performance_schema
+runs  avg_ms  min_ms  max_ms  rows_exam  rows_sent  tmp_tables  sort_rows
+500   0.281   0.181   0.682   839        830        0           0

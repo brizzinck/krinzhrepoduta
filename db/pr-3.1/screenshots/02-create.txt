@@ -21,7 +21,7 @@ status:
 
 Ваш вибір: 0
 Роботу завершено
-$ mysql -t car_rental -e "SELECT car_id, plate_number, mileage_km, daily_price, status FROM cars WHERE car_id = 25;"
+$ ../_shared/mysql.sh -t car_rental -e "SELECT car_id, plate_number, mileage_km, daily_price, status FROM cars WHERE car_id = 25;"
 +--------+--------------+------------+-------------+-----------+
 | car_id | plate_number | mileage_km | daily_price | status    |
 +--------+--------------+------------+-------------+-----------+

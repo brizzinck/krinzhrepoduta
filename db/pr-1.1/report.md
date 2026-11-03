@@ -27,9 +27,9 @@ city-year: "Київ – 2026"
 
 Даталогічна модель (рис. 2): зв'язок M:N розбито на два 1:N через `rental_extras` зі складеним ключем. Модель у 3НФ. Три ціни різні за змістом: `car_classes.daily_base_rate` — базова (довідкова) ставка класу, `cars.daily_price` — поточний тариф конкретного авто, `rentals.daily_price` — тариф, зафіксований у договорі. Тому ціна договору не дублює ціну авто: після зміни тарифу старі договори зберігають свою суму.
 
-![Рисунок 2 — Даталогічна модель (ER-діаграма)](img/er_datalogical.png){width=78%}
-
 Позначення на рис. 2: `*` означає, що стовпець допускає `NULL`; кружок на кінці лінії означає «нуль» (зв'язок необов'язковий), риска «один», лапка «багато».
+
+![Рисунок 2 — Даталогічна модель (ER-діаграма)](img/er_datalogical.png){width=78%}
 
 **Опис таблиць** (тип подано з довжиною й точністю). `ON DELETE`: довідникові й фінансові зв'язки мають `RESTRICT`, склад оренди `CASCADE`, працівник у договорі `SET NULL`. Обмежень рівня таблиці немає, якщо не вказано.
 
@@ -137,18 +137,17 @@ city-year: "Київ – 2026"
 
 ### Фізична модель і наповнення
 
-`schema.sql` створює базу й 10 таблиць з іменованими обмеженнями (фрагмент нижче); `seed.sql` вставляє вигадані дані українською (4 філіали, 24 авто, 20 клієнтів, 30 оренд, 81 платіж тощо).
+`schema.sql` створює базу й 10 таблиць з іменованими обмеженнями (фрагмент нижче); `seed.sql` вставляє вигадані дані українською.
 
-| Рисунок 3 — Кількість рядків у таблицях | Рисунок 4 — Вміст таблиці `car_classes` |
-|:-----------|:-----------|
-| ![](screenshots/05-tables-and-counts.png){width=88%} | ![](screenshots/07-select-car_classes.png){width=88%} |
+| Рисунок 3 — Рядки таблиць | Рисунок 4 — Вміст таблиці `car_classes` |
+|:---------------------|:-------------------------------------|
+| ![](screenshots/05-tables-and-counts.png){width=161pt} | ![](screenshots/07-select-car_classes.png){width=289pt} |
 
 ```sql
 CREATE DATABASE car_rental CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 CREATE TABLE rentals (
     rental_id          INT           NOT NULL AUTO_INCREMENT,
-    -- … ще 10 стовпців
-    CONSTRAINT pk_rentals PRIMARY KEY (rental_id),
+    -- … ще 10 стовпців і первинний ключ
     CONSTRAINT fk_rentals_employee FOREIGN KEY (employee_id)
         REFERENCES employees (employee_id) ON DELETE SET NULL,
     -- …
@@ -157,7 +156,6 @@ CREATE TABLE rentals (
 );
 INSERT INTO car_classes (class_id, name, daily_base_rate, deposit_amount) VALUES
 (1, 'Економ', 800.00, 2000.00),
-(2, 'Комфорт', 1100.00, 3000.00),
 -- …
 (5, 'Преміум', 2800.00, 8000.00);
 ```
@@ -166,10 +164,9 @@ INSERT INTO car_classes (class_id, name, daily_base_rate, deposit_amount) VALUES
 
 `check.sql` я запускав на копії `car_rental_check`, бо невдалі `INSERT` спалюють `AUTO_INCREMENT`. Три порушення `CHECK` дали помилку 3819, дублікат VIN 1062, неіснуюча модель 1452, видалення філіалу з авто 1451 (`RESTRICT`, рис. 5). `CASCADE` прибрав склад видаленої оренди (було 2 рядки, стало 0). За `SET NULL` після видалення працівника його оренда лишилась із `employee_id = NULL` (оренд без працівника було 5, стало 6). `ON DELETE SET DEFAULT` InnoDB не виконує (1451), тому не застосовано.
 
-![Рисунок 5 — `UNIQUE`, `FOREIGN KEY`, `RESTRICT`](screenshots/08-check-2-unique-fk-restrict.png){width=46%}
+![Рисунок 5 — `UNIQUE`, `FOREIGN KEY`, `RESTRICT`](screenshots/08-check-2-unique-fk-restrict.png){width=96%}
 
-Скрипти й знімки лежать у репозиторії:
-
+Скрипти й знімки:\
 <https://github.com/brizzinck/krinzhrepoduta/tree/main/db/pr-1.1>.
 
 ## Висновки

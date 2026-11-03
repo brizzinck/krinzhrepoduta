@@ -1,9 +1,9 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv < 01-create-db.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments < shots/01-create-db.sql
 --------------
 DROP DATABASE IF EXISTS car_rental
 --------------
 
-Query OK, 10 rows affected (0.03 sec)
+Query OK, 0 rows affected, 1 warning (0.00 sec)
 
 --------------
 CREATE DATABASE car_rental
@@ -21,13 +21,12 @@ SHOW DATABASES
 | Database           |
 +--------------------+
 | car_rental         |
-| car_rental_check   |
 | information_schema |
 | mysql              |
 | performance_schema |
 | sys                |
 +--------------------+
-6 rows in set (0.00 sec)
+5 rows in set (0.00 sec)
 
 --------------
 SELECT @@character_set_database AS charset, @@collation_database AS collation

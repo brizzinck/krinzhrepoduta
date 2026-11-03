@@ -1,4 +1,4 @@
-$ mysql -uroot --default-character-set=cp1251 -t -vvv car_rental < 06-constraints-summary.sql
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/06-constraints-summary.sql
 --------------
 SELECT constraint_type, COUNT(*) AS cnt FROM information_schema.table_constraints WHERE table_schema = 'car_rental' GROUP BY constraint_type
 --------------
