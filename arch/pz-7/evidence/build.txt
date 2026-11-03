@@ -1,0 +1,14 @@
+$ dotnet build -c Release --no-incremental
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  CarRental.Domain -> /w/src/CarRental.Domain/bin/Release/net10.0/CarRental.Domain.dll
+  CarRental.Application -> /w/src/CarRental.Application/bin/Release/net10.0/CarRental.Application.dll
+  CarRental.Infrastructure -> /w/src/CarRental.Infrastructure/bin/Release/net10.0/CarRental.Infrastructure.dll
+  CarRental.WebApi -> /w/src/CarRental.WebApi/bin/Release/net10.0/CarRental.WebApi.dll
+  CarRental.Tests -> /w/tests/CarRental.Tests/bin/Release/net10.0/CarRental.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:04.98

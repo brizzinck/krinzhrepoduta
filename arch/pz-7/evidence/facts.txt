@@ -1,0 +1,19 @@
+$ grep -rhn "IEventHandler<Rental" src/CarRental.Application/DependencyInjection.cs
+39:        services.AddScoped<IEventHandler<RentalOpened>, NotifyRenterOnRentalOpened>();
+40:        services.AddScoped<IEventHandler<RentalOpened>, TrackRentalOnRentalOpened>();
+41:        services.AddScoped<IEventHandler<RentalOpened>, AuditLogHandler>();
+42:        services.AddScoped<IEventHandler<RentalCompleted>, UpdateCarMileageOnRentalCompleted>();
+43:        services.AddScoped<IEventHandler<RentalCompleted>, AuditLogHandler>();
+44:        services.AddScoped<IEventHandler<RentalCancelled>, AuditLogHandler>();
+
+$ grep -rn "uow.Cars" src/CarRental.Application/Rentals
+(код виходу: 1)
+
+$ grep -rln "uow.Cars" src/CarRental.Application
+src/CarRental.Application/Fleet/Handlers/UpdateCarMileageOnRentalCompleted.cs
+src/CarRental.Application/Fleet/CarService.cs
+
+$ файли .cs за контекстами (Domain + Application)
+Fleet: 7
+Rentals: 28
+Common: 12

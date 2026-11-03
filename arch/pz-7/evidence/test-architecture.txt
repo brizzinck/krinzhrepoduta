@@ -1,0 +1,10 @@
+$ dotnet test --filter FullyQualifiedName~Architecture
+  Passed CarRental.Tests.Architecture.ArchitectureRulesTests.Controllers_do_not_reference_infrastructure_types [3 ms]
+  Passed CarRental.Tests.Architecture.ArchitectureRulesTests.Rentals_context_of_the_domain_does_not_use_fleet_types [1 ms]
+  Passed CarRental.Tests.Architecture.ArchitectureRulesTests.Application_references_only_domain [< 1 ms]
+  Passed CarRental.Tests.Architecture.ArchitectureRulesTests.Infrastructure_does_not_reference_web_api [1 ms]
+  Passed CarRental.Tests.Architecture.ArchitectureRulesTests.Domain_references_no_other_layer [< 1 ms]
+  Passed CarRental.Tests.Architecture.EventConsistencyTests.Two_requests_that_read_before_either_saves_can_book_the_same_car_twice [697 ms]
+  Passed CarRental.Tests.Architecture.EventConsistencyTests.Handler_failure_after_commit_leaves_rental_completed_and_car_mileage_stale [59 ms]
+Total tests: 7
+     Passed: 7

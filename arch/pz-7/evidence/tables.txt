@@ -1,0 +1,4 @@
+$ таблиці однієї БД carrental.db
+Cars
+Rentals
+Renters

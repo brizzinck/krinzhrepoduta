@@ -1,0 +1,16 @@
+digraph asis {
+  rankdir=LR; fontname="DejaVu Sans"; nodesep=0.18; ranksep=0.35; compound=true;
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=12, margin="0.08,0.05"];
+  edge [fontname="DejaVu Sans", fontsize=10];
+  c [label="Клієнт", fillcolor="#eeeeee"];
+  subgraph cluster_p { label="Один процес ASP.NET Core"; style="rounded,dashed"; fontname="DejaVu Sans"; fontsize=12;
+    w [label="WebApi\nконтролери", fillcolor="#dbeafe"];
+    r [label="Rentals\nсценарії, Rental, Renter", fillcolor="#d9f2d9"];
+    f [label="Fleet\nCarService, Car", fillcolor="#d9f2d9"];
+    b [label="InProcessEventBus", fillcolor="#fecaca"];
+    h [label="сповіщення, аналітика,\nаудит", fillcolor="#fff3b0"]; }
+  d [label="SQLite\nCars, Renters, Rentals", shape=cylinder, fillcolor="#eeeeee"];
+  c -> w [label="REST"]; w -> r; w -> f;
+  r -> f [label="IFleetGateway"]; r -> b [label="події"];
+  b -> f [label="RentalCompleted"]; b -> h; r -> d; f -> d;
+}

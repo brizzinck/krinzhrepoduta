@@ -1,0 +1,2 @@
+<!-- Бібліотека правил: навмисно без посилань на інші шари, EF Core чи ASP.NET. -->
+<Project Sdk="Microsoft.NET.Sdk" />

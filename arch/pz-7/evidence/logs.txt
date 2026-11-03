@@ -1,0 +1,478 @@
+An issue was encountered verifying workloads. For more information, run "dotnet workload update".
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      PRAGMA journal_mode = 'wal';
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Cars" (
+          "Id" TEXT NOT NULL CONSTRAINT "PK_Cars" PRIMARY KEY,
+          "Plate" TEXT NOT NULL,
+          "Model" TEXT NOT NULL,
+          "Class" TEXT NOT NULL,
+          "DailyRate" TEXT NOT NULL,
+          "Mileage" INTEGER NOT NULL,
+          "Status" TEXT NOT NULL,
+          "Version" INTEGER NOT NULL
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Rentals" (
+          "Id" TEXT NOT NULL CONSTRAINT "PK_Rentals" PRIMARY KEY,
+          "CarId" TEXT NOT NULL,
+          "RenterId" TEXT NOT NULL,
+          "DailyRate" TEXT NOT NULL,
+          "Total" TEXT NOT NULL,
+          "Status" TEXT NOT NULL,
+          "StartMileage" INTEGER NOT NULL,
+          "EndMileage" INTEGER NULL,
+          "Version" INTEGER NOT NULL,
+          "Period_End" TEXT NOT NULL,
+          "Period_Start" TEXT NOT NULL
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE "Renters" (
+          "Id" TEXT NOT NULL CONSTRAINT "PK_Renters" PRIMARY KEY,
+          "FullName" TEXT NOT NULL,
+          "Email" TEXT NOT NULL,
+          "BirthDate" TEXT NOT NULL,
+          "License_Number" TEXT NOT NULL,
+          "License_ValidUntil" TEXT NOT NULL
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX "IX_Cars_Plate" ON "Cars" ("Plate");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Rentals_CarId" ON "Rentals" ("CarId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX "IX_Rentals_RenterId" ON "Rentals" ("RenterId");
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM "Cars" AS "c")
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 7), @p2='?' (DbType = Decimal), @p3='?' (DbType = Int32), @p4='?' (Size = 11), @p5='?' (Size = 8), @p6='?' (Size = 9), @p7='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Cars" ("Id", "Class", "DailyRate", "Mileage", "Model", "Plate", "Status", "Version")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 7), @p2='?' (DbType = Decimal), @p3='?' (DbType = Int32), @p4='?' (Size = 12), @p5='?' (Size = 8), @p6='?' (Size = 9), @p7='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Cars" ("Id", "Class", "DailyRate", "Mileage", "Model", "Plate", "Status", "Version")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 7), @p2='?' (DbType = Decimal), @p3='?' (DbType = Int32), @p4='?' (Size = 8), @p5='?' (Size = 8), @p6='?' (Size = 9), @p7='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Cars" ("Id", "Class", "DailyRate", "Mileage", "Model", "Plate", "Status", "Version")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://0.0.0.0:5080
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /w/src/CarRental.WebApi
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:5080/ - - -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'HTTP: GET /'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'HTTP: GET /'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:5080/ - 200 - text/plain;+charset=utf-8 13.6654ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:5080/api/cars - - -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.CarsController.List (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "List", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IReadOnlyList`1[CarRental.WebApi.CarResponse]] List(System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.CarsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Class", "c"."DailyRate", "c"."Mileage", "c"."Model", "c"."Plate", "c"."Status", "c"."Version"
+      FROM "Cars" AS "c"
+      ORDER BY "c"."Plate"
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[CarRental.WebApi.CarResponse, CarRental.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.CarsController.List (CarRental.WebApi) in 126.2509ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.CarsController.List (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:5080/api/cars - 200 - application/json;+charset=utf-8 145.8504ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5080/api/renters - application/json 170
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentersController.Register (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Register", controller = "Renters"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(CarRental.WebApi.RegisterRenterRequest, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentersController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Date), @p2='?' (Size = 16), @p3='?' (Size = 22), @p4='?' (Size = 9), @p5='?' (DbType = Date)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Renters" ("Id", "BirthDate", "Email", "FullName", "License_Number", "License_ValidUntil")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing CreatedResult, writing value of type 'CarRental.Application.Rentals.Dto.RenterRegisteredDto'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentersController.Register (CarRental.WebApi) in 77.5989ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentersController.Register (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 POST http://127.0.0.1:5080/api/renters - 201 - application/json;+charset=utf-8 85.1584ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5080/api/renters - application/json 173
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentersController.Register (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Register", controller = "Renters"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(CarRental.WebApi.RegisterRenterRequest, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentersController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Date), @p2='?' (Size = 17), @p3='?' (Size = 23), @p4='?' (Size = 9), @p5='?' (DbType = Date)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Renters" ("Id", "BirthDate", "Email", "FullName", "License_Number", "License_ValidUntil")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing CreatedResult, writing value of type 'CarRental.Application.Rentals.Dto.RenterRegisteredDto'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentersController.Register (CarRental.WebApi) in 4.7975ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentersController.Register (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 POST http://127.0.0.1:5080/api/renters - 201 - application/json;+charset=utf-8 5.2331ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5080/api/rentals - application/json 138
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Open", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Open(CarRental.WebApi.OpenRentalRequest, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Class", "c"."DailyRate", "c"."Mileage", "c"."Model", "c"."Plate", "c"."Status", "c"."Version"
+      FROM "Cars" AS "c"
+      WHERE "c"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."BirthDate", "r"."Email", "r"."FullName", "r"."License_Number", "r"."License_ValidUntil"
+      FROM "Renters" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@carId='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."CarId", "r"."DailyRate", "r"."EndMileage", "r"."RenterId", "r"."StartMileage", "r"."Status", "r"."Total", "r"."Version", "r"."Period_End", "r"."Period_Start"
+      FROM "Rentals" AS "r"
+      WHERE "r"."CarId" = @carId AND "r"."Status" = 'Active'
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = Decimal), @p3='?' (DbType = Int32), @p4='?' (DbType = Guid), @p5='?' (DbType = Int32), @p6='?' (Size = 6), @p7='?' (DbType = Decimal), @p8='?' (DbType = Int32), @p9='?' (DbType = Date), @p10='?' (DbType = Date)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Rentals" ("Id", "CarId", "DailyRate", "EndMileage", "RenterId", "StartMileage", "Status", "Total", "Version", "Period_End", "Period_Start")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."BirthDate", "r"."Email", "r"."FullName", "r"."License_Number", "r"."License_ValidUntil"
+      FROM "Renters" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: CarRental.Infrastructure.Notifications.ConsoleNotificationService[0]
+      Лист до ivan@example.com: оренду f8d3924c-2d13-48b6-b9af-bd06d051e0cf підтверджено.
+info: CarRental.Infrastructure.Notifications.InMemoryAnalyticsService[0]
+      Аналітика: оренду f8d3924c-2d13-48b6-b9af-bd06d051e0cf враховано, усього оренд 1, виручка 2400.00 UAH.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing CreatedResult, writing value of type 'CarRental.Application.Rentals.Dto.RentalCreatedDto'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi) in 74.2437ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 POST http://127.0.0.1:5080/api/rentals - 201 - application/json;+charset=utf-8 78.8643ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5080/api/rentals - application/json 138
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Open", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Open(CarRental.WebApi.OpenRentalRequest, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Class", "c"."DailyRate", "c"."Mileage", "c"."Model", "c"."Plate", "c"."Status", "c"."Version"
+      FROM "Cars" AS "c"
+      WHERE "c"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."BirthDate", "r"."Email", "r"."FullName", "r"."License_Number", "r"."License_ValidUntil"
+      FROM "Renters" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@carId='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."CarId", "r"."DailyRate", "r"."EndMileage", "r"."RenterId", "r"."StartMileage", "r"."Status", "r"."Total", "r"."Version", "r"."Period_End", "r"."Period_Start"
+      FROM "Rentals" AS "r"
+      WHERE "r"."CarId" = @carId AND "r"."Status" = 'Active'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi) in 4.3812ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 POST http://127.0.0.1:5080/api/rentals - 409 - application/json;+charset=utf-8 5.8320ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5080/api/rentals - application/json 138
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Open", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Open(CarRental.WebApi.OpenRentalRequest, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Class", "c"."DailyRate", "c"."Mileage", "c"."Model", "c"."Plate", "c"."Status", "c"."Version"
+      FROM "Cars" AS "c"
+      WHERE "c"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."BirthDate", "r"."Email", "r"."FullName", "r"."License_Number", "r"."License_ValidUntil"
+      FROM "Renters" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@carId='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."CarId", "r"."DailyRate", "r"."EndMileage", "r"."RenterId", "r"."StartMileage", "r"."Status", "r"."Total", "r"."Version", "r"."Period_End", "r"."Period_Start"
+      FROM "Rentals" AS "r"
+      WHERE "r"."CarId" = @carId AND "r"."Status" = 'Active'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi) in 19.8746ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 POST http://127.0.0.1:5080/api/rentals - 400 - application/json;+charset=utf-8 20.4597ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5080/api/rentals - application/json 138
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Open", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Open(CarRental.WebApi.OpenRentalRequest, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Class", "c"."DailyRate", "c"."Mileage", "c"."Model", "c"."Plate", "c"."Status", "c"."Version"
+      FROM "Cars" AS "c"
+      WHERE "c"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."BirthDate", "r"."Email", "r"."FullName", "r"."License_Number", "r"."License_ValidUntil"
+      FROM "Renters" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi) in 2.1849ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 POST http://127.0.0.1:5080/api/rentals - 400 - application/json;+charset=utf-8 2.5970ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:5080/api/rentals/f8d3924c-2d13-48b6-b9af-bd06d051e0cf - - -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.Get (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Get", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[CarRental.Application.Rentals.Dto.RentalDetailsDto] Get(System.Guid, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."CarId", "r"."DailyRate", "r"."EndMileage", "r"."RenterId", "r"."StartMileage", "r"."Status", "r"."Total", "r"."Version", "r"."Period_End", "r"."Period_Start"
+      FROM "Rentals" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."BirthDate", "r"."Email", "r"."FullName", "r"."License_Number", "r"."License_ValidUntil"
+      FROM "Renters" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Class", "c"."DailyRate", "c"."Mileage", "c"."Model", "c"."Plate", "c"."Status", "c"."Version"
+      FROM "Cars" AS "c"
+      WHERE "c"."Id" = @id
+      LIMIT 2
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'CarRental.Application.Rentals.Dto.RentalDetailsDto'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.Get (CarRental.WebApi) in 13.2631ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.Get (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:5080/api/rentals/f8d3924c-2d13-48b6-b9af-bd06d051e0cf - 200 - application/json;+charset=utf-8 18.7218ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:5080/api/rentals?renterId=91a45af3-80da-4e91-aceb-421285359bd5 - - -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.List (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "List", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IReadOnlyList`1[CarRental.Application.Rentals.Dto.RentalListItemDto]] List(System.Nullable`1[System.Guid], System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."CarId", "r"."DailyRate", "r"."EndMileage", "r"."RenterId", "r"."StartMileage", "r"."Status", "r"."Total", "r"."Version", "r"."Period_End", "r"."Period_Start"
+      FROM "Rentals" AS "r"
+      WHERE "r"."RenterId" = @id
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[CarRental.Application.Rentals.Dto.RentalListItemDto, CarRental.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.List (CarRental.WebApi) in 11.9658ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.List (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:5080/api/rentals?renterId=91a45af3-80da-4e91-aceb-421285359bd5 - 200 - application/json;+charset=utf-8 16.5232ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5080/api/rentals/f8d3924c-2d13-48b6-b9af-bd06d051e0cf/complete - application/json 20
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.Complete (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Complete", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[CarRental.Application.Rentals.Dto.RentalClosedDto] Complete(System.Guid, CarRental.WebApi.CompleteRentalRequest, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."CarId", "r"."DailyRate", "r"."EndMileage", "r"."RenterId", "r"."StartMileage", "r"."Status", "r"."Total", "r"."Version", "r"."Period_End", "r"."Period_Start"
+      FROM "Rentals" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@p3='?' (DbType = Guid), @p0='?' (DbType = Int32), @p1='?' (Size = 9), @p2='?' (DbType = Int32), @p4='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      UPDATE "Rentals" SET "EndMileage" = @p0, "Status" = @p1, "Version" = @p2
+      WHERE "Id" = @p3 AND "Version" = @p4
+      RETURNING 1;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Class", "c"."DailyRate", "c"."Mileage", "c"."Model", "c"."Plate", "c"."Status", "c"."Version"
+      FROM "Cars" AS "c"
+      WHERE "c"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@p2='?' (DbType = Guid), @p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p3='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      UPDATE "Cars" SET "Mileage" = @p0, "Version" = @p1
+      WHERE "Id" = @p2 AND "Version" = @p3
+      RETURNING 1;
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'CarRental.Application.Rentals.Dto.RentalClosedDto'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.Complete (CarRental.WebApi) in 25.1461ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.Complete (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 POST http://127.0.0.1:5080/api/rentals/f8d3924c-2d13-48b6-b9af-bd06d051e0cf/complete - 200 - application/json;+charset=utf-8 32.9790ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:5080/api/cars/18d85bbe-09f2-4693-a75e-c436476ec969 - - -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.CarsController.Get (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Get", controller = "Cars"}. Executing controller action with signature System.Threading.Tasks.Task`1[CarRental.WebApi.CarResponse] Get(System.Guid, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.CarsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Class", "c"."DailyRate", "c"."Mileage", "c"."Model", "c"."Plate", "c"."Status", "c"."Version"
+      FROM "Cars" AS "c"
+      WHERE "c"."Id" = @id
+      LIMIT 2
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'CarRental.WebApi.CarResponse'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.CarsController.Get (CarRental.WebApi) in 4.5277ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.CarsController.Get (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:5080/api/cars/18d85bbe-09f2-4693-a75e-c436476ec969 - 200 - application/json;+charset=utf-8 8.7707ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5080/api/rentals - application/json 138
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Open", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Open(CarRental.WebApi.OpenRentalRequest, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."Class", "c"."DailyRate", "c"."Mileage", "c"."Model", "c"."Plate", "c"."Status", "c"."Version"
+      FROM "Cars" AS "c"
+      WHERE "c"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."BirthDate", "r"."Email", "r"."FullName", "r"."License_Number", "r"."License_ValidUntil"
+      FROM "Renters" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@carId='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."CarId", "r"."DailyRate", "r"."EndMileage", "r"."RenterId", "r"."StartMileage", "r"."Status", "r"."Total", "r"."Version", "r"."Period_End", "r"."Period_Start"
+      FROM "Rentals" AS "r"
+      WHERE "r"."CarId" = @carId AND "r"."Status" = 'Active'
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = Decimal), @p3='?' (DbType = Int32), @p4='?' (DbType = Guid), @p5='?' (DbType = Int32), @p6='?' (Size = 6), @p7='?' (DbType = Decimal), @p8='?' (DbType = Int32), @p9='?' (DbType = Date), @p10='?' (DbType = Date)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Rentals" ("Id", "CarId", "DailyRate", "EndMileage", "RenterId", "StartMileage", "Status", "Total", "Version", "Period_End", "Period_Start")
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."BirthDate", "r"."Email", "r"."FullName", "r"."License_Number", "r"."License_ValidUntil"
+      FROM "Renters" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: CarRental.Infrastructure.Notifications.ConsoleNotificationService[0]
+      Лист до ivan@example.com: оренду 2f1cf2d9-912f-4b91-a1da-3340ac735130 підтверджено.
+info: CarRental.Infrastructure.Notifications.InMemoryAnalyticsService[0]
+      Аналітика: оренду 2f1cf2d9-912f-4b91-a1da-3340ac735130 враховано, усього оренд 2, виручка 4000.00 UAH.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing CreatedResult, writing value of type 'CarRental.Application.Rentals.Dto.RentalCreatedDto'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi) in 6.2292ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.Open (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 POST http://127.0.0.1:5080/api/rentals - 201 - application/json;+charset=utf-8 6.5639ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5080/api/rentals/2f1cf2d9-912f-4b91-a1da-3340ac735130/cancel - - -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.Cancel (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Cancel", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[CarRental.Application.Rentals.Dto.RentalClosedDto] Cancel(System.Guid, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."CarId", "r"."DailyRate", "r"."EndMileage", "r"."RenterId", "r"."StartMileage", "r"."Status", "r"."Total", "r"."Version", "r"."Period_End", "r"."Period_Start"
+      FROM "Rentals" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@p2='?' (DbType = Guid), @p0='?' (Size = 9), @p1='?' (DbType = Int32), @p3='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      UPDATE "Rentals" SET "Status" = @p0, "Version" = @p1
+      WHERE "Id" = @p2 AND "Version" = @p3
+      RETURNING 1;
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'CarRental.Application.Rentals.Dto.RentalClosedDto'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.Cancel (CarRental.WebApi) in 6.4769ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.Cancel (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 POST http://127.0.0.1:5080/api/rentals/2f1cf2d9-912f-4b91-a1da-3340ac735130/cancel - 200 - application/json;+charset=utf-8 11.2924ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5080/api/rentals/2f1cf2d9-912f-4b91-a1da-3340ac735130/cancel - - -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.Cancel (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Cancel", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[CarRental.Application.Rentals.Dto.RentalClosedDto] Cancel(System.Guid, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."CarId", "r"."DailyRate", "r"."EndMileage", "r"."RenterId", "r"."StartMileage", "r"."Status", "r"."Total", "r"."Version", "r"."Period_End", "r"."Period_Start"
+      FROM "Rentals" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.Cancel (CarRental.WebApi) in 1.7611ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.Cancel (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 POST http://127.0.0.1:5080/api/rentals/2f1cf2d9-912f-4b91-a1da-3340ac735130/cancel - 400 - application/json;+charset=utf-8 2.2598ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:5080/api/rentals/00000000-0000-0000-0000-000000000001 - - -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'CarRental.WebApi.Controllers.RentalsController.Get (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[102]
+      Route matched with {action = "Get", controller = "Rentals"}. Executing controller action with signature System.Threading.Tasks.Task`1[CarRental.Application.Rentals.Dto.RentalDetailsDto] Get(System.Guid, System.Threading.CancellationToken) on controller CarRental.WebApi.Controllers.RentalsController (CarRental.WebApi).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[@id='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT "r"."Id", "r"."CarId", "r"."DailyRate", "r"."EndMileage", "r"."RenterId", "r"."StartMileage", "r"."Status", "r"."Total", "r"."Version", "r"."Period_End", "r"."Period_Start"
+      FROM "Rentals" AS "r"
+      WHERE "r"."Id" = @id
+      LIMIT 2
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[105]
+      Executed action CarRental.WebApi.Controllers.RentalsController.Get (CarRental.WebApi) in 1.8236ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'CarRental.WebApi.Controllers.RentalsController.Get (CarRental.WebApi)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:5080/api/rentals/00000000-0000-0000-0000-000000000001 - 404 - application/json;+charset=utf-8 2.3054ms

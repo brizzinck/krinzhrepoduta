@@ -1,0 +1,4 @@
+2026-11-03T12:06:07.1427691Z RentalOpened {"RentalId":"f8d3924c-2d13-48b6-b9af-bd06d051e0cf","CarId":"18d85bbe-09f2-4693-a75e-c436476ec969","RenterId":"91a45af3-80da-4e91-aceb-421285359bd5","StartDate":"2026-11-04","EndDate":"2026-11-07","Total":2400.00}
+2026-11-03T12:06:07.4887180Z RentalCompleted {"RentalId":"f8d3924c-2d13-48b6-b9af-bd06d051e0cf","CarId":"18d85bbe-09f2-4693-a75e-c436476ec969","EndMileage":42450}
+2026-11-03T12:06:07.5859780Z RentalOpened {"RentalId":"2f1cf2d9-912f-4b91-a1da-3340ac735130","CarId":"18d85bbe-09f2-4693-a75e-c436476ec969","RenterId":"91a45af3-80da-4e91-aceb-421285359bd5","StartDate":"2026-11-13","EndDate":"2026-11-15","Total":1600.00}
+2026-11-03T12:06:07.6509727Z RentalCancelled {"RentalId":"2f1cf2d9-912f-4b91-a1da-3340ac735130","CarId":"18d85bbe-09f2-4693-a75e-c436476ec969"}

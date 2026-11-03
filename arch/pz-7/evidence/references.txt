@@ -1,0 +1,19 @@
+$ dotnet list src/CarRental.Domain reference
+There are no Project to Project references in project src/CarRental.Domain.
+
+$ dotnet list src/CarRental.Application reference
+Project reference(s)
+--------------------
+../CarRental.Domain/CarRental.Domain.csproj
+
+$ dotnet list src/CarRental.Infrastructure reference
+Project reference(s)
+--------------------
+../CarRental.Application/CarRental.Application.csproj
+
+$ dotnet list src/CarRental.WebApi reference
+Project reference(s)
+--------------------
+../CarRental.Application/CarRental.Application.csproj
+../CarRental.Infrastructure/CarRental.Infrastructure.csproj
+
