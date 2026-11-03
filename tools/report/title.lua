@@ -65,6 +65,18 @@ local function docx_layout(doc)
     -- Forced page breaks written in report.md for the PDF. The tiny paragraph opens the next
     -- page by itself, so a full page cannot push it over and leave an empty one.
     Div = function(div)
+      -- ::: {.pair}: a paragraph with images becomes a centred figure, a text paragraph its caption.
+      if div.classes:includes("pair") then
+        local out = {}
+        for _, b in ipairs(div.content) do
+          local style = "Image Caption"
+          if b.t == "Para" then
+            for _, el in ipairs(b.content) do if el.t == "Image" then style = "Figure" end end
+          end
+          table.insert(out, pandoc.Div({ b }, pandoc.Attr("", {}, { ["custom-style"] = style })))
+        end
+        return out
+      end
       if (div.attributes.style or ""):match("break%-before:%s*page") then
         return pandoc.RawBlock("openxml", '<w:p><w:pPr><w:pageBreakBefore/>'
           .. '<w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/>'

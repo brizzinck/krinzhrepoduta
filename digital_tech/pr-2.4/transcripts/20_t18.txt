@@ -1,9 +1,14 @@
-lavrishko@duikt-unix:~/lab24$ ./t18_sort_size.sh cars_a.txt sorted_r.out
+lavrishko@duikt-unix:~/lab24$ cat cars_b.txt
+BMW X5 2021 suv 2300
+Toyota RAV4 2022 suv 1700
+Ford Focus 2018 hatchback 700
+Renault Logan 2017 sedan 600
+lavrishko@duikt-unix:~/lab24$ ./t18_sort_size.sh cars_b.txt sorted_r.out
 Результат у файлі sorted_r.out:
-Toyota Camry 2021 sedan 1200
-Skoda Octavia 2020 sedan 900
-Honda Civic 2019 hatchback 850
-Audi Q7 2022 suv 2100
+Toyota RAV4 2022 suv 1700
+Renault Logan 2017 sedan 600
+Ford Focus 2018 hatchback 700
+BMW X5 2021 suv 2300
 lavrishko@duikt-unix:~/lab24$ ./t18_sort_size.sh empty.txt x.out
 Файл 'empty.txt' порожній або відсутній
 lavrishko@duikt-unix:~/lab24$ ./t18_sort_size.sh nofile x.out

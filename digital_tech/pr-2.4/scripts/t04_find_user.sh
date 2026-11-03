@@ -4,7 +4,7 @@ if [ $# -ne 1 ]; then
     echo "Використання: $0 імя_користувача"
     exit 1
 fi
-echo "--- /etc/passwd:"
+echo "Пошук у /etc/passwd:"
 grep "^$1:" /etc/passwd || echo "користувача $1 не знайдено"
-echo "--- /etc/group (група з таким іменем або членство):"
+echo "Пошук у /etc/group (група з таким іменем або членство):"
 grep -E "^$1:|[:,]$1(,|$)" /etc/group || echo "у групах $1 не знайдено"

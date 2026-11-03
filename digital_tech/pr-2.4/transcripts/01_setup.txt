@@ -4,22 +4,22 @@ total 76
 -rw-r--r-- 1 lavrishko lavrishko 364 Nov  2 20:16 t01_copy_ext.sh
 -rw-r--r-- 1 lavrishko lavrishko 342 Nov  2 20:16 t02_date_ps.sh
 -rw-r--r-- 1 lavrishko lavrishko 375 Nov  2 20:16 t03_users.sh
--rw-r--r-- 1 lavrishko lavrishko 524 Nov  2 20:16 t04_find_user.sh
+-rw-r--r-- 1 lavrishko lavrishko 544 Nov  3 15:41 t04_find_user.sh
 -rw-r--r-- 1 lavrishko lavrishko 172 Nov  2 20:16 t05_hello.sh
 -rw-r--r-- 1 lavrishko lavrishko 376 Nov  2 20:16 t06_calc.sh
 -rw-r--r-- 1 lavrishko lavrishko 428 Nov  2 20:33 t07_cylinder.sh
 -rw-r--r-- 1 lavrishko lavrishko 389 Nov  2 20:16 t08_merge_sort.sh
 -rw-r--r-- 1 lavrishko lavrishko 361 Nov  2 20:16 t09_merge_grep.sh
 -rw-r--r-- 1 lavrishko lavrishko 346 Nov  2 20:16 t10_show_pause.sh
--rw-r--r-- 1 lavrishko lavrishko 361 Nov  2 20:16 t11_headers.sh
+-rw-r--r-- 1 lavrishko lavrishko 408 Nov  3 15:41 t11_headers.sh
 -rw-r--r-- 1 lavrishko lavrishko 326 Nov  2 20:16 t12_show_or_ls.sh
--rw-r--r-- 1 lavrishko lavrishko 394 Nov  2 20:16 t13_password.sh
+-rw-r--r-- 1 lavrishko lavrishko 410 Nov  3 15:41 t13_password.sh
 -rw-r--r-- 1 lavrishko lavrishko 244 Nov  2 20:16 t14_exists.sh
 -rw-r--r-- 1 lavrishko lavrishko 591 Nov  2 20:16 t15_dir_check.sh
--rw-r--r-- 1 lavrishko lavrishko 802 Nov  2 20:16 t16_mask.sh
+-rw-r--r-- 1 lavrishko lavrishko 804 Nov  3 15:41 t16_mask.sh
 -rw-r--r-- 1 lavrishko lavrishko 775 Nov  2 20:16 t17a_attr_names.sh
 -rw-r--r-- 1 lavrishko lavrishko 620 Nov  2 20:16 t17b_attr_args.sh
--rw-r--r-- 1 lavrishko lavrishko 564 Nov  2 20:16 t18_sort_size.sh
+-rw-r--r-- 1 lavrishko lavrishko 565 Nov  2 22:12 t18_sort_size.sh
 lavrishko@duikt-unix:~/lab24$ cp ~/prokat/park/cars_*.txt .
 lavrishko@duikt-unix:~/lab24$ echo "Прокат автомобілів: тестові дані для скриптів" > readme.md
 lavrishko@duikt-unix:~/lab24$ touch empty.txt

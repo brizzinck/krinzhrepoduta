@@ -1,11 +1,11 @@
 lavrishko@duikt-unix:~/lab24$ ./t04_find_user.sh lavrishko
---- /etc/passwd:
+Пошук у /etc/passwd:
 lavrishko:x:1000:1000:Lavrishko Vladyslav:/home/lavrishko:/bin/bash
---- /etc/group (група з таким іменем або членство):
+Пошук у /etc/group (група з таким іменем або членство):
 sudo:x:27:lavrishko
 lavrishko:x:1000:
 lavrishko@duikt-unix:~/lab24$ ./t04_find_user.sh nobody_here
---- /etc/passwd:
+Пошук у /etc/passwd:
 користувача nobody_here не знайдено
---- /etc/group (група з таким іменем або членство):
+Пошук у /etc/group (група з таким іменем або членство):
 у групах nobody_here не знайдено

@@ -1,10 +1,10 @@
 lavrishko@duikt-unix:~/lab24$ ./t13_password.sh wrong
-Пароль невірний, доступ заборонено
+Пароль неправильний, доступ заборонено
 lavrishko@duikt-unix:~/lab24$ stty rows 12
 lavrishko@duikt-unix:~/lab24$ ./t13_password.sh secret26
 total 376
-drwxr-xr-x 1 root root    4096 Nov  2 20:33 .
-drwxr-xr-x 1 root root    4096 Nov  2 20:33 ..
+drwxr-xr-x 1 root root    4096 Nov  3 15:42 .
+drwxr-xr-x 1 root root    4096 Nov  3 15:42 ..
 -rw------- 1 root root       0 Sep 30 14:05 .pwd.lock
 drwxr-xr-x 1 root root    4096 Nov  2 19:57 alternatives
 drwxr-xr-x 3 root root    4096 Nov  2 19:57 apparmor.d
@@ -13,29 +13,5 @@ drwxr-xr-x 8 root root    4096 Sep 30 14:05 apt
 -rw-r--r-- 1 root root    2319 Mar 31  2024 bash.bashrc
 -rw-r--r-- 1 root root     367 Aug  2  2022 bindresvport.blacklist
 drwxr-xr-x 2 root root    4096 Sep 30 14:12 cloud
---More--
-drwxr-xr-x 2 root root    4096 Sep 30 14:12 cron.d
-drwxr-xr-x 1 root root    4096 Nov  2 19:57 cron.daily
-drwxr-xr-x 2 root root    4096 Nov  2 19:57 cron.weekly
--rw-r--r-- 1 root root    2967 Apr 12  2024 debconf.conf
--rw-r--r-- 1 root root      11 Apr 22  2024 debian_version
-drwxr-xr-x 2 root root    4096 Sep 30 14:12 default
-drwxr-xr-x 1 root root    4096 Sep 30 14:12 dpkg
--rw-r--r-- 1 root root     685 Apr  8  2024 e2scrub.conf
--rw-r--r-- 1 root root     106 Sep 30 14:05 environment
--rw-r--r-- 1 root root      37 Sep 30 14:05 fstab
--rw-r--r-- 1 root root    2584 Jan 31  2024 gai.conf
---More--
-drwxr-xr-x 2 root root    4096 Sep 30 14:12 gnutls
-drwxr-xr-x 2 root root    4096 Nov  2 19:57 groff
--rw-r--r-- 1 root root     461 Nov  2 19:57 group
--rw-r--r-- 1 root root     434 Nov  2 19:57 group-
--rw-r----- 1 root shadow   387 Nov  2 19:57 gshadow
--rw-r----- 1 root shadow   364 Nov  2 19:57 gshadow-
--rw-r--r-- 1 root root      92 Apr 22  2024 host.conf
--rw-r--r-- 1 root root      11 Nov  2 20:33 hostname
--rw-r--r-- 1 root root     170 Nov  2 20:33 hosts
-drwxr-xr-x 1 root root    4096 Nov  2 19:57 init.d
--rw-r--r-- 1 root root    1875 Mar 31  2024 inputrc
 --More--
 lavrishko@duikt-unix:~/lab24$ stty rows 50

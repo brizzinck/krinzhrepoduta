@@ -1,48 +1,18 @@
 lavrishko@duikt-unix:~/lab24$ cd
-lavrishko@duikt-unix:~$ tree lab24
+lavrishko@duikt-unix:~$ tree -d lab24
 lab24
-├── all_files.out
 ├── backup
-│   ├── cars_a.txt
-│   ├── cars_b.txt
-│   ├── cars_c.txt
-│   └── empty.txt
 ├── backup2
-│   └── readme.md
-├── cars_a.txt
-├── cars_b.txt
-├── cars_c.txt
-├── copy.out
-├── dst.out
-├── empty.txt
 ├── locked
-├── newdir
-├── r08.out
-├── r09.out
-├── r16a.out
-├── r16b.out
-├── readme.md
-├── report_ps.out
-├── sorted_r.out
-├── t01_copy_ext.sh
-├── t02_date_ps.sh
-├── t03_users.sh
-├── t04_find_user.sh
-├── t05_hello.sh
-├── t06_calc.sh
-├── t07_cylinder.sh
-├── t08_merge_sort.sh
-├── t09_merge_grep.sh
-├── t10_show_pause.sh
-├── t11_headers.sh
-├── t12_show_or_ls.sh
-├── t13_password.sh
-├── t14_exists.sh
-├── t15_dir_check.sh
-├── t16_mask.sh
-├── t17a_attr_names.sh
-├── t17b_attr_args.sh
-├── t18_sort_size.sh
-└── users.out
+└── newdir
 
-5 directories, 39 files
+5 directories
+lavrishko@duikt-unix:~$ ls lab24
+all_files.out  empty.txt  readme.md	    t06_calc.sh        t14_exists.sh
+backup	       locked	  report_ps.out     t07_cylinder.sh    t15_dir_check.sh
+backup2        newdir	  sorted_r.out	    t08_merge_sort.sh  t16_mask.sh
+cars_a.txt     none.out   t01_copy_ext.sh   t09_merge_grep.sh  t17a_attr_names.sh
+cars_b.txt     r08.out	  t02_date_ps.sh    t10_show_pause.sh  t17b_attr_args.sh
+cars_c.txt     r09.out	  t03_users.sh	    t11_headers.sh     t18_sort_size.sh
+copy.out       r16a.out   t04_find_user.sh  t12_show_or_ls.sh  users.out
+dst.out        r16b.out   t05_hello.sh	    t13_password.sh

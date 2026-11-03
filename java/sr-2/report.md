@@ -12,6 +12,7 @@ city-year: "Київ – 2026"
 ---
 
 <style>
+.pair { break-inside: auto; }
 .pair p { text-indent: 0; text-align: center; }
 .pair img { vertical-align: top; }
 .pair p + p { font-size: 12pt; margin: 3pt 0 6pt; }

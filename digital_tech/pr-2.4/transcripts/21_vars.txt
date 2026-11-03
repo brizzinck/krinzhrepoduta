@@ -6,7 +6,7 @@ lavrishko@duikt-unix:~/lab24$ echo $fruit
 pineapple
 lavrishko@duikt-unix:~/lab24$ now=$(date)
 lavrishko@duikt-unix:~/lab24$ echo $now
-Mon Nov 2 20:33:39 UTC 2026
+Tue Nov 3 15:42:38 UTC 2026
 lavrishko@duikt-unix:~/lab24$ a=b; export a; bash -c 'echo $a'
 b
 lavrishko@duikt-unix:~/lab24$ fruit = apple

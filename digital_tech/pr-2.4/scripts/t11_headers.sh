@@ -6,7 +6,7 @@ if [ $# -ne 2 ]; then
 fi
 for f in $1; do
     [ -f "$f" ] || continue
-    echo "------ файл $f -----"
+    echo "Файл $f:"
     cat "$f"
 done > "$2"
 cat "$2"

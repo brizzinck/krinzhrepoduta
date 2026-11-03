@@ -1,9 +1,9 @@
 lavrishko@duikt-unix:~/lab24$ ./t15_dir_check.sh backup
 total 12
--rw-r--r-- 1 lavrishko lavrishko 111 Nov  2 20:33 cars_a.txt
--rw-r--r-- 1 lavrishko lavrishko 106 Nov  2 20:33 cars_b.txt
--rw-r--r-- 1 lavrishko lavrishko 119 Nov  2 20:33 cars_c.txt
--rw-r--r-- 1 lavrishko lavrishko   0 Nov  2 20:33 empty.txt
+-rw-r--r-- 1 lavrishko lavrishko 111 Nov  3 15:42 cars_a.txt
+-rw-r--r-- 1 lavrishko lavrishko 106 Nov  3 15:42 cars_b.txt
+-rw-r--r-- 1 lavrishko lavrishko 119 Nov  3 15:42 cars_c.txt
+-rw-r--r-- 1 lavrishko lavrishko   0 Nov  3 15:42 empty.txt
 lavrishko@duikt-unix:~/lab24$ ./t15_dir_check.sh newdir
 Каталогу 'newdir' не було, його створено
 lavrishko@duikt-unix:~/lab24$ ./t15_dir_check.sh newdir

@@ -8,7 +8,7 @@ found=0
 : > "$out"
 for f in $mask; do
     if [ -f "$f" ]; then
-        echo "=== $f ===" >> "$out"
+        echo "Файл $f:" >> "$out"
         cat "$f" >> "$out"
         found=1
     fi

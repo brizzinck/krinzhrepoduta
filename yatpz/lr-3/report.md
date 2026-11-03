@@ -21,7 +21,7 @@ city-year: "Київ – 2026"
 
 # Хід виконання роботи
 
-Я виконав колекцію в Postman (веб-версія, Cloud Agent): імпортував файл Postman Collection v2.1 (`API_Testing_Student.postman_collection.json`), змінну `baseUrl` видно на знімку нижче, кожен запит надіслав кнопкою Send, а всю колекцію запустив через Collection Runner (Iterations = 1). Той самий файл я додатково прогнав у Newman (консольний аналог Runner). Усі адреси починаються з `{{baseUrl}}`. У колекції 8 запитів: сім із завдань 2-7 і окремий `02b` для порожнього параметра із завдання 3. Адрес для 03, 06 і 07 методичка не задає, тому я взяв `/headers`, `/status/404` і `/status/500`. Поле «Active» із завдання 6 я трактував як `active`.
+Колекцію `API_Testing_Student.postman_collection.json` я імпортував у веб-версію Postman, змінну `baseUrl` видно на знімку нижче. Кожен запит надіслано, відповідь показано на рисунку, а всю колекцію запущено в Collection Runner (Iterations = 1). Той самий файл я додатково прогнав у Newman, результат збігся (вивід у `newman-report/`). Усі адреси починаються з `{{baseUrl}}`. У колекції 8 запитів: сім із завдань 2-7 і окремий `02b` для порожнього параметра із завдання 3. Адрес для 03, 06 і 07 методичка не задає, тому я взяв `/headers`, `/status/404` і `/status/500`. Поле «Active» із завдання 6 я трактував як `active`.
 
 | Запит | Метод, ресурс | Очікувано | Фактично | Перевірок |
 |--------------------|------------------------------|---------|---------------|--------|
@@ -51,15 +51,22 @@ pm.test("Query parameters are correct", function () {
 });
 ```
 
+::: {style="break-inside: avoid"}
 Скрипт запиту 05 (завдання 6), тіло `{"studentId": 305, "name": "QA Student", "skills": ["API", "SQL"], "active": true, "middleName": null, "comment": ""}`:
 
 ```javascript
 pm.test("Required fields are present", function () {
     const json = pm.response.json().json;
-    ["studentId", "name", "skills", "active"].forEach(k => pm.expect(json).to.have.property(k));
+
+    pm.expect(json).to.have.property("studentId");
+    pm.expect(json).to.have.property("name");
+    pm.expect(json).to.have.property("skills");
+    pm.expect(json).to.have.property("active");
 });
+
 pm.test("Values have correct types and formats", function () {
     const json = pm.response.json().json;
+
     pm.expect(json.studentId).to.be.a("number");
     pm.expect(json.name).to.be.a("string");
     pm.expect(json.skills).to.be.an("array");
@@ -68,37 +75,44 @@ pm.test("Values have correct types and formats", function () {
     pm.expect(json.comment).to.eql("");
 });
 ```
+:::
 
 Решта скриптів схожа: 02 перевіряє `args.search` = `API testing & QA`, 02b `args.search` = `""`, 03 `headers["x-qa-student"]` = `Student-03`, 04 повернені `name`, `email`, `role`, `active`, 06 і 07 тільки код 404 і 500 (повні тексти в колекції `API_Testing_Student.postman_collection.json`).
 
 # Результати тестування
 
-Усі відповіді прийшли від справжнього `https://postman-echo.com`. На знімках видно запит, статус відповіді й вкладку Test Results, де всі перевірки мають статус PASSED.
+На знімках видно запит, статус відповіді й вкладку Test Results, де всі перевірки мають статус PASSED.
 
 ![Колекція імпортована, змінна baseUrl](img/postman-variables.png){width=50%}
 
-![Запит 01: query-параметри](img/postman-01.png){width=54%}
+::: {.pair}
+![](img/postman-01.png){width=48%} ![](img/postman-02.png){width=48%}
 
-![Запит 02: спецсимволи в параметрі](img/postman-02.png){width=54%}
+Запит 01: query-параметри (ліворуч); запит 02: спецсимволи в параметрі (праворуч)
+:::
 
-![Запит 02b: порожній параметр](img/postman-02b.png){width=54%}
+::: {.pair}
+![](img/postman-02b.png){width=48%} ![](img/postman-03.png){width=48%}
 
-![Запит 03: власний заголовок X-QA-Student](img/postman-03.png){width=54%}
+Запит 02b: порожній параметр (ліворуч); запит 03: власний заголовок X-QA-Student (праворуч)
+:::
 
-![Запит 04: POST із JSON-обʼєктом](img/postman-04.png){width=54%}
+::: {.pair}
+![](img/postman-04.png){width=48%} ![](img/postman-05.png){width=48%}
 
-![Запит 05: POST, типи даних JSON](img/postman-05.png){width=54%}
+Запит 04: POST із JSON-обʼєктом (ліворуч); запит 05: POST, типи даних JSON (праворуч)
+:::
 
-![Запит 06: очікуваний код 404](img/postman-06.png){width=54%}
+::: {.pair}
+![](img/postman-06.png){width=48%} ![](img/postman-07.png){width=48%}
 
-![Запит 07: очікуваний код 500](img/postman-07.png){width=54%}
+Запит 06: очікуваний код 404 (ліворуч); запит 07: очікуваний код 500 (праворуч)
+:::
 
-Підсумковий запуск колекції (Collection Runner, Iterations = 1, вибрано 8 з 8 запитів): 8 запитів, 13 перевірок, 13 PASS, 0 FAIL, 0 помилок.
+Підсумковий запуск колекції (Collection Runner, Iterations = 1): 8 запитів, 13 перевірок, 13 PASS, 0 FAIL, 0 помилок.
 
 ![Результат Collection Runner: усі запити, перевірки пройдено](img/postman-runner.png){width=70%}
 
-Newman на тій самій колекції дав той самий результат: 8 запитів, 13 assertions, 0 failed (вивід у `newman-report/`, знімок у `screenshots/newman-run.png`).
-
 # Висновки
 
-Я зібрав колекцію з 8 запитів до Postman Echo й перевірив: передавання query-параметрів, збереження спецсимволів і порожнього параметра, повернення власного заголовка `X-QA-Student`, обмін JSON у POST (значення й типи: число, рядок, масив, булеве, `null`, порожній рядок) та негативні відповіді сервера. Шість запитів повернули 200 OK, `/status/404` повернув 404 Not Found, `/status/500` повернув 500 Internal Server Error. Обидва коди помилок були очікуваними, тому тести пройшли. У Collection Runner усі 13 перевірок мають PASS, невдалих немає, Newman показав те саме. Заголовок сервер повертає в нижньому регістрі (`x-qa-student`), тому тест порівнює саме з таким іменем. Запуск усієї колекції зручний тим, що за один прохід повторює всі перевірки й показує кількість запитів, PASS і FAIL. Так швидко видно регресію після змін в API, а через Newman колекцію можна запускати в CI.
+Я зібрав колекцію з 8 запитів до Postman Echo й перевірив: передавання query-параметрів, збереження спецсимволів і порожнього параметра, повернення власного заголовка `X-QA-Student`, обмін JSON у POST (значення й типи: число, рядок, масив, булеве, `null`, порожній рядок) та негативні відповіді сервера. Шість запитів повернули 200 OK, `/status/404` повернув 404 Not Found, `/status/500` повернув 500 Internal Server Error. Обидва коди помилок були очікуваними, тому тести пройшли. У Collection Runner усі 13 перевірок мають PASS, невдалих немає, Newman показав те саме. Запуск усієї колекції зручний тим, що за один прохід повторює всі перевірки й показує кількість запитів, PASS і FAIL. Так швидко видно регресію після змін в API, а через Newman колекцію можна запускати в CI.
