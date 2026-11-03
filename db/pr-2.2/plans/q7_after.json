@@ -1,0 +1,87 @@
+{
+ "query_block": {
+  "union_result": {
+   "using_temporary_table": false,
+   "query_specifications": [
+    {
+     "dependent": false,
+     "cacheable": true,
+     "query_block": {
+      "select_id": 1,
+      "cost_info": {
+       "query_cost": "0.56"
+      },
+      "table": {
+       "table_name": "suppliers",
+       "access_type": "ref",
+       "possible_keys": [
+        "idx_suppliers_country"
+       ],
+       "key": "idx_suppliers_country",
+       "used_key_parts": [
+        "Country"
+       ],
+       "key_length": "63",
+       "ref": [
+        "const"
+       ],
+       "rows_examined_per_scan": 3,
+       "rows_produced_per_join": 3,
+       "filtered": "100.00",
+       "using_index": true,
+       "cost_info": {
+        "read_cost": "0.26",
+        "eval_cost": "0.30",
+        "prefix_cost": "0.56",
+        "data_read_per_join": "3K"
+       },
+       "used_columns": [
+        "CompanyName",
+        "Country"
+       ]
+      }
+     }
+    },
+    {
+     "dependent": false,
+     "cacheable": true,
+     "query_block": {
+      "select_id": 2,
+      "cost_info": {
+       "query_cost": "1.42"
+      },
+      "table": {
+       "table_name": "customers",
+       "access_type": "ref",
+       "possible_keys": [
+        "idx_customers_country"
+       ],
+       "key": "idx_customers_country",
+       "used_key_parts": [
+        "Country"
+       ],
+       "key_length": "63",
+       "ref": [
+        "const"
+       ],
+       "rows_examined_per_scan": 11,
+       "rows_produced_per_join": 11,
+       "filtered": "100.00",
+       "using_index": true,
+       "cost_info": {
+        "read_cost": "0.32",
+        "eval_cost": "1.10",
+        "prefix_cost": "1.42",
+        "data_read_per_join": "11K"
+       },
+       "used_columns": [
+        "CompanyName",
+        "Country"
+       ]
+      }
+     }
+    }
+   ]
+  }
+ }
+}

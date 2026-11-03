@@ -1,0 +1,26 @@
+$ mysql -B northwind_opt -e 'EXPLAIN запит 6' | cut -f2,3,5,7,10,12 | column -t -s$'\t'
+select_type         table  type    key      rows  Extra
+PRIMARY             o      ALL     NULL     830   NULL
+DEPENDENT SUBQUERY  e      eq_ref  PRIMARY  1     NULL
+$ mysql -N -B -r northwind_opt -e 'EXPLAIN ANALYZE запит 6'
+-> Table scan on o  (cost=85.2 rows=830) (actual time=0.0218..0.099 rows=830 loops=1)
+-> Select #2 (subquery in projection; dependent)
+    -> Single-row index lookup on e using PRIMARY (EmployeeID=o.EmployeeID)  (cost=1.06 rows=1) (actual time=534e-6..554e-6 rows=1 loops=830)
+
+# query_cost з EXPLAIN FORMAT=JSON (plans/q6_before.json): 85.25
+$ mysql -t northwind_opt < handler.sql   # FLUSH STATUS, запит, SHOW SESSION STATUS
++-----------------------+-------+
+| Variable_name         | Value |
++-----------------------+-------+
+| Handler_read_first    | 1     |
+| Handler_read_key      | 831   |
+| Handler_read_next     | 0     |
+| Handler_read_rnd_next | 831   |
++-----------------------+-------+
+# запит виконано 500 разів поспіль, статистика з performance_schema
+$ mysql -t northwind_opt < digest.sql
++------+--------+--------+--------+-----------+-----------+------------+-----------+
+| runs | avg_ms | min_ms | max_ms | rows_exam | rows_sent | tmp_tables | sort_rows |
++------+--------+--------+--------+-----------+-----------+------------+-----------+
+|  500 |  0.733 |  0.665 |  1.661 |      1660 |       830 |          0 |         0 |
++------+--------+--------+--------+-----------+-----------+------------+-----------+

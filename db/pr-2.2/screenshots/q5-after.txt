@@ -1,0 +1,32 @@
+$ mysql -B northwind_opt -e 'EXPLAIN запит 5' | cut -f2,3,5,7,10,12 | column -t -s$'\t'
+select_type  table  type   key                  rows  Extra
+SIMPLE       c      index  PRIMARY              91    Using temporary; Using filesort
+SIMPLE       o      ref    FK_Orders_Customers  9     Using index
+SIMPLE       od     ref    PRIMARY              2     NULL
+$ mysql -N -B -r northwind_opt -e 'EXPLAIN ANALYZE запит 5'
+-> Sort: revenue DESC  (actual time=1.7..1.7 rows=89 loops=1)
+    -> Stream results  (cost=983 rows=91) (actual time=0.0651..1.67 rows=89 loops=1)
+        -> Group aggregate: sum(((od.UnitPrice * od.Quantity) * (1 - od.Discount)))  (cost=983 rows=91) (actual time=0.0612..1.65 rows=89 loops=1)
+            -> Nested loop inner join  (cost=762 rows=2203) (actual time=0.0317..1.19 rows=2155 loops=1)
+                -> Nested loop inner join  (cost=118 rows=849) (actual time=0.0262..0.259 rows=830 loops=1)
+                    -> Index scan on c using PRIMARY  (cost=9.35 rows=91) (actual time=0.0144..0.0257 rows=91 loops=1)
+                    -> Covering index lookup on o using FK_Orders_Customers (CustomerID=c.CustomerID)  (cost=0.267 rows=9.33) (actual time=0.00134..0.00208 rows=9.12 loops=91)
+                -> Index lookup on od using PRIMARY (OrderID=o.OrderID)  (cost=0.5 rows=2.6) (actual time=686e-6..933e-6 rows=2.6 loops=830)
+
+# query_cost з EXPLAIN FORMAT=JSON (plans/q5_after.json): 762.21
+$ mysql -t northwind_opt < handler.sql   # FLUSH STATUS, запит, SHOW SESSION STATUS
++-----------------------+-------+
+| Variable_name         | Value |
++-----------------------+-------+
+| Handler_read_first    | 1     |
+| Handler_read_key      | 922   |
+| Handler_read_next     | 3076  |
+| Handler_read_rnd_next | 0     |
++-----------------------+-------+
+# запит виконано 500 разів поспіль, статистика з performance_schema
+$ mysql -t northwind_opt < digest.sql
++------+--------+--------+--------+-----------+-----------+------------+-----------+
+| runs | avg_ms | min_ms | max_ms | rows_exam | rows_sent | tmp_tables | sort_rows |
++------+--------+--------+--------+-----------+-----------+------------+-----------+
+|  500 |  1.422 |  1.232 |  3.763 |      3165 |        89 |          0 |        89 |
++------+--------+--------+--------+-----------+-----------+------------+-----------+

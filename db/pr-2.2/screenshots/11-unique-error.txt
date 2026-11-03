@@ -1,0 +1,5 @@
+$ mysql -t northwind_opt < 11-unique-error.sql
+# TRUNCATE TABLE test_index;
+# CALL fill_seq(1, 5);
+# INSERT INTO test_index VALUES (3, ' a', 'b ');
+ERROR 1062 (23000) at line 3: Duplicate entry '3' for key 'test_index.PRIMARY'

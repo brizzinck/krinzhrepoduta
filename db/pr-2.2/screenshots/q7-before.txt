@@ -1,0 +1,30 @@
+$ mysql -B northwind_opt -e 'EXPLAIN запит 7' | cut -f2,3,5,7,10,12 | column -t -s$'\t'
+select_type  table      type  key   rows  Extra
+PRIMARY      suppliers  ALL   NULL  29    Using where
+UNION        customers  ALL   NULL  91    Using where
+$ mysql -N -B -r northwind_opt -e 'EXPLAIN ANALYZE запит 7'
+-> Append  (cost=12.5 rows=12) (actual time=0.024..0.0487 rows=14 loops=1)
+    -> Stream results  (cost=3.15 rows=2.9) (actual time=0.023..0.0281 rows=3 loops=1)
+        -> Filter: (suppliers.Country = 'Germany')  (cost=3.15 rows=2.9) (actual time=0.0197..0.0244 rows=3 loops=1)
+            -> Table scan on suppliers  (cost=3.15 rows=29) (actual time=0.0146..0.0216 rows=29 loops=1)
+    -> Stream results  (cost=9.35 rows=9.1) (actual time=0.00454..0.018 rows=11 loops=1)
+        -> Filter: (customers.Country = 'Germany')  (cost=9.35 rows=9.1) (actual time=0.00432..0.0169 rows=11 loops=1)
+            -> Table scan on customers  (cost=9.35 rows=91) (actual time=0.00419..0.0137 rows=91 loops=1)
+
+# query_cost з EXPLAIN FORMAT=JSON (plans/q7_before.json): 12.5
+$ mysql -t northwind_opt < handler.sql   # FLUSH STATUS, запит, SHOW SESSION STATUS
++-----------------------+-------+
+| Variable_name         | Value |
++-----------------------+-------+
+| Handler_read_first    | 2     |
+| Handler_read_key      | 2     |
+| Handler_read_next     | 0     |
+| Handler_read_rnd_next | 122   |
++-----------------------+-------+
+# запит виконано 500 разів поспіль, статистика з performance_schema
+$ mysql -t northwind_opt < digest.sql
++------+--------+--------+--------+-----------+-----------+------------+-----------+
+| runs | avg_ms | min_ms | max_ms | rows_exam | rows_sent | tmp_tables | sort_rows |
++------+--------+--------+--------+-----------+-----------+------------+-----------+
+|  500 |  0.031 |  0.024 |  0.207 |       120 |        14 |          0 |         0 |
++------+--------+--------+--------+-----------+-----------+------------+-----------+

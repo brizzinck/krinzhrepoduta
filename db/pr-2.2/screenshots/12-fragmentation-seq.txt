@@ -1,0 +1,19 @@
+$ mysql -t northwind_opt < 12-fragmentation-seq.sql
+# DROP TABLE test_index_nu;
+# DROP TABLE test_index_u;
+# TRUNCATE TABLE test_index;
+# ALTER TABLE test_index DROP PRIMARY KEY, ADD PRIMARY KEY (pole1);
+# CALL fill_fmt(9000, 0);
+$ python3 ibdstat.py test_index.ibd PRIMARY=1861@4
++------------+-------+-------+-------+---------+----------+----------+
+| index_name | depth | level | pages | records | used_pct | frag_pct |
++------------+-------+-------+-------+---------+----------+----------+
+| PRIMARY    |     2 |     0 |   165 |    9000 |    92.17 |     0.61 |
+| PRIMARY    |     2 |     1 |     1 |     165 |    46.61 |     0.00 |
++------------+-------+-------+-------+---------+----------+----------+
+$ mysql -t northwind_opt < spaceused.sql
++------------+------+------------+-------------+---------+----------+-----------+
+| name       | rows | exact_rows | reserved_kb | data_kb | index_kb | unused_kb |
++------------+------+------------+-------------+---------+----------+-----------+
+| test_index | 8910 |       9000 |        3600 |    3600 |        0 |      4096 |
++------------+------+------------+-------------+---------+----------+-----------+

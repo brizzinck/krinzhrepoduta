@@ -1,0 +1,65 @@
+{
+ "query_block": {
+  "union_result": {
+   "using_temporary_table": false,
+   "query_specifications": [
+    {
+     "dependent": false,
+     "cacheable": true,
+     "query_block": {
+      "select_id": 1,
+      "cost_info": {
+       "query_cost": "3.15"
+      },
+      "table": {
+       "table_name": "suppliers",
+       "access_type": "ALL",
+       "rows_examined_per_scan": 29,
+       "rows_produced_per_join": 2,
+       "filtered": "10.00",
+       "cost_info": {
+        "read_cost": "2.86",
+        "eval_cost": "0.29",
+        "prefix_cost": "3.15",
+        "data_read_per_join": "3K"
+       },
+       "used_columns": [
+        "CompanyName",
+        "Country"
+       ],
+       "attached_condition": "(`northwind_opt`.`suppliers`.`Country` = 'Germany')"
+      }
+     }
+    },
+    {
+     "dependent": false,
+     "cacheable": true,
+     "query_block": {
+      "select_id": 2,
+      "cost_info": {
+       "query_cost": "9.35"
+      },
+      "table": {
+       "table_name": "customers",
+       "access_type": "ALL",
+       "rows_examined_per_scan": 91,
+       "rows_produced_per_join": 9,
+       "filtered": "10.00",
+       "cost_info": {
+        "read_cost": "8.44",
+        "eval_cost": "0.91",
+        "prefix_cost": "9.35",
+        "data_read_per_join": "9K"
+       },
+       "used_columns": [
+        "CompanyName",
+        "Country"
+       ],
+       "attached_condition": "(`northwind_opt`.`customers`.`Country` = 'Germany')"
+      }
+     }
+    }
+   ]
+  }
+ }
+}

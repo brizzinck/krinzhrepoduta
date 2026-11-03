@@ -1,0 +1,14 @@
+$ mysql -t northwind_opt < 11b-nonunique-8906.sql
+# DROP TABLE IF EXISTS test_index_nu;
+# CREATE TABLE test_index_nu (id INT NOT NULL, pole1 CHAR(36) CHARACTER SET ascii NOT NULL, pole2 CHAR(216) CHARACTER SET ascii NOT NULL, KEY idx_id (id));
+# SET SESSION cte_max_recursion_depth = 20000;
+# INSERT INTO test_index_nu WITH RECURSIVE s(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM s WHERE n < 8906) SELECT n % 100, ' a', 'b ' FROM s;
+$ python3 ibdstat.py test_index_nu.ibd GEN_CLUST_INDEX=1856@4 idx_id=1857@5
++-----------------+-------+-------+-------+---------+----------+----------+
+| index_name      | depth | level | pages | records | used_pct | frag_pct |
++-----------------+-------+-------+-------+---------+----------+----------+
+| GEN_CLUST_INDEX |     2 |     0 |   166 |    8906 |    92.64 |     1.20 |
+| GEN_CLUST_INDEX |     2 |     1 |     1 |     166 |    16.49 |     0.00 |
+| idx_id          |     2 |     0 |    14 |    8906 |    60.93 |    92.86 |
+| idx_id          |     2 |     1 |     1 |      14 |     2.45 |     0.00 |
++-----------------+-------+-------+-------+---------+----------+----------+

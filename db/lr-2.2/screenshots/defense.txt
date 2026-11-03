@@ -1,0 +1,194 @@
+$ mysql -uroot --default-character-set=cp1251 -t -vvv northwind_defense < defense_queries.sql
+--------------
+CREATE INDEX idx_orders_date ON orders (OrderDate)
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+ANALYZE TABLE orders
+--------------
+
++--------------------------+---------+----------+----------+
+| Table                    | Op      | Msg_type | Msg_text |
++--------------------------+---------+----------+----------+
+| northwind_defense.orders | analyze | status   | OK       |
++--------------------------+---------+----------+----------+
+1 row in set (0.00 sec)
+
+--------------
+EXPLAIN SELECT OrderID FROM orders WHERE YEAR(OrderDate) = 1997
+--------------
+
++----+-------------+--------+------------+-------+---------------+-----------------+---------+------+------+----------+--------------------------+
+| id | select_type | table  | partitions | type  | possible_keys | key             | key_len | ref  | rows | filtered | Extra                    |
++----+-------------+--------+------------+-------+---------------+-----------------+---------+------+------+----------+--------------------------+
+|  1 | SIMPLE      | orders | NULL       | index | NULL          | idx_orders_date | 9       | NULL |  830 |   100.00 | Using where; Using index |
++----+-------------+--------+------------+-------+---------------+-----------------+---------+------+------+----------+--------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+--------------
+EXPLAIN SELECT OrderID FROM orders WHERE OrderDate >= '1997-01-01' AND OrderDate < '1998-01-01'
+--------------
+
++----+-------------+--------+------------+-------+-----------------+-----------------+---------+------+------+----------+--------------------------+
+| id | select_type | table  | partitions | type  | possible_keys   | key             | key_len | ref  | rows | filtered | Extra                    |
++----+-------------+--------+------------+-------+-----------------+-----------------+---------+------+------+----------+--------------------------+
+|  1 | SIMPLE      | orders | NULL       | range | idx_orders_date | idx_orders_date | 9       | NULL |  408 |   100.00 | Using where; Using index |
++----+-------------+--------+------------+-------+-----------------+-----------------+---------+------+------+----------+--------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+--------------
+CREATE INDEX idx_customers_name ON customers (CompanyName)
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+ANALYZE TABLE customers
+--------------
+
++-----------------------------+---------+----------+----------+
+| Table                       | Op      | Msg_type | Msg_text |
++-----------------------------+---------+----------+----------+
+| northwind_defense.customers | analyze | status   | OK       |
++-----------------------------+---------+----------+----------+
+1 row in set (0.01 sec)
+
+--------------
+EXPLAIN SELECT CompanyName FROM customers WHERE CompanyName LIKE 'A%'
+--------------
+
++----+-------------+-----------+------------+-------+--------------------+--------------------+---------+------+------+----------+--------------------------+
+| id | select_type | table     | partitions | type  | possible_keys      | key                | key_len | ref  | rows | filtered | Extra                    |
++----+-------------+-----------+------------+-------+--------------------+--------------------+---------+------+------+----------+--------------------------+
+|  1 | SIMPLE      | customers | NULL       | range | idx_customers_name | idx_customers_name | 162     | NULL |    4 |   100.00 | Using where; Using index |
++----+-------------+-----------+------------+-------+--------------------+--------------------+---------+------+------+----------+--------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+--------------
+EXPLAIN SELECT ContactName FROM customers WHERE CompanyName LIKE '%a'
+--------------
+
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | customers | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   91 |    11.11 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+--------------
+CREATE INDEX idx_products_disc ON products (Discontinued)
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+ANALYZE TABLE products
+--------------
+
++----------------------------+---------+----------+----------+
+| Table                      | Op      | Msg_type | Msg_text |
++----------------------------+---------+----------+----------+
+| northwind_defense.products | analyze | status   | OK       |
++----------------------------+---------+----------+----------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT Discontinued, COUNT(*) AS cnt FROM products GROUP BY Discontinued
+--------------
+
++--------------+-----+
+| Discontinued | cnt |
++--------------+-----+
+|            0 |  69 |
+|            1 |   8 |
++--------------+-----+
+2 rows in set (0.00 sec)
+
+--------------
+EXPLAIN SELECT ProductName FROM products WHERE Discontinued = 0
+--------------
+
++----+-------------+----------+------------+------+-------------------+-------------------+---------+-------+------+----------+-------+
+| id | select_type | table    | partitions | type | possible_keys     | key               | key_len | ref   | rows | filtered | Extra |
++----+-------------+----------+------------+------+-------------------+-------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | products | NULL       | ref  | idx_products_disc | idx_products_disc | 1       | const |   69 |   100.00 | NULL  |
++----+-------------+----------+------------+------+-------------------+-------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+--------------
+EXPLAIN SELECT ProductName FROM products WHERE Discontinued = 1
+--------------
+
++----+-------------+----------+------------+------+-------------------+-------------------+---------+-------+------+----------+-------+
+| id | select_type | table    | partitions | type | possible_keys     | key               | key_len | ref   | rows | filtered | Extra |
++----+-------------+----------+------------+------+-------------------+-------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | products | NULL       | ref  | idx_products_disc | idx_products_disc | 1       | const |    8 |   100.00 | NULL  |
++----+-------------+----------+------------+------+-------------------+-------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+--------------
+ALTER TABLE orders ALTER INDEX idx_orders_date INVISIBLE
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+EXPLAIN SELECT OrderID FROM orders WHERE OrderDate >= '1997-01-01' AND OrderDate < '1997-02-01'
+--------------
+
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table  | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | orders | NULL       | ALL  | NULL          | NULL | NULL    | NULL |  830 |    11.11 | Using where |
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+--------------
+ALTER TABLE orders ALTER INDEX idx_orders_date VISIBLE
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+EXPLAIN SELECT OrderID FROM orders WHERE OrderDate >= '1997-01-01' AND OrderDate < '1997-02-01'
+--------------
+
++----+-------------+--------+------------+-------+-----------------+-----------------+---------+------+------+----------+--------------------------+
+| id | select_type | table  | partitions | type  | possible_keys   | key             | key_len | ref  | rows | filtered | Extra                    |
++----+-------------+--------+------------+-------+-----------------+-----------------+---------+------+------+----------+--------------------------+
+|  1 | SIMPLE      | orders | NULL       | range | idx_orders_date | idx_orders_date | 9       | NULL |   33 |   100.00 | Using where; Using index |
++----+-------------+--------+------------+-------+-----------------+-----------------+---------+------+------+----------+--------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+--------------
+EXPLAIN SELECT DISTINCT c.CustomerID FROM customers c JOIN orders o ON o.CustomerID = c.CustomerID
+--------------
+
++----+-------------+-------+------------+-------+----------------------------+---------------------+---------+--------------------------------+------+----------+------------------------------+
+| id | select_type | table | partitions | type  | possible_keys              | key                 | key_len | ref                            | rows | filtered | Extra                        |
++----+-------------+-------+------------+-------+----------------------------+---------------------+---------+--------------------------------+------+----------+------------------------------+
+|  1 | SIMPLE      | c     | NULL       | index | PRIMARY,idx_customers_name | idx_customers_name  | 162     | NULL                           |   91 |   100.00 | Using index; Using temporary |
+|  1 | SIMPLE      | o     | NULL       | ref   | FK_Orders_Customers        | FK_Orders_Customers | 21      | northwind_defense.c.CustomerID |    9 |   100.00 | Using index; Distinct        |
++----+-------------+-------+------------+-------+----------------------------+---------------------+---------+--------------------------------+------+----------+------------------------------+
+2 rows in set, 1 warning (0.01 sec)
+
+--------------
+EXPLAIN SELECT c.CustomerID FROM customers c WHERE EXISTS (SELECT 1 FROM orders o WHERE o.CustomerID = c.CustomerID)
+--------------
+
++----+-------------+-------+------------+-------+---------------------+---------------------+---------+--------------------------------+------+----------+----------------------------+
+| id | select_type | table | partitions | type  | possible_keys       | key                 | key_len | ref                            | rows | filtered | Extra                      |
++----+-------------+-------+------------+-------+---------------------+---------------------+---------+--------------------------------+------+----------+----------------------------+
+|  1 | SIMPLE      | c     | NULL       | index | PRIMARY             | idx_customers_name  | 162     | NULL                           |   91 |   100.00 | Using index                |
+|  1 | SIMPLE      | o     | NULL       | ref   | FK_Orders_Customers | FK_Orders_Customers | 21      | northwind_defense.c.CustomerID |    9 |   100.00 | Using index; FirstMatch(c) |
++----+-------------+-------+------------+-------+---------------------+---------------------+---------+--------------------------------+------+----------+----------------------------+
+2 rows in set, 2 warnings (0.00 sec)
+
+Bye

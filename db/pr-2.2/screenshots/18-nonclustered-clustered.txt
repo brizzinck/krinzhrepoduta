@@ -1,0 +1,22 @@
+$ mysql -t northwind_opt < 18-nonclustered-clustered.sql
+# DROP INDEX idx_ncl_pole1 ON test_index;
+# TRUNCATE TABLE test_index;
+# ALTER TABLE test_index ADD PRIMARY KEY (id);
+# CREATE INDEX idx_ncl_pole1 ON test_index (pole1);
+# CALL fill_fmt(28864, 1);
+# INSERT INTO test_index VALUES (28865, ' 000028865', 'b ');
+$ python3 ibdstat.py test_index.ibd PRIMARY=1869@4 idx_ncl_pole1=1870@5
++---------------+-------+-------+-------+---------+----------+----------+
+| index_name    | depth | level | pages | records | used_pct | frag_pct |
++---------------+-------+-------+-------+---------+----------+----------+
+| PRIMARY       |     2 |     0 |   526 |   28865 |    92.73 |     1.33 |
+| PRIMARY       |     2 |     1 |     1 |     526 |    44.13 |     0.00 |
+| idx_ncl_pole1 |     2 |     0 |    82 |   28865 |    98.55 |     8.54 |
+| idx_ncl_pole1 |     2 |     1 |     1 |      82 |    25.56 |     0.00 |
++---------------+-------+-------+-------+---------+----------+----------+
+$ mysql -t northwind_opt < spaceused.sql
++------------+-------+------------+-------------+---------+----------+-----------+
+| name       | rows  | exact_rows | reserved_kb | data_kb | index_kb | unused_kb |
++------------+-------+------------+-------------+---------+----------+-----------+
+| test_index | 27430 |      28865 |       10272 |    8720 |     1552 |      4096 |
++------------+-------+------------+-------------+---------+----------+-----------+

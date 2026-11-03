@@ -1,0 +1,27 @@
+$ mysql -B northwind_opt -e 'EXPLAIN запит 6' | cut -f2,3,5,7,10,12 | column -t -s$'\t'
+select_type  table  type  key   rows  Extra
+SIMPLE       o      ALL   NULL  830   NULL
+SIMPLE       e      ALL   NULL  9     Using where; Using join buffer (hash join)
+$ mysql -N -B -r northwind_opt -e 'EXPLAIN ANALYZE запит 6'
+-> Left hash join (e.EmployeeID = o.EmployeeID)  (cost=767 rows=7470) (actual time=0.0695..0.297 rows=830 loops=1)
+    -> Table scan on o  (cost=85.2 rows=830) (actual time=0.0386..0.172 rows=830 loops=1)
+    -> Hash
+        -> Table scan on e  (cost=0.0257 rows=9) (actual time=0.0098..0.0144 rows=9 loops=1)
+
+# query_cost з EXPLAIN FORMAT=JSON (plans/q6_after.json): 852.65
+$ mysql -t northwind_opt < handler.sql   # FLUSH STATUS, запит, SHOW SESSION STATUS
++-----------------------+-------+
+| Variable_name         | Value |
++-----------------------+-------+
+| Handler_read_first    | 2     |
+| Handler_read_key      | 2     |
+| Handler_read_next     | 0     |
+| Handler_read_rnd_next | 841   |
++-----------------------+-------+
+# запит виконано 500 разів поспіль, статистика з performance_schema
+$ mysql -t northwind_opt < digest.sql
++------+--------+--------+--------+-----------+-----------+------------+-----------+
+| runs | avg_ms | min_ms | max_ms | rows_exam | rows_sent | tmp_tables | sort_rows |
++------+--------+--------+--------+-----------+-----------+------------+-----------+
+|  500 |   0.47 |  0.238 |   1.57 |       839 |       830 |          0 |         0 |
++------+--------+--------+--------+-----------+-----------+------------+-----------+
