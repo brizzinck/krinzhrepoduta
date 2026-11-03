@@ -1,0 +1,21 @@
+> mvn compile
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< ua.duikt.lavrishko:converter >--------------------
+[INFO] Building converter 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ converter ---
+[INFO] skip non existing resourceDirectory /w/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ converter ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 4 source files with javac [debug release 21] to target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.746 s
+[INFO] Finished at: 2026-11-03T11:58:31Z
+[INFO] ------------------------------------------------------------------------
+(код завершення: 0)

@@ -1,0 +1,71 @@
+> unzip -p target/converter.jar META-INF/MANIFEST.MF
+Manifest-Version: 1.0
+Created-By: Maven JAR Plugin 3.5.0
+Java-Version: 21
+Build-Jdk-Spec: 21
+Main-Class: ua.duikt.lavrishko.converter.Main
+
+(код завершення: 0)
+
+> unzip -l target/converter.jar | grep -c org/apache/commons/lang3/
+413
+(код завершення: 0)
+
+> unzip -l target/original-converter.jar | grep -c org/apache/commons/lang3/
+0
+(код завершення: 1)
+
+> ls -l target/*.jar
+-rw-r--r-- 1 skalse skalse 681791 Nov  3 13:58 target/converter.jar
+-rw-r--r-- 1 skalse skalse   8918 Nov  3 13:58 target/original-converter.jar
+(код завершення: 0)
+
+> grep -rc -E 'catch|try' src/main/java
+src/main/java/ua/duikt/lavrishko/converter/AreaUnit.java:0
+src/main/java/ua/duikt/lavrishko/converter/Converter.java:0
+src/main/java/ua/duikt/lavrishko/converter/Menu.java:0
+src/main/java/ua/duikt/lavrishko/converter/Main.java:0
+(код завершення: 1)
+
+> docker run --rm -v target/converter.jar:/app/converter.jar:ro eclipse-temurin:21-jre java -jar /app/converter.jar --table   (лише JRE і один файл)
+од.   cm²            m²             a              ha             acre
+cm²   1              0.0001         0.000001       1E-8           2.47105381467E-8
+m²    10000          1              0.01           0.0001         0.000247105381467
+a     1000000        100            1              0.01           0.0247105381467
+ha    100000000      10000          100            1              2.47105381467
+acre  40468564.224   4046.8564224   40.468564224   0.40468564224  1
+(код завершення: 0)
+
+> printf '1\n1\nacre\nm²\n' | java -jar target/converter.jar   (кінець введення без команди виходу)
+Конвертер одиниць
+1) Площа    0) Вихід
+Вибір: Одиниці (номер, назва, площа в m²):
+1) cm²   0.0001
+2) m²    1
+3) a     100
+4) ha    10000
+5) acre  4046.8564224
+
+Значення (0 для виходу): З (номер або назва): У (номер або назва): 1 acre = 4046.8564224 m²
+
+Значення (0 для виходу): Вихід. Дякуємо за використання!
+(код завершення: 0)
+
+> printf '1\n1,000\nm2\na\n0\n' | java -jar target/converter.jar   (кома як роздільник тисяч)
+Конвертер одиниць
+1) Площа    0) Вихід
+Вибір: Одиниці (номер, назва, площа в m²):
+1) cm²   0.0001
+2) m²    1
+3) a     100
+4) ha    10000
+5) acre  4046.8564224
+
+Значення (0 для виходу): З (номер або назва): У (номер або назва): 1000 m² = 10 a
+
+Значення (0 для виходу): Вихід. Дякуємо за використання!
+(код завершення: 0)
+
+> file results/out_utf8.txt
+results/out_utf8.txt: Unicode text, UTF-8 text
+(код завершення: 0)

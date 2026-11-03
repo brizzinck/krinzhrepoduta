@@ -1,0 +1,41 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam monochrome true
+skinparam defaultFontName "DejaVu Sans"
+hide empty members
+left to right direction
+
+class Main {
+  +main(args)
+  -printTable(out)
+}
+class Menu {
+  -in: Scanner
+  -out: PrintStream
+  +run()
+  -chooseQuantity(): int
+  -readValue(): Double
+  -readUnit(prompt): AreaUnit
+  -skipLine()
+}
+class Converter {
+  +{static} convert(value, from, to): double
+  +{static} format(value): String
+}
+enum AreaUnit {
+  CM2
+  M2
+  ARE
+  HECTARE
+  ACRE
+  +squareMetres(): double
+  +{static} byNumber(n): AreaUnit
+  +{static} byName(name): AreaUnit
+}
+Main ..> Menu : створює
+Main ..> Converter
+Menu ..> Converter
+Menu ..> AreaUnit
+Converter ..> AreaUnit
+@enduml

@@ -1,0 +1,49 @@
+> ls target/*.jar dependency-reduced-pom.xml
+dependency-reduced-pom.xml
+target/converter-1.0.jar
+target/original-converter-1.0.jar
+(код завершення: 0)
+
+> java -jar target/converter.jar
+Error: Unable to access jarfile target/converter.jar
+(код завершення: 1)
+
+> java -jar target/original-converter-1.0.jar
+no main manifest attribute, in target/original-converter-1.0.jar
+(код завершення: 1)
+
+> java -cp target/original-converter-1.0.jar ua.duikt.lavrishko.converter.Main
+Конвертер одиниць
+1) Площа    0) Вихід
+Вибір: Вихід. Дякуємо за використання!
+(код завершення: 0)
+
+> printf '1\n100\ncm2\nm2\n0\n' | tools/java.sh -jar target/converter-1.0.jar   (docker без -i)
+Конвертер одиниць
+1) Площа    0) Вихід
+Вибір: Вихід. Дякуємо за використання!
+(код завершення: 0)
+
+> java -Dstdout.encoding=US-ASCII -cp target/verify PlainOut
+?????. ??????? ?? ????????????!
+(код завершення: 0)
+
+> java -cp target/original-converter.jar ua.duikt.lavrishko.converter.Main --table
+Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/commons/lang3/StringUtils
+	at ua.duikt.lavrishko.converter.Main.printTable(Main.java:33)
+	at ua.duikt.lavrishko.converter.Main.main(Main.java:22)
+Caused by: java.lang.ClassNotFoundException: org.apache.commons.lang3.StringUtils
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 2 more
+(код завершення: 1)
+
+> java -Dstdout.encoding=US-ASCII -jar target/converter.jar --table   (після виправлення)
+од.   cm²            m²             a              ha             acre
+cm²   1              0.0001         0.000001       1E-8           2.47105381467E-8
+m²    10000          1              0.01           0.0001         0.000247105381467
+a     1000000        100            1              0.01           0.0247105381467
+ha    100000000      10000          100            1              2.47105381467
+acre  40468564.224   4046.8564224   40.468564224   0.40468564224  1
+(код завершення: 0)
