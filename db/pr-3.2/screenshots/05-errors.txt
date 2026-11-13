@@ -1,0 +1,58 @@
+$ ./run.sh < demo/05-errors.txt
+Підключено до БД: car_rental
+1 Показати таблицю   2 Знайти за ключем   3 Додати   4 Змінити   5 Видалити
+6 Активні оренди (JOIN)   7 Вільні авто (фільтр)   8 Виручка філій (агрегація)
+9 Меню   0 Вихід
+
+Ваш вибір: 3
+1.branches  2.customers  3.cars
+Таблиця: 1
+Порожнє значення: типове (0, available) або NULL
+name: Прокат «Київ-Центр»
+city: Київ
+address: вул. Нова, 1
+phone: +380440000000
+Помилка 1062: таке значення вже є (UNIQUE). Duplicate entry 'Прокат «Київ-Центр»' for key 'branches.uq_branches_name'
+
+Ваш вибір: 3
+1.branches  2.customers  3.cars
+Таблиця: 3
+Порожнє значення: типове (0, available) або NULL
+model_id: 1
+branch_id: 1
+vin: TESTVIN0000000001
+plate_number: TEST0001XX
+manufacture_year: 2024
+mileage_km: 
+daily_price: -5
+status: 
+Помилка 3819: порушено обмеження CHECK. Check constraint 'chk_cars_price' is violated.
+
+Ваш вибір: 3
+1.branches  2.customers  3.cars
+Таблиця: 3
+Порожнє значення: типове (0, available) або NULL
+model_id: 1
+branch_id: 999
+vin: TESTVIN0000000002
+plate_number: TEST0002XX
+manufacture_year: 2024
+mileage_km: 
+daily_price: 900
+status: 
+Помилка 1452: немає рядка, на який іде посилання (FOREIGN KEY). Cannot add or update a child row: a foreign key constraint fails (`car_rental`.`cars`, CONSTRAINT `fk_cars_branch` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`branch_id`) ON DELETE RESTRICT)
+
+Ваш вибір: 5
+1.branches  2.customers  3.cars
+Таблиця: 1
+Ключ: 1
+Помилка 1451: на рядок посилаються інші таблиці (FOREIGN KEY). Cannot delete or update a parent row: a foreign key constraint fails (`car_rental`.`cars`, CONSTRAINT `fk_cars_branch` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`branch_id`) ON DELETE RESTRICT)
+
+Ваш вибір: 2
+1.branches  2.customers  3.cars
+Таблиця: 3
+Ключ: абв
+Помилка вводу: неправильне число або дата
+
+Ваш вибір: 0
+Роботу завершено
