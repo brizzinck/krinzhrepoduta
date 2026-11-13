@@ -98,5 +98,5 @@ DB_URL='jdbc:mysql://<сервер>.mysql.database.azure.com:3306/car_rental?ssl
 
 ## Список джерел
 
-1. Лекції Л 3.1 і 3.2 (слайд 23, підключення до БД) та Л 3.3 (8) (слайд про DBaaS); звіти до ПР № 1.1 і ПР № 3.1.
+1. Лекції Л 3.1-3.3 (підключення до БД, DBaaS); звіти ПР № 1.1 і 3.1; скрипти <https://github.com/brizzinck/krinzhrepoduta/tree/main/db/sr-5.3>.
 2. Microsoft Learn, дата доступу 13.11.2026. Початок адреси `https://learn.microsoft.com/en-us/azure/mysql/`, далі: `flexible-server/overview`, `flexible-server/connect-java`, `security/security-tls-how-to-connect` і `flexible-server/concepts-` з одним із закінчень `networking`, `networking-public`, `networking-vnet`, `backup-restore`, `high-availability`, `read-replicas`, `limitations`, `service-tiers-storage`.
