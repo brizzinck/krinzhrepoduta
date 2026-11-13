@@ -1,0 +1,4 @@
+$ ./run.sh < demo/03-n-plus-1.txt | sed -n '/Ваш вибір: 7/,/join fetch/p'
+Ваш вибір: 7
+Ліниве завантаження: SQL-запитів 6
+join fetch: SQL-запитів 1

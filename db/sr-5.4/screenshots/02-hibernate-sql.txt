@@ -1,0 +1,16 @@
+$ SHOW_SQL=true ./run.sh < demo/04-show-sql.txt   # SQL запиту 6, фрагмент виводу
+Hibernate: 
+    select
+        o1_0.`OrderID`,
+        o1_0.`OrderDate`,
+        o1_0.`CustomerID`,
+        (select
+            concat(e1_0.`FirstName`, ' ', e1_0.`LastName`) 
+        from
+            `northwind_orm`.`employees` e1_0 
+        where
+            e1_0.`EmployeeID`=o1_0.`EmployeeID`) 
+    from
+        `northwind_orm`.`orders` o1_0 
+    order by
+        o1_0.`OrderID`

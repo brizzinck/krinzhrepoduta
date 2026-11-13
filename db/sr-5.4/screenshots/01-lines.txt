@@ -1,0 +1,11 @@
+$ wc -l pr-3.1/src/main/java/rental/{Database,Table,TableDao,QueryDao}.java | tail -1
+ 218 total
+
+$ wc -l pr-3.2/src/main/java/rental/{Database,Branch,Customer,Car,ActiveRental,FreeCar,BranchRevenue,BranchDao,CustomerDao,CarDao,ReportDao}.java | tail -1
+ 217 total
+
+$ wc -l pr-3.3/src/main/java/northwind/{Database,Queries}.java | tail -1
+ 157 total
+
+$ wc -l pr-3.3/src/main/java/northwind/entity/*.java | tail -1
+ 1465 total
