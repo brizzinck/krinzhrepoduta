@@ -14,7 +14,7 @@ city-year: "Київ – 2026"
 
 <style>
 pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important; }
-table { font-size: 10.5pt; }
+table { font-size: 9.5pt; }
 </style>
 
 # 1. Мета роботи
@@ -32,7 +32,7 @@ table { font-size: 10.5pt; }
 
 Правильній специфікації відповідає лише одна збірка. Проєкт Maven (Java 21, JUnit 6.1.3), залежність `ua.vendor:vendor:1.0` зі scope `test`; jar лежить поза репозиторієм і не комітиться. Повні логи в `results/`.
 
-![Схема запуску тестів](img/setup.png){width=33%}
+![Схема запуску тестів](img/setup.png){width=40%}
 
 # 3. Як отримано API без коду збірок
 
@@ -43,7 +43,12 @@ table { font-size: 10.5pt; }
 public interface ua.vendor.issues.OverduePolicy {
   public abstract ua.vendor.issues.IssueStatus check(java.time.LocalDate, boolean);
 }
-public final class ua.vendor.issues.IssueStatus extends java.lang.Enum<…> { ON_TRACK; OVERDUE; ESCALATE; … }
+public final class ua.vendor.issues.IssueStatus extends java.lang.Enum<ua.vendor.issues.IssueStatus> {
+  public static final ua.vendor.issues.IssueStatus ON_TRACK;
+  public static final ua.vendor.issues.IssueStatus OVERDUE;
+  public static final ua.vendor.issues.IssueStatus ESCALATE;
+  …
+}
 public final class ua.vendor.issues.Vendor {
   public static ua.vendor.issues.OverduePolicy build(int, java.time.Clock);
 }
@@ -59,7 +64,7 @@ mvn install:install-file -Dfile=v2-vendor.jar -DgroupId=ua.vendor -DartifactId=v
 
 # 4. Підхід до тестів
 
-Тести написано за специфікацією, значення обрано за класами еквівалентності та межами. Годинник скрізь фіксований: `Clock.fixed(instant, Europe/Kyiv)`, жодного `LocalDate.now()`. Звичайні тести використовують київський полудень, щоб дата була однозначна. Жодна з дат тестів не збігається зі справжньою датою запуску, тому збірка, що ігнорує годинник, помилилась би.
+Тести написано за специфікацією, значення обрано за класами еквівалентності та межами. Годинник скрізь фіксований: `Clock.fixed(instant, Europe/Kyiv)`, жодного `LocalDate.now()`. Звичайні тести використовують київський полудень, щоб дата була однозначна. Жодна з дат тестів не збігається зі справжньою датою запуску, тому збірка, що ігнорує годинник, помилилась би. Кожен тест сам створює годинник і збірку, спільного стану між тестами немає, тому порядок запуску на результат не впливає (перевірено в розділі 6).
 
 | Група тестів | Значення | Навіщо |
 |------------|------------------------------|--------------------|
@@ -84,14 +89,14 @@ mvn install:install-file -Dfile=v2-vendor.jar -DgroupId=ua.vendor -DartifactId=v
 
 # 5. Код тестів
 
-Збірку для кожного тесту дає один метод; номер збірки береться з системної властивості:
+Збірку для кожного тесту дає один метод; номер збірки береться з системної властивості. `policyOn` будує годинник на київський полудень заданої дати:
 
 ```java
     private static OverduePolicy policy(Clock clock) {
         return Vendor.build(Integer.getInteger("build", 1), clock);
     }
 
-    private static OverduePolicy policyOn(String today) {   // київський полудень заданої дати
+    private static OverduePolicy policyOn(String today) {
         Instant noon = LocalDate.parse(today).atTime(12, 0).atZone(KYIV).toInstant();
         return policy(Clock.fixed(noon, KYIV));
     }
@@ -139,19 +144,19 @@ org.opentest4j.AssertionFailedError: expected: <OVERDUE> but was: <ESCALATE>
 [ERROR] Tests run: 35, Failures: 6, Errors: 0, Skipped: 0
 ```
 
-Незалежність від поясу комп'ютера: набір запущено ще з `-DargLine=-Duser.timezone=America/Los_Angeles` і `Pacific/Kiritimati` (у логах рядок «Часовий пояс комп'ютера: …» це підтверджує). Набори тестів, що впали, у всіх шести збірках збіглися з основним запуском у поясі контейнера Etc/UTC (`results/tz-*.txt`, `results/summary.txt`).
+Незалежність від поясу комп'ютера і порядку тестів: набір запущено ще з `-DargLine=-Duser.timezone=America/Los_Angeles` і `Pacific/Kiritimati` (у логах рядок «Часовий пояс комп'ютера: …» це підтверджує). Набори тестів, що впали, у всіх шести збірках збіглися з основним запуском у поясі контейнера Etc/UTC (`results/tz-*.txt`, `results/summary.txt`). Так само збіглися набори при випадковому порядку методів JUnit (`MethodOrderer$Random`, зерна 1-3, `results/order.txt`).
 
 # 7. Звіти про дефекти
 
 Усі дати з 2026 року. Опис причин це припущення за поведінкою: код збірок не переглядався.
 
-| Збірка | Тест | Вхідні дані | Очікувано | Фактично | Порушене правило |
-|-----|-----------|-----------|--------|--------|---------------|
-| 1 | `overdueByWorkingDays` [3] (також [5] [6] [9] [10] [16]) | дедлайн пт 05.06, сьогодні пн 08.06, `done=false` | `OVERDUE` | `ESCALATE` | Рахуються лише пн-пт: після дедлайну 1 робочий день. Схоже, вихідні враховано як робочі |
-| 2 | `deadlineTodayOrLaterIsOnTrack` [1] (також [2], `kyivLateEveningWinter`, `dstDayLateEvening`) | дедлайн 03.06 і сьогодні 03.06 (середа), `done=false` | `ON_TRACK` | `OVERDUE` | Дедлайн сьогодні дає `ON_TRACK`. Дедлайн «завтра» збірка пропускає правильно |
-| 3 | `doneIssueIsOnTrack` [1] (також [2] [3]) | `done=true`, дедлайн 02.06, сьогодні 03.06 | `ON_TRACK` | `OVERDUE` ([2] [3]: `ESCALATE`) | Виконана задача завжди `ON_TRACK`. Прапорець `done` ігнорується при простроченому дедлайні |
-| 4 | `overdueByWorkingDays` [2] (також [4] [7] [11] [13] [15] [17]) | дедлайн пн 01.06, сьогодні ср 03.06, `done=false` | `ESCALATE` | `OVERDUE` | 2 робочі дні (вт, ср) це вже `ESCALATE`. Поріг зсунуто: потрібно 3 дні |
-| 5 | `kyivMidnightSummer` (також `dstDayAfterMidnight`, `kyivDateEvenWhenClockIsInUtc`) | годинник Київ 10.06 00:30 (UTC 09.06 21:30), дедлайн 09.06, `done=false` | `OVERDUE` | `ON_TRACK` | «Сьогодні» за київським часом, тобто 10.06. Збірка, схоже, бере дату за UTC (09.06) |
+| № | Тест | Вхідні дані | Мало бути | Було | Порушене правило |
+|---|------------------------|----------------|------------|------------|--------------------|
+| 1 | `overdueByWorkingDays` [3] і ще 5 рядків | дедлайн пт 05.06, сьогодні пн 08.06, `done=false` | `OVERDUE` | `ESCALATE` | Рахуються лише пн-пт: після дедлайну 1 робочий день. Схоже, вихідні враховано як робочі |
+| 2 | `deadlineTodayOrLaterIsOnTrack` [1] і ще 3 тести | дедлайн 03.06 і сьогодні 03.06 (середа), `done=false` | `ON_TRACK` | `OVERDUE` | Дедлайн сьогодні дає `ON_TRACK`. Дедлайн «завтра» збірка пропускає правильно |
+| 3 | `doneIssueIsOnTrack` [1] і ще [2] [3] | `done=true`, дедлайн 02.06, сьогодні 03.06 | `ON_TRACK` | `OVERDUE` ([2] [3]: `ESCALATE`) | Виконана задача завжди `ON_TRACK`. Прапорець `done` ігнорується при простроченому дедлайні |
+| 4 | `overdueByWorkingDays` [2] і ще 6 рядків | дедлайн пн 01.06, сьогодні ср 03.06, `done=false` | `ESCALATE` | `OVERDUE` | 2 робочі дні (вт, ср) це вже `ESCALATE`. Поріг зсунуто: потрібно 3 дні |
+| 5 | `kyivMidnightSummer` і ще 2 тести | годинник Київ 10.06 00:30 (UTC 09.06 21:30), дедлайн 09.06, `done=false` | `OVERDUE` | `ON_TRACK` | «Сьогодні» за київським часом, тобто 10.06. Збірка, схоже, бере дату за UTC (09.06) |
 
 # 8. Рішення про прийняття і неоднозначності
 

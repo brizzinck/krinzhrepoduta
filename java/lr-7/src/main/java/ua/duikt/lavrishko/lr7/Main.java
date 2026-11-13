@@ -44,7 +44,8 @@ public class Main {
         // Топ-5: за story points від більшого до меншого, за рівних за ключем
         System.out.println("Топ-5 за story points:");
         issues.stream()
-                .sorted(Comparator.comparingInt(Issue::storyPoints).reversed().thenComparing(Issue::key))
+                .sorted(Comparator.comparingInt(Issue::storyPoints).reversed()
+                        .thenComparing(Issue::key))
                 .limit(5)
                 .forEach(issue -> System.out.printf("  %2d %s%n", issue.storyPoints(), issue.key()));
 

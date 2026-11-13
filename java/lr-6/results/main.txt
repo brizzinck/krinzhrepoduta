@@ -1,4 +1,4 @@
-> ../../tools/java.sh -cp target/classes ua.duikt.lavrishko.lr6.Main data/v2_issues.txt data/v2_members.txt
+> java -cp target/classes ua.duikt.lavrishko.lr6.Main data/v2_issues.txt data/v2_members.txt
 Задачі: рядків у файлі 40, записів у сховищі 37
 Повтори ключа (лишається пізніший запис): 3
   SHOP-106: значення різні; було: SHOP-106 Виправити дублікати в кошику, 13 SP; стало: SHOP-106 Виправити дублікати в кошику, 8 SP

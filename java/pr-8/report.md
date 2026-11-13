@@ -22,13 +22,13 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 
 # 2. Завдання за варіантом
 
-Номер у списку групи 12, варіант 2 (12 mod 5): `Sprint.canAdd(points, current)`: оцінка задачі від 1 до 13, разом у спринті не більше 40 SP. Межі: оцінки 0, 1, 13, 14, сума 40 і 41. Сервіс `IssueService`: виконавець береться з `TeamDirectory`, повідомлення йде в `ChatNotifier`. Maven, Java 21, JUnit 6.1.3 (через `junit-bom`), `mockito-junit-jupiter` 5.24.0, Surefire 3.6.1, запуск у docker. Повні логи кожного кроку в `results/`.
+Номер у списку групи 12, варіант 2 (12 mod 5): `Sprint.canAdd(points, current)`: оцінка задачі від 1 до 13, разом у спринті не більше 40 SP. Межі: оцінки 0, 1, 13, 14, сума 40 і 41. Сервіс `IssueService`: поточне навантаження виконавця береться з `TeamDirectory`, повідомлення йде в `ChatNotifier`. Maven, Java 21, JUnit 6.1.3 (через `junit-bom`), `mockito-junit-jupiter` 5.24.0, Surefire 3.6.1, запуск у docker. Повні логи кожного кроку в `results/`.
 
-![Клас, сервіс і залежності](img/classes.png){width=90%}
+![Клас, сервіс і залежності](img/classes.png){width=70%}
 
 # 3. Клас і правило
 
-Некоректна оцінка (поза 1..13) дає `IllegalArgumentException`. Від'ємну поточну суму я теж вважаю некоректною й кидаю той самий виняток (методичка про неї не каже).
+Некоректна оцінка (поза 1..13) дає `IllegalArgumentException`. Від'ємну поточну суму я теж вважаю некоректною й кидаю той самий виняток (методичка про неї не каже). Ємність спринту `CAPACITY = 40`.
 
 ```java
     public boolean canAdd(int points, int current) {
@@ -39,7 +39,7 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
         if (current < 0) {
             throw new IllegalArgumentException("поточна сума " + current + " не може бути від'ємною");
         }
-        return current + points <= CAPACITY;   // CAPACITY = 40
+        return current + points <= CAPACITY;
     }
 ```
 
@@ -94,7 +94,9 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 
     @ParameterizedTest
     @ValueSource(ints = {0, 14})
-    void pointsOutsideRangeThrow(int points) { /* assertThrows(IllegalArgumentException.class, ...) */ }
+    void pointsOutsideRangeThrow(int points) {
+        assertThrows(IllegalArgumentException.class, () -> sprint.canAdd(points, 0));
+    }
 ```
 
 Значення вибрано на самій межі й по обидва боки від неї: 1 і 13 останні допустимі оцінки, 0 і 14 перші недопустимі, сума 40 остання допустима, 41 перша недопустима. Саме на межах перемикання `<=` на `<` дає помилку.
@@ -120,12 +122,19 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 `IssueService.plan(login, points)` бере поточну суму з `TeamDirectory`, питає `Sprint.canAdd` і надсилає повідомлення через `ChatNotifier`. Обидва інтерфейси без реалізацій. У тесті (`@ExtendWith(MockitoExtension.class)`) довідник повертає задане число, а повідомлення перевіряє `verify`:
 
 ```java
+    @Mock
+    private TeamDirectory directory;   // стаб: лише повертає дані
+    @Mock
+    private ChatNotifier notifier;     // мок: перевіряємо виклик
+    …
     @Test
     void notifiesWhenTaskIsAdded() {
-        when(directory.currentPoints("olena")).thenReturn(30);   // стаб
+        when(directory.currentPoints("olena")).thenReturn(30);
+
         boolean added = service.plan("olena", 5);
+
         assertTrue(added);
-        verify(notifier).send("olena", "Задачу на 5 SP додано в спринт");   // мок
+        verify(notifier).send("olena", "Задачу на 5 SP додано в спринт");
     }
 ```
 
@@ -157,9 +166,9 @@ WARNING: Dynamic loading of agents will be disallowed by default in a future rel
 
 ```
 > mvn test                                   (results/final_green.txt)
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0 -- in …SprintBoundaryTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0 -- in …IssueServiceTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0 -- in …SprintTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, … -- in …SprintBoundaryTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, … -- in …IssueServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, … -- in …SprintTest
 [INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
 [INFO] BUILD SUCCESS
 ```

@@ -28,7 +28,7 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 
 Одне сховище `Storage<K, T extends Keyed<K>>` обслуговує обидва типи записів. Інтерфейс `Keyed<K>` має один метод `key()`, його реалізують записи `Issue` і `Member` (Java record). Рядки перетворюють `IssueParser` і `MemberParser` через спільний інтерфейс `LineParser<T>`, а `Loader.load` читає файл і кладе записи у сховище. Критерії сортування лежать в окремих класах `ByStoryPoints` і `ByClosedCount`.
 
-![Класи сховища](img/storage.png){width=68%}
+![Класи сховища](img/storage.png){width=90%}
 
 Клієнтський код (`Main`) не має приведень типу: `Storage<String, Issue>` повертає `Issue`, `Storage<String, Member>` повертає `Member` (`grep -rnE '\((Issue|Member)\)' src` порожній, `results/check.txt`).
 
@@ -67,11 +67,11 @@ public class ByStoryPoints implements Comparator<Issue> {
 }
 ```
 
-Якби компаратор порівнював лише story points, то `TreeSet` чи `TreeMap` вважали б елементи з `compare == 0` однаковими й залишили б лише один. Тому результат збираю в список: `List.sort` стабільний і нічого не відкидає, а порівняння за ключем додає визначеності. записи з однаковим значенням лишаються в результаті (у задачах десять записів по 1 SP, шість по 5 SP, шість по 13 SP).
+Якби компаратор порівнював лише story points, то `TreeSet` чи `TreeMap` вважали б елементи з `compare == 0` однаковими й залишили б лише один. Тому результат збираю в список: `List.sort` стабільний і нічого не відкидає, а порівняння за ключем додає визначеності. Записи з однаковим значенням лишаються в результаті (у задачах десять записів по 1 SP, шість по 5 SP, шість по 13 SP).
 
 # 6. Захист внутрішнього стану
 
-Сховище не віддає мапу. `iterator()` і `all()` повертають `Collections.unmodifiableCollection(records.values())`: це подання лише для читання, for-each працює, зміни кидають `UnsupportedOperationException`. Список повторів теж не змінюється ззовні (`unmodifiableList`). Відсортований результат окремий список, тому його очищення сховище не зачіпає.
+Сховище не віддає мапу. `iterator()` і `all()` повертають `Collections.unmodifiableCollection(records.values())`: це подання лише для читання, for-each працює, зміни кидають `UnsupportedOperationException`. Список повторів теж не змінюється ззовні (`unmodifiableList`). Відсортований результат це окремий список, тому його очищення сховище не зачіпає.
 
 # 7. Результати для обох файлів
 

@@ -36,6 +36,7 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 > javac … compile-errors/E1_box_type/*.java
 BoxTypeError.java:7: error: incompatible types: String cannot be converted to Issue
         box.put("abc");   // рядок замість Issue
+…
 ```
 
 Те саме з `ObjectBox` компілюється, а помилка з'являється під час читання з приведенням `(Issue) box.get()`:
@@ -56,6 +57,7 @@ Exception in thread "main" java.lang.ClassCastException: class java.lang.String 
 > javac … compile-errors/E2_list_number/*.java
 ListNumberError.java:15: error: incompatible types: List<Integer> cannot be converted to List<Number>
         System.out.println(total(ints));
+…
 ```
 
 Узагальнені типи інваріантні: `Integer` є підтипом `Number`, але `List<Integer>` не є підтипом `List<Number>`. Інакше через `List<Number>` у список цілих можна було б покласти `Double`. Виправлення: параметр `List<? extends Number>`, метод лише читає числа.
@@ -75,6 +77,7 @@ ListNumberError.java:15: error: incompatible types: List<Integer> cannot be conv
 total(List<Integer>) = 26.0
 total(List<Number>)  = 26.5
 first(List<Issue>) = SHOP-1 (5 SP) Вхід через Google
+first(List<Integer>) = 5
 ```
 
 # 4. Дослід 2. Час колекцій і видалення в циклі
@@ -110,8 +113,9 @@ Exception in thread "main" java.util.ConcurrentModificationException
 ```java
         Iterator<Issue> it = issues.iterator();
         while (it.hasNext()) {
-            if (it.next().getStoryPoints() < 3) {
-                it.remove();   // ітератор оновлює і список, і свій лічильник
+            Issue issue = it.next();
+            if (issue.getStoryPoints() < 3) {
+                it.remove();   // ітератор сам оновлює свій стан
             }
         }
 ```
@@ -133,7 +137,7 @@ Exception in thread "main" java.util.ConcurrentModificationException
 equals і hashCode:       size = 1, contains(третій рівний) = true
 ```
 
-`HashSet` спершу бере `hashCode`, щоб знайти кошик, і лише потім викликає `equals`. Без обох методів (стан 1) рівність і хеш за посиланням: усі об'єкти різні. Коли є лише `equals` (стан 2), хеш лишається ідентифікаційним, тому рівні за ключем об'єкти потрапляють у різні кошики, і `equals` до них навіть не доходить. Лише в стані 3 рівні об'єкти мають однаковий хеш і розпізнаються.
+`HashSet` спершу бере `hashCode`, щоб знайти кошик, і лише потім викликає `equals`. Без обох методів (стан 1) рівність і хеш за посиланням: усі об'єкти різні. Коли є лише `equals` (стан 2), хеш лишається ідентифікаційним: рівні за ключем об'єкти мають різні хеші. `HashSet` спершу порівнює збережений хеш і викликає `equals` лише за однакового хешу, тому до `equals` справа не доходить (навіть якщо кошики випадково збіглися). Лише в стані 3 рівні об'єкти мають однаковий хеш і розпізнаються.
 
 Далі я змінив ключ у об'єкта, що вже лежить у `HashSet<Issue>`:
 
@@ -154,9 +158,9 @@ equals і hashCode:       size = 1, contains(третій рівний) = true
 
 **2. Чим `List<? extends Number>` відрізняється від `List<Number>`?** `List<Number>` приймає лише список саме з типом `Number` і дозволяє в нього писати. `List<? extends Number>` приймає список будь-якого підтипу (`Integer`, `Double`), але дозволяє тільки читати елементи як `Number`: невідомо, який підтип у списку, тож безпечно записати можна лише `null`.
 
-**3. Чому вставка в середину `LinkedList` не обов'язково швидша, ніж в `ArrayList`?** Сама вставка вузла O(1), але до середини треба дійти по ланцюжку посилань (до 50 000 кроків). `ArrayList` знаходить індекс одразу, а зсув хвоста швидко виконує `arraycopy` над неперервною пам'яттю: у досліді 1-2 мс проти 236-326 мс.
+**3. Чому вставка в середину `LinkedList` не обов'язково швидша, ніж в `ArrayList`?** Сама вставка вузла O(1), але до середини треба дійти по ланцюжку посилань (до 50 000 кроків). `ArrayList` знаходить індекс одразу, а зсув хвоста швидко виконує `arraycopy` над неперервною пам'яттю: у досліді 2: 1-2 мс проти 236-326 мс.
 
-**4. Чому `HashSet` не знаходить рівний об'єкт, якщо перевизначено лише `equals`?** Пошук починається з `hashCode`. Рівні за `equals` об'єкти мають різні ідентифікаційні хеші й потрапляють у різні кошики, тому `equals` не викликається. Контракт: рівні за `equals` об'єкти зобов'язані мати однаковий `hashCode`.
+**4. Чому `HashSet` не знаходить рівний об'єкт, якщо перевизначено лише `equals`?** Пошук починається з `hashCode`. Рівні за `equals` об'єкти мають різні ідентифікаційні хеші; `HashSet` спершу порівнює хеш і викликає `equals` лише за однакового хешу, тому до `equals` справа не доходить. Контракт: рівні за `equals` об'єкти зобов'язані мати однаковий `hashCode`.
 
 **5. Що буде з об'єктом у `HashSet`, якщо змінити поле, від якого залежить хеш?** Об'єкт лишається в кошику за старим хешем. `contains` не знаходить його ні за старим ключем (не збігається `equals`), ні за новим (інший кошик), хоча об'єкт є в множині. Його можна лише обійти ітератором.
 

@@ -6,14 +6,14 @@
 36
 (код завершення: 0)
 
-> tail -n +2 data/v2_issues.txt | tr -d '\r' | sort -u | awk (кількість і сума за статусами)
+> tail -n +2 data/v2_issues.txt | tr -d '\r' | sort -u | awk -F';' '{c[$2]++; s[$2]+=$4} END {for (k in c) print k, c[k], s[k]}' | sort
 DONE 11 77
 IN_PROGRESS 9 36
 REVIEW 8 33
 TODO 8 35
 (код завершення: 0)
 
-> tail -n +2 data/v2_issues.txt | tr -d '\r' | sort -u | awk (ключі з 13 SP)
+> tail -n +2 data/v2_issues.txt | tr -d '\r' | sort -u | awk -F';' '$4 == 13 {print $1}' | sort
 SHOP-190
 SHOP-286
 SHOP-357

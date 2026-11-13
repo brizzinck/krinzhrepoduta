@@ -106,7 +106,7 @@ peek SHOP-108
 сума: 39
 
 > java … Exp2Peek lazy
-Конвеєр створено, термінальної операції немає (peek не викликано)
+Конвеєр створено, термінальної операції немає
 ```
 
 Проміжні операції `filter`, `peek`, `mapToInt` лише описують конвеєр і нічого не виконують. Робота починається, коли викликають термінальну операцію. У першому запуску `peek` надрукував 5 рядків, по одному на задачу, що пройшла `filter`, а в другому не надрукував нічого, бо термінальної операції не було.
@@ -117,7 +117,8 @@ peek SHOP-108
 
 ```java
 Optional<Issue> none = issues.stream().filter(i -> i.getStoryPoints() > 100).findFirst();
-none.map(Issue::getKey).orElse("не знайдено");
+System.out.println("  map(Issue::getKey).orElse: "
+                + none.map(Issue::getKey).orElse("не знайдено"));
 ```
 
 ```

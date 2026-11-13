@@ -19,7 +19,7 @@ public class Exp2Peek {
             Stream<Issue> pipeline = issues.stream()
                     .filter(issue -> issue.getStoryPoints() >= 5)
                     .peek(issue -> System.out.println("peek " + issue.getKey()));
-            System.out.println("Конвеєр створено, термінальної операції немає (peek не викликано)");
+            System.out.println("Конвеєр створено, термінальної операції немає");
         } else {
             System.err.println("Використання: Exp2Peek terminal|lazy");
             System.exit(2);

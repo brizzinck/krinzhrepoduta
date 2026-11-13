@@ -26,3 +26,13 @@ for tz in America_Los_Angeles Pacific_Kiritimati; do
   done
   echo "Пояс $tz: набори тестів, що впали, у всіх шести збірках збігаються зі звичайним запуском: $same"
 done
+
+# Випадковий порядок методів (зерна 1-3): набори тестів, що впали, збігаються зі звичайним запуском
+oblock() { awk -v n="$2" -v s="$3" '/^> mvn test/ { show = ($0 ~ ("-Dbuild=" n " ") && $0 ~ ("seed=" s "$")) } show' "$1"; }
+for seed in 1 2 3; do
+  same=так
+  for n in 1 2 3 4 5 6; do
+    [ "$(oblock order.txt $n $seed | failed)" = "$(failed < build-$n.txt)" ] || same=ні
+  done
+  echo "Випадковий порядок методів, зерно $seed: набори тестів, що впали, збігаються зі звичайним запуском: $same"
+done

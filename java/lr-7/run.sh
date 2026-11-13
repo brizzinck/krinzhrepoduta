@@ -14,5 +14,9 @@ $T/runlog.sh -t -d "java -jar target/report.jar data/v2_issues.txt" results/usag
 U="tail -n +2 data/v2_issues.txt | tr -d '\\r' | sort -u"
 $T/runlog.sh -t -d "tail -n +2 data/v2_issues.txt | wc -l" results/check.txt -- sh -c "tail -n +2 data/v2_issues.txt | wc -l"
 $T/runlog.sh -d "$U | wc -l" results/check.txt -- sh -c "$U | wc -l"
-$T/runlog.sh -d "$U | awk (кількість і сума за статусами)" results/check.txt -- sh -c "$U | awk -F';' '{c[\$2]++; s[\$2]+=\$4} END {for (k in c) print k, c[k], s[k]}' | sort"
-$T/runlog.sh -d "$U | awk (ключі з 13 SP)" results/check.txt -- sh -c "$U | awk -F';' '\$4 == 13 {print \$1}' | sort"
+A1='{c[$2]++; s[$2]+=$4} END {for (k in c) print k, c[k], s[k]}'
+A2='$4 == 13 {print $1}'
+C1="$U | awk -F';' '$A1' | sort"
+C2="$U | awk -F';' '$A2' | sort"
+$T/runlog.sh -d "$C1" results/check.txt -- sh -c "$C1"
+$T/runlog.sh -d "$C2" results/check.txt -- sh -c "$C2"

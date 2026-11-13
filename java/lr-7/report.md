@@ -56,7 +56,8 @@ byStatus.forEach((status, stat) ->
 
 ```java
 issues.stream()
-        .sorted(Comparator.comparingInt(Issue::storyPoints).reversed().thenComparing(Issue::key))
+        .sorted(Comparator.comparingInt(Issue::storyPoints).reversed()
+                .thenComparing(Issue::key))
         .limit(5)
         .forEach(issue -> System.out.printf("  %2d %s%n", issue.storyPoints(), issue.key()));
 ```
@@ -100,7 +101,7 @@ String found = issues.stream()
 
 Для відсутнього ключа програма завершується з кодом 0 і друкує «не знайдено». Без другого аргументу вона друкує підказку `Використання: java -jar report.jar <файл з даними> <ключ задачі>` і завершується з кодом 2 (`results/usage.txt`).
 
-Підсумки я перевірив без Java: `tail -n +2 data/v2_issues.txt | tr -d '\r' | sort -u` лишає 36 рядків, `awk` рахує за статусами `DONE 11 77`, `IN_PROGRESS 9 36`, `REVIEW 8 33`, `TODO 8 35`, і це збігається з виводом програми. Шість ключів із 13 SP (`SHOP-190`, `-286`, `-357`, `-366`, `-376`, `-395`) за ключем дають саме перші п'ять з топ-5 (`results/check.txt`).
+Підсумки я перевірив без Java: `tail -n +2 data/v2_issues.txt | tr -d '\r' | sort -u` лишає 36 рядків, `awk` рахує за статусами `DONE 11 77`, `IN_PROGRESS 9 36`, `REVIEW 8 33`, `TODO 8 35`, і це збігається з виводом програми. Із шести задач із 13 SP (`SHOP-190`, `-286`, `-357`, `-366`, `-376`, `-395`) у топ-5 потрапили перші п'ять за ключем, `SHOP-395` шоста (`results/check.txt`).
 
 # 6. Відповіді на контрольні питання
 
