@@ -1,0 +1,25 @@
+> tail -n +2 data/v2_issues.txt | wc -l
+40
+(код завершення: 0)
+
+> tail -n +2 data/v2_issues.txt | cut -d';' -f1 | sort -u | wc -l
+37
+(код завершення: 0)
+
+> tail -n +2 data/v2_members.txt | wc -l
+40
+(код завершення: 0)
+
+> tail -n +2 data/v2_members.txt | cut -d';' -f1 | sort -u | wc -l
+37
+(код завершення: 0)
+
+> grep -E 'SHOP-106|falcon14' data/*.txt
+SHOP-106;Виправити дублікати в кошику;13
+SHOP-106;Виправити дублікати в кошику;8
+falcon14;Гончаренко Олена;59
+falcon14;Гончаренко Олена;60
+(код завершення: 0)
+
+> grep -rnE '\((Issue|Member)\)' src
+(код завершення: 1)

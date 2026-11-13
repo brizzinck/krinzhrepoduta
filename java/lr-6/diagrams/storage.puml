@@ -1,0 +1,49 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam ClassBackgroundColor #FFFFFF
+skinparam ClassBorderColor #333333
+skinparam ArrowColor #333333
+hide empty members
+interface "Keyed<K>" as Keyed {
+  + key() : K
+}
+class "Storage<K, T extends Keyed<K>>" as Storage {
+  - records : LinkedHashMap<K, T>
+  - replacements : List<Replacement<T>>
+  + add(T)
+  + find(K) : Optional<T>
+  + size() : int
+  + all() : Collection<T>
+  + sorted(Comparator<? super T>) : List<T>
+  + iterator() : Iterator<T>
+}
+interface "LineParser<T>" as LineParser {
+  + parse(String) : T
+}
+class Loader {
+  + {static} load(Path, LineParser<T>, Storage<K,T>) : int
+}
+class Issue <<record>> {
+  key, title, storyPoints
+}
+class Member <<record>> {
+  login, fullName, closedCount
+}
+class IssueParser
+class MemberParser
+class ByStoryPoints
+class ByClosedCount
+interface "Comparator<T>" as Comparator
+Keyed <|.. Issue
+Keyed <|.. Member
+LineParser <|.. IssueParser
+LineParser <|.. MemberParser
+Comparator <|.. ByStoryPoints
+Comparator <|.. ByClosedCount
+Storage ..> Keyed : T
+Loader ..> Storage
+Loader ..> LineParser
+Storage ..> Comparator
+@enduml
