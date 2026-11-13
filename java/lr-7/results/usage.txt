@@ -1,0 +1,3 @@
+> java -jar target/report.jar data/v2_issues.txt
+Використання: java -jar report.jar <файл з даними> <ключ задачі>
+(код завершення: 2)

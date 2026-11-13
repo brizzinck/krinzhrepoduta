@@ -1,0 +1,31 @@
+> java -jar target/report.jar data/v2_issues.txt SHOP-101
+Рядків у файлі: 40, унікальних записів: 36
+Статуси (кількість, сума story points):
+  DONE          11    77
+  IN_PROGRESS    9    36
+  REVIEW         8    33
+  TODO           8    35
+Топ-5 за story points:
+  13 SHOP-190
+  13 SHOP-286
+  13 SHOP-357
+  13 SHOP-366
+  13 SHOP-376
+Пошук SHOP-101: SHOP-101, DONE, виконавець byte8, 8 SP
+(код завершення: 0)
+
+> java -jar target/report.jar data/v2_issues.txt SHOP-000
+Рядків у файлі: 40, унікальних записів: 36
+Статуси (кількість, сума story points):
+  DONE          11    77
+  IN_PROGRESS    9    36
+  REVIEW         8    33
+  TODO           8    35
+Топ-5 за story points:
+  13 SHOP-190
+  13 SHOP-286
+  13 SHOP-357
+  13 SHOP-366
+  13 SHOP-376
+Пошук SHOP-000: не знайдено
+(код завершення: 0)

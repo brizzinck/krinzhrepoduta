@@ -1,0 +1,23 @@
+> tail -n +2 data/v2_issues.txt | wc -l
+40
+(код завершення: 0)
+
+> tail -n +2 data/v2_issues.txt | tr -d '\r' | sort -u | wc -l
+36
+(код завершення: 0)
+
+> tail -n +2 data/v2_issues.txt | tr -d '\r' | sort -u | awk (кількість і сума за статусами)
+DONE 11 77
+IN_PROGRESS 9 36
+REVIEW 8 33
+TODO 8 35
+(код завершення: 0)
+
+> tail -n +2 data/v2_issues.txt | tr -d '\r' | sort -u | awk (ключі з 13 SP)
+SHOP-190
+SHOP-286
+SHOP-357
+SHOP-366
+SHOP-376
+SHOP-395
+(код завершення: 0)

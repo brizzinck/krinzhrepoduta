@@ -1,0 +1,32 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+}
+start
+:Files.lines(файл, UTF-8);
+:skip(1): пропустити заголовок;
+:map(Issue::parse): рядок у Issue;
+:toList(): усі записи (40);
+:distinct(): прибрати повні повтори;
+:унікальні записи (36);
+fork
+  :groupingBy(Issue::status, TreeMap::new,\nsummarizingInt(Issue::storyPoints));
+  :підсумки за статусами;
+fork again
+  :sorted(за story points спадно, далі за ключем);
+  :limit(5);
+  :топ-5;
+fork again
+  :filter(ключ збігається);
+  :findFirst();
+  :map(Issue::toString);
+  :orElse("не знайдено");
+  :результат пошуку;
+end fork
+stop
+@enduml
