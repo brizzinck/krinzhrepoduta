@@ -1,9 +1,6 @@
 $ ./run.sh < demo/01-read.txt
 Підключено до БД: car_rental
-1 Показати таблицю   2 Знайти за ключем   3 Додати   4 Змінити   5 Видалити
-6 Активні оренди (JOIN)   7 Вільні авто (фільтр)   8 Виручка філій (агрегація)
-9 Меню   0 Вихід
-
+…
 Ваш вибір: 1
 1.branches  2.customers  3.cars
 Таблиця: 1
@@ -13,7 +10,6 @@ branchId | name                         | city   | address                      
 3        | Прокат «Одеса-Дерибасівська» | Одеса  | вул. Дерибасівська, 12         | +380485550103
 4        | Прокат «Дніпро-Яворницького» | Дніпро | просп. Дмитра Яворницького, 60 | +380565550104
 Рядків: 4
-
 Ваш вибір: 2
 1.branches  2.customers  3.cars
 Таблиця: 3
@@ -21,6 +17,5 @@ branchId | name                         | city   | address                      
 carId | modelId | branchId | vin               | plateNumber | manufactureYear | mileageKm | dailyPrice | status 
 1     | 1       | 1        | VF17LZZ6ETYVF057J | AA8367AT    | 2014            | 312450    | 450.00     | retired
 Рядків: 1
-
 Ваш вибір: 0
 Роботу завершено

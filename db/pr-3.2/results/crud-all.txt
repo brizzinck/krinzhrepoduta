@@ -71,7 +71,7 @@ license_expires [2030-01-01]:
 Таблиця: 2
 Ключ: 21
 customerId | firstName | lastName | middleName | phone         | email                 | birthDate  | licenseNumber | licenseExpires | registeredAt       
-21         | Тест      | Тестовий | NULL       | +380990000002 | test.user@example.com | 1990-01-01 | TST000001     | 2030-01-01     | 2026-11-13 00:10:11
+21         | Тест      | Тестовий | NULL       | +380990000002 | test.user@example.com | 1990-01-01 | TST000001     | 2030-01-01     | 2026-11-13 01:06:37
 Рядків: 1
 
 Ваш вибір: 5

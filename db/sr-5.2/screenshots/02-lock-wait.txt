@@ -1,14 +1,14 @@
-$ ../_shared/mysql.sh car_rental -e "START TRANSACTION; UPDATE cars SET mileage_km = mileage_km WHERE car_id = 1; DO SLEEP(10); ROLLBACK"   # сеанс A, у фоні
-$ ../_shared/mysql.sh car_rental -e "UPDATE cars SET status = status WHERE car_id = 1"   # сеанс B, у фоні, чекає
-
-$ ../_shared/mysql.sh -t -e "SELECT locked_table, wait_age_secs, waiting_pid, waiting_query, blocking_pid, blocking_query FROM sys.innodb_lock_waits"
-+---------------------+---------------+-------------+--------------------------------------------------+--------------+----------------+
-| locked_table        | wait_age_secs | waiting_pid | waiting_query                                    | blocking_pid | blocking_query |
-+---------------------+---------------+-------------+--------------------------------------------------+--------------+----------------+
-| `car_rental`.`cars` |             2 |         316 | UPDATE cars SET status = status WHERE car_id = 1 |          315 | DO SLEEP(10)   |
-+---------------------+---------------+-------------+--------------------------------------------------+--------------+----------------+
-
-$ ../_shared/mysql.sh -t -e "SELECT object_name, lock_type, lock_mode, lock_status, lock_data FROM performance_schema.data_locks WHERE object_name = 'cars'"
+$ mysql.sh car_rental -e "START TRANSACTION; UPDATE cars …; DO SLEEP(10); ROLLBACK" &   # сеанс A
+$ mysql.sh car_rental -e "UPDATE cars SET status = status WHERE car_id = 1" &   # сеанс B
+$ mysql.sh -E -e "SELECT locked_table, wait_age_secs, waiting_pid, waiting_query, … FROM sys.innodb_lock_waits"
+*************************** 1. row ***************************
+  locked_table: `car_rental`.`cars`
+ wait_age_secs: 2
+   waiting_pid: 130
+ waiting_query: UPDATE cars SET status = status WHERE car_id = 1
+  blocking_pid: 129
+blocking_query: DO SLEEP(10)
+$ mysql.sh -t -e "SELECT object_name, lock_type, lock_mode, … FROM performance_schema.data_locks WHERE …"
 +-------------+-----------+---------------+-------------+-----------+
 | object_name | lock_type | lock_mode     | lock_status | lock_data |
 +-------------+-----------+---------------+-------------+-----------+
@@ -17,5 +17,4 @@ $ ../_shared/mysql.sh -t -e "SELECT object_name, lock_type, lock_mode, lock_stat
 | cars        | RECORD    | X,REC_NOT_GAP | GRANTED     | 1         |
 | cars        | RECORD    | X,REC_NOT_GAP | WAITING     | 1         |
 +-------------+-----------+---------------+-------------+-----------+
-
 # Сеанс A завершився ROLLBACK, сеанс B виконався

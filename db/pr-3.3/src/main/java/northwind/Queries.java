@@ -20,19 +20,27 @@ public class Queries {
         }
     }
 
-    /** Перші рядки таблиці: from Entity. */
+    /** Перші рядки однієї з 8 таблиць: from Entity. */
     public void list(int table) {
-        String[] entity = {"Categories", "Products", "Customers", "Employees"};
+        String[] entity = {"Categories", "Products", "Customers", "Employees", "Orders", "OrderDetails", "Suppliers", "Shippers"};
         String[][] headers = {
             {"categoryId", "categoryName", "description"},
             {"productId", "productName", "unitPrice", "unitsInStock"},
             {"customerId", "companyName", "city", "country"},
-            {"employeeId", "firstName", "lastName", "city"}};
+            {"employeeId", "firstName", "lastName", "city"},
+            {"orderId", "orderDate", "shipCountry", "freight"},
+            {"orderId", "productId", "unitPrice", "quantity", "discount"},
+            {"supplierId", "companyName", "city", "country"},
+            {"shipperId", "companyName", "phone"}};
         String[] fields = {
             "c.categoryId, c.categoryName, c.description",
             "c.productId, c.productName, c.unitPrice, c.unitsInStock",
             "c.customerId, c.companyName, c.city, c.country",
-            "c.employeeId, c.firstName, c.lastName, c.city"};
+            "c.employeeId, c.firstName, c.lastName, c.city",
+            "c.orderId, c.orderDate, c.shipCountry, c.freight",
+            "c.id.orderId, c.id.productId, c.unitPrice, c.quantity, c.discount",
+            "c.supplierId, c.companyName, c.city, c.country",
+            "c.shipperId, c.companyName, c.phone"};
         try (Session session = factory.openSession()) {
             List<Object[]> rows = session
                 .createQuery("select " + fields[table] + " from " + entity[table] + " c order by 1", Object[].class)

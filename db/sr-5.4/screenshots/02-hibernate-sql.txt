@@ -1,4 +1,5 @@
-$ SHOW_SQL=true ./run.sh < demo/04-show-sql.txt   # SQL запиту 6, фрагмент виводу
+$ SHOW_SQL=true ./run.sh < demo/04-show-sql.txt
+# SQL запиту 6, фрагмент виводу
 Hibernate: 
     select
         o1_0.`OrderID`,

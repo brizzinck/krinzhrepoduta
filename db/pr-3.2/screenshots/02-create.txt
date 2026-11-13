@@ -1,9 +1,6 @@
 $ ./run.sh < demo/02-create.txt
 Підключено до БД: car_rental
-1 Показати таблицю   2 Знайти за ключем   3 Додати   4 Змінити   5 Видалити
-6 Активні оренди (JOIN)   7 Вільні авто (фільтр)   8 Виручка філій (агрегація)
-9 Меню   0 Вихід
-
+…
 Ваш вибір: 3
 1.branches  2.customers  3.cars
 Таблиця: 3
@@ -17,10 +14,9 @@ mileage_km:
 daily_price: 1500.00
 status: 
 Додано рядок, ключ: 25
-
 Ваш вибір: 0
 Роботу завершено
-$ ../_shared/mysql.sh -t car_rental -e "SELECT car_id, plate_number, mileage_km, daily_price, status FROM cars WHERE car_id = 25;"
+$ mysql.sh -t car_rental -e "SELECT car_id, plate_number, … FROM cars WHERE car_id = 25;"
 +--------+--------------+------------+-------------+-----------+
 | car_id | plate_number | mileage_km | daily_price | status    |
 +--------+--------------+------------+-------------+-----------+

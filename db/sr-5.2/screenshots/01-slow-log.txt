@@ -1,30 +1,20 @@
-$ ../_shared/mysql.sh -e "SET GLOBAL log_output = 'TABLE'; SET GLOBAL long_query_time = 0; SET GLOBAL slow_query_log = ON; TRUNCATE mysql.slow_log; TRUNCATE performance_schema.events_statements_summary_by_digest;"
-
-$ ../_shared/mysql.sh car_rental < demo.sql   # тричі
-
-$ ../_shared/mysql.sh -t -e "SELECT query_time, rows_sent, rows_examined, LEFT(sql_text, 38) AS sql_text FROM mysql.slow_log WHERE db = 'car_rental' AND sql_text LIKE 'SELECT r.rental_id%'"
-+-----------------+-----------+---------------+----------------------------------------+
-| query_time      | rows_sent | rows_examined | sql_text                               |
-+-----------------+-----------+---------------+----------------------------------------+
-| 00:00:00.000289 |         5 |            49 | SELECT r.rental_id, CONCAT(c.last_name |
-| 00:00:00.000282 |         5 |            49 | SELECT r.rental_id, CONCAT(c.last_name |
-| 00:00:00.000277 |         5 |            49 | SELECT r.rental_id, CONCAT(c.last_name |
-+-----------------+-----------+---------------+----------------------------------------+
-
-$ ../_shared/mysql.sh -t -e "SELECT LEFT(DIGEST_TEXT, 44) AS statement, COUNT_STAR AS cnt, ROUND(AVG_TIMER_WAIT / 1e9, 3) AS avg_ms, SUM_ROWS_EXAMINED AS rows_examined FROM performance_schema.events_statements_summary_by_digest WHERE SCHEMA_NAME = 'car_rental' ORDER BY SUM_TIMER_WAIT DESC LIMIT 3"
-+----------------------------------------------+-----+--------+---------------+
-| statement                                    | cnt | avg_ms | rows_examined |
-+----------------------------------------------+-----+--------+---------------+
-| SELECT @@`version_comment` LIMIT ?           |   3 |  0.544 |             3 |
-| SELECT `r` . `rental_id` , `CONCAT` ( `c` .  |   3 |  0.291 |           147 |
-+----------------------------------------------+-----+--------+---------------+
-
-$ ../_shared/mysql.sh -t -e "SHOW GLOBAL VARIABLES WHERE Variable_name IN ('slow_query_log', 'long_query_time', 'log_output')"
-+-----------------+-----------+
-| Variable_name   | Value     |
-+-----------------+-----------+
-| log_output      | FILE      |
-| long_query_time | 10.000000 |
-| slow_query_log  | OFF       |
-+-----------------+-----------+
-
+$ mysql.sh -e "SET GLOBAL long_query_time = 0; SET GLOBAL slow_query_log = ON; …"
+$ mysql.sh car_rental < demo.sql   # тричі
+$ mysql.sh -t -e "SELECT query_time, rows_sent, rows_examined, … FROM mysql.slow_log WHERE …"
++-----------------+-----------+---------------+----------------------+
+| query_time      | rows_sent | rows_examined | sql_text             |
++-----------------+-----------+---------------+----------------------+
+| 00:00:00.000326 |         5 |            49 | SELECT r.rental_id,  |
+| 00:00:00.000496 |         5 |            49 | SELECT r.rental_id,  |
+| 00:00:00.000355 |         5 |            49 | SELECT r.rental_id,  |
++-----------------+-----------+---------------+----------------------+
+$ mysql.sh -t -e "SELECT … AS avg_ms, … FROM performance_schema.events_statements_summary_by_digest …"
++----------------------+-----+--------+---------------+
+| statement            | cnt | avg_ms | rows_examined |
++----------------------+-----+--------+---------------+
+| SELECT `r` . `rental |   3 |  0.404 |           147 |
++----------------------+-----+--------+---------------+
+$ mysql.sh -N -e "SHOW GLOBAL VARIABLES WHERE Variable_name IN ('slow_query_log', …)"
+log_output	FILE
+long_query_time	10.000000
+slow_query_log	OFF

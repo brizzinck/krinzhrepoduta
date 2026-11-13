@@ -1,4 +1,4 @@
-$ DB_URL='jdbc:mysql://127.0.0.1:3306/car_rental?sslMode=REQUIRED' ../pr-3.1/run.sh < demo/tls-read.txt | sed -n 1p
+$ (sleep 8; echo 0) | DB_URL='jdbc:mysql://127.0.0.1:3306/car_rental?sslMode=REQUIRED' ../pr-3.1/run.sh | sed -un 1p &
 Підключено до БД: car_rental
 $ ../_shared/mysql.sh -t --skip-comments < demo/app-session-tls.sql
 +--------+-------------+------------------------+

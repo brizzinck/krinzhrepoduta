@@ -45,9 +45,9 @@ public class Main {
     private static boolean handle(String choice, Queries queries) {
         switch (choice) {
             case "1" -> {
-                System.out.println("1.categories  2.products  3.customers  4.employees");
+                System.out.println("1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers");
                 int table = Integer.parseInt(ask("Таблиця"));
-                if (table < 1 || table > 4) {
+                if (table < 1 || table > 8) {
                     System.out.println("Немає такої таблиці");
                 } else {
                     queries.list(table - 1);
@@ -81,7 +81,7 @@ public class Main {
     }
 
     private static void printMenu() {
-        System.out.println("1 Показати таблицю (перші 10 рядків)");
+        System.out.println("1 Показати таблицю (8 таблиць, перші 10 рядків)");
         System.out.println("3 Запит 3: середня ціна по категоріях   4 Запит 4: співробітники й клієнти по містах");
         System.out.println("5 Запит 5: дохід від клієнтів   6 Запит 6: замовлення зі співробітником");
         System.out.println("7 Демонстрація N+1   9 Меню   0 Вихід");

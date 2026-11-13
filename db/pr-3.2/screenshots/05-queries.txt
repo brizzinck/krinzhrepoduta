@@ -1,9 +1,6 @@
 $ ./run.sh < demo/06-queries.txt
 Підключено до БД: car_rental
-1 Показати таблицю   2 Знайти за ключем   3 Додати   4 Змінити   5 Видалити
-6 Активні оренди (JOIN)   7 Вільні авто (фільтр)   8 Виручка філій (агрегація)
-9 Меню   0 Вихід
-
+…
 Ваш вибір: 6
 rentalId | customer         | car                | plateNumber | pickupCity | plannedEndAt       
 23       | Шевченко Наталія | Toyota RAV4        | HH3568IO    | Одеса      | 2026-11-03 15:00:00
@@ -12,14 +9,12 @@ rentalId | customer         | car                | plateNumber | pickupCity | pl
 26       | Бойко Анастасія  | Toyota RAV4        | AE9300IH    | Одеса      | 2026-11-07 11:00:00
 24       | Мазур Світлана   | BMW 5 Series       | AA7245HP    | Київ       | 2026-11-09 09:15:00
 Рядків: 5
-
 Ваш вибір: 7
 Місто: Київ
 Максимальна ціна за добу: 1500
 carId | car               | plateNumber | city | dailyPrice
 9     | Volkswagen Passat | KA1335CT    | Київ | 1150.00   
 Рядків: 1
-
 Ваш вибір: 8
 branch                       | rentals | payments | total     | avgPayment
 Прокат «Дніпро-Яворницького» | 10      | 11       | 102190.00 | 9290.00   
@@ -27,6 +22,5 @@ branch                       | rentals | payments | total     | avgPayment
 Прокат «Київ-Центр»          | 4       | 4        | 60350.00  | 15087.50  
 Прокат «Львів-Свобода»       | 3       | 5        | 23000.00  | 4600.00   
 Рядків: 4
-
 Ваш вибір: 0
 Роботу завершено

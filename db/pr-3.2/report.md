@@ -47,9 +47,9 @@ public interface CarDao {
 }
 ```
 
-Значення йдуть лише через іменовані параметри, тому SQL-ін'єкція неможлива. Під час зміни додаток читає запис, питає нові значення (порожнє залишає поточне) і передає змінений запис у `update`. Помилки БД Jdbi загортає у `JdbiException`: меню ловить її, бере код MySQL із причини й продовжує роботу (рис. 5).
+Значення йдуть лише через іменовані параметри, тому SQL-ін'єкція неможлива. Під час зміни додаток читає запис, питає нові значення (порожнє залишає поточне) і передає змінений запис у `update`. Помилки БД Jdbi загортає у `JdbiException`: меню ловить її, бере код MySQL із причини й продовжує роботу (рис. 6).
 
-**Запити** (пункти меню 6, 7, 8, рис. 6) ті самі, що в ПР 3.1, тому результати можна порівняти:
+**Запити** (пункти меню 6, 7, 8, рис. 5) ті самі, що в ПР 3.1, тому результати можна порівняти:
 
 ```{.sql .small}
 -- Об'єднання п'яти таблиць: активні оренди (ActiveRental)
@@ -63,7 +63,8 @@ WHERE r.status = 'active' ORDER BY r.planned_end_at;
 -- Фільтрація: вільні авто, місто й ціна передаються як :city і :maxPrice (FreeCar)
 ... WHERE a.status = 'available' AND b.city = :city AND a.daily_price <= :maxPrice ...
 -- Агрегація: виручка філій (BranchRevenue)
-SELECT b.name AS branch, COUNT(DISTINCT r.rental_id) AS rentals, COUNT(p.payment_id) AS payments,
+SELECT b.name AS branch, COUNT(DISTINCT r.rental_id) AS rentals,
+       COUNT(p.payment_id) AS payments,
        SUM(p.amount) AS total, ROUND(AVG(p.amount), 2) AS avg_payment
 FROM branches b JOIN rentals r ON r.pickup_branch_id = b.branch_id
 JOIN payments p ON p.rental_id = r.rental_id
@@ -74,17 +75,17 @@ WHERE p.kind IN ('rent', 'fine') GROUP BY b.branch_id, b.name ORDER BY total DES
 
 Сценарії запуску лежать у `demo/`. На рис. 2–4 зміни перевірені окремим клієнтом `mysql`. Повний цикл CRUD для `branches`, `customers` і `cars` пройшов сценарій `demo/07-crud-all.txt`: 3 додавання, 3 зміни, 3 видалення, 0 помилок (`results/crud-all.txt`). Три запити дали ті самі рядки й суми, що в ПР 3.1: 5 оренд, одне вільне авто, 4 філії.
 
-| Рисунок 1 — Читання: записи `Branch` і `Car` | Рисунок 2 — Додавання авто (ключ 25) |
-|:-----------|:-----------|
-| ![](screenshots/01-read.png) | ![](screenshots/02-create.png) |
+![Рисунок 1 — Читання: записи `Branch` і `Car` (меню додатка скорочено до «…»)](screenshots/01-read.png){width=85%}
 
-| Рисунок 3 — Зміна авто 25 | Рисунок 4 — Видалення авто 25 |
+| Рисунок 2 — Додавання авто (ключ 25) | Рисунок 3 — Зміна авто 25 |
 |:-----------|:-----------|
-| ![](screenshots/03-update.png) | ![](screenshots/04-delete.png) |
+| ![](screenshots/02-create.png) | ![](screenshots/03-update.png) |
 
-| Рисунок 5 — Обробка помилок | Рисунок 6 — Три запити |
-|:-----------|:-----------|
-| ![](screenshots/05-errors.png) | ![](screenshots/06-queries.png) |
+![Рисунок 4 — Видалення авто 25](screenshots/04-delete.png){width=51%}
+
+![Рисунок 5 — Три запити](screenshots/05-queries.png){width=76%}
+
+![Рисунок 6 — Обробка помилок (довгі повідомлення обрізано до «…»)](screenshots/06-errors.png){width=76%}
 
 Код: <https://github.com/brizzinck/krinzhrepoduta/tree/main/db/pr-3.2>.
 

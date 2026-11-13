@@ -1,25 +1,16 @@
 $ ./run.sh < demo/01-tables.txt
 Підключено до БД: northwind_orm, MySQL 8.4.13 (Hibernate ORM)
-1 Показати таблицю (перші 10 рядків)
-3 Запит 3: середня ціна по категоріях   4 Запит 4: співробітники й клієнти по містах
-5 Запит 5: дохід від клієнтів   6 Запит 6: замовлення зі співробітником
-7 Демонстрація N+1   9 Меню   0 Вихід
-
+…
 Ваш вибір: 1
-1.categories  2.products  3.customers  4.employees
-Таблиця: 2
-productId | productName                     | unitPrice | unitsInStock
-1         | Chai                            | 18.0000   | 39          
-2         | Chang                           | 19.0000   | 17          
-3         | Aniseed Syrup                   | 10.0000   | 13          
-4         | Chef Anton's Cajun Seasoning    | 22.0000   | 53          
-5         | Chef Anton's Gumbo Mix          | 21.3500   | 0           
-6         | Grandma's Boysenberry Spread    | 25.0000   | 120         
-7         | Uncle Bob's Organic Dried Pears | 30.0000   | 15          
-8         | Northwoods Cranberry Sauce      | 40.0000   | 6           
-9         | Mishi Kobe Niku                 | 97.0000   | 29          
-10        | Ikura                           | 31.0000   | 31          
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+Таблиця: 6
+orderId | productId | unitPrice | quantity | discount
+10248   | 11        | 14.0000   | 12       | 0.00    
+10248   | 42        | 9.8000    | 10       | 0.00    
+10248   | 72        | 34.8000   | 5        | 0.00    
+10249   | 14        | 18.6000   | 9        | 0.00    
+10249   | 51        | 42.4000   | 40       | 0.00    
+…
 Рядків: 10
-
 Ваш вибір: 0
 Роботу завершено

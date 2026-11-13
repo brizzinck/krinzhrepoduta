@@ -1,42 +1,36 @@
+$ ./flyway.sh baseline
+…
+Creating Schema History table `northwind_orm`.`flyway_schema_history` with baseline ...
+Successfully baselined schema with version: 1
+$ ./run.sh < demo/00-start.txt   # модель без email, схема V1
+Підключено до БД: northwind_orm, MySQL 8.4.13 (Hibernate ORM)
+…
+Ваш вибір: 0
+Роботу завершено
+# Далі в сутність Customers додано поле email, проєкт зібрано знову
 $ ./run.sh < demo/00-start.txt   # модель із email, схема ще V1
 Не вдалося запустити Hibernate: Schema-validation: missing column [Email] in table [`northwind_orm`.`customers`]
-
 $ ./flyway.sh migrate
-Flyway OSS Edition 11.20.3 by Redgate
-
-See release notes here: https://rd.gt/416ObMi
-Database: jdbc:mysql://127.0.0.1:3306/northwind_orm (MySQL 8.4)
-Successfully validated 3 migrations (execution time 00:00.019s)
+…
+Successfully validated 3 migrations (execution time 00:00.017s)
 Current version of schema `northwind_orm`: 1
 Migrating schema `northwind_orm` to version "2 - add customer email"
-Successfully applied 1 migration to schema `northwind_orm`, now at version v2 (execution time 00:00.015s)
-
+Successfully applied 1 migration to schema `northwind_orm`, now at version v2 (execution time 00:00.019s)
 $ ./flyway.sh info
-Flyway OSS Edition 11.20.3 by Redgate
-
-See release notes here: https://rd.gt/416ObMi
-Database: jdbc:mysql://127.0.0.1:3306/northwind_orm (MySQL 8.4)
+…
 Schema version: 2
-
 +-----------+---------+-----------------------+----------+---------------------+--------------------+----------+
 | Category  | Version | Description           | Type     | Installed On        | State              | Undoable |
 +-----------+---------+-----------------------+----------+---------------------+--------------------+----------+
 | Versioned | 1       | northwind schema      | SQL      |                     | Ignored (Baseline) | No       |
-|           | 1       | << Flyway Baseline >> | BASELINE | 2026-11-13 00:17:33 | Baseline           | No       |
-| Versioned | 2       | add customer email    | SQL      | 2026-11-13 00:17:44 | Success            | No       |
+|           | 1       | << Flyway Baseline >> | BASELINE | 2026-11-13 01:03:45 | Baseline           | No       |
+| Versioned | 2       | add customer email    | SQL      | 2026-11-13 01:03:56 | Success            | No       |
 +-----------+---------+-----------------------+----------+---------------------+--------------------+----------+
-
-
 $ ./run.sh < demo/00-start.txt   # модель із email, схема V2
 Підключено до БД: northwind_orm, MySQL 8.4.13 (Hibernate ORM)
-1 Показати таблицю (перші 10 рядків)
-3 Запит 3: середня ціна по категоріях   4 Запит 4: співробітники й клієнти по містах
-5 Запит 5: дохід від клієнтів   6 Запит 6: замовлення зі співробітником
-7 Демонстрація N+1   9 Меню   0 Вихід
-
+…
 Ваш вибір: 0
 Роботу завершено
-
 $ ../_shared/mysql.sh -t northwind_orm -e "SHOW COLUMNS FROM customers LIKE 'Email';"
 +-------+--------------+------+-----+---------+-------+
 | Field | Type         | Null | Key | Default | Extra |

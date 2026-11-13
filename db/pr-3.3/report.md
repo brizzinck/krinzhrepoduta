@@ -24,14 +24,17 @@ city-year: "Київ – 2026"
 | EF Core (.NET) | Hibernate (Java) |
 |:---------------------|:----------------------------------------|
 | `DbContext` | `Session` (її створює `SessionFactory`) |
-| `DbSet<T>`, клас сутності | клас з `@Entity`, колекції `Set<T>` |
+| `DbSet<T>`, клас сутності | клас з `@Entity`, запит `from T` у `Session` |
+| навігаційна властивість `ICollection<T>` | поле `Set<T>` з `@OneToMany` |
 | `Scaffold-DbContext` | `hbm2java` (плагін `hibernate-tools-maven`) |
 | `Add-Migration`, `Update-Database` | Flyway: файли `V1__…sql`, команда `migrate` |
 | LINQ | JPQL |
 
-Копію бази я зробив окремо (`northwind_orm`), бо міграції змінюють схему. Підключення беруться зі змінних середовища.
+Копію бази я зробив окремо (`northwind_orm`), бо міграції змінюють схему. Підключення беруться зі змінних середовища. Меню показує всі 8 таблиць (рис. 1), їх повний вивід лежить у `results/all-tables.txt`.
 
-**Database First.** Генератор `hbm2java` читає схему MySQL і створює класи. У `hibernate.reveng.xml` я залишив 8 таблиць, потрібних запитам: `categories`, `products`, `suppliers`, `customers`, `employees`, `orders`, `order details`, `shippers`. Стовпці стали полями, зовнішні ключі стали зв'язками `@ManyToOne` та `@OneToMany`, складений ключ `order details` став `@EmbeddedId` (рис. 2). Назва `order details` має пробіл, тому в налаштуваннях увімкнено `globally_quoted_identifiers`. Режим `hbm2ddl.auto=validate`: Hibernate лише перевіряє, що схема збігається з сутностями. Вручну виправлено одне місце: `CustomerID` у БД `CHAR(5)`, генератор вказав `VARCHAR`, тому додано `@JdbcTypeCode(SqlTypes.CHAR)`.
+![Рисунок 1 — Підключення, перегляд таблиці `order details` (з 8)](screenshots/01-connect.png){width=88%}
+
+**Database First.** Генератор `hbm2java` читає схему MySQL і створює класи. У `hibernate.reveng.xml` я залишив 8 таблиць, потрібних запитам: `categories`, `products`, `suppliers`, `customers`, `employees`, `orders`, `order details`, `shippers`. Стовпці стали полями, зовнішні ключі стали зв'язками `@ManyToOne` та `@OneToMany`, складений ключ `order details` став `@EmbeddedId` (рис. 2). Назва `order details` має пробіл, тому в налаштуваннях увімкнено `globally_quoted_identifiers`. Режим `hbm2ddl.auto=validate`: Hibernate лише перевіряє, що схема збігається з сутностями. Повторна генерація в окрему теку відрізняється від моїх файлів лише в `Customers.java` (рис. 2). Вручну виправлено одне місце: `CustomerID` у БД `CHAR(5)`, генератор вказав `VARCHAR`, тому додано `@JdbcTypeCode(SqlTypes.CHAR)`.
 
 ```{.java .small}
 @Entity
@@ -51,12 +54,16 @@ public class Products implements java.io.Serializable {
 }
 ```
 
-**Міграції.** Hibernate не створює міграції з різниці моделей, на відміну від `Add-Migration`, тому я взяв Flyway 11.20 у docker. `V1__northwind_schema.sql` це схема 8 таблиць, знята `mysqldump --no-data`: на існуючій базі вона стає базовою версією (`baseline`). Зміна моделі: клієнт отримує поле `email`. Спершу сутність `Customers` без `email`, потім із ним: Hibernate при запуску не знаходить стовпець `Email` і зупиняється, `validate` це доводить (рис. 3, ліворуч). Друга міграція `V2__add_customer_email.sql` виконується командою `migrate`, після неї додаток запускається (рис. 3, праворуч).
+![Рисунок 2 — Генерація сутностей](screenshots/02-scaffold.png){width=100%}
+
+**Міграції.** Hibernate не створює міграції з різниці моделей, на відміну від `Add-Migration`, тому я взяв Flyway 11.20 у docker. `V1__northwind_schema.sql` це схема 8 таблиць, знята `mysqldump --no-data`: на існуючій базі вона стає базовою версією (`baseline`), а на порожній створює всі 8 таблиць, тобто це повноцінна перша міграція. Зміна моделі: клієнт отримує поле `email`. Спершу сутність `Customers` без `email`, потім із ним: Hibernate при запуску не знаходить стовпець `Email` і зупиняється, `validate` це доводить. Друга міграція `V2__add_customer_email.sql` виконується командою `migrate`, після неї додаток запускається. На рис. 3 зверху вниз: базова версія V1 і запуск зі старою моделлю, помилка `validate` після зміни моделі, `migrate`, запуск зі стовпцем `Email`.
 
 ```{.sql .small}
 -- V2__add_customer_email.sql
 ALTER TABLE customers ADD COLUMN Email VARCHAR(100) NULL;
 ```
+
+![Рисунок 3 — Міграції: база V1, помилка `validate`, `migrate`, запуск (банер Flyway і меню додатка скорочено до «…»)](screenshots/03-migrations.png){width=100%}
 
 **Запити 3-6** з ПР 1.2 (меню 3-6, рис. 4) записані в JPQL над сутностями, а не над таблицями:
 
@@ -71,24 +78,16 @@ ALTER TABLE customers ADD COLUMN Email VARCHAR(100) NULL;
 "select o.orderId, o.orderDate, o.customers.customerId, (select concat(e.firstName, ' ', e.lastName) from Employees e where e.employeeId = o.employees.employeeId) from Orders o order by o.orderId"
 ```
 
-## Результати
-
-Сценарії лежать у `demo/`. Запити дали ті самі дані, що SQL у ПР 1.2: 8 категорій із середніми цінами від 20.25 до 54.01, 5 міст у запиті 4, у запиті 5 перші клієнти QUICK, ERNSH, SAVEA і 89 рядків усього, у запиті 6 перші замовлення від 10248 і 830 рядків усього.
-
-| Рисунок 1 — Підключення, перегляд таблиці | Рисунок 2 — Генерація сутностей |
-|:-----------|:-----------|
-| ![](screenshots/01-connect.png) | ![](screenshots/02-scaffold.png) |
-
-| Рисунок 3 — Міграції: до `migrate` і після | |
-|:-----------|:-----------|
-| ![](screenshots/03-migrations-a.png) | ![](screenshots/03-migrations-b.png) |
-
-| Рисунок 4 — Запити 3 і 4 | Рисунок 4 (продовження) — Запити 5 і 6 |
+| Рисунок 4 — Запити 3 і 4 | Рисунок 4 (продовження) — Запити 5 і 6; довгі таблиці скорочено до 5 рядків («…») |
 |:-----------|:-----------|
 | ![](screenshots/04-queries-a.png) | ![](screenshots/04-queries-b.png) |
+
+## Результати
+
+Сценарії лежать у `demo/`. Запити дали ті самі дані, що SQL у ПР 1.2: 8 категорій із цінами від 20.25 до 54.01, 5 міст, у запиті 5 клієнти QUICK, ERNSH, SAVEA і 89 рядків, у запиті 6 замовлення від 10248 і 830 рядків.
 
 Код: <https://github.com/brizzinck/krinzhrepoduta/tree/main/db/pr-3.3>.
 
 ## Висновки
 
-Я створив консольний додаток на Hibernate ORM для бази Northwind. Сутності згенеровано з готової БД інструментом `hbm2java`, одне поле довелося виправити вручну. Зв'язки між таблицями стали полями класів, тому запити 3-6 записані в JPQL без `ON` для більшості з'єднань. Результати збігаються з SQL із ПР 1.2: 8, 5, 89 і 830 рядків. Міграції я зробив у Flyway: базова версія V1 і V2 з новим стовпцем `Email`, а `validate` показав, що без міграції модель і схема розходяться. Я опанував `SessionFactory`, `Session`, анотації `@Entity`, `@ManyToOne`, `@EmbeddedId`, мову JPQL і різницю між Hibernate та EF Core. Hibernate генерує SQL сам, тому контроль над запитом менший, ніж у JDBC і Jdbi.
+Я створив консольний додаток на Hibernate ORM для бази Northwind. Сутності згенеровано з готової БД інструментом `hbm2java`, одне поле довелося виправити вручну. Зв'язки між таблицями стали полями класів, тому запити 3-6 записані в JPQL без `ON` для більшості з'єднань. Результати збігаються з ПР 1.2: 8, 5, 89 і 830 рядків. Міграції я зробив у Flyway: базова версія V1 і V2 з новим стовпцем `Email`, а `validate` показав, що без міграції модель і схема розходяться. Я опанував `SessionFactory`, `Session`, анотації `@Entity`, `@ManyToOne`, `@EmbeddedId`, JPQL і відмінності Hibernate від EF Core. Hibernate генерує SQL сам, тому контроль над запитом менший, ніж у JDBC і Jdbi.

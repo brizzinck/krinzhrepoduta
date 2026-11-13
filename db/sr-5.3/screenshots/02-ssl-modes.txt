@@ -1,14 +1,6 @@
-$ ../_shared/mysql.sh -h 127.0.0.1 -t -e "SHOW VARIABLES LIKE 'require_secure_transport'"
-+--------------------------+-------+
-| Variable_name            | Value |
-+--------------------------+-------+
-| require_secure_transport | OFF   |
-+--------------------------+-------+
-$ ../_shared/mysql.sh -h 127.0.0.1 -t --ssl-mode=DISABLED -e "SHOW SESSION STATUS LIKE 'Ssl_cipher'"
-+---------------+-------+
-| Variable_name | Value |
-+---------------+-------+
-| Ssl_cipher    |       |
-+---------------+-------+
+$ ../_shared/mysql.sh -h 127.0.0.1 -N -e "SHOW VARIABLES LIKE 'require_secure_transport'"
+require_secure_transport	OFF
+$ ../_shared/mysql.sh -h 127.0.0.1 -N --ssl-mode=DISABLED -e "SHOW SESSION STATUS LIKE 'Ssl_cipher'"
+Ssl_cipher	
 $ DB_URL='jdbc:mysql://127.0.0.1:3306/car_rental?sslMode=VERIFY_IDENTITY' ../pr-3.1/run.sh < demo/tls-read.txt | sed -n 1p
 Не вдалося підключитися до БД: Communications link failure

@@ -1,0 +1,127 @@
+$ ./run.sh < demo/05-all-tables.txt
+Підключено до БД: northwind_orm, MySQL 8.4.13 (Hibernate ORM)
+1 Показати таблицю (8 таблиць, перші 10 рядків)
+3 Запит 3: середня ціна по категоріях   4 Запит 4: співробітники й клієнти по містах
+5 Запит 5: дохід від клієнтів   6 Запит 6: замовлення зі співробітником
+7 Демонстрація N+1   9 Меню   0 Вихід
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+Таблиця: 1
+categoryId | categoryName   | description                                               
+1          | Beverages      | Soft drinks, coffees, teas, beers, and ales               
+2          | Condiments     | Sweet and savory sauces, relishes, spreads, and seasonings
+3          | Confections    | Desserts, candies, and sweet breads                       
+4          | Dairy Products | Cheeses                                                   
+5          | Grains/Cereals | Breads, crackers, pasta, and cereal                       
+6          | Meat/Poultry   | Prepared meats                                            
+7          | Produce        | Dried fruit and bean curd                                 
+8          | Seafood        | Seaweed and fish                                          
+Рядків: 8
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+Таблиця: 2
+productId | productName                     | unitPrice | unitsInStock
+1         | Chai                            | 18.0000   | 39          
+2         | Chang                           | 19.0000   | 17          
+3         | Aniseed Syrup                   | 10.0000   | 13          
+4         | Chef Anton's Cajun Seasoning    | 22.0000   | 53          
+5         | Chef Anton's Gumbo Mix          | 21.3500   | 0           
+6         | Grandma's Boysenberry Spread    | 25.0000   | 120         
+7         | Uncle Bob's Organic Dried Pears | 30.0000   | 15          
+8         | Northwoods Cranberry Sauce      | 40.0000   | 6           
+9         | Mishi Kobe Niku                 | 97.0000   | 29          
+10        | Ikura                           | 31.0000   | 31          
+Рядків: 10
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+Таблиця: 3
+customerId | companyName                        | city        | country
+ALFKI      | Alfreds Futterkiste                | Berlin      | Germany
+ANATR      | Ana Trujillo Emparedados y helados | Mexico D.F. | Mexico 
+ANTON      | Antonio Moreno Taqueria            | Mexico D.F. | Mexico 
+AROUT      | Around the Horn                    | London      | UK     
+BERGS      | Berglunds snabbkop                 | Lulea       | Sweden 
+BLAUS      | Blauer See Delikatessen            | Mannheim    | Germany
+BLONP      | Blondesddsl pere et fils           | Strasbourg  | France 
+BOLID      | Bolido Comidas preparadas          | Madrid      | Spain  
+BONAP      | Bon app'                           | Marseille   | France 
+BOTTM      | Bottom-Dollar Markets              | Tsawassen   | Canada 
+Рядків: 10
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+Таблиця: 4
+employeeId | firstName | lastName  | city    
+1          | Nancy     | Davolio   | Seattle 
+2          | Andrew    | Fuller    | Tacoma  
+3          | Janet     | Leverling | Kirkland
+4          | Margaret  | Peacock   | Redmond 
+5          | Steven    | Buchanan  | London  
+6          | Michael   | Suyama    | London  
+7          | Robert    | King      | London  
+8          | Laura     | Callahan  | Seattle 
+9          | Anne      | Dodsworth | London  
+Рядків: 9
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+Таблиця: 5
+orderId | orderDate  | shipCountry | freight 
+10248   | 1996-07-04 | France      | 32.3800 
+10249   | 1996-07-05 | Germany     | 11.6100 
+10250   | 1996-07-08 | Brazil      | 65.8300 
+10251   | 1996-07-08 | France      | 41.3400 
+10252   | 1996-07-09 | Belgium     | 51.3000 
+10253   | 1996-07-10 | Brazil      | 58.1700 
+10254   | 1996-07-11 | Switzerland | 22.9800 
+10255   | 1996-07-12 | Switzerland | 148.3300
+10256   | 1996-07-15 | Brazil      | 13.9700 
+10257   | 1996-07-16 | Venezuela   | 81.9100 
+Рядків: 10
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+Таблиця: 6
+orderId | productId | unitPrice | quantity | discount
+10248   | 11        | 14.0000   | 12       | 0.00    
+10248   | 42        | 9.8000    | 10       | 0.00    
+10248   | 72        | 34.8000   | 5        | 0.00    
+10249   | 14        | 18.6000   | 9        | 0.00    
+10249   | 51        | 42.4000   | 40       | 0.00    
+10250   | 41        | 7.7000    | 10       | 0.00    
+10250   | 51        | 42.4000   | 35       | 0.15    
+10250   | 65        | 16.8000   | 15       | 0.15    
+10251   | 22        | 16.8000   | 6        | 0.05    
+10251   | 57        | 15.6000   | 15       | 0.05    
+Рядків: 10
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+Таблиця: 7
+supplierId | companyName                        | city        | country  
+1          | Exotic Liquids                     | London      | UK       
+2          | New Orleans Cajun Delights         | New Orleans | USA      
+3          | Grandma Kelly's Homestead          | Ann Arbor   | USA      
+4          | Tokyo Traders                      | Tokyo       | Japan    
+5          | Cooperativa de Quesos 'Las Cabras' | Oviedo      | Spain    
+6          | Mayumi's                           | Osaka       | Japan    
+7          | Pavlova, Ltd.                      | Melbourne   | Australia
+8          | Specialty Biscuits, Ltd.           | Manchester  | UK       
+9          | PB Knackebrod AB                   | Goteborg    | Sweden   
+10         | Refrescos Americanas LTDA          | Sao Paulo   | Brazil   
+Рядків: 10
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+Таблиця: 8
+shipperId | companyName      | phone         
+1         | Speedy Express   | (503) 555-9831
+2         | United Package   | (503) 555-3199
+3         | Federal Shipping | (503) 555-9931
+Рядків: 3
+
+Ваш вибір: 0
+Роботу завершено
