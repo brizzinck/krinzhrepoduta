@@ -1,0 +1,9 @@
+$ DB_URL='jdbc:mysql://127.0.0.1:3306/car_rental?sslMode=REQUIRED' ../pr-3.1/run.sh < demo/tls-read.txt | sed -n 1p
+Підключено до БД: car_rental
+$ ../_shared/mysql.sh -t --skip-comments < demo/app-session-tls.sql
++--------+-------------+------------------------+
+| user   | variable    | value                  |
++--------+-------------+------------------------+
+| rental | Ssl_cipher  | TLS_AES_256_GCM_SHA384 |
+| rental | Ssl_version | TLSv1.3                |
++--------+-------------+------------------------+
