@@ -1,0 +1,12 @@
+#!/bin/sh
+# Запускає консольний додаток у docker у мережі контейнера duikt-mysql (порт БД на хост не публікується).
+# Збірка: ../../tools/mvn.sh -q package. SHOW_SQL=true друкує SQL, який генерує Hibernate. Паролі лише для локального контейнера.
+cd "$(dirname "$0")"
+TTY=""
+[ -t 0 ] && TTY="-t"
+exec docker run --rm -i $TTY -u "$(id -u):$(id -g)" -e LANG=C.UTF-8 \
+  --network container:duikt-mysql \
+  -e DB_URL="${DB_URL:-jdbc:mysql://127.0.0.1:3306/northwind_orm}" \
+  -e DB_USER="${DB_USER:-rental}" -e DB_PASSWORD="${DB_PASSWORD:-rental_dev}" \
+  -e SHOW_SQL="${SHOW_SQL:-false}" \
+  -v "$PWD":/w -w /w eclipse-temurin:21-jre java -jar target/northwindorm.jar

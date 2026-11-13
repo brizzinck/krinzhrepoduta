@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>northwind</groupId>
+  <artifactId>northwindorm</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <maven.compiler.release>21</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <hibernate.version>6.6.58.Final</hibernate.version>
+    <!-- куди генератор пише сутності; для перевірки без перезапису: -Dreveng.out=target/reveng -->
+    <reveng.out>${project.basedir}/src/main/java</reveng.out>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>8.4.0</version>
+    </dependency>
+</dependencies>
+
+  <build>
+    <finalName>northwindorm</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.5.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals><goal>shade</goal></goals>
+            <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>northwind.Main</mainClass>
+                </transformer>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <!-- Database First: генерація сутностей із готової БД. Запускається один раз: ./mvn-db.sh -Preveng generate-sources -->
+    <profile>
+      <id>reveng</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.hibernate.tool</groupId>
+            <artifactId>hibernate-tools-maven</artifactId>
+            <version>${hibernate.version}</version>
+            <executions>
+              <execution>
+                <id>reveng</id>
+                <phase>generate-sources</phase>
+                <goals><goal>hbm2java</goal></goals>
+                <configuration>
+                  <revengFile>${project.basedir}/hibernate.reveng.xml</revengFile>
+                  <packageName>northwind.entity</packageName>
+                  <outputDirectory>${reveng.out}</outputDirectory>
+                  <propertyFile>${project.basedir}/reveng.properties</propertyFile>
+                  <ejb3>true</ejb3>
+                  <jdk5>true</jdk5>
+                </configuration>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>8.4.0</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

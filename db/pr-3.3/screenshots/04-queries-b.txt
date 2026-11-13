@@ -1,0 +1,37 @@
+$ ./run.sh < demo/02-queries-b.txt
+Підключено до БД: northwind_orm, MySQL 8.4.13 (Hibernate ORM)
+1 Показати таблицю (перші 10 рядків)
+3 Запит 3: середня ціна по категоріях   4 Запит 4: співробітники й клієнти по містах
+5 Запит 5: дохід від клієнтів   6 Запит 6: замовлення зі співробітником
+7 Демонстрація N+1   9 Меню   0 Вихід
+
+Ваш вибір: 5
+customerId | companyName                  | revenue  
+QUICK      | QUICK-Stop                   | 110277.31
+ERNSH      | Ernst Handel                 | 104874.98
+SAVEA      | Save-a-lot Markets           | 104361.95
+RATTC      | Rattlesnake Canyon Grocery   | 51097.80 
+HUNGO      | Hungry Owl All-Night Grocers | 49979.91 
+HANAR      | Hanari Carnes                | 32841.37 
+KOENE      | Koniglich Essen              | 30908.38 
+FOLKO      | Folk och fa HB               | 29567.56 
+MEREP      | Mere Paillarde               | 28872.19 
+WHITC      | White Clover Markets         | 27363.61 
+Показано 10 з 89
+
+Ваш вибір: 6
+orderId | orderDate  | customerId | employee        
+10248   | 1996-07-04 | VINET      | Steven Buchanan 
+10249   | 1996-07-05 | TOMSP      | Michael Suyama  
+10250   | 1996-07-08 | HANAR      | Margaret Peacock
+10251   | 1996-07-08 | VICTE      | Janet Leverling 
+10252   | 1996-07-09 | SUPRD      | Margaret Peacock
+10253   | 1996-07-10 | HANAR      | Janet Leverling 
+10254   | 1996-07-11 | CHOPS      | Steven Buchanan 
+10255   | 1996-07-12 | RICSU      | Anne Dodsworth  
+10256   | 1996-07-15 | WELLI      | Janet Leverling 
+10257   | 1996-07-16 | HILAA      | Margaret Peacock
+Показано 10 з 830
+
+Ваш вибір: 0
+Роботу завершено

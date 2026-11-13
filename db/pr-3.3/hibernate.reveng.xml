@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN"
+  "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd">
+<!-- Які таблиці Northwind потрібні для запитів 3-6 і виводу. Решта таблиць в модель не потрапляє. -->
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="northwind_orm"/>
+  <table-filter match-name="categories"/>
+  <table-filter match-name="products"/>
+  <table-filter match-name="suppliers"/>
+  <table-filter match-name="customers"/>
+  <table-filter match-name="employees"/>
+  <table-filter match-name="orders"/>
+  <table-filter match-name=".*details.*"/>
+  <table-filter match-name="shippers"/>
+  <table-filter match-name=".*" exclude="true"/>
+</hibernate-reverse-engineering>

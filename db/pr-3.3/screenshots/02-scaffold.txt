@@ -1,0 +1,23 @@
+$ ./mvn-db.sh -q -Preveng -Dreveng.out=target/reveng generate-sources   # рядки «Building entity»
+INFO: Building entity northwind.entity.Categories
+INFO: Building entity northwind.entity.Customers
+INFO: Building entity northwind.entity.Employees
+INFO: Building entity northwind.entity.OrderDetails
+INFO: Building entity northwind.entity.Orders
+INFO: Building entity northwind.entity.Products
+INFO: Building entity northwind.entity.Shippers
+INFO: Building entity northwind.entity.Suppliers
+
+$ ls target/reveng/northwind/entity
+Categories.java
+Customers.java
+Employees.java
+OrderDetailsId.java
+OrderDetails.java
+Orders.java
+Products.java
+Shippers.java
+Suppliers.java
+
+$ diff -rq -I '^// Generated' target/reveng/northwind/entity src/main/java/northwind/entity
+Files target/reveng/northwind/entity/Customers.java and src/main/java/northwind/entity/Customers.java differ

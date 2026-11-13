@@ -1,0 +1,35 @@
+$ ./flyway.sh baseline
+Flyway OSS Edition 11.20.3 by Redgate
+
+See release notes here: https://rd.gt/416ObMi
+Database: jdbc:mysql://127.0.0.1:3306/northwind_orm (MySQL 8.4)
+Creating Schema History table `northwind_orm`.`flyway_schema_history` with baseline ...
+Successfully baselined schema with version: 1
+
+$ ./flyway.sh info
+Flyway OSS Edition 11.20.3 by Redgate
+
+See release notes here: https://rd.gt/416ObMi
+Database: jdbc:mysql://127.0.0.1:3306/northwind_orm (MySQL 8.4)
+Schema version: 1
+
++-----------+---------+-----------------------+----------+---------------------+--------------------+----------+
+| Category  | Version | Description           | Type     | Installed On        | State              | Undoable |
++-----------+---------+-----------------------+----------+---------------------+--------------------+----------+
+| Versioned | 1       | northwind schema      | SQL      |                     | Ignored (Baseline) | No       |
+|           | 1       | << Flyway Baseline >> | BASELINE | 2026-11-13 00:17:33 | Baseline           | No       |
+| Versioned | 2       | add customer email    | SQL      |                     | Pending            | No       |
++-----------+---------+-----------------------+----------+---------------------+--------------------+----------+
+
+
+$ ./run.sh < demo/00-start.txt   # модель без email, схема V1
+Підключено до БД: northwind_orm, MySQL 8.4.13 (Hibernate ORM)
+1 Показати таблицю (перші 10 рядків)
+3 Запит 3: середня ціна по категоріях   4 Запит 4: співробітники й клієнти по містах
+5 Запит 5: дохід від клієнтів   6 Запит 6: замовлення зі співробітником
+7 Демонстрація N+1   9 Меню   0 Вихід
+
+Ваш вибір: 0
+Роботу завершено
+
+# Далі в сутність Customers додано поле email, проєкт зібрано знову
