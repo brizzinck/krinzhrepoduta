@@ -1,0 +1,73 @@
+> mvn test -Dbuild=3
+Can not write to /var/maven/.m2/copy_reference_file.log. Wrong volume permissions? Carrying on ...
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< ua.duikt.lavrishko:lr8 >-----------------------
+[INFO] Building lr8 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ lr8 ---
+[INFO] skip non existing resourceDirectory /w/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ lr8 ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ lr8 ---
+[INFO] skip non existing resourceDirectory /w/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ lr8 ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ lr8 ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running ua.duikt.lavrishko.lr8.OverduePolicyTest
+Часовий пояс комп'ютера: Etc/UTC
+[ERROR] Tests run: 35, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.436 s <<< FAILURE! -- in ua.duikt.lavrishko.lr8.OverduePolicyTest
+[ERROR] ua.duikt.lavrishko.lr8.OverduePolicyTest.doneIssueIsOnTrack(String, LocalDate, LocalDate)[1] -- Time elapsed: 0.012 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <ON_TRACK> but was: <OVERDUE>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at ua.duikt.lavrishko.lr8.OverduePolicyTest.doneIssueIsOnTrack(OverduePolicyTest.java:63)
+
+[ERROR] ua.duikt.lavrishko.lr8.OverduePolicyTest.doneIssueIsOnTrack(String, LocalDate, LocalDate)[2] -- Time elapsed: 0.008 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <ON_TRACK> but was: <ESCALATE>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at ua.duikt.lavrishko.lr8.OverduePolicyTest.doneIssueIsOnTrack(OverduePolicyTest.java:63)
+
+[ERROR] ua.duikt.lavrishko.lr8.OverduePolicyTest.doneIssueIsOnTrack(String, LocalDate, LocalDate)[3] -- Time elapsed: 0.004 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <ON_TRACK> but was: <ESCALATE>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at ua.duikt.lavrishko.lr8.OverduePolicyTest.doneIssueIsOnTrack(OverduePolicyTest.java:63)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   OverduePolicyTest.doneIssueIsOnTrack:63 expected: <ON_TRACK> but was: <OVERDUE>
+[ERROR]   OverduePolicyTest.doneIssueIsOnTrack:63 expected: <ON_TRACK> but was: <ESCALATE>
+[ERROR]   OverduePolicyTest.doneIssueIsOnTrack:63 expected: <ON_TRACK> but was: <ESCALATE>
+[INFO] 
+[ERROR] Tests run: 35, Failures: 3, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.440 s
+[INFO] Finished at: 2026-11-13T00:19:40Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.6.1:test (default-test) on project lr8: There are test failures.
+[ERROR] 
+[ERROR] See /w/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+(код завершення: 1)

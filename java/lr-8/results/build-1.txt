@@ -1,0 +1,92 @@
+> mvn test -Dbuild=1
+Can not write to /var/maven/.m2/copy_reference_file.log. Wrong volume permissions? Carrying on ...
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< ua.duikt.lavrishko:lr8 >-----------------------
+[INFO] Building lr8 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ lr8 ---
+[INFO] skip non existing resourceDirectory /w/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ lr8 ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ lr8 ---
+[INFO] skip non existing resourceDirectory /w/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ lr8 ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ lr8 ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running ua.duikt.lavrishko.lr8.OverduePolicyTest
+Часовий пояс комп'ютера: Etc/UTC
+[ERROR] Tests run: 35, Failures: 6, Errors: 0, Skipped: 0, Time elapsed: 0.362 s <<< FAILURE! -- in ua.duikt.lavrishko.lr8.OverduePolicyTest
+[ERROR] ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(String, LocalDate, LocalDate, IssueStatus)[3] -- Time elapsed: 0.014 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <OVERDUE> but was: <ESCALATE>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(OverduePolicyTest.java:105)
+
+[ERROR] ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(String, LocalDate, LocalDate, IssueStatus)[5] -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <OVERDUE> but was: <ESCALATE>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(OverduePolicyTest.java:105)
+
+[ERROR] ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(String, LocalDate, LocalDate, IssueStatus)[6] -- Time elapsed: 0.004 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <OVERDUE> but was: <ESCALATE>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(OverduePolicyTest.java:105)
+
+[ERROR] ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(String, LocalDate, LocalDate, IssueStatus)[9] -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <OVERDUE> but was: <ESCALATE>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(OverduePolicyTest.java:105)
+
+[ERROR] ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(String, LocalDate, LocalDate, IssueStatus)[10] -- Time elapsed: 0.008 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <OVERDUE> but was: <ESCALATE>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(OverduePolicyTest.java:105)
+
+[ERROR] ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(String, LocalDate, LocalDate, IssueStatus)[16] -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <OVERDUE> but was: <ESCALATE>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at ua.duikt.lavrishko.lr8.OverduePolicyTest.overdueByWorkingDays(OverduePolicyTest.java:105)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   OverduePolicyTest.overdueByWorkingDays:105 expected: <OVERDUE> but was: <ESCALATE>
+[ERROR]   OverduePolicyTest.overdueByWorkingDays:105 expected: <OVERDUE> but was: <ESCALATE>
+[ERROR]   OverduePolicyTest.overdueByWorkingDays:105 expected: <OVERDUE> but was: <ESCALATE>
+[ERROR]   OverduePolicyTest.overdueByWorkingDays:105 expected: <OVERDUE> but was: <ESCALATE>
+[ERROR]   OverduePolicyTest.overdueByWorkingDays:105 expected: <OVERDUE> but was: <ESCALATE>
+[ERROR]   OverduePolicyTest.overdueByWorkingDays:105 expected: <OVERDUE> but was: <ESCALATE>
+[INFO] 
+[ERROR] Tests run: 35, Failures: 6, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.209 s
+[INFO] Finished at: 2026-11-13T00:19:32Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.6.1:test (default-test) on project lr8: There are test failures.
+[ERROR] 
+[ERROR] See /w/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+(код завершення: 1)

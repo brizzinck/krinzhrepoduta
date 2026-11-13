@@ -1,0 +1,35 @@
+> sh summary.sh
+Звичайний запуск (пояс контейнера Etc/UTC):
+Збірка 1: Tests run: 35, Failures: 6, Errors: 0, Skipped: 0
+    overdueByWorkingDays[10]
+    overdueByWorkingDays[16]
+    overdueByWorkingDays[3]
+    overdueByWorkingDays[5]
+    overdueByWorkingDays[6]
+    overdueByWorkingDays[9]
+Збірка 2: Tests run: 35, Failures: 4, Errors: 0, Skipped: 0
+    deadlineTodayOrLaterIsOnTrack[1]
+    deadlineTodayOrLaterIsOnTrack[2]
+    dstDayLateEvening
+    kyivLateEveningWinter
+Збірка 3: Tests run: 35, Failures: 3, Errors: 0, Skipped: 0
+    doneIssueIsOnTrack[1]
+    doneIssueIsOnTrack[2]
+    doneIssueIsOnTrack[3]
+Збірка 4: Tests run: 35, Failures: 7, Errors: 0, Skipped: 0
+    overdueByWorkingDays[11]
+    overdueByWorkingDays[13]
+    overdueByWorkingDays[15]
+    overdueByWorkingDays[17]
+    overdueByWorkingDays[2]
+    overdueByWorkingDays[4]
+    overdueByWorkingDays[7]
+Збірка 5: Tests run: 35, Failures: 3, Errors: 0, Skipped: 0
+    dstDayAfterMidnight
+    kyivDateEvenWhenClockIsInUtc
+    kyivMidnightSummer
+Збірка 6: Tests run: 35, Failures: 0, Errors: 0, Skipped: 0
+
+Пояс America_Los_Angeles: набори тестів, що впали, у всіх шести збірках збігаються зі звичайним запуском: так
+Пояс Pacific_Kiritimati: набори тестів, що впали, у всіх шести збірках збігаються зі звичайним запуском: так
+(код завершення: 0)

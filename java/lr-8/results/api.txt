@@ -1,0 +1,18 @@
+> javap -public -cp v2-vendor.jar ua.vendor.issues.OverduePolicy ua.vendor.issues.IssueStatus ua.vendor.issues.Vendor
+Compiled from "OverduePolicy.java"
+public interface ua.vendor.issues.OverduePolicy {
+  public abstract ua.vendor.issues.IssueStatus check(java.time.LocalDate, boolean);
+}
+Compiled from "IssueStatus.java"
+public final class ua.vendor.issues.IssueStatus extends java.lang.Enum<ua.vendor.issues.IssueStatus> {
+  public static final ua.vendor.issues.IssueStatus ON_TRACK;
+  public static final ua.vendor.issues.IssueStatus OVERDUE;
+  public static final ua.vendor.issues.IssueStatus ESCALATE;
+  public static ua.vendor.issues.IssueStatus[] values();
+  public static ua.vendor.issues.IssueStatus valueOf(java.lang.String);
+}
+Compiled from "Vendor.java"
+public final class ua.vendor.issues.Vendor {
+  public static ua.vendor.issues.OverduePolicy build(int, java.time.Clock);
+}
+(код завершення: 0)

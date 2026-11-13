@@ -1,0 +1,19 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam componentStyle rectangle
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+}
+rectangle "OverduePolicyTest\n(JUnit 6, фіксований Clock)" as T
+rectangle "Vendor.build(N, clock)\nN береться з -Dbuild=N" as V
+rectangle "OverduePolicy\n(збірки 1-6 з v2-vendor.jar,\nкод не переглядається)" as P
+rectangle "IssueStatus\nON_TRACK, OVERDUE, ESCALATE" as S
+T --> V : N, Clock.fixed(...)
+V --> P : реалізація збірки N
+T --> P : check(deadline, done)
+P --> S : результат
+@enduml
