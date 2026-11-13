@@ -1,0 +1,32 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam ClassBackgroundColor #FFFFFF
+skinparam ClassBorderColor #333333
+skinparam ArrowColor #333333
+hide empty members
+class "Box<T>" as Box {
+  - value : T
+  + put(value : T)
+  + get() : T
+}
+class ObjectBox {
+  - value : Object
+  + put(value : Object)
+  + get() : Object
+}
+class Generics {
+  + {static} first(List<T>) : T
+  + {static} total(List<? extends Number>) : double
+}
+class Issue {
+  - key : String
+  - title : String
+  - storyPoints : int
+  + equals(Object) : boolean
+  + hashCode() : int
+}
+Box ..> Issue : T = Issue
+Generics ..> Issue : List<Issue>
+@enduml

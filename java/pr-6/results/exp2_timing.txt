@@ -1,0 +1,9 @@
+> java -cp target/classes ua.duikt.lavrishko.pr6.Exp2Timing
+Елементів: 100000, операцій: 1000, час у мс
+Запуск   ArrayList ins  LinkedList ins ArrayList has  LinkedList has HashSet has   
+1        2              278            179            342            0             
+2        1              236            234            321            0             
+3        1              323            355            698            0             
+4        1              326            361            920            0             
+5        1              304            331            812            0             
+(код завершення: 0)

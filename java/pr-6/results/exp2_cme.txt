@@ -1,0 +1,7 @@
+> java -cp target/classes ua.duikt.lavrishko.pr6.Exp2Cme
+До видалення: 8 задач
+Exception in thread "main" java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1095)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:1049)
+	at ua.duikt.lavrishko.pr6.Exp2Cme.main(Exp2Cme.java:10)
+(код завершення: 1)

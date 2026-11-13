@@ -1,0 +1,5 @@
+> java -cp target/classes ua.duikt.lavrishko.pr6.Exp1Cast
+Значення покладено, компіляція пройшла.
+Exception in thread "main" java.lang.ClassCastException: class java.lang.String cannot be cast to class ua.duikt.lavrishko.pr6.Issue (java.lang.String is in module java.base of loader 'bootstrap'; ua.duikt.lavrishko.pr6.Issue is in unnamed module of loader 'app')
+	at ua.duikt.lavrishko.pr6.Exp1Cast.main(Exp1Cast.java:9)
+(код завершення: 1)

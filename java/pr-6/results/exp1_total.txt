@@ -1,0 +1,6 @@
+> java -cp target/classes ua.duikt.lavrishko.pr6.Exp1Total
+total(List<Integer>) = 26.0
+total(List<Number>)  = 26.5
+first(List<Issue>) = SHOP-1 (5 SP) Вхід через Google
+first(List<Integer>) = 5
+(код завершення: 0)

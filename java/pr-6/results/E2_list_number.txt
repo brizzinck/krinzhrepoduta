@@ -1,0 +1,7 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E2_list_number/*.java
+compile-errors/E2_list_number/ListNumberError.java:15: error: incompatible types: List<Integer> cannot be converted to List<Number>
+        System.out.println(total(ints));
+                                 ^
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+1 error
+(код завершення: 1)

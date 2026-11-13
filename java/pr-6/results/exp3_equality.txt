@@ -1,0 +1,12 @@
+> java -cp target/classes ua.duikt.lavrishko.pr6.Exp3Equality
+без equals і hashCode:   size = 2, contains(третій рівний) = false
+лише equals:             size = 2, contains(третій рівний) = false
+equals і hashCode:       size = 1, contains(третій рівний) = true
+
+Зміна ключа елемента, що вже лежить у HashSet<Issue>:
+  до зміни:  contains(SHOP-1) = true
+  після setKey(SHOP-2):
+    contains(старий ключ SHOP-1) = false
+    contains(новий ключ SHOP-2)  = false
+    size = 1, у обході множини: SHOP-2 (5 SP) Вхід через Google
+(код завершення: 0)

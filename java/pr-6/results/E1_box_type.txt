@@ -1,0 +1,7 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E1_box_type/*.java
+compile-errors/E1_box_type/BoxTypeError.java:7: error: incompatible types: String cannot be converted to Issue
+        box.put("abc");   // рядок замість Issue
+                ^
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+1 error
+(код завершення: 1)
