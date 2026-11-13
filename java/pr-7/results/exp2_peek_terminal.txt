@@ -1,0 +1,8 @@
+> java -cp target/classes ua.duikt.lavrishko.pr7.Exp2Peek terminal
+peek SHOP-101
+peek SHOP-102
+peek SHOP-104
+peek SHOP-106
+peek SHOP-108
+сума: 39
+(код завершення: 0)

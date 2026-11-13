@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E1_calls/*.java
+compile-errors/E1_calls/CallsError.java:11: error: local variables referenced from a lambda expression must be final or effectively final
+            calls++;   // спроба порахувати порівняння
+            ^
+1 error
+(код завершення: 1)

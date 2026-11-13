@@ -1,0 +1,33 @@
+> java -cp target/classes ua.duikt.lavrishko.pr7.Exp1Sort
+Анонімний клас (9 рядків):
+  SHOP-107 (1 SP) Міграція таблиці users
+  SHOP-105 (2 SP) Кешування каталогу
+  SHOP-103 (3 SP) Темна тема інтерфейсу
+  SHOP-109 (3 SP) Docker-образ для сервісу
+  SHOP-101 (5 SP) Вхід через Google
+  SHOP-106 (5 SP) Rate limiting для API
+  SHOP-102 (8 SP) Експорт замовлень у CSV
+  SHOP-108 (8 SP) Метрики часу відповіді
+  SHOP-104 (13 SP) Пагінація в пошуку
+Лямбда-вираз (9 рядків):
+  SHOP-107 (1 SP) Міграція таблиці users
+  SHOP-105 (2 SP) Кешування каталогу
+  SHOP-103 (3 SP) Темна тема інтерфейсу
+  SHOP-109 (3 SP) Docker-образ для сервісу
+  SHOP-101 (5 SP) Вхід через Google
+  SHOP-106 (5 SP) Rate limiting для API
+  SHOP-102 (8 SP) Експорт замовлень у CSV
+  SHOP-108 (8 SP) Метрики часу відповіді
+  SHOP-104 (13 SP) Пагінація в пошуку
+Comparator.comparingInt (9 рядків):
+  SHOP-107 (1 SP) Міграція таблиці users
+  SHOP-105 (2 SP) Кешування каталогу
+  SHOP-103 (3 SP) Темна тема інтерфейсу
+  SHOP-109 (3 SP) Docker-образ для сервісу
+  SHOP-101 (5 SP) Вхід через Google
+  SHOP-106 (5 SP) Rate limiting для API
+  SHOP-102 (8 SP) Експорт замовлень у CSV
+  SHOP-108 (8 SP) Метрики часу відповіді
+  SHOP-104 (13 SP) Пагінація в пошуку
+Порядок збігається: true
+(код завершення: 0)

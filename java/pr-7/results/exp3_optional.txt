@@ -1,0 +1,10 @@
+> java -cp target/classes ua.duikt.lavrishko.pr7.Exp3Optional
+Пошук без результату (оцінка понад 100):
+  Optional: Optional.empty
+  isPresent: false
+  map(Issue::getKey).orElse: не знайдено
+Пошук за умовою досліду 2 (оцінка не менше 5):
+  Optional: Optional[SHOP-101 (5 SP) Вхід через Google]
+  isPresent: true
+  map(Issue::getKey).orElse: SHOP-101
+(код завершення: 0)

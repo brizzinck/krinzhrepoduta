@@ -1,0 +1,3 @@
+> java -cp target/classes ua.duikt.lavrishko.pr7.Exp2Peek lazy
+Конвеєр створено, термінальної операції немає (peek не викликано)
+(код завершення: 0)

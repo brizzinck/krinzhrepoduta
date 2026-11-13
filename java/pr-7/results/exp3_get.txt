@@ -1,0 +1,5 @@
+> java -cp target/classes ua.duikt.lavrishko.pr7.Exp3Get
+Exception in thread "main" java.util.NoSuchElementException: No value present
+	at java.base/java.util.Optional.get(Optional.java:143)
+	at ua.duikt.lavrishko.pr7.Exp3Get.main(Exp3Get.java:11)
+(код завершення: 1)
