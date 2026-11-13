@@ -1,0 +1,63 @@
+> mvn test -Dtest=SprintTest
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< ua.duikt.lavrishko:pr8 >-----------------------
+[INFO] Building pr8 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.7.0:properties (default) @ pr8 ---
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ pr8 ---
+[INFO] skip non existing resourceDirectory /w/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ pr8 ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 4 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ pr8 ---
+[INFO] skip non existing resourceDirectory /w/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ pr8 ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 3 source files with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.6.1:test (default-test) @ pr8 ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running ua.duikt.lavrishko.pr8.SprintTest
+[ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.103 s <<< FAILURE! -- in ua.duikt.lavrishko.pr8.SprintTest
+[ERROR] ua.duikt.lavrishko.pr8.SprintTest.addsTaskWhenItFits -- Time elapsed: 0.018 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:190)
+	at ua.duikt.lavrishko.pr8.SprintTest.addsTaskWhenItFits(SprintTest.java:20)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   SprintTest.addsTaskWhenItFits:20 expected: <true> but was: <false>
+[INFO] 
+[ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.961 s
+[INFO] Finished at: 2026-11-13T00:14:48Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.6.1:test (default-test) on project pr8: There are test failures.
+[ERROR] 
+[ERROR] See /w/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+(код завершення: 1)
