@@ -197,35 +197,35 @@
 
 <!-- 10 -->
 <section class="slide s9" data-theme="light" id="s-10">
-  <h1>Результати вимірювань</h1>
+  <h1>6 метрик із ТЗ: що отримали</h1>
   <div class="tiles">
-    <div class="tile"><div class="n">3</div><div class="l">натискання від карти до розблокування</div><div class="t">Мета: не більше 4</div><div class="m">Рахували натискання, 5 проходів</div><div class="ok"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета виконана</div></div>
-    <div class="tile"><div class="n">1,08 с</div><div class="l">відкривається карта з транспортом</div><div class="t">Мета: до 3 с</div><div class="m">Автотест, 5 запусків; вручну 0,86 с</div><div class="ok"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета виконана</div></div>
-    <div class="tile"><div class="n">1,37 с</div><div class="l">від вибору на карті до старту поїздки</div><div class="t">Мета: до 30 с</div><div class="m">Автотест, 5 запусків; вручну 2,85 с</div><div class="ok"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета виконана</div></div>
-    <div class="tile"><div class="n">100 / 100</div><div class="l">оцінка доступності інтерфейсу</div><div class="t">Мета: не менше 90</div><div class="m">Lighthouse, світла й темна тема</div><div class="ok"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета виконана</div></div>
-    <div class="tile"><div class="n">32 / 32</div><div class="l">автоматичні перевірки пройдено</div><div class="t">Разом із помилковими діями</div><div class="m">Автотести в браузері</div><div class="ok"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета виконана</div></div>
-    <div class="tile"><div class="n">0</div><div class="l">нових реєстрацій для користувача</div><div class="t">Без сервісу: 3, по одній на оператора</div><div class="m">Порівняли кроки сценаріїв</div><div class="ok"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета виконана</div></div>
+    <div class="tile"><div class="l">Оператори в одному застосунку</div><div class="n">3</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета не менше 3: виконано</div><div class="m">Як міряли: рахували операторів, чий транспорт видно на карті</div></div>
+    <div class="tile"><div class="l">Окремі реєстрації</div><div class="n">0</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета 0: виконано</div><div class="m">Як міряли: порівняли кроки. Без сервісу 3, по одній в кожного оператора</div></div>
+    <div class="tile"><div class="l">Натискання до розблокування</div><div class="n">3</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета не більше 4: виконано</div><div class="m">Як міряли: рахували натискання в 5 проходах</div></div>
+    <div class="tile"><div class="l">Час від карти до старту поїздки</div><div class="n">1,37 с</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета до 30 с: виконано</div><div class="m">Як міряли: Playwright, 5 запусків; вручну 2,85 с</div></div>
+    <div class="tile"><div class="l">Час відкриття карти</div><div class="n">1,08 с</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета до 3 с: виконано</div><div class="m">Як міряли: Playwright, 5 запусків; вручну 0,86 с</div></div>
+    <div class="tile"><div class="l">Доступність інтерфейсу</div><div class="n">100 / 100</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета не менше 90: виконано</div><div class="m">Як міряли: Lighthouse у Chrome: контраст, підписи, назви кнопок</div></div>
   </div>
   <div class="labels">
-    <p class="fn">Автотест: браузер відкривав робочий сайт 5 разів, медіана, 17.11.2026.</p>
-    <p class="fn">Вручну: браузер у режимі телефона, мобільна мережа, 5 проходів, 17.11.2026.</p>
+    <p class="fn">Playwright: програма, яка сама відкриває робочий сайт у браузері й натискає кнопки. 5 запусків, медіана, 17.11.2026.</p>
+    <p class="fn">Вручну: ми самі проходили сценарій у Chrome в режимі телефона з імітацією мережі 4G, 5 проходів, 17.11.2026.</p>
     <p class="fn">Замір секундоміром у Telegram на смартфоні ще попереду.</p>
   </div>
 </section>
 
 <!-- 11 -->
 <section class="slide s10" data-theme="light" id="s-11">
-  <h1>Тестування знайшло й виправило</h1>
+  <h1>Як тестували і що знайшли</h1>
   <div class="row">
     <ul>
-      <li><span class="k">50</span><div>випадків у протоколі</div></li>
-      <li><span class="k">32</span><div>автоматичні сценарії<span class="sm">Є негативні: без згоди, баланс 99 грн, борг, відмова оператора</span></div></li>
-      <li><svg class="ic k"><use href="../prototype/app/vendor/tabler/sprite.svg#shield-check"/></svg><div>Вебхук без секрету: 401</div></li>
-      <li><svg class="ic k"><use href="../prototype/app/vendor/tabler/sprite.svg#map-pin"/></svg><div>Вимкнули перевірку суходолу: тест упав<span class="sm">Тест справді ловить помилку</span></div></li>
+      <li><span class="k">32</span><div>автотести Playwright<span class="sm">Програма сама проходить усі екрани, разом із помилковими діями</span></div></li>
+      <li><span class="k">50</span><div>перевірок у протоколі<span class="sm">Автотести, ручні проходи, Lighthouse, перевірка бота</span></div></li>
+      <li><svg class="ic k"><use href="../prototype/app/vendor/tabler/sprite.svg#shield-check"/></svg><div>Чужі запити до бота відхиляються<span class="sm">Запит без секретного ключа отримує відмову (перевірено curl)</span></div></li>
+      <li><svg class="ic k"><use href="../prototype/app/vendor/tabler/sprite.svg#map-pin"/></svg><div>Перевірили самі тести<span class="sm">Навмисно вимкнули перевірку суходолу, і тест упав</span></div></li>
     </ul>
     <div class="defects">
-      <div class="dcard"><img src="img/defect-d1.png" alt="Два діалоги один над одним"><p class="t">Два діалоги один над одним</p><p class="fix"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Виправлено, тепер ловить сценарій F31</p></div>
-      <div class="dcard"><img src="img/defect-a5.png" alt="Сума обрізана при тексті 200 відсотків"><p class="t">200 % тексту: сума обрізана</p><p class="fix"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Виправлено, тепер ловить сценарій F32</p></div>
+      <div class="dcard"><img src="img/defect-d1.png" alt="Два діалоги один над одним"><p class="t">Два діалоги один над одним</p><p class="fix"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Виправлено, тепер це ловить автотест</p></div>
+      <div class="dcard"><img src="img/defect-a5.png" alt="Сума обрізана при тексті 200 відсотків"><p class="t">200 % тексту: сума обрізана</p><p class="fix"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Виправлено, тепер це ловить автотест</p></div>
     </div>
   </div>
 </section>
@@ -237,11 +237,11 @@
     <div class="lc"><h3>Вхід і особа</h3><p>Вхід через акаунт Telegram, без логіна й пароля.</p><p>Особу підтверджує Дія або BankID (у MVP імітація).</p></div>
     <div class="lc"><h3>Персональні дані</h3><p>Згода й політика на першому екрані, до першої поїздки.</p><p>Дані лише на пристрої, у профілі кнопка «Видалити мої дані».</p></div>
     <div class="lc"><h3>Журнал і чеки</h3><p>Кожна дія записується в журнал із часом.</p><p>Чек після оплати не змінюється, у кожного свій номер.</p></div>
-    <div class="lc"><h3>Вимірювані метрики</h3><p>6 метрик ТЗ, у кожної свій метод вимірювання.</p><p>Розблокування за 3 дотики, карта за 1,08 с при цілі 3 с.</p></div>
+    <div class="lc"><h3>Зручність</h3><p>Один застосунок замість трьох.</p><p>Транспорт поруч уже відсортовано за ціною.</p></div>
     <div class="lc"><h3>Доступність</h3><p>Lighthouse Accessibility 100 у світлій і темній темах.</p><p>Текст 200 % не ламає жоден екран.</p></div>
     <div class="lc"><h3>Негативні сценарії</h3><p>Без згоди поїздку не почати.</p><p>Замало коштів, борг, відмова оператора: зрозуміле повідомлення.</p></div>
     <div class="lc"><h3>Відкриті дані</h3><p>Транспорт трьох операторів читається з каналів GBFS.</p><p>Карта OpenStreetMap, транспорт стоїть лише на суходолі.</p></div>
-    <div class="lc"><h3>Безпека</h3><p>Лише HTTPS, виміряно TLS 1.3.</p><p>Вебхук без секрету дає 401, токен бота лише в секретах Cloudflare.</p></div>
+    <div class="lc"><h3>Безпека</h3><p>Сайт відкривається лише через захищене з'єднання HTTPS.</p><p>Бот приймає запити лише від Telegram, ключ бота не лежить у коді.</p></div>
   </div>
 </section>
 
