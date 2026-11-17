@@ -60,6 +60,8 @@ figcaption { font-size: 12pt; text-align: center; margin-top: 3pt; }
 .pair img { vertical-align: top; }
 
 /* Listing and table captions: paragraph with the caption class */
+/* A plain caption paragraph directly above a table stays on the table's page. */
+p:has(+ table) { break-after: avoid; text-indent: 0; text-align: left; margin-top: 6pt; font-size: 12pt; }
 div.caption p, p.caption { text-indent: 0; font-size: 12pt; text-align: left; margin-top: 6pt; }
 
 .page-break { break-after: page; }

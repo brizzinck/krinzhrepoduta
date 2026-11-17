@@ -32,7 +32,7 @@ table { font-size: 9.5pt; }
 
 Правильній специфікації відповідає лише одна збірка. Проєкт Maven (Java 21, JUnit 6.1.3), залежність `ua.vendor:vendor:1.0` зі scope `test`; jar лежить поза репозиторієм і не комітиться. Повні логи в `results/`.
 
-![Схема запуску тестів](img/setup.png){width=40%}
+![Рисунок 1 — Схема запуску тестів](img/setup.png){width=40%}
 
 # 3. Як отримано API без коду збірок
 
@@ -66,6 +66,8 @@ mvn install:install-file -Dfile=v2-vendor.jar -DgroupId=ua.vendor -DartifactId=v
 
 Тести написано за специфікацією, значення обрано за класами еквівалентності та межами. Годинник скрізь фіксований: `Clock.fixed(instant, Europe/Kyiv)`, жодного `LocalDate.now()`. Звичайні тести використовують київський полудень, щоб дата була однозначна. Дати тестів не збігаються з датами прогонів (листопад 2026), тому збірка, що ігнорує годинник, помилилась би. Кожен тест сам створює годинник і збірку, спільного стану між тестами немає, тому порядок запуску на результат не впливає (перевірено в розділі 6).
 
+Таблиця 1 — Групи тестів, значення і призначення
+
 | Група тестів | Значення | Навіщо |
 |------------|------------------------------|--------------------|
 | Виконана задача | дедлайн вчора, тиждень тому, кілька місяців тому | `done` сильніший за прострочення |
@@ -76,7 +78,7 @@ mvn install:install-file -Dfile=v2-vendor.jar -DgroupId=ua.vendor -DartifactId=v
 | Дедлайн відсутній | `null` з `done=false` і `done=true` | `IllegalArgumentException` |
 | Київ і зсув від UTC | див. таблицю нижче | «сьогодні» за київським часом |
 
-Моменти часу, коли київська дата відрізняється від дати в UTC або залежить від переходу на зимовий час (25.10.2026):
+Таблиця 2 — Київська дата проти UTC і перехід на зимовий час (25.10.2026)
 
 | Київ | UTC | Дедлайн | Очікується |
 |--------------------|-----------|--------|--------------------|
@@ -91,7 +93,7 @@ mvn install:install-file -Dfile=v2-vendor.jar -DgroupId=ua.vendor -DartifactId=v
 
 Збірку для кожного тесту дає один метод; номер збірки береться з системної властивості. `policyOn` будує годинник на київський полудень заданої дати:
 
-```java
+```{.java .small}
     private static OverduePolicy policy(Clock clock) {
         return Vendor.build(Integer.getInteger("build", 1), clock);
     }
@@ -104,7 +106,7 @@ mvn install:install-file -Dfile=v2-vendor.jar -DgroupId=ua.vendor -DartifactId=v
 
 Робочі дні перевіряє параметризований тест (мітка рядка: день дедлайну і день «сьогодні»; усього 19 рядків):
 
-```java
+```{.java .small}
     @ParameterizedTest(name = "[{index}] {0}")
     @CsvSource({
             "середа - четвер: 1 робочий день, 2026-06-03, 2026-06-04, OVERDUE",
@@ -113,7 +115,8 @@ mvn install:install-file -Dfile=v2-vendor.jar -DgroupId=ua.vendor -DartifactId=v
             "перехід через рік - 2 робочі дні, 2025-12-31, 2026-01-02, ESCALATE",
             …
     })
-    void overdueByWorkingDays(String label, LocalDate deadline, LocalDate today, IssueStatus expected) {
+    void overdueByWorkingDays(String label, LocalDate deadline,
+                              LocalDate today, IssueStatus expected) {
         assertEquals(expected, policyOn(today.toString()).check(deadline, false));
     }
 ```
@@ -123,6 +126,8 @@ mvn install:install-file -Dfile=v2-vendor.jar -DgroupId=ua.vendor -DartifactId=v
 # 6. Результати шести збірок
 
 `mvn test -Dbuild=N` для N = 1…6 (`results/build-N.txt`, зведення `results/summary.txt`). Номери в дужках це номери рядків параметризованих тестів.
+
+Таблиця 3 — Результати шести збірок
 
 | Збірка | Тестів | Впало | Тести, що впали |
 |------|------|------|-------------------------------------|
@@ -149,6 +154,8 @@ org.opentest4j.AssertionFailedError: expected: <OVERDUE> but was: <ESCALATE>
 # 7. Звіти про дефекти
 
 Усі дати з 2026 року. Опис причин це припущення за поведінкою: код збірок не переглядався.
+
+Таблиця 4 — Звіти про дефекти
 
 | № | Тест | Вхідні дані | Мало бути | Було | Порушене правило |
 |---|------------------------|----------------|------------|------------|--------------------|

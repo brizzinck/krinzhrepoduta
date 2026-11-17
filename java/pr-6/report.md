@@ -14,6 +14,7 @@ city-year: "Київ – 2026"
 
 <style>
 pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important; }
+table { font-size: 10.5pt; break-inside: avoid; margin: 3pt 0; }
 </style>
 
 # 1. Мета роботи
@@ -24,11 +25,11 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 
 Номер у списку групи 12, варіант 2 (12 mod 5): задача в трекері, поля ключ, назва, story points, ключ рівності: ключ. Три досліди в одному Maven-проєкті (Java 21, без залежностей, запуск у docker). Лямбд і Stream API немає. Повні виводи лежать у `results/`, хибні фрагменти в `compile-errors/`.
 
-![Класи досліду 1 і клас варіанта](img/classes.png){width=62%}
+![Рисунок 1 — Класи досліду 1 і клас варіанта](img/classes.png){width=50%}
 
 # 3. Дослід 1. Узагальнений контейнер
 
-`Box<T>` має методи `put(T)` і `get()`. `ObjectBox` робить те саме на `Object`. Метод `Generics.first(List<T>)` повертає перший елемент списку будь-якого типу без приведення.
+`Box<T>` має методи `put(T)` і `get()`. `ObjectBox` робить те саме на `Object`. Метод `Generics.first(List<T>)` повертає перший елемент будь-якого списку без приведення.
 
 Я поклав у `Box<Issue>` рядок. Код не компілюється:
 
@@ -53,7 +54,7 @@ Exception in thread "main" java.lang.ClassCastException: class java.lang.String 
 
 Далі метод із параметром `List<Number>` і виклик зі `List<Integer>`:
 
-```
+```{.text .small}
 > javac … compile-errors/E2_list_number/*.java
 ListNumberError.java:15: error: incompatible types: List<Integer> cannot be converted to List<Number>
         System.out.println(total(ints));
@@ -72,7 +73,7 @@ ListNumberError.java:15: error: incompatible types: List<Integer> cannot be conv
     }
 ```
 
-```
+```{.text .small}
 > java … Exp1Total
 total(List<Integer>) = 26.0
 total(List<Number>)  = 26.5
@@ -86,7 +87,7 @@ first(List<Integer>) = 5
 
 Виміряний цикл вставки (`Exp2Timing.insertMiddle`):
 
-```java
+```{.java .small}
 long t0 = System.nanoTime();
 for (int i = 0; i < OPS; i++) {
     list.add(list.size() / 2, new Issue("NEW-" + i, "Нова " + i, 3));
@@ -94,17 +95,17 @@ for (int i = 0; i < OPS; i++) {
 return (System.nanoTime() - t0) / 1_000_000;
 ```
 
-Час 1 000 операцій на 100 000 елементів, мс (вивід `Exp2Timing`, `results/exp2_timing.txt`):
+Таблиця 1 — Час 1 000 операцій на 100 000 елементів, мс (колонки: номер запуску)
 
-| Запуск | ArrayList вставка | LinkedList вставка | ArrayList contains | LinkedList contains | HashSet contains |
-|---|---|---|---|---|---|
-| 1 | 2 | 278 | 179 | 342 | 0 |
-| 2 | 1 | 236 | 234 | 321 | 0 |
-| 3 | 1 | 323 | 355 | 698 | 0 |
-| 4 | 1 | 326 | 361 | 920 | 0 |
-| 5 | 1 | 304 | 331 | 812 | 0 |
+| Операція, колекція | 1 | 2 | 3 | 4 | 5 |
+|:------------------------|---|---|---|---|---|
+| Вставка, `ArrayList` | 2 | 1 | 1 | 1 | 1 |
+| Вставка, `LinkedList` | 278 | 236 | 323 | 326 | 304 |
+| `contains`, `ArrayList` | 179 | 234 | 355 | 361 | 331 |
+| `contains`, `LinkedList` | 342 | 321 | 698 | 920 | 812 |
+| `contains`, `HashSet` | 0 | 0 | 0 | 0 | 0 |
 
-Вставка в середину `LinkedList` повільніша в сотні разів (236-326 мс проти 1-2 мс), хоча сама вставка вузла O(1). Але список зв'язаний, і щоб дійти до індексу 50 000, треба пройти до 50 000 вузлів по посиланнях. У `ArrayList` позиція відома одразу, а хвіст зсуває `System.arraycopy`. `contains` у списків лінійний (до 100 000 викликів `equals` на ключ), у `HashSet` це хеш і порівняння в одному кошику, тому 0 мс. Час `contains` для списків коливається (179-920 мс), тому порівнюю порядок величин.
+Числа взято з `results/exp2_timing.txt`. Вставка в середину `LinkedList` повільніша в сотні разів (236-326 мс проти 1-2 мс), хоча сама вставка вузла O(1). Але список зв'язаний, і щоб дійти до індексу 50 000, треба пройти до 50 000 вузлів по посиланнях. У `ArrayList` позиція відома одразу, а хвіст зсуває `System.arraycopy`. `contains` у списків лінійний (до 100 000 викликів `equals` на ключ), у `HashSet` це хеш і порівняння в одному кошику, тому 0 мс. Час `contains` для списків коливається (179-920 мс), тому порівнюю порядок величин.
 
 Видалення задач із менше ніж 3 story points із `ArrayList` в циклі for-each:
 
@@ -141,13 +142,14 @@ Exception in thread "main" java.util.ConcurrentModificationException
 
 Стани 1 і 2 це допоміжні класи з тим самим полем `key`, стан 3 це `Issue`:
 
-```java
+```{.java .small}
 static class IssueEqOnly {              // стан 2: лише equals
     final String key;
     …
     @Override
     public boolean equals(Object o) {
-        return o instanceof IssueEqOnly other && Objects.equals(key, other.key);
+        return o instanceof IssueEqOnly other
+                && Objects.equals(key, other.key);
     }
 }
 

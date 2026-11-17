@@ -24,7 +24,7 @@ city-year: "Київ – 2026"
 Таблиця 1 — Відповідність EF Core і Hibernate
 
 | EF Core (.NET) | Hibernate (Java) |
-|:---------------------|:----------------------------------------|
+|:------------------------------------------|:--------------------------------------------|
 | `DbContext` | `Session` (її створює `SessionFactory`) |
 | `DbSet<T>`, клас сутності | клас з `@Entity`, запит `from T` у `Session` |
 | навігаційна властивість `ICollection<T>` | поле `Set<T>` з `@OneToMany` |
@@ -53,7 +53,7 @@ public class Products implements java.io.Serializable {
 }
 ```
 
-![Рисунок 2 — Генерація сутностей](screenshots/02-scaffold.png){width=75%}
+![Рисунок 2 — Генерація сутностей: імена класів і файли з ручними правками](screenshots/02-scaffold.png){width=85%}
 
 **Міграції.** Hibernate не веде версій міграцій, на відміну від `Add-Migration`, тому я взяв Flyway 11.20 у docker. `V1__northwind_schema.sql` це схема 13 таблиць, знята `mysqldump --no-data`: на існуючій базі вона стає базовою версією (`baseline`), а на порожній створює всі 13 таблиць, тобто це повноцінна перша міграція. Зміна моделі: клієнт отримує поле `email`. Спершу сутність `Customers` без `email`, потім із ним: Hibernate при запуску не знаходить стовпець `Email` і зупиняється, `validate` це доводить. Друга міграція `V2__add_customer_email.sql` виконується командою `migrate`, після неї додаток запускається. На рис. 3 зверху вниз: базова версія V1 і запуск зі старою моделлю, помилка `validate` після зміни моделі, `migrate`, запуск зі стовпцем `Email`.
 
@@ -62,7 +62,7 @@ public class Products implements java.io.Serializable {
 ALTER TABLE customers ADD COLUMN Email VARCHAR(100) NULL;
 ```
 
-![Рисунок 3 — Міграції: база V1, помилка `validate`, `migrate`, запуск (банер Flyway і меню додатка скорочено до «…»)](screenshots/03-migrations.png){width=82%}
+![Рисунок 3 — Міграції: база V1, помилка `validate`, `migrate`, запуск (банер Flyway і меню додатка скорочено до «…», у таблиці `info` немає колонок Category і Undoable)](screenshots/03-migrations.png){width=85%}
 
 **Запити 3-6** з ПР 1.2 (меню 3-6, рис. 4) записані в JPQL над сутностями, а не над таблицями:
 

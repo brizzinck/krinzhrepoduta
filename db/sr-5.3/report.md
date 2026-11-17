@@ -22,6 +22,8 @@ city-year: "Київ – 2026"
 
 Database as a Service це керована хмарна база даних: провайдер ставить СУБД й оновлення та робить копії, а власник платить за використання й працює зі схемою та даними (джерело 1). Підключатися можна звичайним драйвером. Розподіл відповідальності:
 
+Таблиця 1 — Розподіл відповідальності в моделях DBaaS
+
 | Модель | Що надає провайдер | Що робить замовник |
 |:-----------|:------------------------------|:------------------------------------|
 | Локально | Нічого | Усе: обладнання, ОС, СУБД, оновлення, копії |
@@ -31,6 +33,8 @@ Database as a Service це керована хмарна база даних: п
 ## Аналіз документації Azure Database for MySQL
 
 Flexible Server працює на MySQL Community Edition (5.7, 8.0, 8.4). Що описує документація:
+
+Таблиця 2 — Azure Database for MySQL Flexible Server за документацією
 
 | Область | Зміст |
 |:--------------------|:--------------------------------------------------------------------------|
@@ -50,8 +54,8 @@ Flexible Server працює на MySQL Community Edition (5.7, 8.0, 8.4). Що 
 2. Відкрити доступ: правило брандмауера з адресою клієнта (public access) або сервер у VNet із застосунком у тій самій мережі чи через VPN або ExpressRoute (private access).
 3. Під адміністратором створити користувача застосунку з правами лише на `car_rental`.
 4. Завантажити `schema.sql` і `seed.sql` клієнтом mysql. У них немає `DEFINER` і `ENGINE`, тож обмеження сервісу не заважають.
-5. Взяти CA-сертифікати DigiCert Global Root G2 і Microsoft RSA Root Certificate Authority 2017, об'єднані разом. Для Java їх імпортують у сховище довіри (`keytool -import`) і задають `javax.net.ssl.trustStore` та `trustStorePassword`; документація робить це через `System.setProperty`, але властивості можна передати й ключами `-D` при запуску JVM.
-6. Задати `DB_URL`, `DB_USER`, `DB_PASSWORD`, запустити `run.sh` і перевірити шифрування командою `status` у клієнті (рядок `SSL: Cipher in use is`). Код застосунку не змінюється, бо ці значення беруться зі змінних середовища; у `run.sh` лише зникає `--network container:duikt-mysql`, а сховище довіри з п. 5 передається в JVM. Приклад Java в документації бере `sslMode=REQUIRED`; для `VERIFY_IDENTITY` у рядку має стояти саме адреса `<сервер>.mysql.database.azure.com`.
+5. Взяти CA-сертифікати DigiCert Global Root G2 і Microsoft RSA Root Certificate Authority 2017, об'єднані разом. Для Java їх імпортують у сховище довіри (`keytool -import`) і задають `javax.net.ssl.trustStore` та `trustStorePassword` (документація: `System.setProperty`; можна й ключами `-D` при запуску JVM).
+6. Задати `DB_URL`, `DB_USER`, `DB_PASSWORD`, запустити `run.sh` і перевірити шифрування командою `status` у клієнті (рядок `SSL: Cipher in use is`). Код застосунку не змінюється, бо ці значення беруться зі змінних середовища; у `run.sh` лише зникає `--network container:duikt-mysql`, а сховище довіри з п. 5 передається в JVM. Для `VERIFY_IDENTITY` у рядку має стояти саме адреса `<сервер>.mysql.database.azure.com`.
 
 ```{.small}
 # 1. сервер і база
@@ -69,15 +73,17 @@ DB_URL='jdbc:mysql://<сервер>.mysql.database.azure.com:3306/car_rental?ssl
 
 ## Перевірка TLS на локальному сервері
 
-Клієнтська частина кроків вище зводиться до `sslMode` в рядку підключення. Я перевірив її на локальному MySQL 8.4 (сертифікат створює сам контейнер): `run.sh` запущено без змін, лише з `?sslMode=REQUIRED` у `DB_URL` (рис. 1). Поки застосунок тримав з'єднання (запуск у фоні, `&`), сервер показав, що воно йде по TLS 1.3 із шифром `TLS_AES_256_GCM_SHA384`.
+Клієнтська частина кроків вище зводиться до `sslMode` у рядку підключення. Я перевірив її на локальному MySQL 8.4 (сертифікат створив контейнер): `run.sh` без змін, лише з `?sslMode=REQUIRED` у `DB_URL` (рис. 1). Поки застосунок тримав з'єднання (запуск у фоні), сервер показав TLS 1.3 і шифр `TLS_AES_256_GCM_SHA384`.
 
-![Рисунок 1 — Застосунок ПР 3.1 по TLS і шифр його з'єднання на сервері](screenshots/01-app-tls.png){width=74%}
+![Рисунок 1 — Застосунок ПР 3.1 по TLS і шифр його з'єднання на сервері](screenshots/01-app-tls.png){width=62%}
 
-На рис. 2 видно різницю з Azure. Локально `require_secure_transport` дорівнює `OFF`, тож клієнт із `--ssl-mode=DISABLED` працює без шифрування (`Ssl_cipher` порожній), а Azure вимагає TLS за замовчуванням. З `sslMode=VERIFY_IDENTITY` застосунок не підключився: від успішного запуску це відрізняється лише режимом, отже причина в перевірці сертифіката, для якої JVM потрібен довірений CA-сертифікат сервера (для Azure це сертифікати з кроку 5).
+На рис. 2 видно різницю з Azure. Локально `require_secure_transport` дорівнює `OFF`, тож клієнт із `--ssl-mode=DISABLED` працює без шифрування (`Ssl_cipher` порожній), а Azure вимагає TLS. З `sslMode=VERIFY_IDENTITY` застосунок не підключився; відмінність лише в режимі, тож причина в перевірці сертифіката: JVM потрібен CA-сертифікат сервера (для Azure з кроку 5).
 
-![Рисунок 2 — Вимога TLS на сервері, клієнт без шифрування, відмова VERIFY_IDENTITY](screenshots/02-ssl-modes.png){width=74%}
+![Рисунок 2 — Вимога TLS, клієнт без шифрування, відмова VERIFY_IDENTITY](screenshots/02-ssl-modes.png){width=58%}
 
 ## Відмінності від локального розгортання
+
+Таблиця 3 — Локальне розгортання і Azure Database for MySQL
 
 | Аспект | Локально (MySQL 8.4) | Azure Database for MySQL |
 |:----------------|:--------------------------|:-------------------------------------|
@@ -94,9 +100,9 @@ DB_URL='jdbc:mysql://<сервер>.mysql.database.azure.com:3306/car_rental?ssl
 
 ## Висновки
 
-Я розібрав поняття DBaaS і порівняв його з IaaS: у DBaaS провайдер бере на себе ОС, СУБД, оновлення й копії, а замовнику лишаються схема, дані та права. Azure Database for MySQL Flexible Server працює на MySQL Community Edition, тому застосунок підключається до нього тим самим драйвером. Підключення зводиться до сервера, брандмауера або приватної мережі, користувача з правами на `car_rental`, завантаження `schema.sql` із `seed.sql` та CA-сертифікатів, а код не змінюється. Локально `sslMode=REQUIRED` дав шифроване з'єднання (TLS 1.3), а `VERIFY_IDENTITY` без довіреного сертифіката було відхилено. Найбільше мене здивувало, що адміністратор Azure не має `SUPER`, тож дампи з `DEFINER` довелося б чистити.
+Я порівняв DBaaS з IaaS: у DBaaS провайдер бере на себе ОС, СУБД, оновлення й копії, а замовнику лишаються схема, дані та права. Flexible Server працює на MySQL Community Edition, тому застосунок підключається тим самим драйвером. Підключення зводиться до сервера з мережевим доступом, користувача з правами на `car_rental`, завантаження `schema.sql`, `seed.sql` і CA-сертифікатів; код не змінюється. Локально `sslMode=REQUIRED` дав шифроване з'єднання (TLS 1.3), а `VERIFY_IDENTITY` без довіреного сертифіката було відхилено. Найбільше здивувало, що в Azure немає `SUPER`, тож дампи з `DEFINER` чистять.
 
 ## Список джерел
 
 1. Лекції Л 3.1-3.3 (підключення до БД, DBaaS); звіти ПР № 1.1 і 3.1; скрипти <https://github.com/brizzinck/krinzhrepoduta/tree/main/db/sr-5.3>.
-2. Microsoft Learn, дата доступу 13.11.2026. Початок адреси `https://learn.microsoft.com/en-us/azure/mysql/`, далі: `flexible-server/overview`, `flexible-server/connect-java`, `security/security-tls-how-to-connect` і `flexible-server/concepts-` з одним із закінчень `networking`, `networking-public`, `networking-vnet`, `backup-restore`, `high-availability`, `read-replicas`, `limitations`, `service-tiers-storage`.
+2. Microsoft Learn, доступ 13.11.2026, `https://learn.microsoft.com/en-us/azure/mysql/` плюс `flexible-server/overview`, `flexible-server/connect-java`, `security/security-tls-how-to-connect` і `flexible-server/concepts-` із закінченнями `networking`, `networking-public`, `networking-vnet`, `backup-restore`, `high-availability`, `read-replicas`, `limitations`, `service-tiers-storage`.

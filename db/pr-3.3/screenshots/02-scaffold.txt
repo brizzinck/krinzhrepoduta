@@ -1,18 +1,7 @@
-$ ./mvn-db.sh -q -Preveng -Dreveng.out=target/reveng generate-sources   # рядки «Building entity»
-  Categories
-  Customerdemographics
-  Customers
-  Employees
-  OrderDetails
-  Orders
-  Products
-  Region
-  Shippers
-  Suppliers
-  Territories
-$ diff -rq -I '^// Generated' target/reveng/northwind/entity src/main/java/northwind/entity   # імена відмінних файлів
-  Customerdemographics.java
-  Customers.java
-  Employees.java
-  Region.java
-  Territories.java
+# Імена сутностей, які згенерував hbm2java (рядки «Building entity»)
+$ ./mvn-db.sh -q -Preveng -Dreveng.out=target/reveng generate-sources
+Categories Customerdemographics Customers Employees OrderDetails Orders Products Region Shippers Suppliers Territories
+# Файли, що відрізняються від згенерованих (ручні правки)
+$ diff -rq -I '^// Generated' \
+    target/reveng/northwind/entity src/main/java/northwind/entity
+Customerdemographics.java Customers.java Employees.java Region.java Territories.java

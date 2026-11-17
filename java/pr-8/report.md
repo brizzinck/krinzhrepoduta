@@ -24,7 +24,7 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 
 Номер у списку групи 12, варіант 2 (12 mod 5): `Sprint.canAdd(points, current)`: оцінка задачі від 1 до 13, разом у спринті не більше 40 SP. Межі: оцінки 0, 1, 13, 14, сума 40 і 41. Сервіс `IssueService`: поточне навантаження виконавця береться з `TeamDirectory`, повідомлення йде в `ChatNotifier`. Maven, Java 21, JUnit 6.1.3 (через `junit-bom`), `mockito-junit-jupiter` 5.24.0, Surefire 3.6.1, запуск у docker. Повні логи кожного кроку в `results/`.
 
-![Клас, сервіс і залежності](img/classes.png){width=76%}
+![Рисунок 1 — Клас, сервіс і залежності](img/classes.png){width=76%}
 
 # 3. Клас і правило
 
