@@ -3,6 +3,6 @@ $ wc -l pr-3.1/…/{Database,Table,TableDao,QueryDao}.java | tail -1
 $ wc -l pr-3.2/…/{Database,Branch,…,ReportDao}.java | tail -1
  217 total
 $ wc -l pr-3.3/…/{Database,Queries}.java | tail -1
- 165 total
+ 181 total
 $ wc -l pr-3.3/…/entity/*.java | tail -1
- 1465 total
+ 1761 total

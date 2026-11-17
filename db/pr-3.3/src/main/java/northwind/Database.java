@@ -1,13 +1,16 @@
 package northwind;
 
 import northwind.entity.Categories;
+import northwind.entity.Customerdemographics;
 import northwind.entity.Customers;
 import northwind.entity.Employees;
 import northwind.entity.OrderDetails;
 import northwind.entity.Orders;
 import northwind.entity.Products;
+import northwind.entity.Region;
 import northwind.entity.Shippers;
 import northwind.entity.Suppliers;
+import northwind.entity.Territories;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -31,7 +34,8 @@ public final class Database {
             cfg.setProperty("hibernate.show_sql", "true").setProperty("hibernate.format_sql", "true");
         }
         for (Class<?> entity : new Class<?>[] {Categories.class, Suppliers.class, Products.class, Customers.class,
-            Employees.class, Shippers.class, Orders.class, OrderDetails.class}) {
+            Employees.class, Shippers.class, Orders.class, OrderDetails.class, Region.class, Territories.class,
+            Customerdemographics.class}) {
             cfg.addAnnotatedClass(entity);
         }
         return cfg.buildSessionFactory();

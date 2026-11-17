@@ -6,5 +6,5 @@ cd "$(dirname "$0")"
 exec docker run --rm -u "$(id -u):$(id -g)" --network container:duikt-mysql \
   -v "$PWD/src/main/resources/db/migration":/flyway/sql:ro \
   flyway/flyway:11.20.3 \
-  -url="jdbc:mysql://127.0.0.1:3306/northwind_orm" -user=rental -password=rental_dev \
+  -url="jdbc:mysql://127.0.0.1:3306/northwind_orm?allowPublicKeyRetrieval=true" -user=rental -password=rental_dev \
   -locations=filesystem:/flyway/sql -baselineOnMigrate=true -baselineVersion=1 "$@"

@@ -1,5 +1,5 @@
 package northwind.entity;
-// Generated Nov 13, 2026, 12:13:00 AM by Hibernate Tools 6.6.58.Final
+// Generated Nov 17, 2026, 8:53:23 AM by Hibernate Tools 6.6.58.Final
 
 
 import jakarta.persistence.Column;
@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -44,6 +46,7 @@ public class Employees  implements java.io.Serializable {
      private byte[] photo;
      private String notes;
      private String photoPath;
+     private Set<Territories> territorieses = new HashSet<Territories>(0);
      private Set<Orders> orderses = new HashSet<Orders>(0);
      private Set<Employees> employeeses = new HashSet<Employees>(0);
 
@@ -56,7 +59,7 @@ public class Employees  implements java.io.Serializable {
         this.lastName = lastName;
         this.firstName = firstName;
     }
-    public Employees(int employeeId, Employees employees, String lastName, String firstName, String title, String titleOfCourtesy, Timestamp birthDate, Timestamp hireDate, String address, String city, String region, String postalCode, String country, String homePhone, String extension, byte[] photo, String notes, String photoPath, Set<Orders> orderses, Set<Employees> employeeses) {
+    public Employees(int employeeId, Employees employees, String lastName, String firstName, String title, String titleOfCourtesy, Timestamp birthDate, Timestamp hireDate, String address, String city, String region, String postalCode, String country, String homePhone, String extension, byte[] photo, String notes, String photoPath, Set<Territories> territorieses, Set<Orders> orderses, Set<Employees> employeeses) {
        this.employeeId = employeeId;
        this.employees = employees;
        this.lastName = lastName;
@@ -75,6 +78,7 @@ public class Employees  implements java.io.Serializable {
        this.photo = photo;
        this.notes = notes;
        this.photoPath = photoPath;
+       this.territorieses = territorieses;
        this.orderses = orderses;
        this.employeeses = employeeses;
     }
@@ -259,6 +263,19 @@ public class Employees  implements java.io.Serializable {
     
     public void setPhotoPath(String photoPath) {
         this.photoPath = photoPath;
+    }
+
+@ManyToMany(fetch=FetchType.LAZY)
+    // ручна правка: з @JoinColumn прибрано updatable=false (Hibernate вимагає однакові insertable і updatable)
+    @JoinTable(name="employeeterritories", catalog="northwind_orm", joinColumns = { 
+        @JoinColumn(name="EmployeeID", nullable=false) }, inverseJoinColumns = { 
+        @JoinColumn(name="TerritoryID", nullable=false) })
+    public Set<Territories> getTerritorieses() {
+        return this.territorieses;
+    }
+    
+    public void setTerritorieses(Set<Territories> territorieses) {
+        this.territorieses = territorieses;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="employees")

@@ -46,8 +46,9 @@ public class Main {
         switch (choice) {
             case "1" -> {
                 System.out.println("1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers");
+                System.out.println("9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo");
                 int table = Integer.parseInt(ask("Таблиця"));
-                if (table < 1 || table > 8) {
+                if (table < 1 || table > 13) {
                     System.out.println("Немає такої таблиці");
                 } else {
                     queries.list(table - 1);
@@ -81,7 +82,7 @@ public class Main {
     }
 
     private static void printMenu() {
-        System.out.println("1 Показати таблицю (8 таблиць, перші 10 рядків)");
+        System.out.println("1 Показати таблицю (13 таблиць, перші 10 рядків)");
         System.out.println("3 Запит 3: середня ціна по категоріях   4 Запит 4: співробітники й клієнти по містах");
         System.out.println("5 Запит 5: дохід від клієнтів   6 Запит 6: замовлення зі співробітником");
         System.out.println("7 Демонстрація N+1   9 Меню   0 Вихід");

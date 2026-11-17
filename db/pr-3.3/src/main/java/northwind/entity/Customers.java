@@ -1,13 +1,16 @@
 package northwind.entity;
-// Generated Nov 13, 2026, 12:13:00 AM by Hibernate Tools 6.6.58.Final
+// Generated Nov 17, 2026, 8:53:23 AM by Hibernate Tools 6.6.58.Final
 
 
 import jakarta.persistence.Column;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.HashSet;
@@ -36,6 +39,7 @@ public class Customers  implements java.io.Serializable {
      private String fax;
      private String email;
      private Set<Orders> orderses = new HashSet<Orders>(0);
+     private Set<Customerdemographics> customerdemographicses = new HashSet<Customerdemographics>(0);
 
     public Customers() {
     }
@@ -45,7 +49,7 @@ public class Customers  implements java.io.Serializable {
         this.customerId = customerId;
         this.companyName = companyName;
     }
-    public Customers(String customerId, String companyName, String contactName, String contactTitle, String address, String city, String region, String postalCode, String country, String phone, String fax, Set<Orders> orderses) {
+    public Customers(String customerId, String companyName, String contactName, String contactTitle, String address, String city, String region, String postalCode, String country, String phone, String fax, String email, Set<Orders> orderses, Set<Customerdemographics> customerdemographicses) {
        this.customerId = customerId;
        this.companyName = companyName;
        this.contactName = contactName;
@@ -57,7 +61,9 @@ public class Customers  implements java.io.Serializable {
        this.country = country;
        this.phone = phone;
        this.fax = fax;
+       this.email = email;
        this.orderses = orderses;
+       this.customerdemographicses = customerdemographicses;
     }
    
      @Id 
@@ -173,7 +179,7 @@ public class Customers  implements java.io.Serializable {
         this.fax = fax;
     }
 
-// зміна моделі для міграції V2: нове поле Email
+    
     @Column(name="Email", length=100)
     public String getEmail() {
         return this.email;
@@ -190,6 +196,19 @@ public class Customers  implements java.io.Serializable {
     
     public void setOrderses(Set<Orders> orderses) {
         this.orderses = orderses;
+    }
+
+@ManyToMany(fetch=FetchType.LAZY)
+    // ручна правка: з @JoinColumn прибрано updatable=false (Hibernate вимагає однакові insertable і updatable)
+    @JoinTable(name="customercustomerdemo", catalog="northwind_orm", joinColumns = { 
+        @JoinColumn(name="CustomerID", nullable=false) }, inverseJoinColumns = { 
+        @JoinColumn(name="CustomerTypeID", nullable=false) })
+    public Set<Customerdemographics> getCustomerdemographicses() {
+        return this.customerdemographicses;
+    }
+    
+    public void setCustomerdemographicses(Set<Customerdemographics> customerdemographicses) {
+        this.customerdemographicses = customerdemographicses;
     }
 
 

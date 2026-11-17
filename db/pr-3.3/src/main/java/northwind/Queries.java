@@ -20,9 +20,11 @@ public class Queries {
         }
     }
 
-    /** Перші рядки однієї з 8 таблиць: from Entity. */
+    /** Перші рядки однієї з 13 таблиць: from Entity. Дві таблиці-зв'язки читаються через @ManyToMany сутностей. */
     public void list(int table) {
-        String[] entity = {"Categories", "Products", "Customers", "Employees", "Orders", "OrderDetails", "Suppliers", "Shippers"};
+        String[] from = {"Categories c", "Products c", "Customers c", "Employees c", "Orders c", "OrderDetails c", "Suppliers c",
+            "Shippers c", "Region c", "Territories c", "Employees e join e.territorieses c", "Customerdemographics c",
+            "Customers e join e.customerdemographicses c"};
         String[][] headers = {
             {"categoryId", "categoryName", "description"},
             {"productId", "productName", "unitPrice", "unitsInStock"},
@@ -31,7 +33,12 @@ public class Queries {
             {"orderId", "orderDate", "shipCountry", "freight"},
             {"orderId", "productId", "unitPrice", "quantity", "discount"},
             {"supplierId", "companyName", "city", "country"},
-            {"shipperId", "companyName", "phone"}};
+            {"shipperId", "companyName", "phone"},
+            {"regionId", "regionDescription"},
+            {"territoryId", "territoryDescription", "regionId"},
+            {"employeeId", "territoryId"},
+            {"customerTypeId", "customerDesc"},
+            {"customerId", "customerTypeId"}};
         String[] fields = {
             "c.categoryId, c.categoryName, c.description",
             "c.productId, c.productName, c.unitPrice, c.unitsInStock",
@@ -40,10 +47,15 @@ public class Queries {
             "c.orderId, c.orderDate, c.shipCountry, c.freight",
             "c.id.orderId, c.id.productId, c.unitPrice, c.quantity, c.discount",
             "c.supplierId, c.companyName, c.city, c.country",
-            "c.shipperId, c.companyName, c.phone"};
+            "c.shipperId, c.companyName, c.phone",
+            "c.regionId, trim(c.regionDescription)",
+            "c.territoryId, trim(c.territoryDescription), c.region.regionId",
+            "e.employeeId, c.territoryId",
+            "c.customerTypeId, c.customerDesc",
+            "e.customerId, c.customerTypeId"};
         try (Session session = factory.openSession()) {
             List<Object[]> rows = session
-                .createQuery("select " + fields[table] + " from " + entity[table] + " c order by 1", Object[].class)
+                .createQuery("select " + fields[table] + " from " + from[table] + " order by 1, 2", Object[].class)
                 .setMaxResults(10).getResultList();
             Printer.print(headers[table], rows, 0);
         }

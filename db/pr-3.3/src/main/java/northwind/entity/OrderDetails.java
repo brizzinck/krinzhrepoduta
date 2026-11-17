@@ -1,5 +1,5 @@
 package northwind.entity;
-// Generated Nov 13, 2026, 12:13:00 AM by Hibernate Tools 6.6.58.Final
+// Generated Nov 17, 2026, 8:53:23 AM by Hibernate Tools 6.6.58.Final
 
 
 import jakarta.persistence.AttributeOverride;
@@ -24,8 +24,8 @@ public class OrderDetails  implements java.io.Serializable {
 
 
      private OrderDetailsId id;
-     private Orders orders;
      private Products products;
+     private Orders orders;
      private BigDecimal unitPrice;
      private short quantity;
      private BigDecimal discount;
@@ -33,10 +33,10 @@ public class OrderDetails  implements java.io.Serializable {
     public OrderDetails() {
     }
 
-    public OrderDetails(OrderDetailsId id, Orders orders, Products products, BigDecimal unitPrice, short quantity, BigDecimal discount) {
+    public OrderDetails(OrderDetailsId id, Products products, Orders orders, BigDecimal unitPrice, short quantity, BigDecimal discount) {
        this.id = id;
-       this.orders = orders;
        this.products = products;
+       this.orders = orders;
        this.unitPrice = unitPrice;
        this.quantity = quantity;
        this.discount = discount;
@@ -57,16 +57,6 @@ public class OrderDetails  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="OrderID", nullable=false, insertable=false, updatable=false)
-    public Orders getOrders() {
-        return this.orders;
-    }
-    
-    public void setOrders(Orders orders) {
-        this.orders = orders;
-    }
-
-@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="ProductID", nullable=false, insertable=false, updatable=false)
     public Products getProducts() {
         return this.products;
@@ -74,6 +64,16 @@ public class OrderDetails  implements java.io.Serializable {
     
     public void setProducts(Products products) {
         this.products = products;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="OrderID", nullable=false, insertable=false, updatable=false)
+    public Orders getOrders() {
+        return this.orders;
+    }
+    
+    public void setOrders(Orders orders) {
+        this.orders = orders;
     }
 
     

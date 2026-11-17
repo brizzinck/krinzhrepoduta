@@ -3,6 +3,7 @@ $ ./run.sh < demo/01-tables.txt
 …
 Ваш вибір: 1
 1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
 Таблиця: 6
 orderId | productId | unitPrice | quantity | discount
 10248   | 11        | 14.0000   | 12       | 0.00    

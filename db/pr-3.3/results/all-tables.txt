@@ -1,12 +1,13 @@
 $ ./run.sh < demo/05-all-tables.txt
 Підключено до БД: northwind_orm, MySQL 8.4.13 (Hibernate ORM)
-1 Показати таблицю (8 таблиць, перші 10 рядків)
+1 Показати таблицю (13 таблиць, перші 10 рядків)
 3 Запит 3: середня ціна по категоріях   4 Запит 4: співробітники й клієнти по містах
 5 Запит 5: дохід від клієнтів   6 Запит 6: замовлення зі співробітником
 7 Демонстрація N+1   9 Меню   0 Вихід
 
 Ваш вибір: 1
 1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
 Таблиця: 1
 categoryId | categoryName   | description                                               
 1          | Beverages      | Soft drinks, coffees, teas, beers, and ales               
@@ -21,6 +22,7 @@ categoryId | categoryName   | description
 
 Ваш вибір: 1
 1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
 Таблиця: 2
 productId | productName                     | unitPrice | unitsInStock
 1         | Chai                            | 18.0000   | 39          
@@ -37,6 +39,7 @@ productId | productName                     | unitPrice | unitsInStock
 
 Ваш вибір: 1
 1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
 Таблиця: 3
 customerId | companyName                        | city        | country
 ALFKI      | Alfreds Futterkiste                | Berlin      | Germany
@@ -53,6 +56,7 @@ BOTTM      | Bottom-Dollar Markets              | Tsawassen   | Canada
 
 Ваш вибір: 1
 1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
 Таблиця: 4
 employeeId | firstName | lastName  | city    
 1          | Nancy     | Davolio   | Seattle 
@@ -68,6 +72,7 @@ employeeId | firstName | lastName  | city
 
 Ваш вибір: 1
 1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
 Таблиця: 5
 orderId | orderDate  | shipCountry | freight 
 10248   | 1996-07-04 | France      | 32.3800 
@@ -84,6 +89,7 @@ orderId | orderDate  | shipCountry | freight
 
 Ваш вибір: 1
 1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
 Таблиця: 6
 orderId | productId | unitPrice | quantity | discount
 10248   | 11        | 14.0000   | 12       | 0.00    
@@ -100,6 +106,7 @@ orderId | productId | unitPrice | quantity | discount
 
 Ваш вибір: 1
 1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
 Таблиця: 7
 supplierId | companyName                        | city        | country  
 1          | Exotic Liquids                     | London      | UK       
@@ -116,12 +123,72 @@ supplierId | companyName                        | city        | country
 
 Ваш вибір: 1
 1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
 Таблиця: 8
 shipperId | companyName      | phone         
 1         | Speedy Express   | (503) 555-9831
 2         | United Package   | (503) 555-3199
 3         | Federal Shipping | (503) 555-9931
 Рядків: 3
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
+Таблиця: 9
+regionId | regionDescription
+1        | Eastern          
+2        | Western          
+3        | Northern         
+4        | Southern         
+Рядків: 4
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
+Таблиця: 10
+territoryId | territoryDescription | regionId
+01581       | Westboro             | 1       
+01730       | Bedford              | 1       
+01833       | Georgetow            | 1       
+02116       | Boston               | 1       
+02139       | Cambridge            | 1       
+02184       | Braintree            | 1       
+02903       | Providence           | 1       
+03049       | Hollis               | 3       
+03801       | Portsmouth           | 3       
+06897       | Wilton               | 1       
+Рядків: 10
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
+Таблиця: 11
+employeeId | territoryId
+1          | 06897      
+1          | 19713      
+2          | 01581      
+2          | 01730      
+2          | 01833      
+2          | 02116      
+2          | 02139      
+2          | 02184      
+2          | 40222      
+3          | 30346      
+Рядків: 10
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
+Таблиця: 12
+customerTypeId | customerDesc
+Рядків: 0
+
+Ваш вибір: 1
+1.categories 2.products 3.customers 4.employees 5.orders 6.order details 7.suppliers 8.shippers
+9.region 10.territories 11.employee territories 12.customer demographics 13.customer demo
+Таблиця: 13
+customerId | customerTypeId
+Рядків: 0
 
 Ваш вибір: 0
 Роботу завершено
