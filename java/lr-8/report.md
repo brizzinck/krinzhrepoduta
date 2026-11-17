@@ -107,10 +107,10 @@ mvn install:install-file -Dfile=v2-vendor.jar -DgroupId=ua.vendor -DartifactId=v
 ```java
     @ParameterizedTest(name = "[{index}] {0}")
     @CsvSource({
-            "середа - четвер: 1 робочий день, 2026-06-03, 2026-06-04, OVERDUE", // [1]
-            "пʼятниця - вівторок: 2 робочі дні, 2026-06-05, 2026-06-09, ESCALATE", // [4]
-            "пʼятниця - неділя: 0 робочих днів, 2026-06-05, 2026-06-07, OVERDUE", // [9]
-            "перехід через рік - 2 робочі дні, 2025-12-31, 2026-01-02, ESCALATE", // [15]
+            "середа - четвер: 1 робочий день, 2026-06-03, 2026-06-04, OVERDUE",
+            "пʼятниця - вівторок: 2 робочі дні, 2026-06-05, 2026-06-09, ESCALATE",
+            "пʼятниця - неділя: 0 робочих днів, 2026-06-05, 2026-06-07, OVERDUE",
+            "перехід через рік - 2 робочі дні, 2025-12-31, 2026-01-02, ESCALATE",
             …
     })
     void overdueByWorkingDays(String label, LocalDate deadline, LocalDate today, IssueStatus expected) {
@@ -118,7 +118,7 @@ mvn install:install-file -Dfile=v2-vendor.jar -DgroupId=ua.vendor -DartifactId=v
     }
 ```
 
-Усього 35 перевірок. Тести `missingDeadlineThrowsEvenForDoneIssue` і `kyivDateEvenWhenClockIsInUtc` позначені `@Tag("interpretation")`: специфікація їх прямо не вирішує, див. розділ 8.
+Показано перевірки [1], [4], [9], [15] з 35. Тести `missingDeadlineThrowsEvenForDoneIssue` і `kyivDateEvenWhenClockIsInUtc` позначені `@Tag("interpretation")`: специфікація їх прямо не вирішує, див. розділ 8.
 
 # 6. Результати шести збірок
 
@@ -178,4 +178,4 @@ org.opentest4j.AssertionFailedError: expected: <OVERDUE> but was: <ESCALATE>
 
 # 11. Посилання на репозиторій
 
-<https://github.com/brizzinck/krinzhrepoduta/tree/main/java/lr-8>. Jar у репозиторії немає: його видав викладач, встановлюється командою з розділу 3.
+<https://github.com/brizzinck/krinzhrepoduta/tree/main/java/lr-8>
