@@ -199,17 +199,16 @@
 <section class="slide s9" data-theme="light" id="s-10">
   <h1>6 метрик із ТЗ: що отримали</h1>
   <div class="tiles">
-    <div class="tile"><div class="l">Оператори в одному застосунку</div><div class="n">3</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета не менше 3: виконано</div><div class="m">Як міряли: рахували операторів, чий транспорт видно на карті</div></div>
+    <div class="tile"><div class="l">Оператори в одному застосунку</div><div class="n">3</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета не менше 3: виконано</div><div class="m">Як міряли: вручну порахували операторів на карті</div></div>
     <div class="tile"><div class="l">Окремі реєстрації</div><div class="n">0</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета 0: виконано</div><div class="m">Як міряли: порівняли кроки. Без сервісу 3, по одній в кожного оператора</div></div>
     <div class="tile"><div class="l">Натискання до розблокування</div><div class="n">3</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета не більше 4: виконано</div><div class="m">Як міряли: рахували натискання в 5 проходах</div></div>
-    <div class="tile"><div class="l">Час від карти до старту поїздки</div><div class="n">1,37 с</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета до 30 с: виконано</div><div class="m">Як міряли: Playwright, 5 запусків; вручну 2,85 с</div></div>
-    <div class="tile"><div class="l">Час відкриття карти</div><div class="n">1,08 с</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета до 3 с: виконано</div><div class="m">Як міряли: Playwright, 5 запусків; вручну 0,86 с</div></div>
-    <div class="tile"><div class="l">Доступність інтерфейсу</div><div class="n">100 / 100</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета не менше 90: виконано</div><div class="m">Як міряли: Lighthouse у Chrome: контраст, підписи, назви кнопок</div></div>
+    <div class="tile"><div class="l">Час від карти до старту поїздки</div><div class="n">2,85 с</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета до 30 с: виконано</div><div class="m">Як міряли: вручну, 5 проходів, медіана</div></div>
+    <div class="tile"><div class="l">Час відкриття карти</div><div class="n">0,86 с</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета до 3 с: виконано</div><div class="m">Як міряли: вручну, 5 повторних запусків, медіана</div></div>
+    <div class="tile"><div class="l">Доступність інтерфейсу</div><div class="n">100 / 100</div><div class="t"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Мета не менше 90: виконано</div><div class="m">Як міряли: вручну запустили Lighthouse у Chrome</div></div>
   </div>
-  <div class="labels">
-    <p class="fn">Playwright: програма, яка сама відкриває робочий сайт у браузері й натискає кнопки. 5 запусків, медіана, 17.11.2026.</p>
-    <p class="fn">Вручну: ми самі проходили сценарій у Chrome в режимі телефона з імітацією мережі 4G, 5 проходів, 17.11.2026.</p>
-    <p class="fn">Замір секундоміром у Telegram на смартфоні ще попереду.</p>
+  <div class="method">
+    <p class="fn"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#device-mobile"/></svg><span>Вручну: Chrome у режимі телефона, імітація 4G, 5 разів, 17.11.2026</span></p>
+    <p class="fn"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#shield-check"/></svg><span>Lighthouse: контраст, підписи, кнопки; світла й темна теми</span></p>
   </div>
 </section>
 
