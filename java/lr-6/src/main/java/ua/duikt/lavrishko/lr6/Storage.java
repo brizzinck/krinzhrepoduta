@@ -50,7 +50,7 @@ public class Storage<K, T extends Keyed<K>> implements Iterable<T> {
 
     /**
      * Нова відсортована копія. List.sort стабільний і нічого не відкидає:
-     * записи з однаковим значенням критерію лишаються в порядку сховища.
+     * записи з однаковим значенням критерію не губляться; їхній порядок задає компаратор.
      */
     public List<T> sorted(Comparator<? super T> comparator) {
         List<T> copy = new ArrayList<>(records.values());

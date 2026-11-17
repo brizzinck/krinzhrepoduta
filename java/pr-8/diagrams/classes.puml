@@ -6,28 +6,24 @@ skinparam ClassBackgroundColor #FFFFFF
 skinparam ClassBorderColor #333333
 skinparam ArrowColor #333333
 hide empty members
-left to right direction
-class Sprint {
-  + canAdd(points : int, current : int) : boolean
+class IssueServiceTest <<тест>> {
+  @Mock TeamDirectory (стаб)
+  @Mock ChatNotifier (мок)
 }
 class IssueService {
-  + plan(login : String, points : int) : boolean
+  + plan(login, points) : boolean
+}
+class Sprint {
+  + canAdd(points, current) : boolean
 }
 interface TeamDirectory {
-  + currentPoints(login : String) : int
+  + currentPoints(login) : int
 }
 interface ChatNotifier {
-  + send(login : String, text : String)
+  + send(login, text)
 }
-class IssueServiceTest <<тест>>
-class "mock TeamDirectory\n(стаб: when/thenReturn)" as StubDir <<Mockito>>
-class "mock ChatNotifier\n(мок: verify)" as MockNot <<Mockito>>
-IssueService --> Sprint
-IssueService --> TeamDirectory
-IssueService --> ChatNotifier
 IssueServiceTest ..> IssueService
-StubDir ..|> TeamDirectory
-MockNot ..|> ChatNotifier
-IssueServiceTest ..> StubDir
-IssueServiceTest ..> MockNot
+IssueService -down-> TeamDirectory
+IssueService -right-> Sprint
+IssueService -down-> ChatNotifier
 @enduml
