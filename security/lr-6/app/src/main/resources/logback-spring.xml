@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+  <springProperty scope="context" name="AUDIT_FILE" source="app.audit.file" defaultValue="logs/auth-failures.log"/>
+
+  <!-- Журнал невдалих спроб входу й використання токена: один рядок на подію -->
+  <appender name="AUDIT_FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${AUDIT_FILE}</file>
+    <append>true</append>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %msg%n</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+  </appender>
+
+  <logger name="security-audit" level="INFO" additivity="false">
+    <appender-ref ref="AUDIT_FILE"/>
+  </logger>
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+  </root>
+</configuration>

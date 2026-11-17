@@ -1,0 +1,30 @@
+
+# Без токена
+$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile
+{"error":"invalid_token","reason":"missing"}
+HTTP 401
+
+# Змінено вміст токена (sub=manager), підпис старий
+$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJIUzI...0_W99w'
+{"error":"invalid_token","reason":"bad_signature"}
+HTTP 401
+
+# Алгоритм none, підпису немає
+$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJub25...NjZSJ9.'
+{"error":"invalid_token","reason":"wrong_alg"}
+HTTP 401
+
+# Сміття замість токена
+$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer not-a-token'
+{"error":"invalid_token","reason":"malformed"}
+HTTP 401
+
+# Шлях з параметром /api;x/profile без токена
+$ curl -s -w '\nHTTP %{http_code}\n' --path-as-is 'http://localhost:8086/api;x/profile'
+{"error":"invalid_token","reason":"missing"}
+HTTP 401
+
+# Закодований шлях /%61pi/profile без токена
+$ curl -s -w '\nHTTP %{http_code}\n' --path-as-is http://localhost:8086/%61pi/profile
+{"error":"invalid_token","reason":"missing"}
+HTTP 401

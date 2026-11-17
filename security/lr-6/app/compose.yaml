@@ -1,0 +1,19 @@
+# Навчальний стенд ЛР 6: застосунок з аутентифікацією за токеном у Docker.
+# Запуск:  HOST_UID=$(id -u) HOST_GID=$(id -g) docker compose up -d   (після збірки target/app.jar)
+# Зупинка: docker compose down
+# Секрет підпису береться зі змінної JWT_SECRET (base64, від 32 байт); якщо її не задано,
+# застосунок генерує випадковий ключ при кожному запуску.
+services:
+  app:
+    image: eclipse-temurin:21-jre
+    container_name: rental_token_app
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    working_dir: /work
+    environment:
+      JWT_SECRET: ${JWT_SECRET:-}
+    volumes:
+      - ./target/app.jar:/opt/app.jar:ro
+      - ./logs:/work/logs
+    command: ["java", "-jar", "/opt/app.jar"]
+    ports:
+      - "127.0.0.1:8086:8080"

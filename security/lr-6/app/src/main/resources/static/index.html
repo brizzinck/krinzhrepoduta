@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Прокат автомобілів: вхід</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Прокат автомобілів</h1>
+    <h2>Вхід у кабінет</h2>
+
+    <form id="login-form" autocomplete="off">
+      <label for="login">Логін</label>
+      <input id="login" name="login" type="text" maxlength="64" required>
+
+      <label for="password">Пароль</label>
+      <input id="password" name="password" type="password" maxlength="72" required>
+
+      <button type="submit">Увійти</button>
+    </form>
+
+    <p id="message" role="status"></p>
+
+    <section id="session" hidden>
+      <p id="countdown"></p>
+      <button id="profile-btn" type="button">Мій профіль</button>
+      <pre id="profile-out"></pre>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

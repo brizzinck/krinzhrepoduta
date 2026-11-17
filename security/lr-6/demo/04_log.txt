@@ -1,0 +1,13 @@
+$ cat logs/auth-failures.log
+2026-11-17T10:54:42.828Z LOGIN_FAILED login=olena_k ip=172.27.0.1
+2026-11-17T10:54:43.010Z LOGIN_FAILED login=nobody ip=172.27.0.1
+2026-11-17T10:54:43.662Z TOKEN_REJECTED reason=missing ip=172.27.0.1 path=/api/profile sub=- jti=- fp=-
+2026-11-17T10:54:43.721Z TOKEN_REJECTED reason=bad_signature ip=172.27.0.1 path=/api/profile sub=manager jti=1399f60e-8fe7-4b33-8a44-2d58c9ee9cce fp=6167e1ba
+2026-11-17T10:54:43.782Z TOKEN_REJECTED reason=wrong_alg ip=172.27.0.1 path=/api/profile sub=olena_k jti=1399f60e-8fe7-4b33-8a44-2d58c9ee9cce fp=963e89b6
+2026-11-17T10:54:43.813Z TOKEN_REJECTED reason=malformed ip=172.27.0.1 path=/api/profile sub=- jti=- fp=ce6f21ae
+2026-11-17T10:54:43.845Z TOKEN_REJECTED reason=missing ip=172.27.0.1 path=/api?x/profile sub=- jti=- fp=-
+2026-11-17T10:54:43.866Z TOKEN_REJECTED reason=missing ip=172.27.0.1 path=/?61pi/profile sub=- jti=- fp=-
+2026-11-17T10:56:45.124Z TOKEN_REJECTED reason=expired ip=172.27.0.1 path=/api/profile sub=olena_k jti=be392f38-02d5-49ae-ac8b-dbade41da691 fp=c0b5e815
+
+$ grep -c "eyJ" logs/auth-failures.log   # повних токенів у журналі немає
+0
