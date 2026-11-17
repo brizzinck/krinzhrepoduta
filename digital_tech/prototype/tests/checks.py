@@ -254,6 +254,38 @@ def run(pw):
         assert e.js("!document.getElementById('app').inert"), "сторінка лишилась неактивною"
         e.close()
 
+    @check("Шрифт 200 % на ширині 412 px: суми й підписи S2, S4 і чека не виходять за ширину екрана і не обрізаються")
+    def _():
+        e = Env(br); e.onboard()
+        p = e.page
+        p.set_viewport_size({"width": 412, "height": 915})
+        p.evaluate("document.documentElement.style.fontSize = '200%'")
+        probe = """(() => {
+          const vw = document.documentElement.clientWidth, bad = [];
+          for (const el of document.querySelectorAll('#view *')) {
+            if (el.closest('.sr-only, svg, .leaflet-container')) continue;
+            const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
+            if (!r.width || cs.visibility === 'hidden') continue;
+            const clip = !/auto|scroll/.test(cs.overflowX) && el.clientWidth > 0 && el.scrollWidth > el.clientWidth + 1;   // вміст ширший за власний блок
+            if (r.right > vw + 1 || r.left < -1 || clip) bad.push((el.id || el.className || el.tagName) + ':' + Math.round(r.right) + (clip ? ' вміст ' + el.scrollWidth + '>' + el.clientWidth : ''));
+          }
+          const v = document.getElementById('view');
+          if (v.scrollWidth > v.clientWidth + 1) bad.push('view:' + v.scrollWidth + '>' + v.clientWidth);
+          return bad;
+        })()"""
+        def screen(sel, hash_):
+            p.evaluate(f"location.hash = '{hash_}'"); p.wait_for_selector(sel); p.wait_for_timeout(300)
+            return p.evaluate(probe)
+        v = e.vehicle(); assert "ok" in e.api(f"api.startRide('{v}')")
+        p.reload(); p.wait_for_selector(".s4")
+        p.evaluate("document.documentElement.style.fontSize = '200%'"); p.wait_for_timeout(1200)   # після перезавантаження стиль скинуто
+        bad4 = p.evaluate(probe)
+        rid = e.api("api.finishRide(null).then(r => r.id)")["ok"]
+        badr = screen(".receipt", f"#receipt/{rid}")
+        bad2 = screen(".s2", "#s2")
+        assert not (bad2 or bad4 or badr), {"S2": bad2[:4], "S4": bad4[:4], "чек": badr[:4]}
+        e.close()
+
     @check("Геолокацію заборонено: точка біля ДУІКТ, тост, автопарк навколо ДУІКТ")
     def _():
         e = Env(br, perms=())
