@@ -1,0 +1,24 @@
+Дата: 2026-11-17. Перевірка вебхука й HTTPS на розгорнутому застосунку https://emobility.pages.dev. Запити без секрету, стан не змінюється, бот нічого не надсилає.
+
+$ curl -s -o /dev/null -w "%{http_code}" -X POST -H "Content-Type: application/json" -d "{}" https://emobility.pages.dev/tg/webhook
+401
+
+$ curl -s -o /dev/null -w "%{http_code}" -X POST -H "Content-Type: application/json" -H "X-Telegram-Bot-Api-Secret-Token: wrong" -d "{}" https://emobility.pages.dev/tg/webhook
+401
+
+$ curl -s -o /dev/null -w "%{http_code}" https://emobility.pages.dev/tg/webhook
+405
+
+$ curl -sI http://emobility.pages.dev/ | head -5
+HTTP/1.1 301 Moved Permanently
+Date: Tue, 17 Nov 2026 16:53:01 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Location: https://emobility.pages.dev/
+
+$ curl -sv https://emobility.pages.dev/ -o /dev/null 2>&1 | grep -E "SSL connection"
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384 / X25519MLKEM768 / id-ecPublicKey
+
+$ curl -sI https://emobility.pages.dev/ | grep -i -E "referrer-policy|cache-control"
+cache-control: no-cache
+referrer-policy: strict-origin-when-cross-origin

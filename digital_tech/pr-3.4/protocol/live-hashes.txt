@@ -1,0 +1,39 @@
+Дата: 2026-11-17. Порівняння SHA-256 файлів теки app у репозиторії (коміт 0ecb684) з тим, що віддає https://emobility.pages.dev.
+Для index.html адреса /, для решти шлях відносно app. Файл _headers Cloudflare Pages не віддає як сторінку, він задає заголовки відповіді.
+
+| Файл | SHA-256 репозиторій (16) | SHA-256 розгорнутий (16) | Результат |
+|---|---|---|---|
+| css/app.css | 835b4ebc20d1ba14 | 835b4ebc20d1ba14 | збігається |
+| css/tokens.css | a689d003349d6d0d | a689d003349d6d0d | збігається |
+| favicon.svg | 1c99aa090dc5c3a0 | 1c99aa090dc5c3a0 | збігається |
+| index.html | 01f008492adfef34 | 01f008492adfef34 | збігається |
+| js/api.js | 81e60aaf6fb5752c | 81e60aaf6fb5752c | збігається |
+| js/config.js | 8cdb833391462cc2 | 8cdb833391462cc2 | збігається |
+| js/fleet.js | cc684fd39db5eae9 | cc684fd39db5eae9 | збігається |
+| js/format.js | 445a603ac52c4b9b | 445a603ac52c4b9b | збігається |
+| js/gbfs.js | 9164e59af9889ced | 9164e59af9889ced | збігається |
+| js/geo.js | 2ce7fb84f3f04234 | 2ce7fb84f3f04234 | збігається |
+| js/landcheck.js | a28a9ebea9cfb25b | a28a9ebea9cfb25b | збігається |
+| js/main.js | 23c4d821593aee4a | 23c4d821593aee4a | збігається |
+| js/store.js | c2bc5f2c10e61011 | c2bc5f2c10e61011 | збігається |
+| js/testmode.js | 109001da94ff543c | 109001da94ff543c | збігається |
+| js/tg.js | 98cc220bf5981609 | 98cc220bf5981609 | збігається |
+| js/ui/components.js | 0ebce3062e5b472c | 0ebce3062e5b472c | збігається |
+| js/ui/legal.js | f65aeda210854a2d | f65aeda210854a2d | збігається |
+| js/ui/profile.js | ebcb61f2e8b4d055 | ebcb61f2e8b4d055 | збігається |
+| js/ui/s1-start.js | d8cba068e84af64b | d8cba068e84af64b | збігається |
+| js/ui/s2-wallet.js | ed878fcf11ca92a8 | ed878fcf11ca92a8 | збігається |
+| js/ui/s3-map.js | 7fa5a2f5039dabb5 | 7fa5a2f5039dabb5 | збігається |
+| js/ui/s4-ride.js | 1dc3da366cd9ccbf | 1dc3da366cd9ccbf | збігається |
+| js/ui/s5-history.js | eba6d5a34b42c794 | eba6d5a34b42c794 | збігається |
+| vendor/leaflet-1.9.4/images/layers-2x.png | 066daca850d8ffbe | 066daca850d8ffbe | збігається |
+| vendor/leaflet-1.9.4/images/layers.png | 1dbbe9d028e292f3 | 1dbbe9d028e292f3 | збігається |
+| vendor/leaflet-1.9.4/images/marker-icon.png | 574c3a5cca85f411 | 574c3a5cca85f411 | збігається |
+| vendor/leaflet-1.9.4/leaflet.css | a783710282418482 | a783710282418482 | збігається |
+| vendor/leaflet-1.9.4/leaflet.js | db49d009c841f5ca | db49d009c841f5ca | збігається |
+| vendor/leaflet-1.9.4/LICENSE | 53e8dc25862014e4 | 53e8dc25862014e4 | збігається |
+| vendor/tabler/LICENSE | d5a3f948ae5cb95b | d5a3f948ae5cb95b | збігається |
+| vendor/tabler/sprite.svg | 3a7c112adfab4d03 | 3a7c112adfab4d03 | збігається |
+
+Файл _headers: перевіряється заголовками відповіді (cache-control, referrer-policy), див. webhook.txt.
+Розбіжностей: 0
