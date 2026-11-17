@@ -65,7 +65,7 @@ export function init(user) {
     if (!valid(loaded) || loaded.user.tgId !== user.id) {
       write(KEY_BAK, raw);
       loaded = null;
-      notice = 'Демо-дані оновлено';
+      notice = 'Дані застосунку оновлено';
     }
   }
   state = loaded || seedState(user);

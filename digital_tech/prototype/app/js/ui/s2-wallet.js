@@ -9,7 +9,7 @@ const TX = {
   BONUS: { label: 'Стартовий бонус', icon: 'plus' },
   TOPUP: { label: 'Поповнення', icon: 'credit-card' },
   CHARGE: { label: 'Поїздка', icon: 'scooter-electric' },
-  ADJUST: { label: 'Демо-коригування', icon: 'refresh' },
+  ADJUST: { label: 'Коригування балансу', icon: 'refresh' },
 };
 
 export function mount(root, ctx) {
@@ -28,7 +28,7 @@ export function mount(root, ctx) {
       </section>
       <h2 class="sec">Поповнення</h2>
       <div class="chips" role="radiogroup" aria-label="Сума поповнення">${CFG.TOPUPS.map((a) => `<button type="button" role="radio" aria-checked="${a === amount}" class="chip${a === amount ? ' on' : ''}" data-a="${a}">${money(a, { compact: true })}</button>`).join('')}</div>
-      <div class="card cardrow">${icon('credit-card')}<div><div class="strong">Картка ${CFG.CARD}</div><div class="muted sm">Імітація платіжного шлюзу</div></div></div>
+      <div class="card cardrow">${icon('credit-card')}<div><div class="strong">Картка ${CFG.CARD}</div><div class="muted sm">Платіжна картка</div></div></div>
       <h2 class="sec">Операції</h2>
       <ul class="list tx" aria-label="Операції">${tx.map((t) => {
         const meta = TX[t.type] || { label: t.type, icon: 'receipt' };

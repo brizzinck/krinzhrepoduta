@@ -1,5 +1,6 @@
 /** Запуск застосунку: тема, стан, маршрути за hash, вкладки, нагляд за поїздкою. */
 import * as tg from './tg.js';
+import * as testmode from './testmode.js';
 import * as store from './store.js';
 import * as api from './api.js';
 import { CFG } from './config.js';
@@ -97,6 +98,7 @@ async function watchRide() {
 }
 
 function boot() {
+  testmode.init();
   tg.init();
   tg.main.mountShim();
   tg.back.mountShim();

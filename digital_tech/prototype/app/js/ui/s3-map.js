@@ -1,5 +1,5 @@
 /** S3. Карта й порівняння: Leaflet, маркери операторів, фільтр, сортування, нижній аркуш, розблокування. */
-import { CFG, TILES, TYPES, DISCLAIMER } from '../config.js';
+import { CFG, TILES, TYPES } from '../config.js';
 import * as store from '../store.js';
 import * as api from '../api.js';
 import * as geo from '../geo.js';
@@ -68,7 +68,7 @@ export function mount(root, ctx) {
     } else if (!offers.length) {
       ul.innerHTML = `<li class="empty">${icon('map-pin')}<p>У цьому районі немає вільного транспорту вибраного типу.</p><p class="muted sm">Змініть фільтр або перемістіть карту.</p></li>`;
     } else {
-      ul.innerHTML = offers.map(offerHtml).join('') + `<li class="foot"><p class="disclaimer">${esc(DISCLAIMER)}</p></li>`;
+      ul.innerHTML = offers.map(offerHtml).join('');
     }
   }
 

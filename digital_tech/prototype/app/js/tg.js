@@ -4,6 +4,7 @@
  * з тим самим виглядом. Усі виклики Telegram іде через safe() і перевірку версії.
  */
 import { CFG } from './config.js';
+import { isTest } from './testmode.js';
 
 const W = () => (window.Telegram && window.Telegram.WebApp) || null;
 const safe = (fn, fallback) => { try { return fn(); } catch { return fallback; } };
@@ -14,11 +15,11 @@ export const inTelegram = () => !!safe(() => W().initData, false);
 
 const cssVar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 
-/** Користувач із initDataUnsafe або тестовий гість. */
+/** Користувач із initDataUnsafe; у браузері нейтральний профіль (ім'я з тестового режиму реалістичне, без позначки). */
 export function user() {
   const u = safe(() => W().initDataUnsafe.user, null);
   if (inTelegram() && u && u.id) return { id: u.id, firstName: u.first_name || 'Користувач', username: u.username || null, isGuest: false };
-  return { id: 0, firstName: 'Гість', username: null, isGuest: true };
+  return { id: 0, firstName: isTest() ? 'Максим' : 'Користувач', username: null, isGuest: true };
 }
 
 /** Параметр запуску (?startapp=s3) для переходу на екран: initData, потім адреса сторінки. */

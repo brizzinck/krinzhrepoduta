@@ -1,5 +1,5 @@
 /** S5. Історія поїздок усіх операторів і чек поїздки. */
-import { CFG, TYPES, opByCode, DISCLAIMER } from '../config.js';
+import { CFG, TYPES, opByCode } from '../config.js';
 import * as api from '../api.js';
 import * as tg from '../tg.js';
 import { money, dateTime, fullTime, esc, minWord, timeOnly } from '../format.js';
@@ -45,8 +45,7 @@ export function mountReceipt(root, ctx, id) {
         <div class="kv after"><span class="muted">Баланс після поїздки</span><span class="num ${r.balanceAfter < 0 ? 'danger-t' : ''}">${money(r.balanceAfter)}</span></div>
       </section>
       ${r.balanceAfter < 0 ? `<div class="banner danger" role="alert">${icon('alert-triangle')}<div><div class="strong">Є борг ${money(-r.balanceAfter)}</div><div class="sm">Його буде погашено першим поповненням. Нова поїздка заблокована до погашення.</div></div></div>` : ''}
-      ${tg.inTelegram() ? '' : `<button type="button" class="btn ghost" id="print">${icon('file-text')}<span>Зберегти чек у PDF (друк)</span></button>`}
-      <p class="disclaimer">${esc(DISCLAIMER)}</p>`;
+      ${tg.inTelegram() ? '' : `<button type="button" class="btn ghost" id="print">${icon('file-text')}<span>Зберегти чек у PDF (друк)</span></button>`}`;
     const p = root.querySelector('#print'); if (p) p.addEventListener('click', () => window.print());
   }).catch(() => { root.querySelector('#r').innerHTML = `<div class="empty big">${icon('receipt')}<p class="strong">Чек не знайдено</p></div>`; });
   tg.back.set(() => ctx.back('#s5'));

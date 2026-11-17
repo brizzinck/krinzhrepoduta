@@ -1,5 +1,4 @@
 /** S1. Вхід: привітання, згода з умовами, імітація Дія / BankID. */
-import { DISCLAIMER } from '../config.js';
 import * as store from '../store.js';
 import * as api from '../api.js';
 import * as tg from '../tg.js';
@@ -34,14 +33,13 @@ export function mount(root, ctx) {
           <span>Погоджуюсь з <a href="#terms">Умовами використання</a> та <a href="#privacy">Політикою конфіденційності</a></span></label>
         ${consent ? `<p class="muted sm note">Згоду надано ${esc(fullTime(st.consentAt))}</p>` : ''}
       </div>
-      <h2 class="sec">Підтвердження особи, імітація</h2>
+      <h2 class="sec">Підтвердження особи</h2>
       
       <div class="idbtns" ${id ? "hidden" : ""}>
         <button type="button" class="btn secondary" data-m="DIIA" ${busy ? 'disabled' : ''}>${busy === 'DIIA' ? '<span class="spin on"></span>' : icon('id')}<span>Підтвердити особу через Дію</span></button>
         <button type="button" class="btn secondary" data-m="BANKID" ${busy ? 'disabled' : ''}>${busy === 'BANKID' ? '<span class="spin on"></span>' : icon('shield-check')}<span>Підтвердити через BankID</span></button>
       </div>
       <div class="idstatus" aria-live="polite">${id ? `<span class="badge success lg">${icon('check')}<span>Особу підтверджено (${METHOD[id.method]})</span></span><span class="muted sm">${esc(fullTime(id.at))}</span>` : ''}</div>
-      <p class="disclaimer">${esc(DISCLAIMER)}</p>
     </div>`;
     updateMain();
   };

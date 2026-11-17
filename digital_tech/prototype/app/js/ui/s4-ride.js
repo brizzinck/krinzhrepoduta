@@ -25,7 +25,7 @@ export function mount(root, ctx) {
       <div class="rows">
         <div class="kv"><span class="muted">Вартість зараз</span><span class="strong num" id="cost"></span></div>
         <div class="kv"><span class="muted">Тариф</span><span class="num">${money(r0.unlock, { compact: true })} + ${money(r0.perMin)}/хв</span></div>
-        <div class="kv"><span class="muted">Залишок на балансі</span><span class="strong num" id="left"></span></div>
+        <div class="kv"><span class="muted">Баланс гаманця</span><span class="strong num" id="bal"></span></div>
       </div>
     </section>
     <div id="lowbox"></div>
@@ -34,8 +34,9 @@ export function mount(root, ctx) {
       <div class="kv"><span class="muted">Розблокування</span><span class="num">${money(r0.unlock)}</span></div>
       <div class="kv"><span class="muted" id="calcmin"></span><span class="num" id="calcsum"></span></div>
       <div class="kv tot"><span>Разом зараз</span><span class="num" id="calctot"></span></div>
+      <div class="kv"><span class="muted">Залишиться після поїздки</span><span class="strong num" id="left"></span></div>
     </section>
-    <p class="muted sm note">Сума спишеться з гаманця після завершення. Хвилини рахуються вгору, мінімум одна. Тариф імітований.</p>
+    <p class="muted sm note">Сума спишеться з гаманця після завершення. Хвилини рахуються вгору, мінімум одна.</p>
   </div>`;
   const $ = (id) => root.querySelector(`#${id}`);
 
@@ -51,6 +52,7 @@ export function mount(root, ctx) {
     $('calcmin').textContent = `${run.minutes} ${minWord(run.minutes)} за ${money(r0.perMin)}`;
     $('calcsum').textContent = money(run.minutes * r0.perMin);
     $('calctot').textContent = money(run.price);
+    $('bal').textContent = money(store.get().wallet.balance);
     $('left').textContent = money(left);
     $('left').classList.toggle('danger-t', left < 0);
     const level = left < 0 ? 'danger' : left <= CFG.LOW_LEFT ? 'warning' : 'none';

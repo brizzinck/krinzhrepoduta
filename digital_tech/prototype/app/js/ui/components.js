@@ -77,7 +77,7 @@ export function openTopUp({ amount = CFG.TOPUPS[0], auto = false } = {}) {
       <div class="grab" aria-hidden="true"></div>
       <h2 id="tu-t">Поповнення гаманця</h2>
       <div class="chips" role="radiogroup" aria-label="Сума поповнення">${chips()}</div>
-      <div class="cardrow">${icon('credit-card')}<div><div class="strong">Картка ${CFG.CARD}</div><div class="muted sm">Імітація платіжного шлюзу, реальні гроші не списуються</div></div></div>
+      <div class="cardrow">${icon('credit-card')}<div><div class="strong">Картка ${CFG.CARD}</div><div class="muted sm">Оплата банківською карткою</div></div></div>
       <div class="pay-state" aria-live="polite"></div>
       <button type="button" class="btn ghost close">Закрити</button></div>`;
     const state = wrap.querySelector('.pay-state');
