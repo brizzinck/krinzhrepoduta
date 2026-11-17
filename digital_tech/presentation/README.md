@@ -30,6 +30,7 @@
 
 ## Вміст теки
 
+- Онлайн: https://emobility-slides.pages.dev (кнопка «Відео демо» на слайді 8).
 - `slides.html` і `slides.css`: 15 слайдів 1920 на 1080, кольори з токенів прототипу (`../prototype/app/css/tokens.css`, обидві теми Everforest).
 - `presentation.pdf`: зібраний файл (у репозиторії PDF не відстежується).
 - `img/`: QR-код `qr-bot.svg`, емблема, обрізки двох знайдених дефектів.
