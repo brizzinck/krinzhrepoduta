@@ -189,22 +189,42 @@ export function popup(o) {
   return shimPopup(o);
 }
 
+/* У браузері одночасно відкрите не більше одного вікна: нове закриває попереднє (воно повертає null),
+   а поки вікно відкрите, решта сторінки (#app) неактивна, тому головна кнопка й вкладки недоступні. */
+let shimClose = null;
+let shimSeq = 0;
+
+/** Закрити відкрите вікно браузерного режиму (під час зміни екрана); його проміс повертає null. */
+export function closePopups() { if (shimClose) shimClose(); }
+
 function shimPopup(o) {
+  closePopups();
   return new Promise((resolve) => {
+    const tid = `dlg-t-${++shimSeq}`;
     const layer = document.getElementById('layer');
     const wrap = document.createElement('div');
     wrap.className = 'modal';
     const defText = { cancel: 'Скасувати', close: 'Закрити', ok: 'Гаразд' };
-    wrap.innerHTML = `<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t">
-      <h2 id="dlg-t">${o.title ? escHtml(o.title) : ''}</h2><p>${escHtml(o.message)}</p>
+    wrap.innerHTML = `<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="${tid}">
+      <h2 id="${tid}">${o.title ? escHtml(o.title) : ''}</h2><p>${escHtml(o.message)}</p>
       <div class="dlg-btns">${o.buttons.map((b) => `<button type="button" class="btn ${b.type === 'destructive' ? 'danger' : b.type === 'cancel' || b.type === 'close' ? 'ghost' : 'primary'}" data-id="${escHtml(b.id)}">${escHtml(b.text || defText[b.type] || 'Гаразд')}</button>`).join('')}</div></div>`;
     if (!o.title) wrap.querySelector('h2').remove();
     const prev = document.activeElement;
-    const done = (id) => { wrap.remove(); document.removeEventListener('keydown', onKey); if (prev && prev.focus) prev.focus(); resolve(id); };
+    const app = document.getElementById('app');
+    const close = () => done(null);
+    const done = (id) => {
+      wrap.remove(); document.removeEventListener('keydown', onKey);
+      if (shimClose === close) shimClose = null;
+      if (app && !shimClose) app.inert = false;
+      if (prev && prev.isConnected && prev.focus) prev.focus();
+      resolve(id);
+    };
     const onKey = (e) => { if (e.key === 'Escape') done(null); };
     wrap.addEventListener('click', (e) => { const b = e.target.closest('button[data-id]'); if (b) done(b.dataset.id); else if (e.target === wrap) done(null); });
     document.addEventListener('keydown', onKey);
     layer.appendChild(wrap);
+    shimClose = close;
+    if (app) app.inert = true;
     const first = wrap.querySelector('button.primary, button.danger') || wrap.querySelector('button');
     if (first) first.focus();
   });

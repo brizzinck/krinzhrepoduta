@@ -58,6 +58,7 @@ function route() {
   const [name, arg] = resolve(location.hash);
   const canon = arg ? `#${name}/${arg}` : `#${name}`;
   if (location.hash !== canon) { history.replaceState(null, '', canon); }
+  tg.closePopups();   // вікно попереднього екрана не переходить на наступний (напр. на чек)
   if (cleanup) { try { cleanup(); } catch { /* перехід важливіший за прибирання */ } cleanup = null; }
   view.textContent = '';
   const root = document.createElement('div');

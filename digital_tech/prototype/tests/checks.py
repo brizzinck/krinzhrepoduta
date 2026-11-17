@@ -175,7 +175,7 @@ def run(pw):
         e.api("api.setBalance(10000)")
         assert "ok" in e.api(f"api.startRide('{v}')")
         e.edit_state("s.activeRide.startedAt = new Date(Date.now() - 18*60000).toISOString()")
-        e.page.reload(); e.page.wait_for_selector(".s4")
+        e.page.reload(); e.page.wait_for_selector(".dialog", timeout=8000); e.page.click(".dialog [data-id=ok]")   # попередження про малий залишок закрити, потім завершити
         e.page.click(".main-btn"); e.page.wait_for_selector(".dialog"); e.page.click(".dialog [data-id=fin]")
         e.page.wait_for_selector(".receipt")
         s = e.state(); assert s["wallet"]["balance"] < 0, s["wallet"]["balance"]
@@ -222,6 +222,36 @@ def run(pw):
         assert sum(1 for x in e.state()["events"] if x["type"] == "LOW_BALANCE") == 1
         e.page.reload(); e.page.wait_for_selector(".s4"); e.page.wait_for_timeout(2500)
         assert e.page.locator(".dialog").count() == 0, "попередження повторилось після перезавантаження"
+        e.close()
+
+    @check("Діалог малого балансу блокує головну кнопку; діалоги мають різні id; жоден діалог не переходить на чек")
+    def _():
+        def low_ride():
+            e = Env(br); e.onboard()
+            v = e.vehicle(); assert "ok" in e.api(f"api.startRide('{v}')")
+            e.edit_state("s.activeRide.startedAt = new Date(Date.now() - 33*60000).toISOString()")
+            e.page.reload(); e.page.wait_for_selector(".dialog", timeout=8000)
+            assert "20 грн" in e.page.inner_text(".dialog")
+            return e
+        e = low_ride()
+        hit = e.js("(() => { const r = document.querySelector('.main-btn').getBoundingClientRect(); const t = document.elementFromPoint(r.x + r.width/2, r.y + r.height/2); return !!(t && t.closest('.modal')); })()")
+        assert hit and e.js("document.getElementById('app').inert"), "головна кнопка доступна під модальним вікном"
+        e.js("import('/js/tg.js').then(t => { window.__fin = t.popup({title: 'Завершити поїздку?', message: 'x', buttons: [{id: 'fin', type: 'destructive', text: 'Завершити'}, {id: 'cancel', type: 'cancel'}]}); })")
+        e.page.wait_for_function("document.querySelector('.dialog h2') && document.querySelector('.dialog h2').textContent.includes('Завершити')")
+        ids = e.js("[...document.querySelectorAll('[id]')].map(x => x.id).filter(i => i.startsWith('dlg-t'))")
+        assert e.page.locator(".dialog").count() == 1 and len(ids) == len(set(ids)) == 1, ids
+        lab = e.js("document.getElementById(document.querySelector('.dialog').getAttribute('aria-labelledby')).textContent")
+        assert lab == "Завершити поїздку?", lab
+        assert e.js("document.activeElement.closest('.dialog') !== null"), "фокус поза діалогом"
+        e.page.click(".dialog [data-id=cancel]")
+        assert e.js("!document.getElementById('app').inert") and e.js("window.__fin") == "cancel"
+        e.close()
+        e = low_ride()
+        rid = e.api("api.finishRide(null).then(r => r.id)")["ok"]
+        e.js(f"location.hash = '#receipt/{rid}'")
+        e.page.wait_for_selector(".receipt"); e.page.wait_for_timeout(300)
+        assert e.page.locator(".dialog").count() == 0, "діалог лишився на чеку"
+        assert e.js("!document.getElementById('app').inert"), "сторінка лишилась неактивною"
         e.close()
 
     @check("Геолокацію заборонено: точка біля ДУІКТ, тост, автопарк навколо ДУІКТ")
