@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920">
+<title>єМобільність: презентація</title>
+<link rel="stylesheet" href="slides.css">
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide s1" data-theme="dark" id="s-1">
+  <img class="mark" src="img/avatar.svg" alt="Емблема єМобільність">
+  <h1>єМобільність</h1>
+  <p class="sub">Оренда самокатів і велосипедів усіх операторів в одному Telegram Mini App</p>
+  <p class="team"><b>Лаврішко В. С.</b> (ТЦР-32), <b>Сукач В. Ю.</b> (ТЦР-31),<br><b>Чертілін П. О.</b> (ТЦР-31)<br>Керівник: Поперешняк С. В.<br>ДУІКТ, Цифрові технології, 2026</p>
+  <p class="fn">Навчальний проєкт. Дані операторів імітовані, проєкт не пов'язаний з Bolt, Jet і Zelektra.</p>
+  <div class="phone p1"><img src="../prototype/screens/s3-light.png" alt="Карта з транспортом, світла тема"></div>
+  <div class="phone p2"><img src="../prototype/screens/s3-dark.png" alt="Карта з транспортом, темна тема"></div>
+</section>
+
+<!-- 2 -->
+<section class="slide s12" data-theme="light" id="s-2">
+  <h1>Команда</h1>
+  <div class="people">
+<!--roles:start-->
+    <div class="person"><div class="ava"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#bolt"/></svg></div><p class="nm">Лаврішко Владислав</p><p class="gr">ТЦР-32</p><p class="rl">Код</p><p class="wk">Mini App, бот, тестування, розгортання</p><p class="sp">Архітектура, демо, заміри, тести, наступний етап</p></div>
+    <div class="person"><div class="ava"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#notes"/></svg></div><p class="nm">Сукач Валерій</p><p class="gr">ТЦР-31</p><p class="rl">Автор ідеї</p><p class="wk">Проблема, користувачі, концепція агрегатора</p><p class="sp">Ідея, проблема, користувачі, новизна</p></div>
+    <div class="person"><div class="ava"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#device-mobile"/></svg></div><p class="nm">Чертілін Прохор</p><p class="gr">ТЦР-31</p><p class="rl">Дизайн</p><p class="wk">Інтерфейс, екрани, візуальний стиль</p><p class="sp">Дизайн, екрани, шлях користувача</p></div>
+<!--roles:end-->
+  </div>
+  <p class="tz">ТЗ проєктували втрьох разом</p>
+</section>
+
+<!-- 3 -->
+<section class="slide s2" data-theme="light" id="s-3">
+  <h1>Три оператори, три застосунки</h1>
+  <div class="row">
+    <div>
+      <div class="ops">
+        <div class="opphone"><div class="top a">Bolt</div><ul>
+          <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#user"/></svg>Реєстрація</li>
+          <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#credit-card"/></svg>Картка</li>
+          <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#history"/></svg>Історія</li></ul></div>
+        <div class="opphone"><div class="top b">Jet</div><ul>
+          <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#user"/></svg>Реєстрація</li>
+          <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#credit-card"/></svg>Картка</li>
+          <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#history"/></svg>Історія</li></ul></div>
+        <div class="opphone"><div class="top c">Zelektra</div><ul>
+          <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#user"/></svg>Реєстрація</li>
+          <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#credit-card"/></svg>Картка</li>
+          <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#history"/></svg>Історія</li></ul></div>
+      </div>
+      <p class="big">3 реєстрації, 3 картки, 3 історії поїздок</p>
+    </div>
+    <div class="side">
+      <div class="note-card"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#wallet"/></svg>10 грн + 5,20-5,35 грн/хв: різниця є, але порівняти можна лише по черзі</div>
+      <div class="note-card soft"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#user"/></svg>Студенти Києва 18-25: від гуртожитку до університету</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide s3" data-theme="light" id="s-4">
+  <h1>Один бот, усі оператори</h1>
+  <p class="uvp">Один додаток, усі оператори. Один акаунт, будь-який самокат чи велосипед.</p>
+  <div class="row">
+    <div class="left">
+    <ul>
+      <li><span class="ico"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#user"/></svg></span>Вхід акаунтом Telegram</li>
+      <li><span class="ico"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#wallet"/></svg></span>Один гаманець</li>
+      <li><span class="ico"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#map"/></svg></span>Одна карта з порівнянням ціни й заряду</li>
+      <li><span class="ico"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#receipt"/></svg></span>Один чек та історія</li>
+    </ul>
+    <p class="pay">Користувач платить тариф оператора, комісію 10 % сплачує оператор</p>
+    </div>
+    <figure>
+      <img src="../pr-3.2/fig1.png" alt="Екрани S3, S4 і S5: карта, поїздка, чек">
+    </figure>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide s4" data-theme="light" id="s-5">
+  <h1>Що нового</h1>
+  <div class="cmp">
+    <div class="h"></div>
+    <div class="h">Застосунок оператора</div>
+    <div class="h">Карти й агрегатори (Google Maps, Moovit)</div>
+    <div class="h us">єМобільність</div>
+
+    <div>Усі оператори на одній карті</div>
+    <div class="c"><span class="pill no"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#x"/></svg>ні</span></div>
+    <div class="c"><span class="pill part"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#minus"/></svg>частково</span></div>
+    <div class="us"><span class="pill yes"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#check"/></svg>так</span></div>
+
+    <div>Порівняння ціни, заряду, відстані</div>
+    <div class="c"><span class="pill no"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#x"/></svg>ні</span></div>
+    <div class="c"><span class="pill part"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#minus"/></svg>частково</span></div>
+    <div class="us"><span class="pill yes"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#check"/></svg>так</span></div>
+
+    <div>Розблокування й оплата всередині</div>
+    <div class="c"><span class="pill yes"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#check"/></svg>так</span></div>
+    <div class="c"><span class="pill no"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#x"/></svg>ні</span></div>
+    <div class="us"><span class="pill yes"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#check"/></svg>так</span></div>
+
+    <div>Нічого не встановлювати, без реєстрації</div>
+    <div class="c"><span class="pill no"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#x"/></svg>ні</span></div>
+    <div class="c"><span class="pill no"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#x"/></svg>ні</span></div>
+    <div class="us"><span class="pill yes"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#check"/></svg>так</span></div>
+  </div>
+  <p class="claim">За нашим пошуком (17.11.2026) Telegram Mini App для оренди самокатів і велосипедів немає</p>
+  <p class="fn">Потрібен лише Telegram. У прототипі розблокування й оплата імітовані.</p>
+</section>
+
+<!-- 6 -->
+<section class="slide s5" data-theme="light" id="s-6">
+  <h1>Від входу до чека</h1>
+  <div class="strip">
+    <div class="line"></div>
+    <div class="step"><div class="badge-n">1</div><div class="phone"><img src="../prototype/screens/s1-light.png" alt="Екран S1"></div><p class="cap">Згода й Дія / BankID</p></div>
+    <div class="step"><div class="badge-n">2</div><div class="phone"><img src="../prototype/screens/s2-light.png" alt="Екран S2"></div><p class="cap">Бонус 200 грн</p></div>
+    <div class="step"><div class="badge-n">3</div><div class="phone"><img src="../prototype/screens/s3-sheet-light.png" alt="Екран S3"></div><p class="cap">Карта й порівняння</p></div>
+    <div class="step"><div class="badge-n">4</div><div class="phone"><img src="../prototype/screens/s4-light.png" alt="Екран S4"></div><p class="cap">Поїздка: таймер і сума</p></div>
+    <div class="step"><div class="badge-n">5</div><div class="phone"><img src="../prototype/screens/s5-light.png" alt="Екран S5"></div><p class="cap">Чек та історія</p></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide s6" data-theme="light" id="s-7">
+  <div class="left">
+    <h1>Три дотики до поїздки</h1>
+    <p class="three">3</p>
+    <p class="goal">ціль ТЗ: не більше 4</p>
+    <ol>
+      <li><span class="badge-n li-n">1</span>Торкнутися картки</li>
+      <li><span class="badge-n li-n">2</span>Кнопка «Розблокувати»</li>
+      <li><span class="badge-n li-n">3</span>Підтвердити</li>
+    </ol>
+  </div>
+  <div class="phwrap">
+    <div class="phone"><img src="../prototype/screens/s3-sheet-light.png" alt="Екран S3 з вибраною карткою"></div>
+    <div class="ring r1"><span class="badge-n">1</span></div>
+    <div class="ring r2"><span class="badge-n">2</span></div>
+  </div>
+  <div class="right">
+    <div class="dialog">
+      <h2>Розблокувати Bolt?</h2>
+      <p>Електросамокат, bolt-0012. Розблокування 10 грн, далі 5,20 грн за хвилину. Сума спишеться з гаманця після завершення.</p>
+      <div class="dlg-btns">
+        <div class="dlg-btn go">Розблокувати<div class="ring"><span class="badge-n">3</span></div></div>
+        <div class="dlg-btn cancel">Скасувати</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide s7" data-theme="dark" id="s-8">
+  <div class="txt">
+    <h1>Спробуйте зараз</h1>
+    <p class="lead">Наведіть камеру телефона на код і відкрийте бота</p>
+    <p class="link mono">t.me/emobility_ua_bot</p>
+    <p class="alt">або emobility.pages.dev у браузері</p>
+  </div>
+  <div class="qrcard"><img src="img/qr-bot.svg" alt="QR-код бота t.me/emobility_ua_bot"></div>
+</section>
+
+<!-- 9 -->
+<section class="slide s8" data-theme="light" id="s-9">
+  <h1>Як це влаштовано</h1>
+  <svg class="arch" viewBox="0 0 1728 570" role="img" aria-label="Схема: Telegram, Mini App на Cloudflare Pages, бот, імітовані сервіси">
+    <rect class="box" x="0" y="170" width="290" height="170" rx="26"/>
+    <text class="b" x="145" y="245" text-anchor="middle">Telegram</text>
+    <text class="b" x="145" y="285" text-anchor="middle">клієнт</text>
+    <rect class="big" x="360" y="0" width="740" height="410" rx="30"/>
+    <text class="b" x="390" y="54">Mini App на Cloudflare Pages</text>
+    <rect class="in" x="390" y="90" width="330" height="130" rx="20"/><text x="555" y="165" text-anchor="middle">Екрани S1-S5</text>
+    <rect class="in" x="740" y="90" width="330" height="130" rx="20"/><text x="905" y="165" text-anchor="middle">Шар застосунку</text>
+    <rect class="in" x="390" y="245" width="330" height="130" rx="20"/><text x="555" y="320" text-anchor="middle">Канали GBFS v3</text>
+    <rect class="in" x="740" y="245" width="330" height="130" rx="20"/><text x="905" y="320" text-anchor="middle">localStorage</text>
+    <text class="mut" x="1180" y="40">Імітовано в прототипі</text>
+    <rect class="mock" x="1180" y="68" width="548" height="78" rx="20"/><text x="1454" y="118" text-anchor="middle">API розблокування</text>
+    <rect class="mock" x="1180" y="160" width="548" height="78" rx="20"/><text x="1454" y="210" text-anchor="middle">Платіжний шлюз</text>
+    <rect class="mock" x="1180" y="252" width="548" height="78" rx="20"/><text x="1454" y="302" text-anchor="middle">Дія</text>
+    <rect class="mock" x="1180" y="344" width="548" height="78" rx="20"/><text x="1454" y="394" text-anchor="middle">BankID</text>
+    <rect class="box" x="360" y="470" width="520" height="90" rx="22"/><text x="620" y="526" text-anchor="middle">Бот: функція /tg/webhook</text>
+    <rect class="box" x="940" y="470" width="470" height="90" rx="22"/><text x="1175" y="526" text-anchor="middle">Плитки OpenStreetMap</text>
+    <path class="ln" d="M290 255H360"/><circle class="dot" cx="290" cy="255" r="8"/><circle class="dot" cx="360" cy="255" r="8"/>
+    <path class="ln" d="M1100 255H1180"/><circle class="dot" cx="1100" cy="255" r="8"/><circle class="dot" cx="1180" cy="255" r="8"/>
+    <path class="ln" d="M145 340V515H360"/><circle class="dot" cx="145" cy="340" r="8"/><circle class="dot" cx="360" cy="515" r="8"/>
+    <path class="ln" d="M1010 410V470"/><circle class="dot" cx="1010" cy="410" r="8"/><circle class="dot" cx="1010" cy="470" r="8"/>
+  </svg>
+  <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript без фреймворків</span><span class="chip">Leaflet</span><span class="chip">OpenStreetMap</span><span class="chip">GBFS v3</span><span class="chip">Cloudflare Pages</span></div>
+  <p class="line1">Власного сервера немає: дані на пристрої</p>
+</section>
+
+<!-- 10 -->
+<section class="slide s9" data-theme="light" id="s-10">
+  <h1>Чим міряли</h1>
+  <div class="tiles">
+    <div class="tile"><div class="n">3</div><div class="l">дотики до розблокування</div><div class="t">ціль не більше 4</div><div class="m">5 прогонів: скрипт і вручну</div><div class="bar" style="--v:75"><i></i></div></div>
+    <div class="tile"><div class="n">1,08 с</div><div class="l">карта з транспортом</div><div class="t">вручну 0,86 с; ціль не більше 3 с</div><div class="m">Playwright, 5 прогонів</div><div class="bar" style="--v:36"><i></i></div></div>
+    <div class="tile"><div class="n">1,37 с</div><div class="l">від карти до поїздки</div><div class="t">вручну 2,85 с; ціль не більше 30 с</div><div class="m">Playwright, 5 прогонів</div><div class="bar" style="--v:5"><i></i></div></div>
+    <div class="tile"><div class="n">100 / 100</div><div class="l">Lighthouse, світла й темна</div><div class="t">ціль не менше 90</div><div class="m">Chrome DevTools, мобільний режим</div><div class="bar goal" style="--v:100;--g:90"><i></i></div></div>
+    <div class="tile"><div class="n">32 / 32</div><div class="l">автоматичні сценарії</div><div class="t">серед них негативні</div><div class="m">Playwright, локальна копія</div><div class="bar" style="--v:100"><i></i></div></div>
+    <div class="tile"><div class="n">0</div><div class="l">окремих реєстрацій</div><div class="t">без сервісу їх 3</div><div class="m">порівняння сценаріїв</div><div class="bar" style="--v:0"><i></i></div></div>
+  </div>
+  <div class="labels">
+    <p class="fn">Автоматично: Chromium у Playwright, робоча адреса, 5 прогонів, медіана, 17.11.2026.</p>
+    <p class="fn">Вручну: браузер з емуляцією телефона, мережа Fast 4G, процесор ×4, медіана 5 прогонів, 17.11.2026.</p>
+    <p class="fn">Секундомір у Telegram на смартфоні ще не виконано.</p>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="slide s10" data-theme="light" id="s-11">
+  <h1>Тестування знайшло й виправило</h1>
+  <div class="row">
+    <ul>
+      <li><span class="k">50</span><div>випадків у протоколі</div></li>
+      <li><span class="k">32</span><div>автоматичні сценарії<span class="sm">Є негативні: без згоди, баланс 99 грн, борг, відмова оператора</span></div></li>
+      <li><svg class="ic k"><use href="../prototype/app/vendor/tabler/sprite.svg#shield-check"/></svg><div>Вебхук без секрету: 401</div></li>
+      <li><svg class="ic k"><use href="../prototype/app/vendor/tabler/sprite.svg#map-pin"/></svg><div>Вимкнули перевірку суходолу: тест упав<span class="sm">Тест справді ловить помилку</span></div></li>
+    </ul>
+    <div class="defects">
+      <div class="dcard"><img src="img/defect-d1.png" alt="Два діалоги один над одним"><p class="t">Два діалоги один над одним</p><p class="fix"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Виправлено, тепер ловить сценарій F31</p></div>
+      <div class="dcard"><img src="img/defect-a5.png" alt="Сума обрізана при тексті 200 відсотків"><p class="t">200 % тексту: сума обрізана</p><p class="fix"><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#circle-check"/></svg>Виправлено, тепер ловить сценарій F32</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="slide s11" data-theme="light" id="s-12">
+  <h1>Що просили на лекціях</h1>
+  <div class="cards8">
+    <div class="lc"><h3>Дія й BankID замість логінів</h3><p>Вхід Telegram, особа через Дію (імітація)</p><p class="src">Лекція 3, 06:17</p></div>
+    <div class="lc"><h3>Персональні дані й згода</h3><p>Згода на першому екрані, «Видалити мої дані»</p><p class="src">Лекція 3, 46:44</p></div>
+    <div class="lc"><h3>Фіксація дій</h3><p>Журнал подій, чек EM-… не змінюється</p><p class="src">Лекція 3, 1:05:26</p></div>
+    <div class="lc"><h3>Чим міряли</h3><p>6 метрик ТЗ з методом вимірювання</p><p class="src">Лекція 1, 44:31</p></div>
+    <div class="lc"><h3>Інклюзія</h3><p>Lighthouse 100, текст 200 %, дві теми</p><p class="src">Лекція 1, 33:55</p></div>
+    <div class="lc"><h3>Негативні сценарії</h3><p>Без згоди, борг, відмова оператора</p><p class="src">Лекція 3, 36:29</p></div>
+    <div class="lc"><h3>Відкриті дані</h3><p>Канали GBFS і карта OpenStreetMap</p><p class="src">Лекція 2, 57:21</p></div>
+    <div class="lc"><h3>Безпека</h3><p>HTTPS, секрет вебхука, токен лише в секретах</p><p class="src">Лекція 3, 10:13</p></div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide s13" data-theme="light" id="s-13">
+  <h1>Наступний етап</h1>
+  <div class="road">
+    <div class="rline"></div>
+    <div class="rs now"><div class="badge-n"><svg class="ic" style="width:36px;height:36px"><use href="../prototype/app/vendor/tabler/sprite.svg#check"/></svg></div><div class="box">MVP зараз</div></div>
+    <div class="rs"><div class="badge-n">1</div><div class="box">Сервер Java 21 і MySQL</div></div>
+    <div class="rs"><div class="badge-n">2</div><div class="box">Адмінпанель S6 і дашборд метрик</div></div>
+    <div class="rs"><div class="badge-n">3</div><div class="box">Справжні оператори: GBFS, API розблокування, Дія, BankID</div></div>
+    <div class="rs"><div class="badge-n">4</div><div class="box">Мікросервіси й CI/CD</div></div>
+    <div class="rs"><div class="badge-n">5</div><div class="box">Перевірка initData, тести навантаження й безпеки, опитування SUS, вимір у Telegram</div></div>
+  </div>
+  <p class="fn">Це план, а не готові функції.</p>
+</section>
+
+<!-- 14 -->
+<section class="slide s14" data-theme="dark" id="s-14">
+  <div class="txt">
+    <h1>Дякуємо</h1>
+    <p class="q">Питання?</p>
+    <ul class="links">
+      <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#device-mobile"/></svg><span class="mono">t.me/emobility_ua_bot</span></li>
+      <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#map"/></svg><span class="mono">emobility.pages.dev</span></li>
+      <li><svg class="ic"><use href="../prototype/app/vendor/tabler/sprite.svg#file-text"/></svg><span><span class="mono">github.com/brizzinck/krinzhrepoduta</span><small>Код і документація, коміт 74b42d7</small></span></li>
+    </ul>
+    <p class="fn">Навчальний проєкт. Дані операторів імітовані, проєкт не пов'язаний з Bolt, Jet і Zelektra.</p>
+  </div>
+  <div class="qrcard"><img src="img/qr-bot.svg" alt="QR-код бота t.me/emobility_ua_bot"></div>
+</section>
+
+</body>
+</html>
