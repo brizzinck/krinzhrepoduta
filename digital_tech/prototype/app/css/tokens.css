@@ -1,0 +1,27 @@
+/* Токени дизайну єМобільність (Everforest). Єдине місце для кольорів: у css/app.css і js/ їх немає.
+   Світла тема: офіційний Everforest Light, акценти затемнено для контрасту AA.
+   Темна тема: Everforest night із власних налаштувань автора. */
+:root, :root[data-theme="light"] {
+  color-scheme: light;
+  --bg:#F4F0D9; --surface:#FDF6E3; --elevated:#FFFBEF; --select:#EAEDC8;
+  --text:#3d4a52; --muted:#5C6A72; --disabled:#829181;
+  --border:#D3CFB8; --line:#E0DCC7; --border-strong:#76857a;
+  --primary:#5b7515; --on-primary:#FFFBEF; --primary-soft:#F0F1D2;
+  --success:#2a7352; --warning:#8a6400; --danger:#b13a36;
+  --success-soft:#E3F0E6; --warning-soft:#FAEDCD; --danger-soft:#FDE3DA; --info:#28749a;
+  --op-a:#ac4e17; --op-b:#28749a; --op-c:#a8467f; --on-op:#FFFBEF;
+  --shadow:0 1px 2px rgba(60,70,50,.12), 0 4px 14px rgba(60,70,50,.10);
+  --scrim:rgba(52,60,48,.46);
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:#0a0e0c; --surface:#121815; --elevated:#19201c; --select:#212c26;
+  --text:#dbd8c9; --muted:#909c92; --disabled:#6f7b74;
+  --border:#424c47; --line:#2c3430; --border-strong:#66716a;
+  --primary:#abc682; --on-primary:#0a0e0c; --primary-soft:#1f2c1c;
+  --success:#8cc69c; --warning:#d9bc7f; --danger:#e88384;
+  --success-soft:#161f18; --warning-soft:#201c12; --danger-soft:#261818; --info:#83c3c8;
+  --op-a:#ea9e77; --op-b:#83c3c8; --op-c:#dca0bb; --on-op:#0a0e0c;
+  --shadow:none;
+  --scrim:rgba(0,0,0,.62);
+}
