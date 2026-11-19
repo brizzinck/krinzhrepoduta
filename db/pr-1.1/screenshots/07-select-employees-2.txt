@@ -1,0 +1,20 @@
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/07-select-employees-2.sql
+--------------
+SELECT employee_id, position, phone, hired_at FROM employees ORDER BY employee_id
+--------------
+
++-------------+----------+---------------+------------+
+| employee_id | position | phone         | hired_at   |
++-------------+----------+---------------+------------+
+|           1 | manager  | +380675550201 | 2021-03-15 |
+|           2 | agent    | +380675550202 | 2022-06-01 |
+|           3 | manager  | +380675550203 | 2021-09-20 |
+|           4 | agent    | +380675550204 | 2023-02-10 |
+|           5 | agent    | +380675550205 | 2022-11-07 |
+|           6 | mechanic | +380675550206 | 2020-05-18 |
+|           7 | manager  | +380675550207 | 2022-01-24 |
+|           8 | mechanic | +380675550208 | 2019-08-12 |
++-------------+----------+---------------+------------+
+8 rows in set (0.00 sec)
+
+Bye

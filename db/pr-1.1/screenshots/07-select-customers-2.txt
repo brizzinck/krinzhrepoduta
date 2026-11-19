@@ -1,0 +1,32 @@
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/07-select-customers-2.sql
+--------------
+SELECT customer_id, phone, email, birth_date FROM customers ORDER BY customer_id
+--------------
+
++-------------+---------------+---------------------------+------------+
+| customer_id | phone         | email                     | birth_date |
++-------------+---------------+---------------------------+------------+
+|           1 | +380675550107 | o.kovalenko@example.com   | 1988-03-14 |
+|           2 | +380935550114 | n.shevchenko@example.com  | 1992-07-02 |
+|           3 | +380995550121 | a.bondarenko@example.com  | 1985-11-23 |
+|           4 | +380635550128 | i.tkachenko@example.com   | 1995-01-30 |
+|           5 | +380665550135 | m.kravchenko@example.com  | 1990-06-18 |
+|           6 | +380685550142 | o.melnyk@example.com      | 1987-09-09 |
+|           7 | +380955550149 | d.oliinyk@example.com     | 1998-12-05 |
+|           8 | +380505550156 | t.moroz@example.com       | 1983-04-27 |
+|           9 | +380675550163 | b.lysenko@example.com     | 1993-10-11 |
+|          10 | +380935550170 | y.savchenko@example.com   | 1996-02-19 |
+|          11 | +380995550177 | v.rudenko@example.com     | 1979-08-08 |
+|          12 | +380635550184 | m.honcharenko@example.com | 1991-05-16 |
+|          13 | +380665550191 | y.polishchuk@example.com  | 1986-12-29 |
+|          14 | +380685550198 | a.boiko@example.com       | 1999-03-07 |
+|          15 | +380955550205 | r.klymenko@example.com    | 1984-07-21 |
+|          16 | +380505550212 | s.pavlenko@example.com    | 1997-09-14 |
+|          17 | +380675550219 | t.ivanenko@example.com    | 1982-01-03 |
+|          18 | +380935550226 | s.mazur@example.com       | 1994-06-25 |
+|          19 | +380995550233 | n.vovk@example.com        | 2001-11-12 |
+|          20 | +380635550240 | d.levchenko@example.com   | 2000-04-04 |
++-------------+---------------+---------------------------+------------+
+20 rows in set (0.00 sec)
+
+Bye

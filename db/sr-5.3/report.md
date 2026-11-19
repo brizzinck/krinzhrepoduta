@@ -20,9 +20,9 @@ city-year: "Київ – 2026"
 
 ## Поняття DBaaS
 
-Database as a Service це керована хмарна база даних: провайдер ставить СУБД й оновлення та робить копії, а власник платить за використання й працює зі схемою та даними (джерело 1). Підключатися можна звичайним драйвером. Розподіл відповідальності:
+Database as a Service — це керована хмарна база даних: провайдер ставить СУБД й оновлення та робить копії, а власник платить за використання й працює зі схемою та даними (джерело 1). Підключатися можна звичайним драйвером. Розподіл відповідальності:
 
-Таблиця 1 — Розподіл відповідальності в моделях DBaaS
+Таблиця 1 — Розподіл відповідальності за моделями розгортання
 
 | Модель | Що надає провайдер | Що робить замовник |
 |:-----------|:------------------------------|:------------------------------------|
@@ -64,7 +64,7 @@ az mysql flexible-server db create --resource-group <група> --server-name <
 # 2. брандмауер (public access)
 az mysql flexible-server firewall-rule create --resource-group <група> --name <сервер> --rule-name allowiprange --start-ip-address <IP> --end-ip-address <IP>
 # 3. користувач застосунку (під адміністратором)
-CREATE USER 'rental'@'%' IDENTIFIED BY '<пароль>'; GRANT ALL PRIVILEGES ON car_rental.* TO 'rental'@'%'; FLUSH PRIVILEGES;
+CREATE USER 'rental'@'%' IDENTIFIED BY '<пароль>'; GRANT SELECT, INSERT, UPDATE, DELETE ON car_rental.* TO 'rental'@'%';
 # 4. схема і дані
 mysql -h <сервер>.mysql.database.azure.com -u <адмін> -p --ssl-mode=REQUIRED --ssl-ca=<об'єднаний файл CA з кроку 5> < schema.sql
 # 6. запуск застосунку

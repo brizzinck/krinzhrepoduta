@@ -1,16 +1,16 @@
 $ mysql.sh -N -e "SHOW BINARY LOG STATUS"
-binlog.000014	5091			
+binlog.000024	22975783			
 $ mysql.sh car_rental -e "UPDATE cars SET mileage_km = mileage_km + 100 WHERE car_id = 1"
-$ mysql.sh -t -e "SHOW BINLOG EVENTS IN 'binlog.000014' FROM 5091"
-+---------------+------+----------------+-----------+-------------+--------------------------------------+
-| Log_name      | Pos  | Event_type     | Server_id | End_log_pos | Info                                 |
-+---------------+------+----------------+-----------+-------------+--------------------------------------+
-| binlog.000014 | 5091 | Anonymous_Gtid |         1 |        5170 | SET @@SESSION.GTID_NEXT= 'ANONYMOUS' |
-| binlog.000014 | 5170 | Query          |         1 |        5262 | BEGIN                                |
-| binlog.000014 | 5262 | Table_map      |         1 |        5340 | table_id: 98 (car_rental.cars)       |
-| binlog.000014 | 5340 | Update_rows    |         1 |        5496 | table_id: 98 flags: STMT_END_F       |
-| binlog.000014 | 5496 | Xid            |         1 |        5527 | COMMIT /* xid=614 */                 |
-+---------------+------+----------------+-----------+-------------+--------------------------------------+
+$ mysql.sh -t -e "SHOW BINLOG EVENTS IN 'binlog.000024' FROM 22975783" | cut -c17-
++----------+----------------+-----------+-------------+--------------------------------------+
+| Pos      | Event_type     | Server_id | End_log_pos | Info                                 |
++----------+----------------+-----------+-------------+--------------------------------------+
+| 22975783 | Anonymous_Gtid |         1 |    22975862 | SET @@SESSION.GTID_NEXT= 'ANONYMOUS' |
+| 22975862 | Query          |         1 |    22975954 | BEGIN                                |
+| 22975954 | Table_map      |         1 |    22976032 | table_id: 787 (car_rental.cars)      |
+| 22976032 | Update_rows    |         1 |    22976188 | table_id: 787 flags: STMT_END_F      |
+| 22976188 | Xid            |         1 |    22976219 | COMMIT /* xid=258520 */              |
++----------+----------------+-----------+-------------+--------------------------------------+
 $ mysql.sh -N -e "SHOW VARIABLES WHERE Variable_name IN ('log_bin', 'binlog_format')"
 binlog_format	ROW
 log_bin	ON

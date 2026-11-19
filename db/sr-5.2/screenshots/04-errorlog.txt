@@ -2,7 +2,7 @@ $ mysql.sh -N -e "SELECT @@log_error_verbosity"
 2
 $ MYSQL_PWD=wrong mysql.sh -e "SELECT 1"
 ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
-$ mysql.sh -t -e "SELECT COUNT(*) AS login_errors FROM performance_schema.error_log WHERE error_code = 'MY-010926' AND logged > '2026-11-13 00:58:58.979912'"
+$ mysql.sh -t -e "SELECT COUNT(*) AS login_errors FROM performance_schema.error_log WHERE error_code = 'MY-010926' AND logged > '2026-11-19 17:38:08.180807'"
 +--------------+
 | login_errors |
 +--------------+
@@ -11,9 +11,9 @@ $ mysql.sh -t -e "SELECT COUNT(*) AS login_errors FROM performance_schema.error_
 $ mysql.sh -e "SET GLOBAL log_error_verbosity = 3"
 $ MYSQL_PWD=wrong mysql.sh -e "SELECT 1"
 ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
-$ mysql.sh -E -e "SELECT logged, prio, error_code, LEFT(data, 62) AS data FROM performance_schema.error_log WHERE error_code = 'MY-010926' AND logged > '2026-11-13 00:58:58.979912'"
+$ mysql.sh -E -e "SELECT logged, prio, error_code, LEFT(data, 62) AS data FROM performance_schema.error_log WHERE error_code = 'MY-010926' AND logged > '2026-11-19 17:38:08.180807'"
 *************************** 1. row ***************************
-    logged: 2026-11-13 00:58:59.194321
+    logged: 2026-11-19 17:38:08.404053
       prio: Note
 error_code: MY-010926
       data: Access denied for user 'root'@'localhost' (using password: YES

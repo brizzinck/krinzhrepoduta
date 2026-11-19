@@ -1,6 +1,6 @@
 $ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/07-select-payments-1.sql
 --------------
-SELECT * FROM payments WHERE payment_id <= 41
+SELECT payment_id, rental_id, amount, kind, method, paid_at FROM payments WHERE payment_id BETWEEN 1 AND 27 ORDER BY payment_id
 --------------
 
 +------------+-----------+----------+---------+--------+---------------------+
@@ -33,21 +33,7 @@ SELECT * FROM payments WHERE payment_id <= 41
 |         25 |         8 |  8000.00 | refund  | card   | 2026-09-08 14:25:00 |
 |         26 |         9 |  5000.00 | deposit | card   | 2026-09-10 15:15:00 |
 |         27 |         9 | 15480.00 | rent    | card   | 2026-09-19 15:25:00 |
-|         28 |         9 |  5000.00 | refund  | card   | 2026-09-19 15:35:00 |
-|         29 |        10 |  2000.00 | deposit | cash   | 2026-09-13 09:30:00 |
-|         30 |        10 |  3300.00 | rent    | cash   | 2026-09-18 07:30:00 |
-|         31 |        10 |  2000.00 | refund  | cash   | 2026-09-18 07:40:00 |
-|         32 |        11 |  8000.00 | deposit | cash   | 2026-09-16 17:45:00 |
-|         33 |        11 | 29250.00 | rent    | cash   | 2026-09-24 23:45:00 |
-|         34 |        11 |   600.00 | fine    | cash   | 2026-09-24 23:48:00 |
-|         35 |        11 |  7400.00 | refund  | cash   | 2026-09-24 23:55:00 |
-|         36 |        12 |  4000.00 | deposit | card   | 2026-09-20 18:00:00 |
-|         37 |        12 |  7000.00 | rent    | card   | 2026-09-24 20:00:00 |
-|         38 |        12 |  4000.00 | refund  | card   | 2026-09-24 20:10:00 |
-|         39 |        13 |  5000.00 | deposit | card   | 2026-09-25 18:15:00 |
-|         40 |        13 | 10980.00 | rent    | card   | 2026-09-30 20:25:00 |
-|         41 |        13 |  5000.00 | refund  | card   | 2026-09-30 20:35:00 |
 +------------+-----------+----------+---------+--------+---------------------+
-41 rows in set (0.00 sec)
+27 rows in set (0.00 sec)
 
 Bye

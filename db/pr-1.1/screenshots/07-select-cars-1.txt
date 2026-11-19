@@ -1,0 +1,36 @@
+$ ../_shared/mysql.sh -t -vvv -n --force --skip-comments car_rental < shots/07-select-cars-1.sql
+--------------
+SELECT car_id, model_id, branch_id, vin, plate_number FROM cars ORDER BY car_id
+--------------
+
++--------+----------+-----------+-------------------+--------------+
+| car_id | model_id | branch_id | vin               | plate_number |
++--------+----------+-----------+-------------------+--------------+
+|      1 |        1 |         1 | VF17LZZ6ETYVF057J | AA8367AT     |
+|      2 |        1 |         2 | VF1GNNRZ4M5JJW9K1 | BC6956MK     |
+|      3 |        2 |         3 | TMBY7UZYSGTXZ1E83 | HH8035MC     |
+|      4 |        2 |         4 | TMBWXGSKZXSUCJH02 | AE8507OM     |
+|      5 |        3 |         1 | JTMYWZYU2JLW6VZGV | AA7975XM     |
+|      6 |        3 |         2 | JTMP6CT9V050V5CF7 | BC9953HT     |
+|      7 |        4 |         3 | TMBLY8EX8ZJ5TA8KZ | HH7396CO     |
+|      8 |        4 |         4 | TMBR43NN11ZXLKVL7 | AE8644PP     |
+|      9 |        5 |         1 | WVWDUMWE4S2CB23VC | KA1335CT     |
+|     10 |        5 |         2 | WVW8ABRHUT5RKBNBG | BC9152KH     |
+|     11 |        6 |         3 | JTMXV7H6DE05WMTB1 | HH3568IO     |
+|     12 |        6 |         3 | JTMHDJH86G6UA63NB | AE9300IH     |
+|     13 |        7 |         1 | KMHAGG40TGT036F1K | AA2537TO     |
+|     14 |        7 |         2 | KMHW2SLDWU7PZGRJN | BC8155AH     |
+|     15 |        8 |         3 | SJN7KTL1MC37A7728 | HH5951AK     |
+|     16 |        8 |         4 | SJNRRFTE8B1SG9E11 | AE9866MK     |
+|     17 |        9 |         1 | WVW5B2ZGML30FX3EZ | AA7538XI     |
+|     18 |        9 |         2 | WVWCPNWWXKCAT9Y0N | BC1614TC     |
+|     19 |       10 |         3 | WDFG861DK2SRAZ659 | HH6465OH     |
+|     20 |       10 |         4 | WDFCAJJJN8RC0XUNA | AE3942IO     |
+|     21 |       11 |         1 | WBAZ0P4PKD9F86LY6 | AA7245HP     |
+|     22 |       11 |         2 | WBAY7FNWN545YKGEA | BC8087OO     |
+|     23 |       12 |         3 | 5YJYSLBCWENNTRD9V | HH8066HI     |
+|     24 |       12 |         1 | 5YJVG9HEM97HJWSS1 | AE7711IB     |
++--------+----------+-----------+-------------------+--------------+
+24 rows in set (0.00 sec)
+
+Bye

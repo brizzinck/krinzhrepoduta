@@ -19,7 +19,7 @@ slow() {
   printf '$ %s\n' "mysql.sh car_rental < demo.sql   # тричі"
   showd "mysql.sh -t -e \"SELECT query_time, rows_sent, rows_examined, … FROM mysql.slow_log WHERE …\"" \
     "$M -t -e \"SELECT query_time, rows_sent, rows_examined, LEFT(sql_text, 20) AS sql_text FROM mysql.slow_log WHERE db = 'car_rental' AND sql_text LIKE 'SELECT r.rental_id%'\""
-  showd "mysql.sh -t -e \"SELECT … AS avg_ms, … FROM performance_schema.events_statements_summary_by_digest …\"" \
+  showd "mysql.sh -t -e \"SELECT … AS avg_ms, … FROM …events_statements_summary_by_digest …\"" \
     "$M -t -e \"SELECT LEFT(DIGEST_TEXT, 20) AS statement, COUNT_STAR AS cnt, ROUND(AVG_TIMER_WAIT / 1e9, 3) AS avg_ms, SUM_ROWS_EXAMINED AS rows_examined FROM performance_schema.events_statements_summary_by_digest WHERE SCHEMA_NAME = 'car_rental' AND DIGEST_TEXT LIKE 'SELECT \\\`r\\\` . \\\`rental_id\\\`%'\""
   # повернення налаштувань
   $M -e "SET GLOBAL slow_query_log = OFF; SET GLOBAL long_query_time = 10; SET GLOBAL log_output = 'FILE'"
@@ -49,7 +49,8 @@ binlog() {
   LOG=$($M -N -e "SHOW BINARY LOG STATUS" | cut -f1)
   POS=$($M -N -e "SHOW BINARY LOG STATUS" | cut -f2)
   show "$M car_rental -e \"UPDATE cars SET mileage_km = mileage_km + 100 WHERE car_id = 1\""
-  show "$M -t -e \"SHOW BINLOG EVENTS IN '$LOG' FROM $POS\""
+  # cut -c17- прибирає стовпець Log_name (ім'я файла вже є в команді), щоб вивід вміщався в 92 колонки
+  show "$M -t -e \"SHOW BINLOG EVENTS IN '$LOG' FROM $POS\" | cut -c17-"
   show "$M -N -e \"SHOW VARIABLES WHERE Variable_name IN ('log_bin', 'binlog_format')\""
   $M car_rental -e "UPDATE cars SET mileage_km = mileage_km - 100 WHERE car_id = 1"
 }

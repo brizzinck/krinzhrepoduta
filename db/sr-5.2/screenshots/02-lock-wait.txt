@@ -4,9 +4,9 @@ $ mysql.sh -E -e "SELECT locked_table, wait_age_secs, waiting_pid, waiting_query
 *************************** 1. row ***************************
   locked_table: `car_rental`.`cars`
  wait_age_secs: 2
-   waiting_pid: 130
+   waiting_pid: 642
  waiting_query: UPDATE cars SET status = status WHERE car_id = 1
-  blocking_pid: 129
+  blocking_pid: 641
 blocking_query: DO SLEEP(10)
 $ mysql.sh -t -e "SELECT object_name, lock_type, lock_mode, … FROM performance_schema.data_locks WHERE …"
 +-------------+-----------+---------------+-------------+-----------+

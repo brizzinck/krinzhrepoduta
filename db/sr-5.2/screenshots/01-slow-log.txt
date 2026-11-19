@@ -4,15 +4,15 @@ $ mysql.sh -t -e "SELECT query_time, rows_sent, rows_examined, … FROM mysql.sl
 +-----------------+-----------+---------------+----------------------+
 | query_time      | rows_sent | rows_examined | sql_text             |
 +-----------------+-----------+---------------+----------------------+
-| 00:00:00.000326 |         5 |            49 | SELECT r.rental_id,  |
-| 00:00:00.000496 |         5 |            49 | SELECT r.rental_id,  |
-| 00:00:00.000355 |         5 |            49 | SELECT r.rental_id,  |
+| 00:00:00.000234 |         5 |            49 | SELECT r.rental_id,  |
+| 00:00:00.000296 |         5 |            49 | SELECT r.rental_id,  |
+| 00:00:00.000244 |         5 |            49 | SELECT r.rental_id,  |
 +-----------------+-----------+---------------+----------------------+
-$ mysql.sh -t -e "SELECT … AS avg_ms, … FROM performance_schema.events_statements_summary_by_digest …"
+$ mysql.sh -t -e "SELECT … AS avg_ms, … FROM …events_statements_summary_by_digest …"
 +----------------------+-----+--------+---------------+
 | statement            | cnt | avg_ms | rows_examined |
 +----------------------+-----+--------+---------------+
-| SELECT `r` . `rental |   3 |  0.404 |           147 |
+| SELECT `r` . `rental |   3 |  0.265 |           147 |
 +----------------------+-----+--------+---------------+
 $ mysql.sh -N -e "SHOW GLOBAL VARIABLES WHERE Variable_name IN ('slow_query_log', …)"
 log_output	FILE

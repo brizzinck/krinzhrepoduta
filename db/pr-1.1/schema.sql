@@ -107,7 +107,7 @@ CREATE TABLE employees (
 );
 
 -- 7. Договори оренди
--- daily_price: ціна доби на момент укладання договору (свідома денормалізація, бо тариф авто з часом змінюється)
+-- daily_price: тариф доби, зафіксований у договорі; тариф авто (cars.daily_price) з часом змінюється, тому це окремий факт договору, а не дублювання
 CREATE TABLE rentals (
     rental_id          INT           NOT NULL AUTO_INCREMENT,
     customer_id        INT           NOT NULL,
