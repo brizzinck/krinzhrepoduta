@@ -44,7 +44,7 @@ void loop() {
   analogWrite(PIN_B, b);
 
   bool inside = (hue >= HUE_MIN && hue <= HUE_MAX);
-  if (inside != wasInside) {   // звук лише при зміні стану
+  if (inside != wasInside) {   // безперервний тон у діапазоні
     if (inside) {
       tone(BUZ, TONE_HZ);
     } else {
