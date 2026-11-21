@@ -15,9 +15,10 @@
 --   ::: toc          the table of contents (headings of levels 1-3 without the class .unlisted)
 --   ::: tcap         two paragraphs: "Таблиця 1.1" and the table title, put right above the table
 --   ::: {.pair}      two images in a row with a caption (as in the report filter)
--- Environment (set by build.sh):
+-- Environment (set by build.sh, HTML/PDF only):
 --   KR_TOC_OUT       write "index<TAB>level<TAB>text" of every listed heading to this file
 --   KR_TOC_PAGES     read "index<TAB>page" lines from this file; without it the page numbers read 00
+-- The DOCX contents is built by kr-docx-post.py from the headings of the finished DOCX.
 
 local stringify = pandoc.utils.stringify
 
@@ -78,7 +79,23 @@ local function docx_layout(doc)
       each_row(tbl.foot.rows)
       return tbl
     end,
+    Header = function(h)
+      -- Unlisted sub-subsections look like heading 3 but stay out of the outline and the contents.
+      if h.classes:includes("unlisted") and h.level == 3 then
+        return pandoc.Div({ pandoc.Para(h.content) },
+          pandoc.Attr("", {}, { ["custom-style"] = "Subheading Unlisted" }))
+      end
+    end,
     Div = function(div)
+      if div.classes:includes("formula") and #div.content >= 2 then
+        -- Two paragraphs (formula, number) become one line: centre tab, formula, right tab, number.
+        local tab = pandoc.RawInline("openxml", "<w:r><w:tab/></w:r>")
+        local inl = pandoc.Inlines({ tab })
+        inl:extend(div.content[1].content)
+        inl:insert(tab)
+        inl:extend(div.content[2].content)
+        return pandoc.Div({ pandoc.Para(inl) }, pandoc.Attr("", {}, { ["custom-style"] = "Formula" }))
+      end
       if div.classes:includes("tcap") then
         local out = {}
         for i, b in ipairs(div.content) do
@@ -92,7 +109,16 @@ local function docx_layout(doc)
         for _, b in ipairs(div.content) do
           local style = "Image Caption"
           if b.t == "Para" then
-            for _, el in ipairs(b.content) do if el.t == "Image" then style = "Figure" end end
+            for _, el in ipairs(b.content) do
+              if el.t == "Image" then
+                style = "Figure"
+                -- Two 48 % images plus a space are a hair too wide for one line in Word and LibreOffice.
+                local w = el.attributes.width
+                if w and w:match("^(%d+)%%$") and tonumber(w:match("^(%d+)")) >= 48 and #b.content > 2 then
+                  el.attributes.width = "46%"
+                end
+              end
+            end
           end
           table.insert(out, pandoc.Div({ b }, pandoc.Attr("", {}, { ["custom-style"] = style })))
         end
@@ -148,23 +174,10 @@ end
 
 local function toc_block(list, pages)
   if FORMAT:match("docx") then
-    local xml = {}
-    local heading = '<w:p><w:pPr><w:pStyle w:val="TOCHeading"/></w:pPr><w:r><w:t>Зміст</w:t></w:r></w:p>'
-    table.insert(xml, heading)
-    for i, h in ipairs(list) do
-      local row = '<w:p><w:pPr><w:pStyle w:val="TOC' .. h.level .. '"/></w:pPr>'
-      if i == 1 then
-        -- One TOC field around all cached rows: Word refreshes it on open (dirty), other readers show the rows.
-        row = row .. '<w:r><w:fldChar w:fldCharType="begin" w:dirty="true"/></w:r>'
-          .. '<w:r><w:instrText xml:space="preserve"> TOC \\o "1-3" \\h \\z \\u </w:instrText></w:r>'
-          .. '<w:r><w:fldChar w:fldCharType="separate"/></w:r>'
-      end
-      row = row .. '<w:r><w:t xml:space="preserve">' .. esc(h.text) .. '</w:t></w:r><w:r><w:tab/></w:r>'
-        .. '<w:r><w:t>' .. (pages[i] or "00") .. '</w:t></w:r>'
-      if i == #list then row = row .. '<w:r><w:fldChar w:fldCharType="end"/></w:r>' end
-      table.insert(xml, row .. '</w:p>')
-    end
-    return pandoc.RawBlock("openxml", table.concat(xml))
+    -- The heading and a marker paragraph: kr-docx-post.py builds the TOC field (entries, links, pages of the DOCX itself).
+    return pandoc.RawBlock("openxml",
+      '<w:p><w:pPr><w:pStyle w:val="TOCHeading"/></w:pPr><w:r><w:t>Зміст</w:t></w:r></w:p>'
+      .. '<w:p><w:pPr><w:pStyle w:val="TOC1"/></w:pPr><w:r><w:t>KR-TOC-MARKER</w:t></w:r></w:p>')
   end
   local html = { '<div class="toc"><h1 class="unlisted toc-title">Зміст</h1>' }
   for i, h in ipairs(list) do

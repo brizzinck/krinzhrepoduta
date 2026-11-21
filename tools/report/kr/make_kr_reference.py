@@ -67,6 +67,7 @@ def styles_xml():
     no_ind = '<w:ind w:firstLine="0"/>'
     center = '<w:jc w:val="center"/>'
     small = '<w:sz w:val="24"/><w:szCs w:val="24"/>'
+    cell = '<w:sz w:val="22"/><w:szCs w:val="22"/>'
     styles = [
         # Normal: everything inherits TNR 14, 1.5 spacing, 1.25 cm indent.
         f'<w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/>'
@@ -75,8 +76,8 @@ def styles_xml():
         pstyle("FirstParagraph", "First Paragraph", next_="BodyText"),
         # Compact: tight list items.
         pstyle("Compact", "Compact", f'<w:spacing w:before="0" w:after="0" {LINE_15}/>{no_ind}<w:jc w:val="left"/>'),
-        # Table cells (title.lua wraps cell content in this style): 12 pt, single spacing.
-        pstyle("TableText", "Table Text", f'<w:spacing w:before="0" w:after="0" {LINE_1}/>{no_ind}<w:jc w:val="left"/>', small),
+        # Table cells (kr-title.lua wraps cell content in this style): 11 pt as in kr.css, single spacing.
+        pstyle("TableText", "Table Text", f'<w:spacing w:before="0" w:after="0" {LINE_1}/>{no_ind}<w:jc w:val="left"/>', cell),
         pstyle("Title", "Title", f"{no_ind}{center}", '<w:b/><w:sz w:val="32"/>', custom=False),
         pstyle("Subtitle", "Subtitle", f"{no_ind}{center}", custom=False),
         pstyle("Author", "Author", f"{no_ind}{center}"),
@@ -87,12 +88,14 @@ def styles_xml():
         heading(1, centered=True),
         heading(2, centered=False),
         heading(3, centered=False),
+        # Level-3 headings of the class .unlisted (R1-R7 ...): look like heading 3, but outside the outline and the contents.
+        pstyle("SubheadingUnlisted", "Subheading Unlisted", '<w:outlineLvl w:val="9"/>', based="Heading3", next_="BodyText"),
         pstyle("BlockText", "Block Text", '<w:ind w:left="709" w:firstLine="0"/>', "<w:i/>"),
         pstyle("FootnoteText", "footnote text", f'<w:spacing w:after="0" {LINE_1}/>{no_ind}', small, custom=False),
         pstyle("FootnoteBlockText", "Footnote Block Text", f'<w:spacing w:after="0" {LINE_1}/>{no_ind}', small),
         # Listings: Courier New 10, single spacing, no indent.
         pstyle("SourceCode", "Source Code",
-               '<w:shd w:val="clear" w:color="auto" w:fill="F4F4F4"/><w:wordWrap w:val="off"/>'
+               '<w:shd w:val="clear" w:color="auto" w:fill="F4F4F4"/>'
                f'<w:spacing w:before="60" w:after="60" {LINE_1}/>{no_ind}<w:jc w:val="left"/>',
                f'{MONO}<w:sz w:val="20"/><w:szCs w:val="20"/>', next_="BodyText"),
         # Listings with the .small class (built by title.lua): Courier New 8.
@@ -114,6 +117,10 @@ def styles_xml():
         pstyle("Hyperlink", "Hyperlink", rpr='<w:color w:val="1F4E9D"/><w:u w:val="single"/>', based=None, char=True),
         pstyle("SectionNumber", "Section Number", based=None, char=True),
         pstyle("FootnoteReference", "Footnote Reference", rpr='<w:vertAlign w:val="superscript"/>', based=None, char=True),
+        # Numbered formula: the formula centred, the number at the right edge (two tab stops).
+        pstyle("Formula", "Formula",
+               f'<w:keepLines/><w:tabs><w:tab w:val="center" w:pos="{TEXT_WIDTH // 2}"/><w:tab w:val="right" w:pos="{TEXT_WIDTH}"/></w:tabs>'
+               f'<w:spacing w:before="60" w:after="60" {LINE_15}/>{no_ind}<w:jc w:val="left"/>'),
         # Table caption: the word and number right-aligned, the title centred below it.
         pstyle("TableNumber", "Table Number", f'<w:keepNext/><w:spacing w:before="120" w:after="0" {LINE_15}/>{no_ind}<w:jc w:val="right"/>'),
         pstyle("TableTitle", "Table Title", f'<w:keepNext/><w:spacing w:before="0" w:after="60" {LINE_15}/>{no_ind}{center}'),
@@ -134,7 +141,7 @@ def styles_xml():
         pstyle("TitleSignFirst", "Title Sign First", f'<w:spacing w:before="1800" w:after="0" {LINE_15}/><w:ind w:left="4536" w:firstLine="0"/><w:jc w:val="left"/>'),
         pstyle("TitleSign", "Title Sign", f'<w:spacing w:before="0" w:after="0" {LINE_15}/><w:ind w:left="4536" w:firstLine="0"/><w:jc w:val="left"/>'),
         pstyle("TitleSignGap", "Title Sign Gap", f'<w:spacing w:before="360" w:after="0" {LINE_15}/><w:ind w:left="4536" w:firstLine="0"/><w:jc w:val="left"/>'),
-        pstyle("TitleCity", "Title City", f'<w:spacing w:before="1600" w:after="0" {LINE_15}/>{no_ind}{center}'),
+        pstyle("TitleCity", "Title City", f'<w:spacing w:before="3700" w:after="0" {LINE_15}/>{no_ind}{center}'),
         # Task sheet (one page, line 1.15 so that it always fits).
         pstyle("TaskHeading", "Task Heading", f'<w:pageBreakBefore/><w:spacing w:before="0" w:after="240" {LINE_115}/>{no_ind}{center}',
                '<w:b/><w:bCs/><w:caps/><w:sz w:val="28"/><w:szCs w:val="28"/>'),

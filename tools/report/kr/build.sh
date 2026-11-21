@@ -3,8 +3,11 @@
 # Usage: tools/report/kr/build.sh path/to/note.md
 # Requires pandoc, Google Chrome or Chromium (PDF), pdftotext and python3 (page numbers of the contents).
 # The PDF is built twice: the first pass finds the page of every heading, the second prints them
-# into the table of contents. The DOCX gets the same numbers as cached text of a TOC field that
-# Word refreshes on open.
+# into the table of contents.
+# The DOCX gets a real TOC field whose cached result holds the pages of the DOCX itself: pandoc builds
+# the document, kr-docx-post.py finishes it, LibreOffice in Docker (image KR_LO_IMAGE, built from
+# Dockerfile.lo when missing) renders it to PDF, the headings are looked up there and written into the
+# field; repeated until the numbers are stable. Without Docker the numbers of the HTML PDF are used.
 set -eu
 
 HERE=$(cd "$(dirname "$0")" && pwd)
@@ -12,7 +15,7 @@ SRC=$(cd "$(dirname "$1")" && pwd)/$(basename "$1")
 DIR=$(dirname "$SRC")
 NAME=$(basename "$SRC" .md)
 
-[ -f "$HERE/kr-reference.docx" ] || python3 "$HERE/make_kr_reference.py" >/dev/null
+python3 "$HERE/make_kr_reference.py" >/dev/null
 
 TMP=$(mktemp -d "${TMPDIR:-/tmp}/kr.XXXXXX")
 DL=$(xdg-user-dir DOWNLOAD 2>/dev/null || echo "$HOME/Downloads")
@@ -84,7 +87,50 @@ else
   html_pdf "$DIR/$NAME.pdf"
 fi
 
-pandoc "$SRC" -f markdown -t docx -o "$NAME.docx" \
+# lo_pdf IN.docx OUT.pdf: render with LibreOffice in a throwaway container (mounts only a scratch copy).
+lo_image() {
+  command -v docker >/dev/null 2>&1 || return 1
+  for img in "${KR_LO_IMAGE:-}" kr-lo:1 tz-libreoffice:latest; do
+    [ -n "$img" ] && docker image inspect "$img" >/dev/null 2>&1 && { echo "$img"; return 0; }
+  done
+  docker build -q -t kr-lo:1 -f "$HERE/Dockerfile.lo" "$HERE" >/dev/null 2>&1 && { echo kr-lo:1; return 0; }
+  return 1
+}
+lo_pdf() {
+  rm -rf "$TMP/lo" && mkdir -p "$TMP/lo" && cp "$1" "$TMP/lo/in.docx"
+  docker run --rm --name "kr-lo-$$" --user "$(id -u):$(id -g)" -e HOME=/tmp/h -v "$TMP/lo:/w" "$LO_IMG" \
+    sh -c 'mkdir -p /tmp/h && cd /w && soffice -env:UserInstallation=file:///tmp/h/lo --headless --convert-to pdf in.docx >/dev/null 2>&1'
+  [ -s "$TMP/lo/in.pdf" ] || { echo "error: LibreOffice did not produce a PDF" >&2; return 1; }
+  cp "$TMP/lo/in.pdf" "$2"
+}
+
+unset KR_TOC_OUT KR_TOC_PAGES 2>/dev/null || true
+pandoc "$SRC" -f markdown -t docx -o "$TMP/raw.docx" \
   --reference-doc "$HERE/kr-reference.docx" --lua-filter "$HERE/kr-title.lua" --resource-path "$DIR"
+
+POST="python3 $HERE/kr-docx-post.py"
+: > "$TMP/dpages.tsv"
+if [ "$HAS_TOC" = 1 ] && LO_IMG=$(lo_image); then
+  $POST fix "$TMP/raw.docx" "$TMP/d.docx" "$SRC"
+  i=0
+  while :; do
+    lo_pdf "$TMP/d.docx" "$TMP/d.pdf"
+    $POST pages "$TMP/d.docx" "$TMP/d.pdf" > "$TMP/dpages.all" 2> "$TMP/count.txt"
+    grep -v '^toc_end' "$TMP/dpages.all" > "$TMP/dpages.new"
+    TOTAL=$(sed -n 's/^total\t//p' "$TMP/count.txt")
+    cmp -s "$TMP/dpages.new" "$TMP/dpages.tsv" && break
+    i=$((i + 1))
+    [ "$i" -le 4 ] || { echo "warning: DOCX page numbers did not settle" >&2; break; }
+    cp "$TMP/dpages.new" "$TMP/dpages.tsv"
+    $POST fix "$TMP/raw.docx" "$TMP/d.docx" "$SRC" --pages "$TMP/dpages.tsv" --pages-count "$TOTAL"
+  done
+  echo "docx: $TOTAL pages in LibreOffice (PDF: $(pdfinfo "$DIR/$NAME.pdf" | sed -n 's/^Pages: *//p'))"
+else
+  [ "$HAS_TOC" = 1 ] && echo "warning: no Docker or LibreOffice image: contents of the DOCX use the page numbers of the PDF" >&2
+  PAGES_ARG=""
+  [ -s "$TMP/pages.tsv" ] && PAGES_ARG="--pages $TMP/pages.tsv"
+  $POST fix "$TMP/raw.docx" "$TMP/d.docx" "$SRC" $PAGES_ARG
+fi
+cp "$TMP/d.docx" "$DIR/$NAME.docx"
 
 echo "built: $DIR/$NAME.pdf, $DIR/$NAME.docx"

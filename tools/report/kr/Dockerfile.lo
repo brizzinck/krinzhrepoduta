@@ -1,0 +1,6 @@
+# LibreOffice for build.sh: renders the DOCX to PDF so that the contents get the page numbers of the DOCX itself.
+# Liberation fonts are metric-compatible with Times New Roman and Courier New, so the pagination matches Word closely.
+FROM debian:stable-slim
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libreoffice-writer-nogui fonts-liberation fonts-dejavu-core \
+ && rm -rf /var/lib/apt/lists/*
