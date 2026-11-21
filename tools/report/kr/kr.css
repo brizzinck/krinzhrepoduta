@@ -1,0 +1,130 @@
+/* Print stylesheet for the coursework note (methodology section 2): A4, 12 pt, line 1.5,
+   margins left 20, right 10, top 20, bottom 20 mm. Page number top right, none on the title
+   page and the task sheet (they count as pages 1 and 2). */
+@page {
+  size: A4;
+  margin: 20mm 10mm 20mm 20mm;
+  @top-right { content: counter(page); font: 12pt "ReportSerif", "Times New Roman", serif; vertical-align: middle; }
+}
+@page :first { @top-right { content: none; } }
+@page task { margin: 20mm 10mm 20mm 20mm; @top-right { content: none; } }
+
+/* Only regular Times New Roman is installed. Bold and italic come from Liberation Serif,
+   which is metric-compatible with TNR, so the layout does not change. */
+@font-face { font-family: "ReportSerif"; font-weight: 400; font-style: normal; src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"); }
+@font-face { font-family: "ReportSerif"; font-weight: 700; font-style: normal; src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT"), local("Liberation Serif Bold"), local("LiberationSerif-Bold"); }
+@font-face { font-family: "ReportSerif"; font-weight: 400; font-style: italic; src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Liberation Serif Italic"), local("LiberationSerif-Italic"); }
+@font-face { font-family: "ReportSerif"; font-weight: 700; font-style: italic; src: local("Times New Roman Bold Italic"), local("Liberation Serif Bold Italic"), local("LiberationSerif-BoldItalic"); }
+
+html { background: #fff; }
+body {
+  margin: 0; padding: 0; max-width: none;
+  font-family: "ReportSerif", "Times New Roman", serif; font-size: 12pt; line-height: 1.5; color: #000;
+  text-align: justify; hyphens: auto;
+}
+p { margin: 0; text-indent: 1.25cm; }
+
+/* Headings: section titles centred, capitals, each on a new page; subsections from an indent. */
+h1, h2, h3 { font-size: 12pt; font-weight: bold; margin: 12pt 0 6pt; line-height: 1.5; break-after: avoid; }
+h1 { font-size: 14pt; text-align: center; text-transform: uppercase; text-indent: 0; margin: 0 0 12pt; break-before: page; }
+h2, h3 { text-indent: 1.25cm; text-align: left; }
+a { color: #000; text-decoration: none; }
+ul, ol { margin: 0; padding-left: 1.9cm; }
+li p, td p, th p { text-indent: 0; }
+li { text-align: left; }
+
+code { font-family: "Courier New", monospace; font-size: 11pt; }
+pre {
+  font-family: "Courier New", monospace; font-size: 10pt; line-height: 1.15; text-align: left;
+  background: #f4f4f4; border: 0.5pt solid #ccc; padding: 4pt 6pt; margin: 4pt 0;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+pre code { font-size: 10pt; }
+div.sourceCode { margin: 4pt 0; }
+pre.small, pre.small code { font-size: 8pt; line-height: 1.1; }
+pre.small { break-inside: avoid; }
+
+table { border-collapse: collapse; width: 100%; margin: 6pt 0; font-size: 12pt; line-height: 1.2; }
+tr { break-inside: avoid; }
+th, td { border: 0.5pt solid #000; padding: 2pt 4pt; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+td code, th code { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 10pt; }
+th { font-weight: bold; }
+
+/* Table caption: "Таблиця N.N" right-aligned above the table, the title centred below it.
+   Markup: ::: tcap, paragraph with the number, paragraph with the title. */
+.tcap { break-after: avoid; margin-top: 6pt; }
+.tcap p { text-indent: 0; margin: 0; }
+.tcap p:first-child { text-align: right; }
+.tcap p:nth-child(2) { text-align: center; }
+
+/* Figure: caption centred below, number first ("Рисунок 3.1 - Назва"). */
+figure { margin: 6pt 0; text-align: center; break-inside: avoid; }
+figure img, p > img { max-width: 100%; max-height: 200mm; }
+figcaption { font-size: 12pt; text-align: center; margin-top: 3pt; }
+
+.pair { break-inside: avoid; margin: 6pt 0; }
+.pair p { text-indent: 0; text-align: center; }
+.pair p + p { margin-top: 3pt; }
+.pair img { vertical-align: top; }
+
+/* Title page */
+.title-page {
+  height: 255mm; display: flex; flex-direction: column; justify-content: space-between;
+  break-after: page; text-align: center;
+}
+.title-page p { text-indent: 0; text-align: center; }
+.tp-title-org p { font-weight: bold; }
+.tp-main { margin-top: -20mm; }
+.tp-title-report p { font-weight: bold; text-transform: uppercase; letter-spacing: 2pt; font-size: 18pt; }
+.tp-title-topic p { font-weight: bold; margin-top: 4pt; }
+.tp-sign { align-self: flex-end; width: 100mm; }
+.tp-sign p { text-align: left; }
+.tp-title-sign-gap p { margin-top: 12pt; }
+
+/* Task sheet: an own page without number (named page "task"), line 1.15 so that it fits. */
+.task-sheet { page: task; break-after: page; line-height: 1.15; text-align: left; }
+.task-sheet p { text-indent: 0; margin: 0 0 6pt; }
+.tp-task-heading p { text-align: center; font-weight: bold; text-transform: uppercase; font-size: 14pt; margin-bottom: 12pt; }
+.tp-task-label p { font-weight: bold; margin: 6pt 0 3pt; }
+.tp-task-item p { margin: 0 0 2pt; padding-left: 8mm; text-indent: -5mm; }
+.tp-task-line p { margin-top: 4pt; }
+.tp-task-sign p { margin-top: 18pt; }
+
+/* Table of contents: text, dotted leader, page number. */
+.toc-title { margin-bottom: 12pt; }
+.toc-row { display: flex; align-items: baseline; line-height: 1.5; text-align: left; }
+.toc-row .l { flex: 1; border-bottom: 1pt dotted #000; margin: 0 3pt; position: relative; top: -2pt; min-width: 10mm; }
+.toc-row .n { min-width: 8mm; text-align: right; }
+.toc-row .t { max-width: 160mm; }
+.toc-1 .t { text-transform: uppercase; }
+.toc-2 { padding-left: 5mm; }
+.toc-3 { padding-left: 10mm; }
+
+/* Pandoc syntax highlighting without coloured backgrounds */
+pre > code.sourceCode > span, code.sourceCode > span { display: inline; text-indent: 0; padding-left: 0; }
+pre, pre code { text-indent: 0; }
+code span.kw, code span.cf { color: #00007f; font-weight: bold; }
+code span.dt { color: #7f0055; }
+code span.st, code span.ch { color: #2a00ff; }
+code span.co { color: #3f7f5f; font-style: italic; }
+code span.dv, code span.fl { color: #098658; }
+code span.an, code span.at { color: #646464; }
+
+/* Keep the two caption paragraphs together and the caption with its table. */
+.tcap { break-inside: avoid; }
+.tcap + table { break-before: avoid; }
+
+/* Tables a little tighter than the text so that long constraint tables take fewer pages. */
+table { font-size: 11pt; line-height: 1.15; }
+td code, th code { font-size: 9pt; }
+
+/* Long code blocks may continue on the next page; short ones stay whole through the rule below. */
+pre.small { break-inside: auto; }
+pre.small code { orphans: 4; widows: 4; }
+
+/* Numbered formula: formula centred, number at the right edge. */
+.formula { display: flex; justify-content: space-between; margin: 4pt 0; }
+.formula p { text-indent: 0; }
+.formula p:first-child { flex: 1; text-align: center; padding-left: 12mm; }
+/* Figures may take most of a page (physical model). */
+figure img, p > img { max-height: 235mm; }
