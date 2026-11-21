@@ -12,7 +12,7 @@ from collections import Counter, OrderedDict
 from pathlib import Path
 
 LEVEL_UA = {"High": "Високий", "Medium": "Середній", "Low": "Низький"}
-STATUS_UA = {"Open": "Відкрита", "Mitigated": "Зменшена (передбачено захід)", "NotApplicable": "Прийнято / поза межами"}
+STATUS_UA = {"Open": "Open", "Mitigated": "Mitigated", "NotApplicable": "N/A"}
 KIND_UA = {"tm.Actor": "Зовнішній учасник", "tm.Process": "Процес", "tm.Store": "Сховище даних"}
 SHORT = {"Spoofing": "S", "Tampering": "T", "Repudiation": "R", "Information disclosure": "I",
          "Denial of service": "D", "Elevation of privilege": "E"}
@@ -55,7 +55,8 @@ def main(src: Path, out: Path):
 
     lines = ["# Реєстр загроз «Прокат автомобілів» (STRIDE)", "",
              "Таблиця згенерована з `model/rental-threat-model.json` скриптом `threat-dragon/td2md.py`.", "",
-             "Ризик = Імовірність (L, 1–5) × Наслідок (I, 1–5): 1–6 низький, 7–14 середній, 15–25 високий.", "",
+             "Ризик = Імовірність (L, 1–5) × Наслідок (I, 1–5): 1–6 низький, 7–14 середній, 15–25 високий. Оцінка дана до впровадження заходу (inherent risk), тому загроза зі статусом Mitigated зберігає свій рівень.", "",
+             "Статус: Open (захід потрібно реалізувати), Mitigated (захід передбачено в архітектурі), N/A (відхилено). Номери вимог ASVS 5.0.0 подано без префікса V, як у ЛР 2.", "",
              "| ID | Елементи | STRIDE | Загроза | L | I | Ризик | Статус | Захід (ASVS) |", "|---|------|---|---------|-|-|-----|------|-------------|"] + rows
     lines += ["", f"Усього загроз: {len(real)} (записів у моделі за елементами: {sum(len(c['data'].get('threats', [])) for c in cells if c.get('data'))}).", "",
               "Підсумок за рівнем: " + ", ".join(f"{LEVEL_UA[k]} {levels[k]}" for k in ("High", "Medium", "Low")) + ".", "",

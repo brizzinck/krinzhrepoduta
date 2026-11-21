@@ -154,6 +154,14 @@ class TokenAuthTest {
     }
 
     @Test
+    void passwordLongerThan72BytesIsRejected() throws Exception {
+        // 40 кириличних літер це 80 байтів: за довжиною в символах пароль проходив би, а BCrypt відкинув би хвіст
+        mvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON)
+                        .content(loginBody("olena_k", "ї".repeat(40))))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void profileWithValidTokenIsOk() throws Exception {
         String token = login();
         mvc.perform(get("/api/profile").header("Authorization", "Bearer " + token))

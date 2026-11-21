@@ -1,7 +1,8 @@
 #!/bin/bash
 # Спільні функції демонстраційних скриптів. Усі запити йдуть лише на локальний навчальний застосунок.
 BASE="${BASE:-http://localhost:8080}"
-DBEXEC='docker exec rental_mysql mysql -urental_app -prental_app_pass rental --default-character-set=utf8mb4 -t'
+DB_CONTAINER="${DB_CONTAINER:-rental_mysql}"
+DBEXEC="docker exec $DB_CONTAINER mysql -urental_app -prental_app_pass rental --default-character-set=utf8mb4 -t"
 
 # Корисна частина HTML-відповіді з повідомленнями форми: «поле: текст»
 form_errors() {

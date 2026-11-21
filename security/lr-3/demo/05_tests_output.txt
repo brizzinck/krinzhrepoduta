@@ -1,7 +1,8 @@
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.591 s -- in ua.duikt.lavrishko.rental.validation.CustomValidatorsTest
-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.603 s -- in ua.duikt.lavrishko.rental.ApiAndDemoTest
-[INFO] Tests run: 48, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.858 s -- in ua.duikt.lavrishko.rental.RegistrationValidationTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.531 s -- in ua.duikt.lavrishko.rental.ChunkedBodyLimitTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.213 s -- in ua.duikt.lavrishko.rental.VulnerableDemoTest
-[INFO] Tests run: 66, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.617 s -- in ua.duikt.lavrishko.rental.validation.CustomValidatorsTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.662 s -- in ua.duikt.lavrishko.rental.ApiAndDemoTest
+[INFO] Tests run: 51, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.154 s -- in ua.duikt.lavrishko.rental.RegistrationValidationTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.538 s -- in ua.duikt.lavrishko.rental.VulnProfileErrorsTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.222 s -- in ua.duikt.lavrishko.rental.ChunkedBodyLimitTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.177 s -- in ua.duikt.lavrishko.rental.VulnerableDemoTest
+[INFO] Tests run: 76, Failures: 0, Errors: 0, Skipped: 0
 [INFO] BUILD SUCCESS

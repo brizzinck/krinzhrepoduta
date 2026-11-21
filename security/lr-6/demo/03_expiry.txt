@@ -1,21 +1,21 @@
 $ date -u +%H:%M:%S
-10:54:43
+21:28:48
 
 # Вхід
 $ curl -s -w '\nHTTP %{http_code}\n' -X POST http://localhost:8086/api/auth/login -H 'Content-Type: application/json' -d '{"login":"olena_k","password":"Secret2026"}'
-{"accessToken":"eyJhbGciOiJIUzI...aK1FOg","tokenType":"Bearer","expiresIn":120}
+{"expiresIn":120,"accessToken":"eyJhbGciOiJIUzI...9hWxe8","tokenType":"Bearer"}
 HTTP 200
 
 # Профіль одразу після входу
-$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJIUzI...aK1FOg'
-{"login":"olena_k","role":"CLIENT","issuedAt":"2026-11-17T10:54:44Z","expiresAt":"2026-11-17T10:56:44Z","secondsLeft":120}
+$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJIUzI...9hWxe8'
+{"login":"olena_k","role":"CLIENT","issuedAt":"2026-11-21T21:28:48Z","expiresAt":"2026-11-21T21:30:48Z","secondsLeft":120}
 HTTP 200
 
 $ sleep 121
 $ date -u +%H:%M:%S
-10:56:45
+21:30:49
 
 # Той самий токен через 121 секунду
-$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJIUzI...aK1FOg'
+$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJIUzI...9hWxe8'
 {"error":"invalid_token","reason":"expired"}
 HTTP 401

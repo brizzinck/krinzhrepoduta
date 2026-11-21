@@ -1,10 +1,12 @@
 package ua.duikt.lavrishko.rental.web;
 
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -22,7 +24,10 @@ public class ApiExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> invalid(MethodArgumentNotValidException e) {
         Map<String, String> fields = new LinkedHashMap<>();
-        e.getBindingResult().getFieldErrors()
+        // порядок наборів порушень не гарантований, тому сортуємо: відповідь однакова при кожному запуску
+        e.getBindingResult().getFieldErrors().stream()
+                .sorted(Comparator.comparing(FieldError::getField)
+                        .thenComparing(f -> String.valueOf(f.getDefaultMessage())))
                 .forEach(f -> fields.putIfAbsent(f.getField(), f.getDefaultMessage()));
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("error", "Помилка валідації");
@@ -46,6 +51,6 @@ public class ApiExceptionHandler {
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ResponseEntity<Map<String, Object>> badRange(HandlerMethodValidationException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("error", "Значення параметра поза допустимим діапазоном"));
+                .body(Map.of("error", "Задовге значення параметра"));
     }
 }

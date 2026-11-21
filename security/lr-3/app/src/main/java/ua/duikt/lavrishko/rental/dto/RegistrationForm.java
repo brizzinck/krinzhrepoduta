@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import java.text.Normalizer;
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import ua.duikt.lavrishko.rental.validation.BirthDate;
@@ -54,7 +55,7 @@ public class RegistrationForm {
     public void setLogin(String login) { this.login = blankToNull(login); }
 
     public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = blankToNull(firstName); }
+    public void setFirstName(String firstName) { this.firstName = nfcOrNull(firstName); }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = blankToNull(email); }
@@ -68,8 +69,15 @@ public class RegistrationForm {
     public LocalDate getBirthDate() { return birthDate; }
     public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
 
+    /** Порожнє або пробільне значення стає null, решта лишається без змін (пароль перевіряється так, як отримано). */
     private static String blankToNull(String value) {
         return value == null || value.isBlank() ? null : value;
+    }
+
+    /** Те саме, але ім'я нормалізується до NFC, щоб «й» з двох кодових точок не відхилялась як не літера. */
+    private static String nfcOrNull(String value) {
+        String v = blankToNull(value);
+        return v == null ? null : Normalizer.normalize(v, Normalizer.Form.NFC);
     }
 
     @Override

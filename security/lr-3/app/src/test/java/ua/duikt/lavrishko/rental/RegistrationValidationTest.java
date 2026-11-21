@@ -129,6 +129,35 @@ class RegistrationValidationTest {
     }
 
     @Test
+    void nameWithCombiningMarkIsNormalizedAndAccepted() throws Exception {
+        // «Андрій» з «й» як «и» + U+0306 (NFD) після нормалізації до NFC стає однією літерою
+        mvc.perform(form(Map.of("firstName", "Андрі\u0438\u0306")))
+                .andExpect(status().is3xxRedirection());
+        assertEquals("Андрій".length(), jdbc.queryForObject(
+                "SELECT CHAR_LENGTH(first_name) FROM users WHERE login = 'client01'", Integer.class));
+    }
+
+    @Test
+    void passwordIsHashedExactlyAsReceived() throws Exception {
+        // ASVS 6.2.8: пароль не змінюється перед хешуванням, тому «й» у розкладеній формі лишається розкладеною
+        String nfd = "Secret1\u0438\u0306";
+        mvc.perform(form(Map.of("password", nfd))).andExpect(status().is3xxRedirection());
+        String hash = jdbc.queryForObject("SELECT password_hash FROM users WHERE login = 'client01'", String.class);
+        var encoder = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
+        assertTrue(encoder.matches(nfd, hash), "хеш має відповідати паролю в початковому вигляді");
+        assertTrue(!encoder.matches(java.text.Normalizer.normalize(nfd, java.text.Normalizer.Form.NFC), hash),
+                "нормалізований варіант не має збігатися");
+    }
+
+    @Test
+    void passwordWithLineBreakIsJudgedByContentNotByDot() throws Exception {
+        mvc.perform(form(Map.of("password", "Secret\n123"))).andExpect(status().is3xxRedirection());
+        mvc.perform(form(Map.of("login", "client02", "email", "two@example.com", "password", "secret\n123")))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("велику літеру")));
+    }
+
+    @Test
     void missingFieldsAreRejectedWithoutBrowser() throws Exception {
         // запит без жодного поля: так поводиться клієнт, що обійшов JavaScript
         mvc.perform(post("/register").contentType(MediaType.APPLICATION_FORM_URLENCODED))

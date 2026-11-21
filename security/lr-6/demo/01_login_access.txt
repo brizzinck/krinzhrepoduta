@@ -11,16 +11,16 @@ HTTP 401
 
 # Правильний логін і пароль: токен у відповіді (скорочено)
 $ curl -s -w '\nHTTP %{http_code}\n' -X POST http://localhost:8086/api/auth/login -H 'Content-Type: application/json' -d '{"login":"olena_k","password":"Secret2026"}'
-{"accessToken":"eyJhbGciOiJIUzI...JGrtak","tokenType":"Bearer","expiresIn":120}
+{"expiresIn":120,"accessToken":"eyJhbGciOiJIUzI...tEy8yE","tokenType":"Bearer"}
 HTTP 200
 
 # Вміст токена (base64url, не шифрування)
 $ jwt_decode "$TOKEN"
 header:   {"alg": "HS256"}
-payload:  {"iss": "car-rental-lr6", "sub": "olena_k", "role": "CLIENT", "iat": 1794912883, "exp": 1794913003, "jti": "d3518f67-c502-4abb-95d5-5e2b2f48b1fc"}
+payload:  {"iss": "car-rental-lr6", "sub": "olena_k", "role": "CLIENT", "iat": 1795296528, "exp": 1795296648, "jti": "218178b2-d91e-46c2-b9cd-b4b6cb346fc8"}
 exp - iat = 120 с
 
 # Захищений ендпоінт з токеном
-$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJIUzI...JGrtak'
-{"login":"olena_k","role":"CLIENT","issuedAt":"2026-11-17T10:54:43Z","expiresAt":"2026-11-17T10:56:43Z","secondsLeft":120}
+$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJIUzI...tEy8yE'
+{"login":"olena_k","role":"CLIENT","issuedAt":"2026-11-21T21:28:48Z","expiresAt":"2026-11-21T21:30:48Z","secondsLeft":120}
 HTTP 200

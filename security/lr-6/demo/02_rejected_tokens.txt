@@ -5,12 +5,12 @@ $ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile
 HTTP 401
 
 # Змінено вміст токена (sub=manager), підпис старий
-$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJIUzI...0_W99w'
+$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJIUzI...XsKP3A'
 {"error":"invalid_token","reason":"bad_signature"}
 HTTP 401
 
 # Алгоритм none, підпису немає
-$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJub25...NjZSJ9.'
+$ curl -s -w '\nHTTP %{http_code}\n' http://localhost:8086/api/profile -H 'Authorization: Bearer eyJhbGciOiJub25...QxMCJ9.'
 {"error":"invalid_token","reason":"wrong_alg"}
 HTTP 401
 

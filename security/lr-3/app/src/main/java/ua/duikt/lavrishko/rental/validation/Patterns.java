@@ -23,9 +23,9 @@ public final class Patterns {
     /** Телефон: необов'язковий «+» та 10-15 цифр (E.164-подібний формат), без пробілів і дужок. */
     public static final String PHONE = "^\\+?[0-9]{10,15}$";
 
-    /** Пароль: принаймні одна велика літера (Unicode). */
-    public static final String HAS_UPPER = "^.*\\p{Lu}.*$";
+    /** Пароль: принаймні одна велика літера (Unicode). Прапорець (?s): «.» збігається і з переведенням рядка. */
+    public static final String HAS_UPPER = "(?s)^.*\\p{Lu}.*$";
 
-    /** Пароль: принаймні одна цифра ASCII. */
-    public static final String HAS_DIGIT = "^.*[0-9].*$";
+    /** Пароль: принаймні одна цифра ASCII (прапорець (?s), як вище). */
+    public static final String HAS_DIGIT = "(?s)^.*[0-9].*$";
 }

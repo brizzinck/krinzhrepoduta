@@ -81,6 +81,22 @@ class ApiAndDemoTest {
     }
 
     @Test
+    void jsonNumberInsteadOfStringIsRejected() throws Exception {
+        String body = "{\"login\":12345,\"firstName\":\"Олена\",\"email\":\"o@example.com\","
+                + "\"password\":\"Secret123\",\"phone\":\"+380501234567\",\"birthDate\":\"1998-04-12\"}";
+        mvc.perform(post("/api/register").contentType(MediaType.APPLICATION_JSON).content(body))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void jsonNumberInsteadOfDateIsRejected() throws Exception {
+        String body = "{\"login\":\"client01\",\"firstName\":\"Олена\",\"email\":\"o@example.com\","
+                + "\"password\":\"Secret123\",\"phone\":\"+380501234567\",\"birthDate\":10000}";
+        mvc.perform(post("/api/register").contentType(MediaType.APPLICATION_JSON).content(body))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void jsonWithInvalidFieldsReturnsFieldMessages() throws Exception {
         String body = "{\"login\":\"abc\",\"firstName\":\"Ol3na\",\"email\":\"a@b\",\"password\":\"short\","
                 + "\"phone\":\"abc\",\"birthDate\":\"2099-01-01\"}";

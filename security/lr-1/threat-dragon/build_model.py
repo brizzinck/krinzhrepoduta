@@ -112,7 +112,7 @@ def main(out: Path):
         cells.append({
             "shape": "flow", "id": uid(fid), "zIndex": 10, "width": 200, "height": 100, "connector": "rounded", "router": {"name": "orth"},
             "attrs": {"line": line},
-            "labels": [{"position": 0.5, "attrs": {"label": {"text": label}}}],
+            "labels": [{"position": m.LABEL_POS.get(fid, 0.5), "attrs": {"label": {"text": label}}}],
             "source": {"cell": uid(src)}, "target": {"cell": uid(dst)},
             "vertices": [{"x": px, "y": vy(py)} for px, py in verts],
             "data": {"type": "tm.Flow", "name": label, "description": f"{desc} Дані: {proto}.",

@@ -79,4 +79,10 @@ curl -s -w '\n  HTTP %{http_code}\n' -X POST "$BASE/api/register" -H 'Content-Ty
 echo "\$ curl -s -X POST $BASE/api/register ... поля з помилками"
 curl -s -w '\n  HTTP %{http_code}\n' -X POST "$BASE/api/register" -H 'Content-Type: application/json' \
   -d '{"login":"abc","firstName":"Ol3na","email":"a@b","password":"short","phone":"abc","birthDate":"2099-01-01"}'
+echo
+echo "# Помилки безпечних ендпоінтів загальні, навіть коли застосунок запущено з профілем vuln"
+echo "\$ curl -s -X POST $BASE/api/register -H 'Content-Type: text/plain' -d x"
+curl -s -w '\n  HTTP %{http_code}\n' -X POST "$BASE/api/register" -H 'Content-Type: text/plain' -d x
+echo "\$ curl -s -X DELETE $BASE/api/register"
+curl -s -w '\n  HTTP %{http_code}\n' -X DELETE "$BASE/api/register"
 rm -rf "$TMP"

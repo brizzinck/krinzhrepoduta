@@ -1,11 +1,21 @@
 package ua.duikt.lavrishko.rental.demo;
 
+import jakarta.servlet.http.HttpServletRequest;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,5 +74,24 @@ public class VulnerableDemoController {
         List<Map<String, Object>> rows = jdbc.queryForList("SELECT login, first_name, email FROM users ORDER BY id");
         model.addAttribute("rows", rows);
         return "users-vuln";
+    }
+
+    /**
+     * ПОМИЛКА 6: відповідь про помилку віддає клас винятку, текст і стек-трейс (як погано налаштований застосунок).
+     * Обробник локальний: діє лише для цього контролера, безпечні ендпоінти в будь-якому профілі віддають загальні помилки.
+     */
+    @ExceptionHandler({DataAccessException.class, NumberFormatException.class})
+    public ResponseEntity<Map<String, Object>> leakDetails(Exception e, HttpServletRequest request) {
+        StringWriter trace = new StringWriter();
+        e.printStackTrace(new PrintWriter(trace));
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", new Date());
+        body.put("status", 500);
+        body.put("error", "Internal Server Error");
+        body.put("exception", e.getClass().getName());
+        body.put("trace", trace.toString());
+        body.put("message", e.getMessage());
+        body.put("path", request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON).body(body);
     }
 }

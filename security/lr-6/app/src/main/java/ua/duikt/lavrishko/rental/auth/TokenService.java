@@ -64,7 +64,7 @@ public class TokenService {
         }
         String sub = text(payload, "sub");
         String jti = text(payload, "jti");
-        // Алгоритм перевіряємо явно: jjwt прийняв би й HS384/HS512, якщо ключ достатньо довгий
+        // jjwt відхиляє none сам, а HS384/HS512 прийняв би за ключа від 48/64 байт: тут це єдиний барʼєр
         if (!"HS256".equals(text(header, "alg"))) {
             throw new TokenRejected("wrong_alg", sub, jti);
         }

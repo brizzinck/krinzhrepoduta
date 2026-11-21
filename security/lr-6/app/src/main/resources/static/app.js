@@ -57,12 +57,12 @@ document.getElementById('profile-btn').addEventListener('click', async () => {
   const res = await fetch('/api/profile', {
     headers: accessToken ? { Authorization: 'Bearer ' + accessToken } : {},
   });
-  const data = await res.json();
+  const data = await res.json().catch(() => ({}));   // у відповіді 401 від контролера тіла немає
   if (res.ok) {
     profileOut.textContent = JSON.stringify(data, null, 2);
     show('Профіль отримано (HTTP ' + res.status + ')', 'ok');
   } else {
     profileOut.textContent = JSON.stringify(data, null, 2);
-    show('Доступ заборонено (HTTP ' + res.status + '): ' + data.reason, 'err');
+    show('Доступ заборонено (HTTP ' + res.status + ')' + (data.reason ? ': ' + data.reason : ''), 'err');
   }
 });

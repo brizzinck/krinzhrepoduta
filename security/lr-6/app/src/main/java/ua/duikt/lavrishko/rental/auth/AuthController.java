@@ -1,6 +1,7 @@
 package ua.duikt.lavrishko.rental.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,8 @@ public class AuthController {
 
     @PostMapping("/api/auth/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRequest body, HttpServletRequest request) {
-        // Серверна перевірка вхідних даних: порожні й задовгі значення не доходять до BCrypt
+        // Серверна перевірка вхідних даних: порожні й задовгі значення не доходять до BCrypt.
+        // BCrypt бере лише перші 72 байти, тому довжина рахується в байтах UTF-8, а не в символах.
         if (body == null || isBad(body.login(), 64) || isBad(body.password(), 72)) {
             return ResponseEntity.badRequest().body(Map.of("error", "bad_request"));
         }
@@ -44,6 +46,6 @@ public class AuthController {
     }
 
     private static boolean isBad(String value, int max) {
-        return value == null || value.isBlank() || value.length() > max;
+        return value == null || value.isBlank() || value.getBytes(StandardCharsets.UTF_8).length > max;
     }
 }
