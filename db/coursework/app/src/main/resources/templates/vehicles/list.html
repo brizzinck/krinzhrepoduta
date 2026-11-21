@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Транспорт')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <div th:replace="~{fragments :: flash}"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Транспорт</h1>
+        <a class="btn btn-primary" th:href="@{/vehicles/new}">Додати транспорт</a>
+    </div>
+    <form class="row g-2 mb-3" method="get" th:action="@{/vehicles}">
+        <div class="col-auto"><select class="form-select" name="opId">
+            <option value="">Усі оператори</option>
+            <option th:each="o : ${operators}" th:value="${o.id}" th:text="${o.name}" th:selected="${o.id == opId}"></option>
+        </select></div>
+        <div class="col-auto"><select class="form-select" name="type">
+            <option value="">Усі типи</option>
+            <option th:each="t : ${types}" th:value="${t.name()}" th:text="${t.label}" th:selected="${t == type}"></option>
+        </select></div>
+        <div class="col-auto"><select class="form-select" name="status">
+            <option value="">Усі статуси</option>
+            <option th:each="s : ${statuses}" th:value="${s.name()}" th:text="${s.label}" th:selected="${s == status}"></option>
+        </select></div>
+        <div class="col-auto"><select class="form-select" name="stationId">
+            <option value="">Усі станції</option>
+            <option th:each="s : ${stations}" th:value="${s.id}" th:text="${s.name}" th:selected="${s.id == stationId}"></option>
+        </select></div>
+        <div class="col-auto d-flex align-items-center gap-2">
+            <select class="form-select" name="batteryCmp" id="batteryCmp"
+                    onchange="document.getElementById('batterySlider').querySelector('input').disabled = (this.value === 'ANY' || this.value === '')">
+                <option th:each="c : ${batteryCmps}" th:value="${c.name()}" th:selected="${c == batteryCmp}"
+                        th:text="${c.name() == 'ANY'} ? 'Заряд: будь-який' : ${c.label}"></option>
+            </select>
+            <span id="batterySlider"><span th:replace="~{fragments :: slider('battery', ${battery}, 0, ${batteryCmp.name() == 'ANY'})}"></span></span>
+            <span class="text-muted">%</span>
+        </div>
+        <div class="col-auto"><button class="btn btn-outline-primary">Знайти</button></div>
+    </form>
+    <table class="table table-sm table-striped">
+        <thead><tr><th>Код</th><th>Оператор</th><th>Тип</th><th>Модель</th><th class="text-end">Заряд, %</th><th>Статус</th><th>Станція</th><th></th></tr></thead>
+        <tbody>
+        <tr th:each="v : ${vehicles}" class="data-row" th:data-v="${v.code + '|' + v.batteryPct}">
+            <td th:text="${v.code}"></td><td th:text="${v.operator.name}"></td><td th:text="${v.vehicleType.label}"></td>
+            <td th:text="${v.model}"></td><td class="text-end" th:text="${v.batteryPct}"></td>
+            <td th:text="${v.status.label}"></td><td th:text="${v.station != null} ? ${v.station.name} : '-'"></td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-secondary" th:href="@{/vehicles/{id}/edit(id=${v.id})}">Змінити</a>
+                <form class="d-inline" method="post" th:action="@{/vehicles/{id}/delete(id=${v.id})}" onsubmit="return confirm('Видалити транспорт?')">
+                    <button class="btn btn-sm btn-outline-danger">Видалити</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

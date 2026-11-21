@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('R3')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <h1 class="h4">R3. Виручка, повернення і комісія за місяцями та операторами</h1>
+    <form class="row g-2 mb-3" method="get" th:action="@{/reports/r3}">
+        <div class="col-auto"><label class="form-label small mb-0">Завершення з</label><input class="form-control" type="date" name="from" th:value="${from}"></div>
+        <div class="col-auto"><label class="form-label small mb-0">Завершення по (включно)</label><input class="form-control" type="date" name="to" th:value="${to}"></div>
+        <div class="col-auto align-self-end"><button class="btn btn-outline-primary">Показати</button></div>
+    </form>
+    <p class="text-muted">Знайдено: <span id="row-count" th:text="${#lists.size(rows)}">0</span>. Місяць за часом завершення поїздки; комісія береться зі збереженого значення поїздки.</p>
+    <table class="table table-sm table-striped">
+        <thead><tr><th>Місяць</th><th>Оператор</th><th class="text-end">Поїздок</th><th class="text-end">Списано, грн</th>
+            <th class="text-end">Повернено, грн</th><th class="text-end">Чиста виручка, грн</th><th class="text-end">Комісія, грн</th></tr></thead>
+        <tbody>
+        <tr th:each="r : ${rows}" class="data-row" th:data-v="${r.period() + '|' + r.operator + '|' + r.rides + '|' + r.chargedKop + '|' + r.refundedKop + '|' + r.netKop() + '|' + r.commissionKop}">
+            <td th:text="${r.period()}"></td><td th:text="${r.operator}"></td><td class="text-end" th:text="${r.rides}"></td>
+            <td class="text-end" th:text="${@fmt.uah(r.chargedKop)}"></td><td class="text-end" th:text="${@fmt.uah(r.refundedKop)}"></td>
+            <td class="text-end" th:text="${@fmt.uah(r.netKop())}"></td><td class="text-end" th:text="${@fmt.uah(r.commissionKop)}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('R7')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <h1 class="h4">R7. Транспорт, який треба поставити на зарядку</h1>
+    <form class="row g-2 mb-3" method="get" th:action="@{/reports/r7}">
+        <div class="col-auto"><label class="form-label small mb-0">Заряд нижче, %</label><br>
+            <span th:replace="~{fragments :: slider('level', ${level}, 1, false)}"></span></div>
+        <div class="col-auto align-self-end"><button class="btn btn-outline-primary">Показати</button></div>
+    </form>
+    <p class="text-muted">Знайдено: <span id="row-count" th:text="${#lists.size(rows)}">0</span>. Лише транспорт зі статусом «Чекає клієнта».</p>
+    <table class="table table-sm table-striped">
+        <thead><tr><th>Код</th><th>Модель</th><th>Оператор</th><th>Станція</th><th class="text-end">Заряд, %</th><th></th></tr></thead>
+        <tbody>
+        <tr th:each="v : ${rows}" class="data-row" th:data-v="${v.code + '|' + v.model + '|' + v.batteryPct}">
+            <td th:text="${v.code}"></td><td th:text="${v.model}"></td><td th:text="${v.operator.name}"></td>
+            <td th:text="${v.station != null} ? ${v.station.name} : '-'"></td><td class="text-end" th:text="${v.batteryPct}"></td>
+            <td class="text-end"><a class="btn btn-sm btn-outline-secondary" th:href="@{/vehicles/{id}/edit(id=${v.id})}">Змінити статус</a></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

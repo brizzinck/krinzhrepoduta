@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Транспорт')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4" style="max-width: 640px">
+    <h1 class="h4" th:text="${form.id == null} ? 'Новий транспорт' : 'Транспорт №' + ${form.id}">Транспорт</h1>
+    <form method="post" th:action="@{/vehicles/save}" th:object="${form}">
+        <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}" th:each="e : ${#fields.globalErrors()}" th:text="${e}"></div>
+        <input type="hidden" th:field="*{id}">
+        <div class="mb-3"><label class="form-label">Код (AAA-0000)</label>
+            <input class="form-control" th:field="*{code}"><div class="text-danger small" th:errors="*{code}"></div></div>
+        <div class="mb-3"><label class="form-label">Оператор</label>
+            <select class="form-select" th:field="*{operatorId}">
+                <option value="">Оберіть...</option>
+                <option th:each="o : ${operators}" th:value="${o.id}" th:text="${o.name}"></option>
+            </select><div class="text-danger small" th:errors="*{operatorId}"></div></div>
+        <div class="mb-3"><label class="form-label">Тип</label>
+            <select class="form-select" th:field="*{vehicleType}">
+                <option value="">Оберіть...</option>
+                <option th:each="t : ${types}" th:value="${t.name()}" th:text="${t.label}"></option>
+            </select><div class="text-danger small" th:errors="*{vehicleType}"></div></div>
+        <div class="mb-3"><label class="form-label">Модель</label>
+            <input class="form-control" th:field="*{model}"><div class="text-danger small" th:errors="*{model}"></div></div>
+        <div class="mb-3"><label class="form-label">Заряд, % (0 - 100)</label>
+            <input class="form-control" type="number" min="0" max="100" th:field="*{batteryPct}"><div class="text-danger small" th:errors="*{batteryPct}"></div></div>
+        <div class="mb-3"><label class="form-label">Статус (статус «У поїздці» встановлює лише початок поїздки)</label>
+            <select class="form-select" th:field="*{status}">
+                <option th:each="s : ${formStatuses}" th:value="${s.name()}" th:text="${s.label}"></option>
+            </select><div class="text-danger small" th:errors="*{status}"></div></div>
+        <div class="mb-3"><label class="form-label">Станція (обов'язкова лише для статусу «Чекає клієнта»)</label>
+            <select class="form-select" th:field="*{stationId}">
+                <option value="">Без станції</option>
+                <option th:each="s : ${stations}" th:value="${s.id}" th:text="${s.name}"></option>
+            </select><div class="text-danger small" th:errors="*{stationId}"></div></div>
+        <button class="btn btn-primary" type="submit">Зберегти</button>
+        <a class="btn btn-link" th:href="@{/vehicles}">Назад</a>
+    </form>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

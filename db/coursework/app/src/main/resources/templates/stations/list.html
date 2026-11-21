@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Станції')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <div th:replace="~{fragments :: flash}"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Станції</h1>
+        <a class="btn btn-primary" th:href="@{/stations/new}">Додати станцію</a>
+    </div>
+    <table class="table table-sm table-striped">
+        <thead><tr><th>№</th><th>Назва</th><th>Адреса</th><th class="text-end">Місткість</th><th class="text-end">Стоїть транспорту</th><th></th></tr></thead>
+        <tbody>
+        <tr th:each="s : ${stations}" class="data-row">
+            <td th:text="${s.id}"></td><td th:text="${s.name}"></td><td th:text="${s.address}"></td>
+            <td class="text-end" th:text="${s.capacity}"></td><td class="text-end" th:text="${s.parked}"></td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-secondary" th:href="@{/stations/{id}/edit(id=${s.id})}">Змінити</a>
+                <form class="d-inline" method="post" th:action="@{/stations/{id}/delete(id=${s.id})}" onsubmit="return confirm('Видалити станцію?')">
+                    <button class="btn btn-sm btn-outline-danger">Видалити</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

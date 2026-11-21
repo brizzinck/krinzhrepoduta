@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Не знайдено')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <div class="alert alert-danger" id="flash-error">Запис не знайдено.</div>
+    <a th:href="@{/}">На головну</a>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

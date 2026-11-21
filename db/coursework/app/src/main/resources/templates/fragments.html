@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' - Прокат мікромобільності'">Прокат мікромобільності</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Прокат мікромобільності</a>
+        <ul class="navbar-nav flex-row flex-wrap gap-3">
+            <li class="nav-item"><a class="nav-link" th:href="@{/operators}">Оператори</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/tariffs}">Тарифи</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/stations}">Станції</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/vehicles}">Транспорт</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/customers}">Клієнти</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/rides}">Поїздки</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/payments}">Платежі</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/reports}">Звіти</a></li>
+        </ul>
+    </div>
+</nav>
+<div th:fragment="flash">
+    <div class="alert alert-success" id="flash-ok" th:if="${ok}" th:text="${ok}">ok</div>
+    <div class="alert alert-danger" id="flash-error" th:if="${error}" th:text="${error}">error</div>
+</div>
+<!-- Battery slider with its value shown live; a disabled slider is not submitted (no filter) -->
+<span th:fragment="slider(name, value, min, disabled)" class="d-inline-flex align-items-center gap-2">
+    <input type="range" class="form-range" style="width: 11rem" max="100" step="1"
+           th:min="${min}" th:name="${name}" th:value="${value}" th:disabled="${disabled}"
+           oninput="this.nextElementSibling.textContent = this.value">
+    <output class="fw-bold" style="min-width: 3ch" th:text="${value}"></output>
+</span>
+<footer th:fragment="footer" class="container py-4 text-muted small border-top mt-4">
+    Навчальний проєкт. Дані операторів імітовані, проєкт не пов'язаний з Bolt, Jet і Zelektra.
+</footer>
+</body>
+</html>

@@ -1,0 +1,65 @@
+c1_status_mismatches
+0
+c3_unlock_below_100
+0
+c4_stations_over_capacity
+0
+ERROR 3819 (HY000) at line 32: Check constraint 'chk_operators_phone' is violated.
+ERROR 3819 (HY000) at line 34: Check constraint 'chk_operators_commission' is violated.
+ERROR 1062 (23000) at line 36: Duplicate entry 'bolt' for key 'operators.uq_operators_name'
+ERROR 1264 (22003) at line 38: Out of range value for column 'commission_pct' at row 1
+ERROR 1062 (23000) at line 40: Duplicate entry '1-1' for key 'tariffs.uq_tariffs_operator_type'
+ERROR 3819 (HY000) at line 42: Check constraint 'chk_tariffs_per_minute' is violated.
+ERROR 1452 (23000) at line 44: Cannot add or update a child row: a foreign key constraint fails (`micromobility_check`.`tariffs`, CONSTRAINT `fk_tariffs_operator` FOREIGN KEY (`operator_id`) REFERENCES `operators` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT)
+ERROR 3819 (HY000) at line 46: Check constraint 'chk_tariffs_vehicle_type' is violated.
+ERROR 3819 (HY000) at line 48: Check constraint 'chk_vehicles_code' is violated.
+ERROR 3819 (HY000) at line 50: Check constraint 'chk_vehicles_battery' is violated.
+ERROR 1062 (23000) at line 52: Duplicate entry 'BLT-0001' for key 'vehicles.uq_vehicles_code'
+ERROR 3819 (HY000) at line 54: Check constraint 'chk_vehicles_vehicle_type' is violated.
+ERROR 3819 (HY000) at line 56: Check constraint 'chk_vehicles_status' is violated.
+ERROR 3819 (HY000) at line 58: Check constraint 'chk_customers_phone' is violated.
+ERROR 1062 (23000) at line 60: Duplicate entry '+380990000001' for key 'customers.uq_customers_phone'
+ERROR 3819 (HY000) at line 62: Check constraint 'chk_customers_email' is violated.
+ERROR 3819 (HY000) at line 64: Check constraint 'chk_customers_names' is violated.
+ERROR 3819 (HY000) at line 66: Check constraint 'chk_rides_period' is violated.
+ERROR 1062 (23000) at line 69: Duplicate entry '2' for key 'rides.ux_rides_active_customer'
+ERROR 1062 (23000) at line 71: Duplicate entry '1' for key 'rides.ux_rides_active_vehicle'
+ERROR 3819 (HY000) at line 73: Check constraint 'chk_payments_shape' is violated.
+ERROR 3819 (HY000) at line 75: Check constraint 'chk_payments_shape' is violated.
+ERROR 3819 (HY000) at line 77: Check constraint 'chk_payments_kind' is violated.
+ERROR 1062 (23000) at line 79: Duplicate entry '1-3' for key 'payments.uq_payments_ride_kind'
+ERROR 1451 (23000) at line 81: Cannot delete or update a parent row: a foreign key constraint fails (`micromobility_check`.`payments`, CONSTRAINT `fk_payments_customer` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT)
+ERROR 1451 (23000) at line 83: Cannot delete or update a parent row: a foreign key constraint fails (`micromobility_check`.`tariffs`, CONSTRAINT `fk_tariffs_operator` FOREIGN KEY (`operator_id`) REFERENCES `operators` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT)
+ERROR 1451 (23000) at line 85: Cannot delete or update a parent row: a foreign key constraint fails (`micromobility_check`.`payments`, CONSTRAINT `fk_payments_ride_customer` FOREIGN KEY (`ride_id`, `customer_id`) REFERENCES `rides` (`id`, `customer_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+ERROR 3819 (HY000) at line 87: Check constraint 'chk_payments_amount' is violated.
+ERROR 3819 (HY000) at line 89: Check constraint 'chk_customers_verified' is violated.
+ERROR 3819 (HY000) at line 92: Check constraint 'chk_rides_commission' is violated.
+ERROR 3819 (HY000) at line 95: Check constraint 'chk_rides_commission' is violated.
+ERROR 3819 (HY000) at line 98: Check constraint 'chk_rides_commission' is violated.
+ERROR 3819 (HY000) at line 101: Check constraint 'chk_payments_shape' is violated.
+ERROR 3819 (HY000) at line 103: Check constraint 'chk_payments_shape' is violated.
+ERROR 1452 (23000) at line 105: Cannot add or update a child row: a foreign key constraint fails (`micromobility_check`.`payments`, CONSTRAINT `fk_payments_ride_customer` FOREIGN KEY (`ride_id`, `customer_id`) REFERENCES `rides` (`id`, `customer_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+ERROR 1451 (23000) at line 107: Cannot delete or update a parent row: a foreign key constraint fails (`micromobility_check`.`payments`, CONSTRAINT `fk_payments_customer` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT)
+ERROR 3819 (HY000) at line 109: Check constraint 'chk_stations_capacity' is violated.
+ERROR 1062 (23000) at line 111: Duplicate entry 'khreshchatyk' for key 'stations.uq_stations_name'
+ERROR 3819 (HY000) at line 113: Check constraint 'chk_stations_name' is violated.
+ERROR 3819 (HY000) at line 115: Check constraint 'chk_vehicles_station' is violated.
+ERROR 3819 (HY000) at line 117: Check constraint 'chk_vehicles_station' is violated.
+ERROR 1451 (23000) at line 119: Cannot delete or update a parent row: a foreign key constraint fails (`micromobility_check`.`vehicles`, CONSTRAINT `fk_vehicles_station` FOREIGN KEY (`station_id`) REFERENCES `stations` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT)
+ERROR 1452 (23000) at line 121: Cannot add or update a child row: a foreign key constraint fails (`micromobility_check`.`vehicles`, CONSTRAINT `fk_vehicles_tariff` FOREIGN KEY (`operator_id`, `vehicle_type`) REFERENCES `tariffs` (`operator_id`, `vehicle_type`) ON DELETE RESTRICT ON UPDAT
+ERROR 1451 (23000) at line 123: Cannot delete or update a parent row: a foreign key constraint fails (`micromobility_check`.`vehicles`, CONSTRAINT `fk_vehicles_tariff` FOREIGN KEY (`operator_id`, `vehicle_type`) REFERENCES `tariffs` (`operator_id`, `vehicle_type`) ON DELETE RESTRICT ON UPDAT
+ERROR 1062 (23000) at line 155: Duplicate entry '1-4' for key 'payments.uq_payments_ride_kind'
+c2_status_mismatches
+0
+payments_left_after_delete
+0
+customers_without_email
+2
+p6_stored_pct
+12.35
+p7_same_second_rides
+1
+p8_long_ride_charge
+-2247400
+p9_stations_left
+5

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Тарифи')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <div th:replace="~{fragments :: flash}"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Тарифи</h1>
+        <a class="btn btn-primary" th:href="@{/tariffs/new}">Додати тариф</a>
+    </div>
+    <form class="row g-2 mb-3" method="get" th:action="@{/tariffs}">
+        <div class="col-auto"><select class="form-select" name="opId">
+            <option value="">Усі оператори</option>
+            <option th:each="o : ${operators}" th:value="${o.id}" th:text="${o.name}" th:selected="${o.id == opId}"></option>
+        </select></div>
+        <div class="col-auto"><select class="form-select" name="type">
+            <option value="">Усі типи</option>
+            <option th:each="t : ${types}" th:value="${t.name()}" th:text="${t.label}" th:selected="${t == type}"></option>
+        </select></div>
+        <div class="col-auto"><button class="btn btn-outline-primary">Знайти</button></div>
+    </form>
+    <table class="table table-sm table-striped">
+        <thead><tr><th>№</th><th>Оператор</th><th>Тип</th><th class="text-end">Розблокування, грн</th><th class="text-end">Хвилина, грн</th><th></th></tr></thead>
+        <tbody>
+        <tr th:each="t : ${tariffs}" class="data-row">
+            <td th:text="${t.id}"></td><td th:text="${t.operator.name}"></td><td th:text="${t.vehicleType.label}"></td>
+            <td class="text-end" th:text="${@fmt.uah(t.unlockFeeKop)}"></td><td class="text-end" th:text="${@fmt.uah(t.perMinuteKop)}"></td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-secondary" th:href="@{/tariffs/{id}/edit(id=${t.id})}">Змінити</a>
+                <form class="d-inline" method="post" th:action="@{/tariffs/{id}/delete(id=${t.id})}" onsubmit="return confirm('Видалити тариф?')">
+                    <button class="btn btn-sm btn-outline-danger">Видалити</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

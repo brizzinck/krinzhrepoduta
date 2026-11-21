@@ -1,0 +1,8 @@
+== part 0: stack and migrations
+ok   home page status (= 200)
+ok   Flyway versions 1 and 2 succeeded (= 1:1,2:1)
+ok   seed rides after the migration (checked first, before the tests change data) (= 57)
+ok   ddl-auto=validate passed (no SchemaManagementException in the app log)
+ok   tables, columns (= 7:43)
+ok   time zone tables loaded: Kyiv month of 2026-10-31 22:30 UTC (= 2026-11-01 00:30:00)
+-- part 0: 6 ok, 0 failed

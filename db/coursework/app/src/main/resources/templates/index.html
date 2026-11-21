@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Головна')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <h1 class="h3">Прокат транспорту мікромобільності</h1>
+    <p class="text-muted">Адміністративна панель: оператори, тарифи, станції, транспорт, клієнти, поїздки, платежі та звіти.</p>
+    <div class="row g-3">
+        <div class="col-md-4"><div class="card"><div class="card-body">
+            <h2 class="h5">Довідники</h2>
+            <a th:href="@{/operators}">Оператори</a><br><a th:href="@{/tariffs}">Тарифи</a><br>
+            <a th:href="@{/stations}">Станції</a><br><a th:href="@{/vehicles}">Транспорт</a>
+        </div></div></div>
+        <div class="col-md-4"><div class="card"><div class="card-body">
+            <h2 class="h5">Клієнти і гроші</h2>
+            <a th:href="@{/customers}">Клієнти</a><br><a th:href="@{/payments}">Платежі й поповнення</a><br>
+            <a th:href="@{/rides/start}">Розпочати поїздку</a><br><a th:href="@{/rides}">Поїздки</a>
+        </div></div></div>
+        <div class="col-md-4"><div class="card"><div class="card-body">
+            <h2 class="h5">Звіти</h2>
+            <a th:href="@{/reports}">Сім звітів з фільтрами</a>
+        </div></div></div>
+    </div>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

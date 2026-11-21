@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920">
+<title>Прокат транспорту мікромобільності: курсова робота</title>
+<link rel="stylesheet" href="slides.css">
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide s1" data-theme="dark" id="s-1">
+  <p class="kind">Курсова робота на тему</p>
+  <h1>Розробка стратегії, аналіз, концептуальне моделювання та проєктування бази даних «Прокат транспорту мікромобільності»</h1>
+  <p class="who">Виконав: Лаврішко Владислав Сергійович, група ТЦР-32</p>
+  <p class="sup">Дисципліна: Технології проектування та адміністрування баз даних та сховищ даних<br>Керівник: Гордієнко К. О.<br>ДУІКТ, 2026</p>
+  <img class="shot c1" src="img/ui-r5.png" alt="Звіт R5: зведена таблиця операторів і типів транспорту">
+  <img class="shot c2" src="img/ui-receipt.png" alt="Квитанція про поїздку">
+</section>
+
+<!-- 2 -->
+<section class="slide s2" data-theme="light" id="s-2">
+  <h1>Цілі створення системи</h1>
+  <p class="lead">Прокат електросамокатів і електровелосипедів кількох операторів. Клієнт має один гаманець, а система бере з оператора комісію.</p>
+  <div class="goals">
+    <div class="goal"><span class="n">1</span><p>Зберігати операторів, тарифи, станції й транспорт зі станом кожної одиниці</p></div>
+    <div class="goal"><span class="n">2</span><p>Зберігати клієнтів і журнал гаманця, з якого видно кожну операцію з грошима</p></div>
+    <div class="goal"><span class="n">3</span><p>Зберігати поїздки так, щоб ціна й комісія завершеної поїздки більше не змінювалися</p></div>
+    <div class="goal"><span class="n">4</span><p>Не допускати суперечливих даних: цілісність охороняє сама база, а не лише програма</p></div>
+    <div class="goal"><span class="n">5</span><p>Автоматизувати прокат: розблокування, завершення, повернення коштів, ведення довідників</p></div>
+    <div class="goal last"><span class="n">6</span><p>Показати клієнту вільний транспорт з ціною, а власнику виручку, комісію і стан парку: 7 звітів</p></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide s3" data-theme="light" id="s-3">
+  <h1>Інфологічна модель</h1>
+  <div class="row">
+    <div class="pic"><img src="img/infological.png" alt="Інфологічна модель в нотації Чена: сім сутностей"></div>
+    <div class="side">
+      <p class="big">7 сутностей</p>
+      <div class="tags"><span class="tag">Оператор</span><span class="tag">Тариф</span><span class="tag">Станція</span><span class="tag">Засіб</span><span class="tag">Клієнт</span><span class="tag assoc">Поїздка</span><span class="tag">Платіж</span></div>
+      <p>Усі 8 зв'язків мають вигляд один до багатьох.</p>
+      <p>Поїздка є асоціативною сутністю: клієнт їздить на багатьох одиницях транспорту, а одна одиниця возить багатьох клієнтів.</p>
+      <p>Платіж пов'язаний із клієнтом (гаманець) і з поїздкою (оплата та повернення).</p>
+      <p>Станція спільна для всіх операторів, тому оператора в неї немає.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide s4" data-theme="light" id="s-4">
+  <div class="hd"><h1>Даталогічна модель</h1><p>7 таблиць, 43 стовпці, 8 зовнішніх ключів</p></div>
+<!--schema:start-->
+<svg class="schema" viewBox="0 0 1728 810" width="1728" height="810" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Даталогічна модель: 7 таблиць і 8 зовнішніх ключів">
+<rect class="tb" x="0" y="52" width="340" height="194" rx="10"/>
+<path class="th" d="M0,96 V62 a10,10 0 0 1 10,-10 H330 a10,10 0 0 1 10,10 V96 Z"/>
+<text class="tn" x="170.0" y="82" text-anchor="middle">operators</text>
+<text class="cp" x="14" y="118">id</text>
+<text class="tg" x="326" y="118" text-anchor="end">PK</text>
+<text class="cc" x="14" y="148">name</text>
+<text class="tg" x="326" y="148" text-anchor="end">UQ</text>
+<text class="cc" x="14" y="178">phone</text>
+<text class="cc" x="14" y="208">email</text>
+<text class="cc" x="14" y="238">commission_pct</text>
+<rect class="tb" x="409" y="52" width="440" height="224" rx="10"/>
+<path class="th" d="M409,96 V62 a10,10 0 0 1 10,-10 H839 a10,10 0 0 1 10,10 V96 Z"/>
+<text class="tn" x="629.0" y="82" text-anchor="middle">tariffs</text>
+<text class="cp" x="423" y="118">id</text>
+<text class="tg" x="835" y="118" text-anchor="end">PK</text>
+<text class="cc" x="423" y="148">operator_id</text>
+<text class="tg" x="835" y="148" text-anchor="end">FK</text>
+<text class="cc" x="423" y="178">vehicle_type</text>
+<text class="tg" x="835" y="178" text-anchor="end">код</text>
+<text class="cc" x="423" y="208">unlock_fee_kop</text>
+<text class="cc" x="423" y="238">per_minute_kop</text>
+<text class="cu" x="423" y="268">UQ (operator_id, vehicle_type)</text>
+<rect class="tb" x="918" y="52" width="400" height="284" rx="10"/>
+<path class="th" d="M918,96 V62 a10,10 0 0 1 10,-10 H1308 a10,10 0 0 1 10,10 V96 Z"/>
+<text class="tn" x="1118.0" y="82" text-anchor="middle">vehicles</text>
+<text class="cp" x="932" y="118">id</text>
+<text class="tg" x="1304" y="118" text-anchor="end">PK</text>
+<text class="cc" x="932" y="148">code</text>
+<text class="tg" x="1304" y="148" text-anchor="end">UQ</text>
+<text class="cc" x="932" y="178">operator_id</text>
+<text class="tg" x="1304" y="178" text-anchor="end">FK</text>
+<text class="cc" x="932" y="208">vehicle_type</text>
+<text class="tg" x="1304" y="208" text-anchor="end">FK, код</text>
+<text class="cc" x="932" y="238">model</text>
+<text class="cc" x="932" y="268">battery_pct</text>
+<text class="cc" x="932" y="298">status</text>
+<text class="tg" x="1304" y="298" text-anchor="end">код</text>
+<text class="cc" x="932" y="328">station_id *</text>
+<text class="tg" x="1304" y="328" text-anchor="end">FK</text>
+<rect class="tb" x="1387" y="52" width="341" height="164" rx="10"/>
+<path class="th" d="M1387,96 V62 a10,10 0 0 1 10,-10 H1718 a10,10 0 0 1 10,10 V96 Z"/>
+<text class="tn" x="1557.5" y="82" text-anchor="middle">stations</text>
+<text class="cp" x="1401" y="118">id</text>
+<text class="tg" x="1714" y="118" text-anchor="end">PK</text>
+<text class="cc" x="1401" y="148">name</text>
+<text class="tg" x="1714" y="148" text-anchor="end">UQ</text>
+<text class="cc" x="1401" y="178">address</text>
+<text class="cc" x="1401" y="208">capacity</text>
+<rect class="tb" x="409" y="424" width="440" height="254" rx="10"/>
+<path class="th" d="M409,468 V434 a10,10 0 0 1 10,-10 H839 a10,10 0 0 1 10,10 V468 Z"/>
+<text class="tn" x="629.0" y="454" text-anchor="middle">customers</text>
+<text class="cp" x="423" y="490">id</text>
+<text class="tg" x="835" y="490" text-anchor="end">PK</text>
+<text class="cc" x="423" y="520">last_name</text>
+<text class="cc" x="423" y="550">first_name</text>
+<text class="cc" x="423" y="580">phone</text>
+<text class="tg" x="835" y="580" text-anchor="end">UQ</text>
+<text class="cc" x="423" y="610">email *</text>
+<text class="tg" x="835" y="610" text-anchor="end">UQ</text>
+<text class="cc" x="423" y="640">registered_at</text>
+<text class="cc" x="423" y="670">diia_verified_at *</text>
+<rect class="tb" x="918" y="424" width="400" height="314" rx="10"/>
+<path class="th" d="M918,468 V434 a10,10 0 0 1 10,-10 H1308 a10,10 0 0 1 10,10 V468 Z"/>
+<text class="tn" x="1118.0" y="454" text-anchor="middle">rides</text>
+<text class="cp" x="932" y="490">id</text>
+<text class="tg" x="1304" y="490" text-anchor="end">PK</text>
+<text class="cc" x="932" y="520">customer_id</text>
+<text class="tg" x="1304" y="520" text-anchor="end">FK</text>
+<text class="cc" x="932" y="550">vehicle_id</text>
+<text class="tg" x="1304" y="550" text-anchor="end">FK</text>
+<text class="cc" x="932" y="580">started_at</text>
+<text class="cc" x="932" y="610">ended_at *</text>
+<text class="cc" x="932" y="640">unlock_fee_kop</text>
+<text class="cc" x="932" y="670">per_minute_kop</text>
+<text class="cc" x="932" y="700">commission_kop *</text>
+<text class="cu" x="932" y="730">UQ (id, customer_id)</text>
+<rect class="tb" x="1387" y="424" width="341" height="254" rx="10"/>
+<path class="th" d="M1387,468 V434 a10,10 0 0 1 10,-10 H1718 a10,10 0 0 1 10,10 V468 Z"/>
+<text class="tn" x="1557.5" y="454" text-anchor="middle">payments</text>
+<text class="cp" x="1401" y="490">id</text>
+<text class="tg" x="1714" y="490" text-anchor="end">PK</text>
+<text class="cc" x="1401" y="520">customer_id</text>
+<text class="tg" x="1714" y="520" text-anchor="end">FK</text>
+<text class="cc" x="1401" y="550">ride_id *</text>
+<text class="tg" x="1714" y="550" text-anchor="end">FK</text>
+<text class="cc" x="1401" y="580">kind</text>
+<text class="tg" x="1714" y="580" text-anchor="end">код</text>
+<text class="cc" x="1401" y="610">amount_kop</text>
+<text class="cc" x="1401" y="640">created_at</text>
+<text class="cu" x="1401" y="670">UQ (ride_id, kind)</text>
+<path class="ed" d="M340,110 H409"/>
+<text class="lb" x="344" y="100" text-anchor="start">1</text>
+<text class="lb" x="382" y="100" text-anchor="start">N</text>
+<path class="ed th2" d="M849,150 H918"/>
+<text class="lb" x="853" y="140" text-anchor="start">1</text>
+<text class="lb" x="891" y="140" text-anchor="start">N</text>
+<path class="ed" d="M1318,110 H1387"/>
+<text class="lb" x="1383" y="100" text-anchor="end">1</text>
+<text class="lb" x="1322" y="100" text-anchor="start">N</text>
+<path class="ed" d="M170,52 V20 H1118 V52"/>
+<text class="lb" x="178" y="44" text-anchor="start">1</text>
+<text class="lb" x="1126" y="44" text-anchor="start">N</text>
+<path class="ed" d="M1118,336 V424"/>
+<text class="lb" x="1126" y="372" text-anchor="start">1</text>
+<text class="lb" x="1126" y="416" text-anchor="start">N</text>
+<path class="ed" d="M849,510 H918"/>
+<text class="lb" x="853" y="500" text-anchor="start">1</text>
+<text class="lb" x="891" y="500" text-anchor="start">N</text>
+<path class="ed th2" d="M1318,570 H1387"/>
+<text class="lb" x="1322" y="560" text-anchor="start">1</text>
+<text class="lb" x="1360" y="560" text-anchor="start">N</text>
+<path class="ed" d="M629,678 V790 H1557 V678"/>
+<text class="lb" x="637" y="708" text-anchor="start">1</text>
+<text class="lb" x="1565" y="708" text-anchor="start">N</text>
+<rect class="lg" x="0" y="424" width="340" height="300" rx="10"/>
+<text class="tg" x="16" y="462">PK</text><text class="cc" x="88" y="462">первинний ключ</text>
+<text class="tg" x="16" y="498">FK</text><text class="cc" x="88" y="498">зовнішній ключ</text>
+<text class="tg" x="16" y="534">UQ</text><text class="cc" x="88" y="534">унікальний</text>
+<text class="tg" x="16" y="570">*</text><text class="cc" x="88" y="570">може бути NULL</text>
+<text class="tg" x="16" y="606">код</text><text class="cc" x="88" y="606">число з CHECK</text>
+<path class="ed th2" d="M16,660 H76"/><text class="cc" x="88" y="668">складений FK</text>
+<text class="lb" x="16" y="706">1 і N: кратність</text>
+</svg>
+<!--schema:end-->
+</section>
+
+<!-- 5 -->
+<section class="slide s5" data-theme="light" id="s-5">
+  <h1>Сутності: оператор і тариф</h1>
+  <div class="ent">
+    <div class="info">
+      <h2>Operator</h2>
+      <p>Компанія, якій належить транспорт. Система бере з неї комісію за кожну поїздку.</p>
+      <p><span class="lab">Зв'язки.</span> Встановлює тарифи й володіє транспортом.</p>
+      <p><span class="lab">Правила.</span> Назва унікальна (BR1). Комісія від 0 до 50 %, типово 10 (BR3). З тарифами чи транспортом не видаляється (BR16).</p>
+    </div>
+    <table class="rel">
+      <colgroup><col style="width:250px"><col style="width:215px"><col style="width:310px"><col></colgroup>
+      <tr><th>Стовпець</th><th>Тип</th><th>Призначення</th><th>Обмеження цілісності</th></tr>
+      <tr><td>id</td><td>ціле, 10</td><td>Номер оператора</td><td>Первинний ключ</td></tr>
+      <tr><td>name</td><td>рядок, 40</td><td>Назва бренду</td><td>Обов'язкова, унікальна без урахування регістру</td></tr>
+      <tr><td>phone</td><td>рядок, 13</td><td>Телефон підтримки</td><td>Форма +380 і 9 цифр</td></tr>
+      <tr><td>email</td><td>рядок, 100</td><td>Пошта підтримки</td><td>Форма x@y.z</td></tr>
+      <tr><td>commission_pct</td><td>десяткове, 4,2</td><td>Комісія системи, %</td><td>Від 0 до 50, типово 10.00</td></tr>
+    </table>
+  </div>
+  <div class="ent">
+    <div class="info">
+      <h2>Tariff</h2>
+      <p>Ціна одного типу транспорту в одного оператора: розблокування й розпочата хвилина.</p>
+      <p><span class="lab">Зв'язки.</span> Належить оператору, ціна діє для його транспорту цього типу.</p>
+      <p><span class="lab">Правила.</span> Один тариф на пару оператор і тип (BR5). Тариф у користуванні не видаляється (BR16).</p>
+    </div>
+    <table class="rel">
+      <colgroup><col style="width:250px"><col style="width:215px"><col style="width:310px"><col></colgroup>
+      <tr><th>Стовпець</th><th>Тип</th><th>Призначення</th><th>Обмеження цілісності</th></tr>
+      <tr><td>id</td><td>ціле, 10</td><td>Номер тарифу</td><td>Первинний ключ</td></tr>
+      <tr><td>operator_id</td><td>ціле, 10</td><td>Оператор тарифу</td><td>Зовнішній ключ на operators, RESTRICT</td></tr>
+      <tr><td>vehicle_type</td><td>мале ціле, 3</td><td>1 самокат, 2 велосипед</td><td>Від 1 до 2; разом з operator_id унікальний</td></tr>
+      <tr><td>unlock_fee_kop</td><td>ціле, 10</td><td>Розблокування, копійки</td><td>Від 0 до 10 000</td></tr>
+      <tr><td>per_minute_kop</td><td>ціле, 10</td><td>Хвилина, копійки</td><td>Від 1 до 5 000</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide s6" data-theme="light" id="s-6">
+  <h1>Сутності: станція і транспорт</h1>
+  <div class="ent">
+    <div class="info">
+      <h2>Station</h2>
+      <p>Міська парковка, спільна для всіх операторів.</p>
+      <p><span class="lab">Зв'язки.</span> Тут стоїть від 0 до багатьох одиниць транспорту.</p>
+      <p><span class="lab">Правила.</span> Місткість від 1 до 50, не переповнена (BR22). З транспортом не видаляється (BR16).</p>
+    </div>
+    <table class="rel">
+      <colgroup><col style="width:250px"><col style="width:215px"><col style="width:310px"><col></colgroup>
+      <tr><th>Стовпець</th><th>Тип</th><th>Призначення</th><th>Обмеження цілісності</th></tr>
+      <tr><td>id</td><td>ціле, 10</td><td>Номер станції</td><td>Первинний ключ</td></tr>
+      <tr><td>name</td><td>рядок, 60</td><td>Назва станції</td><td>Унікальна, від 2 символів</td></tr>
+      <tr><td>address</td><td>рядок, 100</td><td>Адреса</td><td>Обов'язкова</td></tr>
+      <tr><td>capacity</td><td>мале ціле, 3</td><td>Місткість</td><td>Від 1 до 50</td></tr>
+    </table>
+  </div>
+  <div class="ent">
+    <div class="info">
+      <h2>Vehicle</h2>
+      <p>Один самокат або велосипед. Стан описує статус: чекає клієнта, у поїздці, на зарядці, у ремонті, списано.</p>
+      <p><span class="lab">Зв'язки.</span> Має оператора, тариф і станцію, бере участь у поїздках.</p>
+      <p><span class="lab">Правила.</span> Розблокувати можна лише «чекає» із зарядом від 10 % (BR7). На станції стоїть лише той, що чекає (BR22).</p>
+    </div>
+    <table class="rel">
+      <colgroup><col style="width:250px"><col style="width:215px"><col style="width:310px"><col></colgroup>
+      <tr><th>Стовпець</th><th>Тип</th><th>Призначення</th><th>Обмеження цілісності</th></tr>
+      <tr><td>id</td><td>ціле, 10</td><td>Номер транспорту</td><td>Первинний ключ</td></tr>
+      <tr><td>code</td><td>рядок, 8</td><td>Номер на корпусі</td><td>Унікальний, форма AAA-0000</td></tr>
+      <tr><td>operator_id</td><td>ціле, 10</td><td>Оператор-власник</td><td>Зовнішній ключ на operators</td></tr>
+      <tr><td>vehicle_type</td><td>мале ціле, 3</td><td>1 самокат, 2 велосипед</td><td>Від 1 до 2; з operator_id посилається на тариф</td></tr>
+      <tr><td>model</td><td>рядок, 40</td><td>Модель</td><td>Обов'язкова</td></tr>
+      <tr><td>battery_pct</td><td>мале ціле, 3</td><td>Заряд, %</td><td>Не більше 100</td></tr>
+      <tr><td>status</td><td>мале ціле, 3</td><td>Стан транспорту</td><td>Код від 1 до 5, типово 1 (чекає)</td></tr>
+      <tr><td>station_id</td><td>ціле, 10</td><td>Станція очікування</td><td>Може бути порожнім; не порожній лише при статусі 1</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide s7" data-theme="light" id="s-7">
+  <h1>Сутності: клієнт і платіж</h1>
+  <div class="ent">
+    <div class="info">
+      <h2>Customer</h2>
+      <p>Людина, яка орендує транспорт. Баланс гаманця не стовпець, а сума її платежів.</p>
+      <p><span class="lab">Зв'язки.</span> Має поїздки та платежі (бонус є завжди).</p>
+      <p><span class="lab">Правила.</span> Телефон унікальний (BR2). Їздить лише підтверджений через Дію (BR8, BR19). Бонус 200 грн (BR12).</p>
+    </div>
+    <table class="rel">
+      <colgroup><col style="width:265px"><col style="width:215px"><col style="width:300px"><col></colgroup>
+      <tr><th>Стовпець</th><th>Тип</th><th>Призначення</th><th>Обмеження цілісності</th></tr>
+      <tr><td>id</td><td>ціле, 10</td><td>Номер клієнта</td><td>Первинний ключ</td></tr>
+      <tr><td>last_name</td><td>рядок, 40</td><td>Прізвище</td><td>Від 2 символів</td></tr>
+      <tr><td>first_name</td><td>рядок, 40</td><td>Ім'я</td><td>Від 2 символів</td></tr>
+      <tr><td>phone</td><td>рядок, 13</td><td>Телефон</td><td>Унікальний, форма +380 і 9 цифр</td></tr>
+      <tr><td>email</td><td>рядок, 100</td><td>Пошта</td><td>Необов'язкова, унікальна, якщо є</td></tr>
+      <tr><td>registered_at</td><td>дата й час</td><td>Реєстрація, UTC</td><td>Типово поточний час</td></tr>
+      <tr><td>diia_verified_at</td><td>дата й час</td><td>Підтвердження через Дію</td><td>Порожнє: не підтверджений</td></tr>
+    </table>
+  </div>
+  <div class="ent">
+    <div class="info">
+      <h2>Payment</h2>
+      <p>Рядок журналу гаманця: бонус, поповнення, оплата поїздки, повернення.</p>
+      <p><span class="lab">Зв'язки.</span> Належить клієнту; оплата й повернення належать поїздці цього ж клієнта.</p>
+      <p><span class="lab">Правила.</span> Рядки лише додаються (BR14). Одне списання й не більше одного повернення на поїздку (BR20).</p>
+    </div>
+    <table class="rel">
+      <colgroup><col style="width:265px"><col style="width:215px"><col style="width:300px"><col></colgroup>
+      <tr><th>Стовпець</th><th>Тип</th><th>Призначення</th><th>Обмеження цілісності</th></tr>
+      <tr><td>id</td><td>ціле, 10</td><td>Номер платежу</td><td>Первинний ключ</td></tr>
+      <tr><td>customer_id</td><td>ціле, 10</td><td>Чий гаманець</td><td>Зовнішній ключ на customers</td></tr>
+      <tr><td>ride_id</td><td>ціле, 10</td><td>Поїздка</td><td>Порожня для бонусу й поповнення</td></tr>
+      <tr><td>kind</td><td>мале ціле, 3</td><td>Вид платежу</td><td>Від 1 до 4 (бонус, поповнення, оплата, повернення)</td></tr>
+      <tr><td>amount_kop</td><td>ціле, 10</td><td>Сума зі знаком, копійки</td><td>Списання мінус, гроші в гаманець плюс</td></tr>
+      <tr><td>created_at</td><td>дата й час</td><td>Час операції, UTC</td><td>Типово поточний час</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide s8" data-theme="light" id="s-8">
+  <h1>Сутність: поїздка</h1>
+  <div class="ent">
+    <div class="info">
+      <h2>Ride</h2>
+      <p>Одна оренда одного транспорту одним клієнтом. Поки час завершення порожній, поїздка активна.</p>
+      <p><span class="lab">Зв'язки.</span> Асоціативна сутність між клієнтом і транспортом; має до двох платежів.</p>
+      <p><span class="lab">Правила.</span> Одна активна поїздка на клієнта й на транспорт (BR7, BR8). Ціни копіюються з тарифу (BR9).</p>
+    </div>
+    <table class="rel">
+      <colgroup><col style="width:250px"><col style="width:215px"><col style="width:310px"><col></colgroup>
+      <tr><th>Стовпець</th><th>Тип</th><th>Призначення</th><th>Обмеження цілісності</th></tr>
+      <tr><td>id</td><td>ціле, 10</td><td>Номер поїздки</td><td>Первинний ключ</td></tr>
+      <tr><td>customer_id</td><td>ціле, 10</td><td>Хто їде</td><td>Зовнішній ключ на customers</td></tr>
+      <tr><td>vehicle_id</td><td>ціле, 10</td><td>На чому їде</td><td>Зовнішній ключ на vehicles</td></tr>
+      <tr><td>started_at</td><td>дата й час</td><td>Розблокування, UTC</td><td>Обов'язковий</td></tr>
+      <tr><td>ended_at</td><td>дата й час</td><td>Завершення, UTC</td><td>Порожній, поки активна; не раніше початку</td></tr>
+      <tr><td>unlock_fee_kop</td><td>ціле, 10</td><td>Копія ціни з тарифу</td><td>Від 0 до 10 000</td></tr>
+      <tr><td>per_minute_kop</td><td>ціле, 10</td><td>Копія ціни з тарифу</td><td>Від 1 до 5 000</td></tr>
+      <tr><td>commission_kop</td><td>ціле, 10</td><td>Комісія при завершенні</td><td>Від 0 до ціни поїздки</td></tr>
+    </table>
+  </div>
+  <div class="cards">
+    <div class="card"><h3>Одна активна поїздка</h3>Два унікальні індекси на вираз <code>CASE WHEN ended_at IS NULL THEN customer_id END</code> (і так само для транспорту). Завершені дають NULL і не конфліктують.</div>
+    <div class="card"><h3>Комісія не вища за ціну</h3>CHECK сам рахує ціну поїздки зі стовпців свого рядка: розблокування плюс хвилина на розпочаті хвилини.</div>
+    <div class="card"><h3>Копії цін і комісії</h3>Тариф зміниться, а завершена поїздка має зберегти свою ціну й комісію, тож минулі звіти не змінюються (BR9, BR17).</div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="slide s9" data-theme="light" id="s-9">
+  <h1>Обмеження цілісності в базі даних</h1>
+  <div class="imp">
+    <div class="h">Механізм</div><div class="h">Що охороняє</div><div class="h">Приклад з міграції</div>
+    <div class="k">25 CHECK</div>
+    <div>Діапазони, форма значень, порядок часу, комісія не вища за ціну</div>
+    <div class="ex">chk_vehicles_station: (status = 1 AND station_id IS NOT NULL) OR (status &lt;&gt; 1 AND station_id IS NULL)</div>
+    <div class="k">8 UNIQUE</div>
+    <div>Імена, телефони, один тариф на пару оператор і тип, одне списання й одне повернення на поїздку</div>
+    <div class="ex">uq_payments_ride_kind (ride_id, kind)</div>
+    <div class="k">2 функціональні індекси</div>
+    <div>Не більше однієї активної поїздки на клієнта й на транспорт</div>
+    <div class="ex">ux_rides_active_vehicle: (CASE WHEN ended_at IS NULL THEN vehicle_id END)</div>
+    <div class="k">8 зовнішніх ключів<small>усі RESTRICT, 2 складені</small></div>
+    <div>Немає сирітських рядків; платіж не належить чужому клієнту; тариф для транспорту існує</div>
+    <div class="ex">fk_payments_ride_customer (ride_id, customer_id) REFERENCES rides (id, customer_id)</div>
+  </div>
+  <div class="strip">
+    <div class="card">CHECK, який дає NULL, вважається виконаним, тому умови записано з явним <code>IS NOT NULL</code>.</div>
+    <div class="card">Скрипт перевірки виконав 45 заборонених дій, і база відхилила кожну названим обмеженням.</div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide s10" data-theme="light" id="s-10">
+  <h1>Бізнес-правила: база чи застосунок</h1>
+  <div class="br3">
+    <div class="brc"><p class="n">4</p><h2>Лише база даних</h2>
+      <ul>
+        <li><span class="id">BR1</span> назва оператора унікальна</li>
+        <li><span class="id">BR2</span> форма телефону й пошти</li>
+        <li><span class="id">BR5</span> один тариф на пару, ціни в межах</li>
+        <li><span class="id">BR6</span> код транспорту, діапазон статусу</li>
+      </ul></div>
+    <div class="brc mid"><p class="n">14</p><h2>Обидва, застосунок першим</h2>
+      <ul>
+        <li><span class="id">BR7, BR8</span> розблокування: статус, заряд, Дія, баланс</li>
+        <li><span class="id">BR10</span> завершення поїздки</li>
+        <li><span class="id">BR16</span> заборони видалення</li>
+        <li><span class="id">BR20</span> повернення коштів раз і не більше списання</li>
+        <li><span class="id">BR21</span> статус «у поїздці» лише з активною поїздкою</li>
+      </ul>
+      <p class="all">Усі 14: BR3, BR4, BR7, BR8, BR10, BR13, BR14, BR15, BR16, BR17, BR19, BR20, BR21, BR22</p></div>
+    <div class="brc"><p class="n">4</p><h2>Лише застосунок</h2>
+      <ul>
+        <li><span class="id">BR9</span> копіювання цін тарифу в поїздку</li>
+        <li><span class="id">BR11</span> баланс може стати від'ємним</li>
+        <li><span class="id">BR12</span> бонус 200 грн новому клієнту</li>
+        <li><span class="id">BR18</span> оператор і тип не змінюються після першої поїздки</li>
+      </ul></div>
+  </div>
+  <div class="strip">
+    <div class="card"><h3>Чому не все в базі</h3>CHECK бачить лише свій рядок: у <code>rides</code> він не бачить <code>customers</code>, а баланс є сумою інших рядків. Тригерів у роботі немає.</div>
+    <div class="card"><h3>Навіщо двічі</h3>Застосунок перевіряє першим і показує зрозуміле повідомлення. База лишається останнім захистом, якщо правило обійшли.</div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="slide s11" data-theme="light" id="s-11">
+  <h1>Відображення на класи: ORM Hibernate</h1>
+  <div class="orm">
+    <table class="rel">
+      <colgroup><col style="width:170px"><col style="width:170px"><col></colgroup>
+      <tr><th>Таблиця</th><th>Клас</th><th>Що важливо</th></tr>
+      <tr><td>operators</td><td>Operator</td><td>commissionPct типу BigDecimal (4,2)</td></tr>
+      <tr><td>tariffs</td><td>Tariff</td><td>ManyToOne LAZY на Operator</td></tr>
+      <tr><td>stations</td><td>Station</td><td>capacity: tinyint unsigned</td></tr>
+      <tr><td>vehicles</td><td>Vehicle</td><td>LAZY на Operator і Station</td></tr>
+      <tr><td>customers</td><td>Customer</td><td>registeredAt: updatable = false</td></tr>
+      <tr><td>rides</td><td>Ride</td><td>ціни й початок: updatable = false</td></tr>
+      <tr><td>payments</td><td>Payment</td><td>Immutable: жодного UPDATE</td></tr>
+    </table>
+    <div class="codebox">@Entity
+@Table(name = "vehicles")
+public class Vehicle {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "operator_id", nullable = false)
+    private Operator operator;
+
+    @Column(name = "status", columnDefinition = "tinyint unsigned")
+    private VehicleStatus status = VehicleStatus.AVAILABLE;
+}</div>
+  </div>
+  <div class="four">
+    <div class="card"><h3>ddl-auto=validate</h3>Hibernate лише звіряє класи з таблицями, схему створює Flyway.</div>
+    <div class="card"><h3>LAZY і EntityGraph</h3>Список вантажить батьків одним запитом, без N+1.</div>
+    <div class="card"><h3>Transactional</h3>Завершення поїздки записує час, комісію, платіж і статус разом або нічого.</div>
+    <div class="card"><h3>AttributeConverter</h3>У базі число, у Java перелік. Порядковий номер переліку не використано.</div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="slide s12" data-theme="light" id="s-12">
+  <h1>Графічний інтерфейс: ведення даних</h1>
+  <div class="row">
+    <div class="big">
+      <img class="shot" src="img/ui-vehicles.png" alt="Список транспорту з фільтрами">
+      <p class="cap">Список транспорту: фільтри за оператором, типом, статусом, станцією і зарядом (тут менше ніж 30 %), кнопки зміни й видалення</p>
+      <img class="shot" src="img/ui-refused.png" alt="Відмова видалити оператора, у якого є тарифи">
+      <p class="cap">База не дає видалити оператора з тарифами, застосунок пояснює причину</p>
+    </div>
+    <div class="rt">
+      <ul>
+        <li>CRUD для 5 сутностей: оператори, тарифи, станції, транспорт, клієнти</li>
+        <li>Поїздки: старт, завершення, скасування, квитанція</li>
+        <li>Платежі: поповнення і повернення за поїздку</li>
+      </ul>
+      <img class="shot" src="img/ui-receipt.png" alt="Квитанція про поїздку">
+      <p class="cap">Квитанція: тариф на момент початку, оплачені хвилини, списання й повернення</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide s13" data-theme="light" id="s-13">
+  <h1>Графічний інтерфейс: запити і звіти</h1>
+  <div class="two">
+    <div class="col">
+      <div><img class="shot" src="img/ui-r1.png" alt="Звіт R1: транспорт, який можна розблокувати"><p class="cap">R1: фільтри за оператором, типом, станцією і зарядом</p></div>
+      <div><img class="shot" src="img/ui-r4.png" alt="Звіт R4: клієнти з найбільшими витратами"><p class="cap">R4: найбільші витрати за період, не менше N поїздок</p></div>
+    </div>
+    <div class="col">
+      <div><img class="shot" src="img/ui-r5.png" alt="Звіт R5: зведена таблиця"><p class="cap">R5: зведена таблиця з підсумковим рядком і фільтром за періодом</p></div>
+      <div><img class="shot" src="img/ui-r3.png" alt="Звіт R3: виручка за місяцями"><p class="cap">R3: виручка, повернення і комісія за місяцями й операторами</p></div>
+    </div>
+  </div>
+  <div class="reps">
+    <div class="rep"><span class="r">R1</span> доступний транспорт<small>фільтр, 3 JOIN, NOT EXISTS</small></div>
+    <div class="rep"><span class="r">R2</span> пошук поїздок<small>розширений пошук за полями</small></div>
+    <div class="rep"><span class="r">R3</span> виручка за місяцями<small>GROUP BY, SUM, LEFT JOIN</small></div>
+    <div class="rep"><span class="r">R4</span> найбільші витрати<small>HAVING, COUNT DISTINCT</small></div>
+    <div class="rep"><span class="r">R5</span> зведена таблиця<small>оператор і тип транспорту</small></div>
+    <div class="rep"><span class="r">R6</span> баланси нижче порога<small>LEFT JOIN, HAVING</small></div>
+    <div class="rep"><span class="r">R7</span> на зарядку<small>метод Spring Data, EntityGraph</small></div>
+    <div class="rep">Усі 7 звітів збігаються з SQL за значеннями й порядком рядків</div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="slide s14" data-theme="light" id="s-14">
+  <h1>Технології і перевірка</h1>
+  <div class="tech">
+    <div class="card"><h3>MySQL 8.4, InnoDB</h3><p>СУБД: CHECK, транзакції, функціональні індекси</p></div>
+    <div class="card"><h3>Flyway</h3><p>Схема й дані в файлах міграцій V1 і V2</p></div>
+    <div class="card"><h3>Java 21, Spring Boot 3.5</h3><p>Застосунок, одна команда запуску</p></div>
+    <div class="card"><h3>Spring Data JPA, Hibernate 6.6</h3><p>ORM: класи, методи-запити, JPQL</p></div>
+    <div class="card"><h3>Thymeleaf, Bootstrap</h3><p>Сторінки на сервері, без окремого фронтенду</p></div>
+    <div class="card"><h3>Docker Compose</h3><p>MySQL і застосунок піднімаються командою make up (docker compose)</p></div>
+  </div>
+  <div class="proof">
+    <div class="card"><span class="k">45 з 45</span><span class="t">заборонених дій база відхилила обмеженням</span></div>
+    <div class="card"><span class="k">7 з 7</span><span class="t">звітів збігаються з SQL, значення й порядок</span></div>
+    <div class="card"><span class="k">9</span><span class="t">тестів формули вартості поїздки і комісії</span></div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide s15" data-theme="dark" id="s-15">
+  <h1>Дякую за увагу!</h1>
+  <p class="q">Запитання?</p>
+  <p class="app">Додаток: код, міграції, запити, знімки екрана</p>
+  <p class="link"><a href="https://github.com/brizzinck/krinzhrepoduta/tree/main/db/coursework">https://github.com/brizzinck/krinzhrepoduta/tree/main/db/coursework</a></p>
+  <p class="disc">Навчальний проєкт. Дані операторів імітовані, проєкт не пов'язаний з Bolt, Jet і Zelektra.</p>
+  <p class="by">Керівник: Гордієнко К. О.</p>
+</section>
+
+</body>
+</html>

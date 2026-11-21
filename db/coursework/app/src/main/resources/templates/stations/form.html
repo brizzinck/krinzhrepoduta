@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Станція')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4" style="max-width: 640px">
+    <h1 class="h4" th:text="${form.id == null} ? 'Нова станція' : 'Станція №' + ${form.id}">Станція</h1>
+    <form method="post" th:action="@{/stations/save}" th:object="${form}">
+        <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}" th:each="e : ${#fields.globalErrors()}" th:text="${e}"></div>
+        <input type="hidden" th:field="*{id}">
+        <div class="mb-3"><label class="form-label">Назва</label>
+            <input class="form-control" th:field="*{name}"><div class="text-danger small" th:errors="*{name}"></div></div>
+        <div class="mb-3"><label class="form-label">Адреса</label>
+            <input class="form-control" th:field="*{address}"><div class="text-danger small" th:errors="*{address}"></div></div>
+        <div class="mb-3"><label class="form-label">Місткість (1 - 50)</label>
+            <input class="form-control" type="number" min="1" max="50" th:field="*{capacity}"><div class="text-danger small" th:errors="*{capacity}"></div></div>
+        <button class="btn btn-primary" type="submit">Зберегти</button>
+        <a class="btn btn-link" th:href="@{/stations}">Назад</a>
+    </form>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

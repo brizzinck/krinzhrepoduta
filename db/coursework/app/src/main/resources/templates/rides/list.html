@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Поїздки')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container-fluid my-4 px-4">
+    <div th:replace="~{fragments :: flash}"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Поїздки (звіт R2: пошук поїздок)</h1>
+        <a class="btn btn-primary" th:href="@{/rides/start}">Розпочати поїздку</a>
+    </div>
+    <form class="row g-2 mb-3" method="get" th:action="@{/rides}">
+        <div class="col-auto"><label class="form-label small mb-0">Початок з</label><input class="form-control" type="date" name="from" th:value="${from}"></div>
+        <div class="col-auto"><label class="form-label small mb-0">Початок по (включно)</label><input class="form-control" type="date" name="to" th:value="${to}"></div>
+        <div class="col-auto"><label class="form-label small mb-0">Оператор</label><select class="form-select" name="opId">
+            <option value="">Усі</option>
+            <option th:each="o : ${operators}" th:value="${o.id}" th:text="${o.name}" th:selected="${o.id == opId}"></option>
+        </select></div>
+        <div class="col-auto"><label class="form-label small mb-0">Тип</label><select class="form-select" name="type">
+            <option value="">Усі</option>
+            <option th:each="t : ${types}" th:value="${t.name()}" th:text="${t.label}" th:selected="${t == type}"></option>
+        </select></div>
+        <div class="col-auto"><label class="form-label small mb-0">Прізвище (початок) або кінець телефону</label><input class="form-control" name="q" th:value="${q}"></div>
+        <div class="col-auto"><label class="form-label small mb-0">Стан</label><select class="form-select" name="status">
+            <option value="">Усі</option>
+            <option value="active" th:selected="${status == 'active'}">Активні</option>
+            <option value="finished" th:selected="${status == 'finished'}">Завершені</option>
+        </select></div>
+        <div class="col-auto align-self-end"><button class="btn btn-outline-primary">Знайти</button></div>
+    </form>
+    <p class="text-muted">Знайдено: <span id="row-count" th:text="${#lists.size(rows)}">0</span></p>
+    <table class="table table-sm table-striped">
+        <thead><tr><th>№</th><th>Клієнт</th><th>Транспорт</th><th>Оператор</th><th>Тип</th><th>Початок (Київ)</th><th>Кінець (Київ)</th>
+            <th class="text-end">Хв</th><th class="text-end">Вартість, грн</th><th class="text-end">Повернення, грн</th><th class="text-end">Комісія, грн</th></tr></thead>
+        <tbody>
+        <tr th:each="r : ${rows}" class="data-row" th:data-v="${r.id + '|' + (r.minutes() ?: 'NULL') + '|' + (r.costKop() ?: 'NULL') + '|' + (r.refundKop ?: 'NULL') + '|' + (r.commissionKop ?: 'NULL')}">
+            <td><a th:href="@{/rides/{id}(id=${r.id})}" th:text="${r.id}"></a></td>
+            <td th:text="${r.customer()}"></td><td th:text="${r.vehicleCode}"></td><td th:text="${r.operator}"></td>
+            <td th:text="${r.vehicleType.label}"></td><td th:text="${@fmt.dt(r.startedAt)}"></td>
+            <td th:text="${r.active()} ? 'триває' : ${@fmt.dt(r.endedAt)}"></td>
+            <td class="text-end" th:text="${r.minutes()}"></td><td class="text-end" th:text="${@fmt.uah(r.costKop())}"></td>
+            <td class="text-end" th:text="${@fmt.uah(r.refundKop)}"></td><td class="text-end" th:text="${@fmt.uah(r.commissionKop)}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

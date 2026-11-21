@@ -1,0 +1,28 @@
+== part 3: every report page equals its SQL in sql/queries.sql (the whole ordered result, not only the row count)
+ok   R1 no filters: 33 rows, values and order equal
+ok   R1 scooters, battery 20 or more: 26 rows, values and order equal
+ok   vehicles, battery any: 40 rows, values and order equal
+ok   vehicles, battery more than 50: 18 rows, values and order equal
+ok   vehicles, battery less than 30: 7 rows, values and order equal
+ok   vehicles, battery equal to 48: 3 rows, values and order equal
+ok   vehicles, battery less than 0 is an empty list (= 0)
+ok   R2 no filters: 59 rows, values and order equal
+ok   R2 surname prefix Ко: 7 rows, values and order equal
+ok   R2 finished rides: 57 rows, values and order equal
+ok   R2 Kyiv days 09.10 to 14.10 (UTC bounds 08.10 21:00 to 14.10 21:00): 6 rows, values and order equal
+ok   R2 date filter includes ride 5 (starts 01:22 Kyiv on 09.10, 22:22 UTC on 08.10) (= 1)
+ok   R2 Kyiv days 01.11 to 30.11: 21 rows, values and order equal
+ok   R3 no filters (months in Kyiv time): 6 rows, values and order equal
+ok   R3 Kyiv days 01.10 to 30.11: 6 rows, values and order equal
+ok   R3 Kyiv days 01.11 to 30.11: 3 rows, values and order equal
+ok   R4 no filters: 5 rows, values and order equal
+ok   R4 at least 3 rides: 5 rows, values and order equal
+ok   R4 Kyiv days 01.10 to 30.11, at least 3 rides: 5 rows, values and order equal
+ok   R5 no filters (incl. the total row): 4 rows, values and order equal
+ok   R5 Kyiv days 01.10 to 30.11: 4 rows, values and order equal
+ok   R5 last row is the total row (= NULL|1)
+ok   R6 default threshold 100 UAH: 6 rows, values and order equal
+ok   R7 default level 20 %: 2 rows, values and order equal
+ok   search text with a % is a plain character (no rides match) (= 0)
+ok   unknown id gives a plain 404 page (= 404)
+-- part 3: 26 ok, 0 failed

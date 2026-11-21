@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Звіти')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <h1 class="h4">Звіти</h1>
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action" th:href="@{/reports/r1}"><strong>R1.</strong> Транспорт, який можна розблокувати зараз (станція, оператор, тип, заряд)</a>
+        <a class="list-group-item list-group-item-action" th:href="@{/rides}"><strong>R2.</strong> Пошук поїздок (період, оператор, тип, клієнт, стан)</a>
+        <a class="list-group-item list-group-item-action" th:href="@{/reports/r3}"><strong>R3.</strong> Виручка, повернення і комісія за місяцями та операторами</a>
+        <a class="list-group-item list-group-item-action" th:href="@{/reports/r4}"><strong>R4.</strong> П'ять клієнтів з найбільшими витратами</a>
+        <a class="list-group-item list-group-item-action" th:href="@{/reports/r5}"><strong>R5.</strong> Зведена таблиця: оператори і типи транспорту</a>
+        <a class="list-group-item list-group-item-action" th:href="@{/reports/r6}"><strong>R6.</strong> Баланси гаманців нижче порога</a>
+        <a class="list-group-item list-group-item-action" th:href="@{/reports/r7}"><strong>R7.</strong> Транспорт, який треба поставити на зарядку</a>
+    </div>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

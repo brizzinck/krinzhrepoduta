@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Тариф')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4" style="max-width: 640px">
+    <h1 class="h4" th:text="${form.id == null} ? 'Новий тариф' : 'Тариф №' + ${form.id}">Тариф</h1>
+    <form method="post" th:action="@{/tariffs/save}" th:object="${form}">
+        <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}" th:each="e : ${#fields.globalErrors()}" th:text="${e}"></div>
+        <input type="hidden" th:field="*{id}">
+        <div class="mb-3"><label class="form-label">Оператор</label>
+            <select class="form-select" th:field="*{operatorId}">
+                <option value="">Оберіть...</option>
+                <option th:each="o : ${operators}" th:value="${o.id}" th:text="${o.name}"></option>
+            </select><div class="text-danger small" th:errors="*{operatorId}"></div></div>
+        <div class="mb-3"><label class="form-label">Тип транспорту</label>
+            <select class="form-select" th:field="*{vehicleType}">
+                <option value="">Оберіть...</option>
+                <option th:each="t : ${types}" th:value="${t.name()}" th:text="${t.label}"></option>
+            </select><div class="text-danger small" th:errors="*{vehicleType}"></div></div>
+        <div class="mb-3"><label class="form-label">Розблокування, грн (0 - 100)</label>
+            <input class="form-control" type="number" step="0.01" min="0" max="100" th:field="*{unlockFee}"><div class="text-danger small" th:errors="*{unlockFee}"></div></div>
+        <div class="mb-3"><label class="form-label">Ціна хвилини, грн (0,01 - 50)</label>
+            <input class="form-control" type="number" step="0.01" min="0.01" max="50" th:field="*{perMinute}"><div class="text-danger small" th:errors="*{perMinute}"></div></div>
+        <button class="btn btn-primary" type="submit">Зберегти</button>
+        <a class="btn btn-link" th:href="@{/tariffs}">Назад</a>
+    </form>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('R1')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <h1 class="h4">R1. Транспорт, який можна розблокувати зараз</h1>
+    <form class="row g-2 mb-3" method="get" th:action="@{/reports/r1}">
+        <div class="col-auto"><select class="form-select" name="opId">
+            <option value="">Усі оператори</option>
+            <option th:each="o : ${operators}" th:value="${o.id}" th:text="${o.name}" th:selected="${o.id == opId}"></option>
+        </select></div>
+        <div class="col-auto"><select class="form-select" name="type">
+            <option value="">Усі типи</option>
+            <option th:each="t : ${types}" th:value="${t.name()}" th:text="${t.label}" th:selected="${t == type}"></option>
+        </select></div>
+        <div class="col-auto"><select class="form-select" name="stationId">
+            <option value="">Усі станції</option>
+            <option th:each="s : ${stations}" th:value="${s.id}" th:text="${s.name}" th:selected="${s.id == stationId}"></option>
+        </select></div>
+        <div class="col-auto d-flex align-items-center gap-2"><span>Заряд не менше, %</span>
+            <span th:replace="~{fragments :: slider('minBattery', ${minBattery != null ? minBattery : 10}, 10, false)}"></span></div>
+        <div class="col-auto"><button class="btn btn-outline-primary">Показати</button></div>
+    </form>
+    <p class="text-muted">Знайдено: <span id="row-count" th:text="${#lists.size(rows)}">0</span>. Спершу найдешевша поїздка на 10 хвилин.</p>
+    <table class="table table-sm table-striped">
+        <thead><tr><th>Код</th><th>Станція</th><th>Оператор</th><th>Тип</th><th>Модель</th><th class="text-end">Заряд, %</th>
+            <th class="text-end">Розблокування, грн</th><th class="text-end">Хвилина, грн</th><th class="text-end">10 хв, грн</th></tr></thead>
+        <tbody>
+        <tr th:each="r : ${rows}" class="data-row" th:data-v="${r.code + '|' + r.price10MinKop() + '|' + r.batteryPct}">
+            <td th:text="${r.code}"></td><td th:text="${r.station}"></td><td th:text="${r.operator}"></td>
+            <td th:text="${r.vehicleType.label}"></td><td th:text="${r.model}"></td><td class="text-end" th:text="${r.batteryPct}"></td>
+            <td class="text-end" th:text="${@fmt.uah(r.unlockFeeKop)}"></td><td class="text-end" th:text="${@fmt.uah(r.perMinuteKop)}"></td>
+            <td class="text-end" th:text="${@fmt.uah(r.price10MinKop())}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

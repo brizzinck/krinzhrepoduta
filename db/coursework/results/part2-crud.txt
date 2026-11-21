@@ -1,0 +1,105 @@
+== part 2: CRUD and business rules through the HTTP forms
+-- operators
+ok   create operator: row exists with commission (= 15.00)
+ok   edit operator: commission changed (= 12.50)
+ok   create operator with a taken name is refused: page says «Оператор з такою назвою вже є»
+ok   operator form validation: page says «Телефон має вигляд»
+ok   delete an operator with tariffs refused: page says «Оператора не можна видалити»
+ok   delete operator: row gone (= 0)
+-- tariffs
+ok   create tariff: prices in kopecks (= 800:350)
+ok   second tariff for the same operator and type refused: page says «тариф уже є»
+ok   edit tariff: per-minute price (= 400)
+ok   delete a tariff in use refused: page says «Тариф не можна видалити»
+ok   edit a tariff that vehicles use (key unchanged): price changed (= 530)
+ok   tariff price changed back (= 520)
+ok   delete tariff: row gone (= 0)
+ok   delete the helper operator (= 0)
+-- stations
+ok   create station: capacity (= 3)
+ok   edit station: capacity (= 4)
+ok   capacity below the parked count refused: page says «Місткість не може бути меншою»
+ok   delete a station with vehicles refused: page says «Станцію не можна видалити»
+ok   delete station: row gone (= 0)
+-- vehicles
+ok   create vehicle: status and station (= 1:1)
+ok   edit vehicle to CHARGING: station cleared (= 3:NULL:55)
+ok   AVAILABLE without a station refused: page says «оберіть станцію»
+ok   vehicle of an operator without a tariff for the type refused: page says «немає тарифу»
+ok   vehicle at a full station refused: page says «заповнена»
+ok   delete a vehicle with rides refused: page says «Транспорт не можна видалити»
+ok   delete vehicle: row gone (= 0)
+-- customers
+ok   create customer: bonus row of 200 UAH exists (= 1:20000)
+ok   edit customer: name and e-mail (= Остап:ostap@example.com)
+ok   customer with a taken phone refused: page says «Клієнт з таким телефоном уже є»
+ok   delete a customer with only the bonus row: customer and bonus gone (= 0:0)
+ok   delete a customer with a top-up refused: page says «є платежі»
+ok   delete a customer with rides refused: page says «у нього є поїздки»
+-- rides, payments, Diia
+ok   unlock by an unverified customer refused: page says «не підтверджений через Дію»
+ok   verify through Diia: time is set (= 1)
+ok   second verification refused: page says «вже підтверджено»
+ok   unlock with a balance below 100 UAH refused: page says «для розблокування потрібно щонайменше 100,00 грн»
+ok   top-up of 150 UAH refused (only 100, 200, 500): page says «100, 200 або 500»
+ok   top-up once: balance is bonus 200 + 100 UAH (= 30000)
+ok   unlock with battery below 10 % refused: page says «Заряд транспорту 8 %»
+ok   unlock of BLT-0014 (status 3) refused: page says «Транспорт недоступний»
+ok   unlock of BLT-0007 (status 4) refused: page says «Транспорт недоступний»
+ok   unlock of ZEL-0001 (status 5) refused: page says «Транспорт недоступний»
+ok   refused unlocks created no ride (= 57)
+ok   start ride: vehicle status IN_RIDE (2) and no station (= 2:NULL)
+ok   start ride: prices copied from the Bolt scooter tariff (= 1000:520)
+ok   second active ride of the customer refused: page says «вже є активна поїздка»
+ok   status change of a vehicle in a ride refused: page says «Транспорт у поїздці»
+ok   vehicle still IN_RIDE after the refused change (= 2)
+ok   finish at a full station refused: page says «заповнена»
+ok   ride still active after the refused finish (= 1)
+ok   finish: vehicle AVAILABLE (1) at the chosen station (= 1:6)
+ok   finish: charge 10.00 + 5.20 for one started minute, kopecks (= -1520)
+ok   finish: stored commission 10 % of 1520 (= 152)
+ok   finish: charge is dated at the finish time (= 1)
+ok   a ride finished in the same second as its start was accepted (= 1)
+ok   same-second ride is billed as one minute (= -1520)
+ok   cancel active ride: ride and payments gone, vehicle AVAILABLE at the station (= 0:0:1:1)
+ok   second finish of a finished ride refused: page says «Поїздку вже завершено»
+ok   cancel of a finished ride refused: page says «Завершену поїздку скасувати не можна»
+ok   edit of a finished ride: no update path (POST on the ride is 405) (= 405)
+ok   refund above the charge refused: page says «Сума повернення має бути»
+ok   refund: row of kind 4 with 500 kopecks (= 500)
+ok   second refund of the same ride refused: page says «повернення вже було»
+ok   refund leaves the stored commission unchanged (= 152)
+ok   refund of a ride that does not exist is refused (no payment created) (= 0)
+ok   BR21: vehicles whose status 2 disagrees with an active ride (= 0)
+ok   BR22: stations over capacity (= 0)
+-- every page renders
+ok   GET / (= 200)
+ok   GET /operators (= 200)
+ok   GET /operators/new (= 200)
+ok   GET /operators/1/edit (= 200)
+ok   GET /tariffs (= 200)
+ok   GET /tariffs/new (= 200)
+ok   GET /tariffs/1/edit (= 200)
+ok   GET /stations (= 200)
+ok   GET /stations/new (= 200)
+ok   GET /stations/1/edit (= 200)
+ok   GET /vehicles (= 200)
+ok   GET /vehicles/new (= 200)
+ok   GET /vehicles/40/edit (= 200)
+ok   GET /customers (= 200)
+ok   GET /customers/new (= 200)
+ok   GET /customers/16/edit (= 200)
+ok   GET /rides (= 200)
+ok   GET /rides/start (= 200)
+ok   GET /rides/58 (= 200)
+ok   GET /rides/56 (= 200)
+ok   GET /payments (= 200)
+ok   GET /payments?customerId=16 (= 200)
+ok   GET /reports (= 200)
+ok   GET /reports/r1 (= 200)
+ok   GET /reports/r3 (= 200)
+ok   GET /reports/r4 (= 200)
+ok   GET /reports/r5 (= 200)
+ok   GET /reports/r6 (= 200)
+ok   GET /reports/r7 (= 200)
+-- part 2: 96 ok, 0 failed

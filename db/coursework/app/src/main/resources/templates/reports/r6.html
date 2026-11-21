@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('R6')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <h1 class="h4">R6. Баланси гаманців нижче порога</h1>
+    <form class="row g-2 mb-3" method="get" th:action="@{/reports/r6}">
+        <div class="col-auto"><label class="form-label small mb-0">Поріг, грн</label><input class="form-control" type="number" name="threshold" th:value="${threshold}" required></div>
+        <div class="col-auto align-self-end"><button class="btn btn-outline-primary">Показати</button></div>
+    </form>
+    <p class="text-muted">Знайдено: <span id="row-count" th:text="${#lists.size(rows)}">0</span>. Клієнти з балансом нижче 100 грн не можуть розблокувати транспорт.</p>
+    <table class="table table-sm table-striped">
+        <thead><tr><th>Клієнт</th><th>Телефон</th><th class="text-end">Баланс, грн</th><th class="text-end">Поповнень</th></tr></thead>
+        <tbody>
+        <tr th:each="r : ${rows}" class="data-row" th:data-v="${r.id + '|' + r.balanceKop + '|' + r.topups}">
+            <td th:text="${r.customer()}"></td><td th:text="${r.phone}"></td>
+            <td class="text-end" th:text="${@fmt.uah(r.balanceKop)}"></td><td class="text-end" th:text="${r.topups}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

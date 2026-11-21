@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Початок поїздки')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4" style="max-width: 720px">
+    <div th:replace="~{fragments :: flash}"></div>
+    <h1 class="h4">Розпочати поїздку</h1>
+    <p class="text-muted small">Лише клієнти, підтверджені через Дію, і транспорт, який чекає на станції (звіт R1). Потрібні баланс від 100 грн і заряд від 10 %.</p>
+    <form method="post" th:action="@{/rides/start}">
+        <div class="mb-3"><label class="form-label">Клієнт</label>
+            <select class="form-select" name="customerId" required>
+                <option value="">Оберіть...</option>
+                <option th:each="c : ${customers}" th:value="${c.id}" th:text="${c.fullName + ', ' + c.phone}"></option>
+            </select></div>
+        <div class="mb-3"><label class="form-label">Транспорт</label>
+            <select class="form-select" name="vehicleId" required>
+                <option value="">Оберіть...</option>
+                <option th:each="v : ${available}" th:value="${v.id}"
+                        th:text="${v.code + ', ' + v.operator + ', ' + v.vehicleType.label + ', ' + v.batteryPct + ' %, ' + v.station + ', 10 хв = ' + @fmt.uah(v.price10MinKop()) + ' грн'}"></option>
+            </select></div>
+        <button class="btn btn-primary" type="submit">Розблокувати</button>
+        <a class="btn btn-link" th:href="@{/rides}">Назад</a>
+    </form>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

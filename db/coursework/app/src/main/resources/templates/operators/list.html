@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Оператори')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <div th:replace="~{fragments :: flash}"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Оператори</h1>
+        <a class="btn btn-primary" th:href="@{/operators/new}">Додати оператора</a>
+    </div>
+    <table class="table table-sm table-striped">
+        <thead><tr><th>№</th><th>Назва</th><th>Телефон</th><th>E-mail</th><th class="text-end">Комісія, %</th><th></th></tr></thead>
+        <tbody>
+        <tr th:each="o : ${operators}" class="data-row">
+            <td th:text="${o.id}"></td><td th:text="${o.name}"></td><td th:text="${o.phone}"></td>
+            <td th:text="${o.email}"></td><td class="text-end" th:text="${o.commissionPct}"></td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-secondary" th:href="@{/operators/{id}/edit(id=${o.id})}">Змінити</a>
+                <form class="d-inline" method="post" th:action="@{/operators/{id}/delete(id=${o.id})}"
+                      onsubmit="return confirm('Видалити оператора?')">
+                    <button class="btn btn-sm btn-outline-danger">Видалити</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

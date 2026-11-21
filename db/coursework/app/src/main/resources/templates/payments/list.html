@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Платежі')}"></head>
+<body>
+<nav th:replace="~{fragments :: nav}"></nav>
+<main class="container my-4">
+    <div th:replace="~{fragments :: flash}"></div>
+    <h1 class="h4">Платежі і гаманець</h1>
+    <form class="row g-2 mb-3" method="get" th:action="@{/payments}">
+        <div class="col-auto"><select class="form-select" name="customerId">
+            <option value="">Усі клієнти</option>
+            <option th:each="c : ${customers}" th:value="${c.id}" th:text="${c.fullName}" th:selected="${c.id == customerId}"></option>
+        </select></div>
+        <div class="col-auto"><button class="btn btn-outline-primary">Показати</button></div>
+    </form>
+    <div class="card mb-3" th:if="${customerId != null}"><div class="card-body">
+        <p class="mb-2">Баланс: <strong id="balance" th:text="${@fmt.uah(balanceKop) + ' грн'}"></strong></p>
+        <form method="post" th:action="@{/payments/topup}" class="d-flex gap-2 align-items-center">
+            <input type="hidden" name="customerId" th:value="${customerId}">
+            <span>Поповнити:</span>
+            <button th:each="a : ${topups}" class="btn btn-outline-success" name="amount" th:value="${a}" th:text="'+' + ${a} + ' грн'"></button>
+        </form>
+    </div></div>
+    <p class="text-muted">Платежі лише додаються і ніколи не змінюються. Показано до 200 останніх.</p>
+    <table class="table table-sm table-striped">
+        <thead><tr><th>№</th><th>Час (Київ)</th><th>Клієнт</th><th>Вид</th><th>Поїздка</th><th class="text-end">Сума, грн</th></tr></thead>
+        <tbody>
+        <tr th:each="p : ${payments}" class="data-row">
+            <td th:text="${p.id}"></td><td th:text="${@fmt.dt(p.createdAt)}"></td><td th:text="${p.customer.fullName}"></td>
+            <td th:text="${p.kind.label}"></td>
+            <td><a th:if="${p.ride != null}" th:href="@{/rides/{id}(id=${p.ride.id})}" th:text="${p.ride.id}"></a></td>
+            <td class="text-end" th:text="${@fmt.uah(p.amountKop)}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

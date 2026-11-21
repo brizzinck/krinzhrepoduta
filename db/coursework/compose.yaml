@@ -1,0 +1,42 @@
+# Micromobility rental: MySQL 8.4 + the Spring Boot admin application.
+# Start: docker compose up -d --build     Stop and drop data: docker compose down -v
+name: micromobility
+
+services:
+  db:
+    image: mysql:8.4
+    # utf8mb4 and UTC: DATETIME columns and DEFAULT CURRENT_TIMESTAMP hold UTC
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+      - --default-time-zone=+00:00
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-micromobility_root}
+      MYSQL_DATABASE: micromobility
+      MYSQL_USER: micromobility
+      MYSQL_PASSWORD: ${DB_PASSWORD:-micromobility}
+      TZ: UTC
+    volumes:
+      - micromobility-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app:
+    build: ./app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      TZ: UTC
+      DB_HOST: db
+      DB_NAME: micromobility
+      DB_USER: micromobility
+      DB_PASSWORD: ${DB_PASSWORD:-micromobility}
+    ports:
+      - "127.0.0.1:${APP_PORT:-18480}:8080"
+
+volumes:
+  micromobility-data:

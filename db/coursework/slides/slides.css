@@ -1,0 +1,185 @@
+/* Курсова робота, захист: прокат транспорту мікромобільності. Кольори лише в двох блоках токенів нижче,
+   далі тільки var(--...). Шрифт Adwaita із теки fonts/. */
+:root, .slide[data-theme="light"] {
+  color-scheme: light;
+  --bg:#F4F0D9; --surface:#FDF6E3; --elevated:#FFFBEF; --select:#EAEDC8;
+  --text:#3d4a52; --muted:#5C6A72; --disabled:#829181;
+  --border:#D3CFB8; --line:#E0DCC7; --border-strong:#76857a;
+  --primary:#5b7515; --on-primary:#FFFBEF; --primary-soft:#F0F1D2;
+  --success:#2a7352; --warning:#8a6400; --danger:#b13a36;
+  --success-soft:#E3F0E6; --warning-soft:#FAEDCD; --danger-soft:#FDE3DA; --info:#28749a;
+  --shadow:0 1px 2px rgba(60,70,50,.12), 0 4px 14px rgba(60,70,50,.10);
+  --shadow-big:0 2px 4px rgba(60,70,50,.12), 0 18px 48px rgba(60,70,50,.20);
+  --frame:#3d4a52; --ring:#28749a; --on-ring:#FFFBEF;
+}
+.slide[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:#0a0e0c; --surface:#121815; --elevated:#19201c; --select:#212c26;
+  --text:#dbd8c9; --muted:#909c92; --disabled:#6f7b74;
+  --border:#424c47; --line:#2c3430; --border-strong:#66716a;
+  --primary:#abc682; --on-primary:#0a0e0c; --primary-soft:#1f2c1c;
+  --success:#8cc69c; --warning:#d9bc7f; --danger:#e88384;
+  --success-soft:#161f18; --warning-soft:#201c12; --danger-soft:#261818; --info:#83c3c8;
+  --shadow:none; --shadow-big:0 18px 48px rgba(0,0,0,.5);
+  --frame:#66716a; --ring:#83c3c8; --on-ring:#0a0e0c;
+}
+
+@font-face { font-family:"Adwaita Sans"; src:url("fonts/AdwaitaSans-W400.ttf") format("truetype"); font-weight:400; font-style:normal; }
+@font-face { font-family:"Adwaita Sans"; src:url("fonts/AdwaitaSans-W600.ttf") format("truetype"); font-weight:600; font-style:normal; }
+@font-face { font-family:"Adwaita Sans"; src:url("fonts/AdwaitaSans-W700.ttf") format("truetype"); font-weight:700; font-style:normal; }
+@font-face { font-family:"Adwaita Sans"; src:url("fonts/AdwaitaSans-W800.ttf") format("truetype"); font-weight:800; font-style:normal; }
+@font-face { font-family:"Adwaita Mono"; src:url("fonts/AdwaitaMono-Regular.ttf") format("truetype"); font-weight:400; font-style:normal; }
+
+@page { size: 1920px 1080px; margin: 0; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); }
+body { font-family: "Adwaita Sans"; font-size: 28px; line-height: 1.3; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+p, h1, h2, h3, ul, ol, figure, table { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+.mono { font-family: "Adwaita Mono"; }
+.muted { color: var(--muted); }
+
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); color: var(--text);
+  padding: 50px 96px 44px; break-after: page; page-break-after: always; display: flex; flex-direction: column; }
+.slide:last-child { break-after: auto; page-break-after: auto; }
+h1 { font-size: 60px; line-height: 1.1; font-weight: 700; letter-spacing: -.01em; margin-bottom: 24px; }
+h2 { font-size: 36px; line-height: 1.2; font-weight: 700; }
+.fn { font-size: 22px; line-height: 1.3; color: var(--muted); }
+.lab { color: var(--primary); font-weight: 600; }
+code, .code { font-family: "Adwaita Mono"; font-size: 24px; }
+
+.shot { display: block; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow-big); background: var(--elevated); }
+
+/* 1, титульний */
+.s1 { justify-content: center; }
+.s1 .kind { font-size: 44px; color: var(--primary); font-weight: 600; margin-bottom: 20px; }
+.s1 h1 { font-size: 78px; line-height: 1.14; margin-bottom: 44px; max-width: 1180px; letter-spacing: -.012em; }
+.s1 .who { font-size: 42px; max-width: 1180px; line-height: 1.3; margin-bottom: 14px; }
+.s1 .who span { color: var(--muted); }
+.s1 .sup { font-size: 32px; line-height: 1.45; color: var(--muted); max-width: 1150px; }
+.s1 .c1 { position: absolute; left: 1290px; top: 150px; width: 540px; transform: rotate(2deg); }
+.s1 .c2 { position: absolute; left: 1250px; top: 560px; width: 540px; transform: rotate(-2deg); }
+
+/* 2, цілі */
+.s2 .lead { font-size: 40px; line-height: 1.25; margin-bottom: 36px; max-width: 1500px; }
+.goals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; flex: 1; min-height: 0; padding-bottom: 8px; }
+.goal { background: var(--surface); border: 1px solid var(--border); border-radius: 26px; padding: 30px 34px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 18px; }
+.goal .n { width: 64px; height: 64px; border-radius: 50%; background: var(--primary); color: var(--on-primary); font-size: 36px; font-weight: 700; display: grid; place-items: center; }
+.goal p { font-size: 38px; line-height: 1.25; }
+.goal.last { background: var(--primary-soft); }
+
+/* 3, інфологічна модель */
+.s3 .row { display: flex; gap: 40px; flex: 1; min-height: 0; align-items: stretch; }
+.s3 .pic { flex: none; background: var(--elevated); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow); padding: 8px; display: grid; place-items: center; }
+.s3 .pic img { display: block; height: 852px; width: auto; }
+.s3 .side { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+.s3 .side p.big { font-size: 88px; line-height: 1; font-weight: 800; color: var(--primary); }
+.s3 .side p { font-size: 32px; line-height: 1.28; }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.tag { font-size: 28px; padding: 6px 20px; border-radius: 999px; border: 2px solid var(--border-strong); background: var(--surface); }
+.tag.assoc { background: var(--primary-soft); border-color: var(--primary); }
+
+/* 4, даталогічна модель */
+.s4 svg.schema { width: 1728px; height: 810px; display: block; }
+.schema text { font-family: "Adwaita Sans"; font-size: 24px; fill: var(--text); }
+.schema .tn { font-weight: 700; font-size: 28px; }
+.schema .cp { text-decoration: underline; }
+.schema .cu { fill: var(--primary); }
+.schema .tg { fill: var(--primary); font-size: 24px; }
+.schema .lb { font-weight: 700; fill: var(--ring); }
+.schema .tb { fill: var(--surface); stroke: var(--border-strong); stroke-width: 2; }
+.schema .th { fill: var(--primary-soft); stroke: var(--border-strong); stroke-width: 2; }
+.schema .lg { fill: var(--elevated); stroke: var(--border); stroke-width: 2; }
+.schema .ed { stroke: var(--border-strong); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.schema .ed.th2 { stroke: var(--primary); stroke-width: 7; }
+
+/* 5-8, сутності */
+.ent { display: grid; grid-template-columns: 470px 1fr; gap: 36px; align-items: start; }
+.ent + .ent { margin-top: 26px; }
+.ent .info h2 { font-size: 36px; color: var(--primary); margin-bottom: 6px; }
+.ent .info p { font-size: 27px; line-height: 1.25; margin-bottom: 8px; }
+table.rel { width: 100%; border-collapse: collapse; font-size: 27px; line-height: 1.2; background: var(--surface); }
+table.rel th { text-align: left; background: var(--primary); color: var(--on-primary); font-weight: 600; padding: 7px 12px; }
+table.rel td { padding: 6px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.rel td:first-child { font-family: "Adwaita Mono"; font-size: 25px; white-space: nowrap; }
+table.rel tr:last-child td { border-bottom: 2px solid var(--border-strong); }
+.s8 .cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 30px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 22px 28px; box-shadow: var(--shadow); font-size: 26px; line-height: 1.28; }
+.card h3 { font-size: 30px; line-height: 1.2; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+.card code { font-size: 24px; }
+
+/* 9, цілісність */
+.imp { display: grid; grid-template-columns: 470px 540px 1fr; border-top: 2px solid var(--border-strong); }
+.imp > div { padding: 24px 20px; border-bottom: 1px solid var(--line); font-size: 29px; line-height: 1.25; display: flex; align-items: center; }
+.imp .h { font-weight: 600; color: var(--muted); font-size: 26px; padding-top: 10px; padding-bottom: 10px; }
+.imp .k { font-size: 36px; font-weight: 700; color: var(--primary); line-height: 1.15; }
+.imp .k small { display: block; font-size: 26px; font-weight: 400; color: var(--muted); }
+.imp .ex { font-family: "Adwaita Mono"; font-size: 24px; line-height: 1.3; background: var(--surface); }
+.strip { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 26px; }
+.strip .card { font-size: 30px; padding: 26px 32px; }
+
+/* 10, бізнес-правила */
+.br3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.brc { background: var(--surface); border: 1px solid var(--border); border-radius: 26px; padding: 26px 32px 28px; box-shadow: var(--shadow); }
+.brc.mid { background: var(--primary-soft); }
+.brc .n { font-size: 110px; line-height: 1; font-weight: 800; color: var(--primary); }
+.brc h2 { font-size: 34px; margin: 6px 0 14px; }
+.brc li { font-size: 30px; line-height: 1.25; margin-bottom: 14px; }
+.brc li .id { font-family: "Adwaita Mono"; color: var(--primary); }
+
+/* 11, ORM */
+.orm { display: grid; grid-template-columns: 700px 1fr; gap: 36px; align-items: start; }
+.codebox { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 14px 22px; box-shadow: var(--shadow); font-family: "Adwaita Mono"; font-size: 24px; line-height: 1.3; white-space: pre; }
+.codebox .cm { color: var(--muted); }
+.four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 26px; }
+.four .card { font-size: 29px; padding: 28px 30px; } .four .card h3 { font-size: 34px; }
+
+/* 12, 13, інтерфейс */
+.s12 .row { display: flex; gap: 36px; flex: 1; min-height: 0; }
+.s12 .big { flex: none; width: 1020px; display: flex; flex-direction: column; gap: 14px; }
+.s12 .big .cap, .s12 .rt .cap { font-size: 26px; line-height: 1.25; color: var(--muted); margin: 8px 0 6px; }
+.s12 .rt { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.s12 .rt ul li { font-size: 30px; line-height: 1.28; margin-bottom: 14px; }
+.s12 .rt .shot { width: 100%; }
+.s13 .two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.s13 .col { display: flex; flex-direction: column; gap: 14px; }
+.s13 .shot { width: 88%; }
+.s13 .cap { font-size: 26px; color: var(--muted); margin: 8px 0 0; }
+.reps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 22px; }
+.rep { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 12px 20px; font-size: 27px; line-height: 1.2; box-shadow: var(--shadow); }
+.rep .r { font-weight: 700; color: var(--primary); }
+.rep small { display: block; font-size: 25px; color: var(--muted); margin-top: 3px; }
+
+/* 14, технології */
+.tech { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.tech { flex: 1; min-height: 0; grid-auto-rows: 1fr; } .tech .card { padding: 30px 36px; display: flex; flex-direction: column; justify-content: center; }
+.tech .card h3 { font-size: 42px; margin-bottom: 12px; }
+.tech .card p { font-size: 32px; line-height: 1.25; }
+.proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 28px; }
+.proof .card { background: var(--primary-soft); display: flex; gap: 24px; align-items: center; padding: 30px 32px; }
+.proof .k { font-size: 88px; line-height: 1; font-weight: 800; color: var(--primary); white-space: nowrap; }
+.proof .t { font-size: 32px; line-height: 1.22; }
+
+/* 15, завершення */
+.s15 { justify-content: center; }
+.s15 h1 { font-size: 140px; line-height: 1.08; margin-bottom: 30px; }
+.s15 .q { font-size: 52px; color: var(--primary); font-weight: 600; margin-bottom: 56px; }
+.s15 .app { font-size: 36px; line-height: 1.35; margin-bottom: 14px; color: var(--muted); }
+.s15 .link { font-size: 40px; color: var(--primary); margin-bottom: 70px; }
+.s15 .disc { font-size: 32px; line-height: 1.35; max-width: 1400px; padding: 20px 28px; border: 2px solid var(--border-strong); border-radius: 20px; }
+.s15 .by { position: absolute; right: 96px; bottom: 64px; font-size: 32px; color: var(--muted); text-align: right; line-height: 1.4; }
+
+.s4 .hd { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+.s4 .hd h1 { margin-bottom: 14px; }
+.s4 .hd p { font-size: 34px; color: var(--muted); }
+.s7 table.rel { font-size: 26px; }
+.s7 table.rel td { padding: 4px 12px; }
+.s7 .ent + .ent { margin-top: 18px; }
+
+.brc .all { font-size: 25px; line-height: 1.25; color: var(--muted); margin-top: 6px; }
+.brc.mid li { margin-bottom: 9px; }
+.s10 .brc li { font-size: 28px; margin-bottom: 8px; }
+.s10 .brc .n { font-size: 84px; }
+.s10 .strip { margin-top: 20px; }
+.s10 .strip .card { padding: 20px 28px; font-size: 28px; }

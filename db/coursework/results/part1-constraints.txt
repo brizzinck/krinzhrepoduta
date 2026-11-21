@@ -1,0 +1,13 @@
+== part 1: sql/checks.sql on a scratch database (the application data is not touched)
+ok   negative statements failed (= 45)
+ok   negative statements that failed on another constraint (= 0)
+ok   consistency c1_status_mismatches (= 0)
+ok   consistency c2_status_mismatches (= 0)
+ok   consistency c3_unlock_below_100 (= 0)
+ok   consistency c4_stations_over_capacity (= 0)
+ok   consistency payments_left_after_delete (= 0)
+ok   DECIMAL(4,2) stores 12.345 as (= 12.35)
+ok   same-second rides finished (= 1)
+ok   charge of a 3-day ride, kopecks (= -2247400)
+ok   sql/queries.sql ran without errors (= 0)
+-- part 1: 11 ok, 0 failed
