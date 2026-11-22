@@ -1,0 +1,16 @@
+11-22 16:13:45.539  2089  2089 D ShakeReminder: Listener registered
+11-22 16:13:53.582  2089  2089 D ShakeReminder: Shake detected
+11-22 16:13:53.585  2089  2089 D ShakeReminder: Timer started
+11-22 16:13:56.902  2089  2089 D ShakeReminder: Shake detected
+11-22 16:13:56.904  2089  2089 D ShakeReminder: Timer cancelled
+11-22 16:14:08.546  2089  2089 D ShakeReminder: Shake detected
+11-22 16:14:08.556  2089  2089 D ShakeReminder: Timer started
+11-22 16:14:13.619  2089  2089 D ShakeReminder: Timer finished
+11-22 16:14:13.806  2089  2089 D ShakeReminder: Alert tone started
+11-22 16:14:13.851  2089  2089 D ShakeReminder: Alert vibration started
+11-22 16:14:16.813  2089  2089 D ShakeReminder: Listener unregistered
+11-22 16:14:20.508  2089  2089 D ShakeReminder: Listener registered
+11-22 16:14:30.716  2089  2089 D ShakeReminder: Shake detected
+11-22 16:14:30.720  2089  2089 D ShakeReminder: Timer started
+11-22 16:14:35.634  2089  2089 D ShakeReminder: Listener unregistered
+11-22 16:14:35.634  2089  2089 D ShakeReminder: Timer cancelled

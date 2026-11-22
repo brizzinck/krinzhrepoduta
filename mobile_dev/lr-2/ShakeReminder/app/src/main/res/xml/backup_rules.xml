@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   Шаблонні правила резервного копіювання: за потреби розкоментуйте й налаштуйте.
+   Докладніше: https://developer.android.com/guide/topics/data/autobackup
+   Примітка: для пристроїв старших за API 31 цей файл ігнорується.
+   Див. також https://developer.android.com/about/versions/12/backup-restore
+-->
+<full-backup-content>
+    <!--
+   <include domain="sharedpref" path="."/>
+   <exclude domain="sharedpref" path="device.xml"/>
+-->
+</full-backup-content>

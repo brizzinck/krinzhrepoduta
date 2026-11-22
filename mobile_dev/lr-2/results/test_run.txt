@@ -1,0 +1,85 @@
+
+[F1] Нормальне використання: старт стеження і струшування
+  до старту, g: Поточне прискорення: немає даних | підказка: Струсіть телефон для запуску або скасування таймера
+  стан датчика: Стан датчика: Стеження активне | g: Поточне прискорення: 1.00 g | кнопка: Зупинити
+  підключень до датчика: 1
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  лічильник: Лічильник струшувань: 1 | таймер: Залишок часу: 00:53
+
+[F2] Випадковий поштовх відфільтровується
+  shake.py bump -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  лічильник до/після: Лічильник струшувань: 1 / Лічильник струшувань: 1
+
+[F3] Скасування таймера струшуванням
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  лічильник: Лічильник струшувань: 2 | таймер: Залишок часу: 00:00
+
+[F4] Час вийшов на передньому плані (тривалість 5 с)
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  таймер: Час вийшов | підказка: Час вичерпано! Нагадування спрацювало.
+  logcat: 11-22 16:00:38.351  4837  4837 D ShakeReminder: Timer cancelled | 11-22 16:00:51.646  4837  4837 D ShakeReminder: Shake detected | 11-22 16:00:51.647  4837  4837 D ShakeReminder: Timer started | 11-22 16:00:56.662  4837  4837 D ShakeReminder: Timer finished | 11-22 16:00:56.669  4837  4837 D ShakeReminder: Alert tone started | 11-22 16:00:56.674  4837  4837 D ShakeReminder: Alert vibration started
+  виклики звуку і вібрації в Logcat: ['Alert tone started', 'Alert vibration started']
+
+[N2] Некоректна тривалість: 0, 700, порожньо
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  тривалість '0': таймер: Залишок часу: 00:00 | помилка поля: Тривалість повинна бути від 5 до 600 секунд | logcat:   5434 D ShakeReminder: Timer start failed: invalid duration
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  тривалість '700': таймер: Залишок часу: 00:00 | помилка поля: Тривалість повинна бути від 5 до 600 секунд | logcat:   5434 D ShakeReminder: Timer start failed: invalid duration
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  тривалість '': таймер: Залишок часу: 00:00 | помилка поля: Тривалість повинна бути від 5 до 600 секунд | logcat:   5434 D ShakeReminder: Timer start failed: invalid duration
+
+[L1] Згортання і повернення
+  до згортання, підключень: 1
+  у фоні, підключень: 0
+  після повернення, підключень: 1
+  logcat: der: Shake detected | 11-22 16:01:30.522  5434  5434 D ShakeReminder: Timer start failed: invalid duration | 11-22 16:01:43.020  5434  5434 D ShakeReminder: Shake detected | 11-22 16:01:43.022  5434  5434 D ShakeReminder: Timer start failed: invalid duration | 11-22 16:01:50.755  5434  5434 D ShakeReminder: Listener unregistered | 11-22 16:01:52.904  5434  5434 D ShakeReminder: Listener registered
+
+[L2] Поворот екрана зберігає стан
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  розмір знімка після повороту: 2400x1080 (ландшафт)
+  до повороту: Залишок часу: 00:57 Лічильник струшувань: 4 | у ландшафті: Залишок часу: 00:46 Лічильник струшувань: 4 | кнопка: Зупинити
+  підключень у ландшафті: 1
+  назад у портрет, таймер: Залишок часу: 00:35 | лічильник: Лічильник струшувань: 4
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+
+[L3] Старт/Стоп 10 разів
+  підключень після 10 натискань: 1
+  crash-буфер: порожній
+
+[R1] Звільнення ресурсів після «Зупинити»
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  підключень до Stop: 1
+  підключень після Stop: 0 | таймер: Залишок часу: 00:00 | g: Поточне прискорення: немає даних
+  logcat: hakeReminder: Listener registered | 11-22 16:03:02.580  5434  5434 D ShakeReminder: Shake detected | 11-22 16:03:02.581  5434  5434 D ShakeReminder: Timer started | 11-22 16:03:06.563  5434  5434 D ShakeReminder: Listener unregistered | 11-22 16:03:06.563  5434  5434 D ShakeReminder: Timer cancelled
+
+[N3] Відмова в дозволі на сповіщення (чистий запуск)
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  системний діалог: Allow Shake Reminder to send you notifications?
+  підказка після відмови: Сповіщення вимкнено. Звук та вібрація працюватимуть. | таймер: Залишок часу: 00:23
+  після завершення, таймер: Час вийшов
+  logcat:  16:04:06.148  6605  6605 D ShakeReminder: Timer finished | 11-22 16:04:06.155  6605  6605 D ShakeReminder: Alert tone started | 11-22 16:04:06.158  6605  6605 D ShakeReminder: Alert vibration started
+  виклики звуку і вібрації в Logcat: ['Alert tone started', 'Alert vibration started']
+
+[L4] Поворот після відмови в дозволі і після «Час вийшов»
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+  після відмови, підказка: Сповіщення вимкнено. Звук та вібрація працюватимуть.
+  у ландшафті, підказка: Сповіщення вимкнено. Звук та вібрація працюватимуть. | таймер: Залишок часу: 00:04
+  назад у портрет, підказка: Час вичерпано! Нагадування спрацювало. | таймер: Час вийшов
+  після завершення, таймер: Час вийшов | підказка: Час вичерпано! Нагадування спрацювало.
+  у ландшафті, таймер: Час вийшов | підказка: Час вичерпано! Нагадування спрацювало.
+  назад у портрет, таймер: Час вийшов | підказка: Час вичерпано! Нагадування спрацювало.
+
+[R2] Час вийшов у фоні, сповіщення
+  shake.py shake 4 -> sensor get acceleration: acceleration = 0:9.81:0 OK
+NotificationRecord(0x07a2347a: pkg=ua.duikt.lavrishko.shakereminder user=UserHandle{0} id=1001 tag=null importance=4 key=0|ua.duikt.lavrishko.shakereminder|1001|null|10194: Notification(channel=reminder_channel shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x10 color=0x00000000 vis=PRIVATE))
+      uid=10194 userId=0
+      opPkg=ua.duikt.lavrishko.shakereminder
+      icon=Icon(typ=RESOURCE pkg=ua.duikt.lavrishko.shakereminder id=0x7f07009b)
+      flags=0x10
+      originalFlags=0x10
+      pri=1
+      key=0|ua.duikt.lavrishko.shakereminder|1001|null|10194
+      seen=tr
+
+[CRASH] crash-буфер після прогону
+порожній

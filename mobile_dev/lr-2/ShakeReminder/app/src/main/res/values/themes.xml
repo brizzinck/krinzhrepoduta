@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Базова тема застосунку. -->
+    <style name="Base.Theme.ShakeReminder" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Тут можна налаштувати світлу тему. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.ShakeReminder" parent="Base.Theme.ShakeReminder" />
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+   Шаблонні правила вилучення даних: за потреби розкоментуйте й налаштуйте.
+   Докладніше: https://developer.android.com/about/versions/12/backup-restore#xml-changes
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- TODO: за допомогою <include> і <exclude> задати, що потрапляє в копію.
+        <include .../>
+        <exclude .../>
+        -->
+    </cloud-backup>
+    <!--
+    <device-transfer>
+        <include .../>
+        <exclude .../>
+    </device-transfer>
+    -->
+</data-extraction-rules>

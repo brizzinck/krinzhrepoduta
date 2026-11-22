@@ -1,0 +1,4 @@
+$ adb shell dumpsys sensorservice | sed -n '/active conn/,/direct conn/p' \
+    | grep -E 'active conn|Shake' | cut -d'|' -f1
+3 active connections
+	 ua.duikt.lavrishko.shakereminder.ShakeSensorManager

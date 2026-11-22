@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Shake Reminder</string>
+    <string name="app_title">Shake Reminder</string>
+    <string name="sensor_status_idle">Стан датчика: Неактивний</string>
+    <string name="sensor_status_tracking">Стан датчика: Стеження активне</string>
+    <string name="sensor_status_unavailable">Датчик руху недоступний</string>
+    <string name="g_force_format">Поточне прискорення: %.2f g</string>
+    <string name="g_force_unknown">Поточне прискорення: немає даних</string>
+    <string name="sensitivity_label">Чутливість (поріг g): %.1f g</string>
+    <string name="duration_hint">Тривалість таймера (сек)</string>
+    <string name="duration_helper">Введіть число від 5 до 600 секунд</string>
+    <string name="duration_error">Тривалість повинна бути від 5 до 600 секунд</string>
+    <string name="default_duration">10</string>
+    <string name="shake_count_format">Лічильник струшувань: %d</string>
+    <string name="timer_idle">Залишок часу: 00:00</string>
+    <string name="timer_running_format">Залишок часу: %1$02d:%2$02d</string>
+    <string name="timer_finished">Час вийшов</string>
+    <string name="hint_default">Струсіть телефон для запуску або скасування таймера</string>
+    <string name="hint_timer_started">Таймер запущено! Струсіть знову, щоб скасувати.</string>
+    <string name="hint_timer_cancelled">Таймер скасовано.</string>
+    <string name="hint_timer_finished">Час вичерпано! Нагадування спрацювало.</string>
+    <string name="hint_permission_rationale">Сповіщення потрібні, щоб повідомляти про завершення таймера, коли застосунок згорнуто.</string>
+    <string name="hint_permission_denied">Сповіщення вимкнено. Звук та вібрація працюватимуть.</string>
+    <string name="notification_channel_name">Нагадування</string>
+    <string name="notification_channel_desc">Канал для сповіщень про завершення таймера</string>
+    <string name="notification_content_text">Час вийшов!</string>
+    <string name="btn_start_tracking">Почати стеження</string>
+    <string name="btn_stop_tracking">Зупинити</string>
+</resources>

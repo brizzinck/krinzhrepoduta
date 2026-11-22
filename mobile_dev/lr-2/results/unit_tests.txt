@@ -1,0 +1,13 @@
+$ grep testsuite app/build/test-results/testDebugUnitTest/*.xml (атрибути)
+name="ua.duikt.lavrishko.shakereminder.ShakeDetectorTest" tests="8" skipped="0" failures="0" errors="0"
+name="ua.duikt.lavrishko.shakereminder.ExampleUnitTest" tests="1" skipped="0" failures="0" errors="0"
+$ grep testcase ... (назви тестів)
+testcase name="addition_isCorrect"
+testcase name="testThreePlateausTrigger"
+testcase name="testLongPlateauCountsAsOneJolt"
+testcase name="testThreeJoltsWithinOneSecondTriggers"
+testcase name="testJitterAroundThresholdIsOneJolt"
+testcase name="testNewThresholdChangesResult"
+testcase name="testRepeatedTriggerBlockedDuringCooldown"
+testcase name="testThreeJoltsSpreadOverTwoSecondsDoesNotTrigger"
+testcase name="testSingleJoltDoesNotTrigger"

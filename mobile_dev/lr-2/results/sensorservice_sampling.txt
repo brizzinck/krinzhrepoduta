@@ -1,0 +1,2 @@
+$ adb shell dumpsys sensorservice | grep ShakeSensorManager | grep samplingPeriod | head -1
+16:10:52 + 0x00000000 pid= 8187 uid=10194 package=ua.duikt.lavrishko.shakereminder.ShakeSensorManager samplingPeriod=20000us batchingPeriod=0us
