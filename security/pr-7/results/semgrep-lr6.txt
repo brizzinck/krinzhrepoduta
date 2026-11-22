@@ -1,0 +1,16 @@
+> semgrep scan --metrics=off --config p/java --config p/security-audit --config p/secrets --config p/owasp-top-ten (lr6)
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 19 files with 725 Code rules:
+                                                                                                                        
+  Language      Rules   Files          Origin      Rules                                                                
+ ─────────────────────────────        ───────────────────                                                               
+  <multilang>      49      19          Community     725                                                                
+  java             86      12                                                                                           
+  js               78       1                                                                                           
+  yaml             24       1                                                                                           
+  html              1       1                                                                                           
+                                                                                                                        

@@ -1,0 +1,92 @@
+> semgrep scan --metrics=off --config p/java --config p/security-audit --config p/secrets --config p/owasp-top-ten (lr3)
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 36 files with 725 Code rules:
+                                                                                                                        
+  Language      Rules   Files          Origin      Rules                                                                
+ ─────────────────────────────        ───────────────────                                                               
+  <multilang>      50      36          Community     725                                                                
+  java             86      22                                                                                           
+  html              1       5                                                                                           
+  js               78       1                                                                                           
+  yaml             24       1                                                                                           
+                                                                                                                        
+                   
+                   
+┌─────────────────┐
+│ 5 Code Findings │
+└─────────────────┘
+                
+    sql/init.sql
+   ❯❯❱ generic.secrets.security.detected-bcrypt-hash.detected-bcrypt-hash
+          ❰❰ Blocking ❱❱
+          bcrypt hash detected        
+          Details: https://sg.run/3A8G
+                                      
+           38┆ '$2a$10$OMIQiy/8WhB.wovMRigmk.9.9ohWa7lmSvjiVjdyDI.m1vhycZciK', '+380501112233',
+               '1990-05-17', 'ADMIN');                                                         
+                                                                              
+    src/main/java/ua/duikt/lavrishko/rental/demo/VulnerableDemoController.java
+   ❯❯❱ java.spring.security.injection.tainted-sql-string.tainted-sql-string
+          ❰❰ Blocking ❱❱
+          User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL
+          strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL    
+          strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate   
+          data from the database. Instead, use prepared statements (`connection.PreparedStatement`) or a safe 
+          library.                                                                                            
+          Details: https://sg.run/9rzz                                                                        
+                                                                                                              
+           43┆ String sql = "SELECT brand, model, production_year, daily_price FROM cars WHERE brand = '"
+               + brand + "' ORDER BY id";                                                                
+   
+    ❯❱ java.spring.security.audit.spring-sqli.spring-sqli
+          ❰❰ Blocking ❱❱
+          Detected a string argument from a public method contract in a raw SQL statement. This could lead to
+          SQL injection if variables in the SQL statement are not properly sanitized. Use a prepared         
+          statements (java.sql.PreparedStatement) instead. You can obtain a PreparedStatement using          
+          'connection.prepareStatement'.                                                                     
+          Details: https://sg.run/1Z3x                                                                       
+                                                                                                             
+           46┆ model.addAttribute("rows", jdbc.queryForList(sql));
+   
+   ❯❯❱ java.spring.security.injection.tainted-sql-string.tainted-sql-string
+          ❰❰ Blocking ❱❱
+          User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL
+          strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL    
+          strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate   
+          data from the database. Instead, use prepared statements (`connection.PreparedStatement`) or a safe 
+          library.                                                                                            
+          Details: https://sg.run/9rzz                                                                        
+                                                                                                              
+           64┆ String sql = "INSERT INTO users (login, first_name, email, password_hash, phone,
+               birth_date) VALUES ('"                                                          
+           65┆         + login + "','" + firstName + "','" + email + "','" + password + "','" + phone +
+               "','"                                                                                   
+           66┆         + birthDate + "')";
+   
+    ❯❱ java.spring.security.audit.spring-sqli.spring-sqli
+          ❰❰ Blocking ❱❱
+          Detected a string argument from a public method contract in a raw SQL statement. This could lead to
+          SQL injection if variables in the SQL statement are not properly sanitized. Use a prepared         
+          statements (java.sql.PreparedStatement) instead. You can obtain a PreparedStatement using          
+          'connection.prepareStatement'.                                                                     
+          Details: https://sg.run/1Z3x                                                                       
+                                                                                                             
+           67┆ jdbc.update(sql);
+
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 5 (5 blocking)
+ • Rules run: 239
+ • Targets scanned: 36
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 239 rules on 36 files: 5 findings.
+(код завершення: 0)
