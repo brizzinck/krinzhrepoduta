@@ -1,0 +1,29 @@
+дата запуску: 2026-11-22 11:47 UTC
+образ semgrep/semgrep:1.186.0: semgrep/semgrep@sha256:6e1b04340e60e910fbb4ddbf3c857ab0918f064417ad5ac530014ccb3cf8c8f1
+образ aquasec/trivy:0.76.2: aquasec/trivy@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb
+образ maven:3.9-eclipse-temurin-21: maven@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+
+> semgrep --version
+1.186.0
+
+> trivy version
+Version: 0.76.2
+Vulnerability DB:
+  Version: 2
+  UpdatedAt: 2026-11-22 07:05:02.616712326 +0000 UTC
+  NextUpdate: 2026-11-23 07:05:02.616712075 +0000 UTC
+  DownloadedAt: 2026-11-22 11:32:03.722465038 +0000 UTC
+Java DB:
+  Version: 1
+  UpdatedAt: 2026-11-22 00:57:27.468407779 +0000 UTC
+  NextUpdate: 2026-11-25 00:57:27.468407618 +0000 UTC
+  DownloadedAt: 2026-11-22 11:35:24.113491671 +0000 UTC
+
+> mvn -v
+mkdir: cannot create directory ‘/root’: Permission denied
+Can not write to /root/.m2/copy_reference_file.log. Wrong volume permissions? Carrying on ...
+Apache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5)
+Maven home: /usr/share/maven
+Java version: 21.0.12.1, vendor: Eclipse Adoptium, runtime: /opt/java/openjdk
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "7.3.4-arch1-1", arch: "amd64", family: "unix"

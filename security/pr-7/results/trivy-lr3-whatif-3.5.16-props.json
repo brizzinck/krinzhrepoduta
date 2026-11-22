@@ -1,0 +1,713 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.76.2"
+  },
+  "ReportID": "01a20314-e3fc-734d-8785-18ab0876db8e",
+  "CreatedAt": "2026-11-22T11:47:10.460219784Z",
+  "ArtifactName": "/scan/app.jar",
+  "ArtifactType": "filesystem",
+  "Results": [
+    {
+      "Target": "Java",
+      "Class": "lang-pkgs",
+      "Type": "jar",
+      "Packages": [
+        {
+          "Name": "ch.qos.logback:logback-classic",
+          "Identifier": {
+            "PURL": "pkg:maven/ch.qos.logback/logback-classic@1.5.34",
+            "UID": "a529564e9520e322"
+          },
+          "Version": "1.5.34",
+          "Licenses": [
+            "EPL-2.0",
+            "LGPL-2.1-only"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/logback-classic-1.5.34.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "ch.qos.logback:logback-core",
+          "Identifier": {
+            "PURL": "pkg:maven/ch.qos.logback/logback-core@1.5.34",
+            "UID": "979aa9a78f148b02"
+          },
+          "Version": "1.5.34",
+          "Licenses": [
+            "EPL-2.0",
+            "LGPL-2.1-only"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/logback-core-1.5.34.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.fasterxml.jackson.core:jackson-annotations",
+          "Identifier": {
+            "PURL": "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.21",
+            "UID": "5c4e0faa1dd6499b"
+          },
+          "Version": "2.21",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/jackson-annotations-2.21.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.fasterxml.jackson.core:jackson-core",
+          "Identifier": {
+            "PURL": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.21.7",
+            "UID": "6aca826ea49c1edf"
+          },
+          "Version": "2.21.7",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/jackson-core-2.21.7.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.fasterxml.jackson.core:jackson-databind",
+          "Identifier": {
+            "PURL": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.7",
+            "UID": "9c92ee1023bfa1b9"
+          },
+          "Version": "2.21.7",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/jackson-databind-2.21.7.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+          "Identifier": {
+            "PURL": "pkg:maven/com.fasterxml.jackson.datatype/jackson-datatype-jdk8@2.21.7",
+            "UID": "5d17725b621004a0"
+          },
+          "Version": "2.21.7",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/jackson-datatype-jdk8-2.21.7.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310",
+          "Identifier": {
+            "PURL": "pkg:maven/com.fasterxml.jackson.datatype/jackson-datatype-jsr310@2.21.7",
+            "UID": "15eb14432dd7fda0"
+          },
+          "Version": "2.21.7",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/jackson-datatype-jsr310-2.21.7.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.fasterxml.jackson.module:jackson-module-parameter-names",
+          "Identifier": {
+            "PURL": "pkg:maven/com.fasterxml.jackson.module/jackson-module-parameter-names@2.21.7",
+            "UID": "3077f0ed26183d4b"
+          },
+          "Version": "2.21.7",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/jackson-module-parameter-names-2.21.7.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.fasterxml:classmate",
+          "Identifier": {
+            "PURL": "pkg:maven/com.fasterxml/classmate@1.7.3",
+            "UID": "c6aca29abaa356d2"
+          },
+          "Version": "1.7.3",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/classmate-1.7.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.mysql:mysql-connector-j",
+          "Identifier": {
+            "PURL": "pkg:maven/com.mysql/mysql-connector-j@9.7.0",
+            "UID": "8baec9c8a0c07e7"
+          },
+          "Version": "9.7.0",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause",
+            "EPL-1.0",
+            "GPL-2.0-only",
+            "LGPL-2.1-only",
+            "Unicode-DFS-2015"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/mysql-connector-j-9.7.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.zaxxer:HikariCP",
+          "Identifier": {
+            "PURL": "pkg:maven/com.zaxxer/HikariCP@6.3.3",
+            "UID": "ccb658454c29dd45"
+          },
+          "Version": "6.3.3",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/HikariCP-6.3.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "io.micrometer:micrometer-commons",
+          "Identifier": {
+            "PURL": "pkg:maven/io.micrometer/micrometer-commons@1.15.12",
+            "UID": "f1dc954a94db6045"
+          },
+          "Version": "1.15.12",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/micrometer-commons-1.15.12.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "io.micrometer:micrometer-observation",
+          "Identifier": {
+            "PURL": "pkg:maven/io.micrometer/micrometer-observation@1.15.12",
+            "UID": "c5d9b378045b7f67"
+          },
+          "Version": "1.15.12",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/micrometer-observation-1.15.12.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "jakarta.annotation:jakarta.annotation-api",
+          "Identifier": {
+            "PURL": "pkg:maven/jakarta.annotation/jakarta.annotation-api@2.1.1",
+            "UID": "af285b8ae17bb725"
+          },
+          "Version": "2.1.1",
+          "Licenses": [
+            "EPL-2.0",
+            "GPL-2.0-with-classpath-exception"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/jakarta.annotation-api-2.1.1.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "jakarta.validation:jakarta.validation-api",
+          "Identifier": {
+            "PURL": "pkg:maven/jakarta.validation/jakarta.validation-api@3.0.2",
+            "UID": "995f1e22c62e7d90"
+          },
+          "Version": "3.0.2",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/jakarta.validation-api-3.0.2.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.apache.logging.log4j:log4j-api",
+          "Identifier": {
+            "PURL": "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.5",
+            "UID": "3c2307a5c10b7470"
+          },
+          "Version": "2.25.5",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/log4j-api-2.25.5.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.apache.logging.log4j:log4j-to-slf4j",
+          "Identifier": {
+            "PURL": "pkg:maven/org.apache.logging.log4j/log4j-to-slf4j@2.25.5",
+            "UID": "e3819ba3ef1371b6"
+          },
+          "Version": "2.25.5",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/log4j-to-slf4j-2.25.5.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.apache.tomcat.embed:tomcat-embed-core",
+          "Identifier": {
+            "PURL": "pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@10.1.59",
+            "UID": "87b190e403d1692d"
+          },
+          "Version": "10.1.59",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/tomcat-embed-core-10.1.59.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.apache.tomcat.embed:tomcat-embed-el",
+          "Identifier": {
+            "PURL": "pkg:maven/org.apache.tomcat.embed/tomcat-embed-el@10.1.59",
+            "UID": "a4c37bc1d91540c2"
+          },
+          "Version": "10.1.59",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/tomcat-embed-el-10.1.59.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.apache.tomcat.embed:tomcat-embed-websocket",
+          "Identifier": {
+            "PURL": "pkg:maven/org.apache.tomcat.embed/tomcat-embed-websocket@10.1.59",
+            "UID": "e8ef16e7d39fb609"
+          },
+          "Version": "10.1.59",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/tomcat-embed-websocket-10.1.59.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.attoparser:attoparser",
+          "Identifier": {
+            "PURL": "pkg:maven/org.attoparser/attoparser@2.0.7.RELEASE",
+            "UID": "389fe2e2d6e71670"
+          },
+          "Version": "2.0.7.RELEASE",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/attoparser-2.0.7.RELEASE.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.hibernate.validator:hibernate-validator",
+          "Identifier": {
+            "PURL": "pkg:maven/org.hibernate.validator/hibernate-validator@8.0.3.Final",
+            "UID": "100efe8bebf405d7"
+          },
+          "Version": "8.0.3.Final",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/hibernate-validator-8.0.3.Final.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.jboss.logging:jboss-logging",
+          "Identifier": {
+            "PURL": "pkg:maven/org.jboss.logging/jboss-logging@3.6.3.Final",
+            "UID": "187cc6a5f634a6b5"
+          },
+          "Version": "3.6.3.Final",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/jboss-logging-3.6.3.Final.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.slf4j:jul-to-slf4j",
+          "Identifier": {
+            "PURL": "pkg:maven/org.slf4j/jul-to-slf4j@2.0.18",
+            "UID": "d1a2da7a44adc6ab"
+          },
+          "Version": "2.0.18",
+          "Licenses": [
+            "MIT"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/jul-to-slf4j-2.0.18.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.slf4j:slf4j-api",
+          "Identifier": {
+            "PURL": "pkg:maven/org.slf4j/slf4j-api@2.0.18",
+            "UID": "8f1eb142738d45db"
+          },
+          "Version": "2.0.18",
+          "Licenses": [
+            "MIT"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/slf4j-api-2.0.18.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.boot:spring-boot",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.boot/spring-boot@3.5.16",
+            "UID": "edbd2bbf50b4e550"
+          },
+          "Version": "3.5.16",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-boot-3.5.16.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.boot:spring-boot-autoconfigure",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.boot/spring-boot-autoconfigure@3.5.16",
+            "UID": "a311664656e4bdf2"
+          },
+          "Version": "3.5.16",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-boot-autoconfigure-3.5.16.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.boot:spring-boot-jarmode-tools",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.boot/spring-boot-jarmode-tools@3.5.16",
+            "UID": "1352f071ce57c66d"
+          },
+          "Version": "3.5.16",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-boot-jarmode-tools-3.5.16.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.security:spring-security-crypto",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.security/spring-security-crypto@6.5.11",
+            "UID": "cba1eb4af16836ad"
+          },
+          "Version": "6.5.11",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-security-crypto-6.5.11.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-aop",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-aop@6.2.19",
+            "UID": "dcb6bb0606e149a8"
+          },
+          "Version": "6.2.19",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-aop-6.2.19.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-beans",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-beans@6.2.19",
+            "UID": "bb56cdb04ee855aa"
+          },
+          "Version": "6.2.19",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-beans-6.2.19.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-context",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-context@6.2.19",
+            "UID": "e4fc08dff23fc7ed"
+          },
+          "Version": "6.2.19",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-context-6.2.19.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-core",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-core@6.2.19",
+            "UID": "df08827009f5b41a"
+          },
+          "Version": "6.2.19",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-core-6.2.19.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-expression",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-expression@6.2.19",
+            "UID": "f90e2831b5bea4a6"
+          },
+          "Version": "6.2.19",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-expression-6.2.19.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-jcl",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-jcl@6.2.19",
+            "UID": "814fe41006d526c0"
+          },
+          "Version": "6.2.19",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-jcl-6.2.19.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-jdbc",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-jdbc@6.2.19",
+            "UID": "f6e48840f4e6351d"
+          },
+          "Version": "6.2.19",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-jdbc-6.2.19.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-tx",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-tx@6.2.19",
+            "UID": "e97f25d1c5eaa476"
+          },
+          "Version": "6.2.19",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-tx-6.2.19.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-web",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-web@6.2.19",
+            "UID": "fab6bb2876cd8197"
+          },
+          "Version": "6.2.19",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-web-6.2.19.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-webmvc",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-webmvc@6.2.19",
+            "UID": "14529a839cfe3bf7"
+          },
+          "Version": "6.2.19",
+          "Licenses": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/spring-webmvc-6.2.19.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.thymeleaf:thymeleaf",
+          "Identifier": {
+            "PURL": "pkg:maven/org.thymeleaf/thymeleaf@3.1.5.RELEASE",
+            "UID": "b8db551ed9b9a0c9"
+          },
+          "Version": "3.1.5.RELEASE",
+          "FilePath": "app.jar/BOOT-INF/lib/thymeleaf-3.1.5.RELEASE.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.thymeleaf:thymeleaf-spring6",
+          "Identifier": {
+            "PURL": "pkg:maven/org.thymeleaf/thymeleaf-spring6@3.1.5.RELEASE",
+            "UID": "9d32085a79b3a8cd"
+          },
+          "Version": "3.1.5.RELEASE",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/thymeleaf-spring6-3.1.5.RELEASE.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.unbescape:unbescape",
+          "Identifier": {
+            "PURL": "pkg:maven/org.unbescape/unbescape@1.1.6.RELEASE",
+            "UID": "4bda99dfad057e60"
+          },
+          "Version": "1.1.6.RELEASE",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/unbescape-1.1.6.RELEASE.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.yaml:snakeyaml",
+          "Identifier": {
+            "PURL": "pkg:maven/org.yaml/snakeyaml@2.4",
+            "UID": "582d8471f9ad16bb"
+          },
+          "Version": "2.4",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "FilePath": "app.jar/BOOT-INF/lib/snakeyaml-2.4.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "ua.duikt.lavrishko:rental-validation",
+          "Identifier": {
+            "PURL": "pkg:maven/ua.duikt.lavrishko/rental-validation@1.0.0",
+            "UID": "debe34d857332e05"
+          },
+          "Version": "1.0.0",
+          "FilePath": "app.jar",
+          "AnalyzedBy": "jar"
+        }
+      ],
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2026-47884",
+          "VendorIDs": [
+            "GHSA-pc63-qcmh-9cmg"
+          ],
+          "PkgName": "org.springframework:spring-webmvc",
+          "PkgPath": "app.jar/BOOT-INF/lib/spring-webmvc-6.2.19.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/org.springframework/spring-webmvc@6.2.19",
+            "UID": "14529a839cfe3bf7"
+          },
+          "InstalledVersion": "6.2.19",
+          "FixedVersion": "7.0.9",
+          "Status": "fixed",
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-47884",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Fingerprint": "sha256:e76ae7f186fbf1b1b01d74ea5a9cf72b4a63cdef0b6d5a579a8ad0dfd2d701fa",
+          "Title": "org.springframework/spring-webmvc: Spring Framework: Remote Code Execution via improper path limitation in XsltView",
+          "Description": "Use of XsltView in a Spring MVC application can result in SSRF and RCE attack if the application has an \"/**\" mapping that results in view rendering, and where the view name is not explicitly specified.\nSpring Framework 7.0.0 - 7.0.8\nSpring Framework 6.2.0 - 6.2.19\nSpring Framework 6.1.0 - 6.1.28\nSpring Framework 6.0.0 - 6.0.30\nSpring Framework 5.3.0 - 5.3.49\nSpring Framework 5.2.25.RELEASE and earlier",
+          "Severity": "CRITICAL",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "ghsa": 4,
+            "redhat": 4,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2026-47884",
+            "https://advisory.echohq.com/cve/CVE-2026-47884",
+            "https://github.com/spring-projects/spring-framework",
+            "https://github.com/spring-projects/spring-framework/commit/692dbc9160de3b5de50ccedeee014716d0cedb7b",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-47884",
+            "https://spring.io/security/cve-2026-47884",
+            "https://www.cve.org/CVERecord?id=CVE-2026-47884"
+          ],
+          "PublishedDate": "2026-08-27T06:17:18.507Z",
+          "LastModifiedDate": "2026-09-10T14:11:26.97Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-47890",
+          "VendorIDs": [
+            "GHSA-j9f9-w8pj-32f8"
+          ],
+          "PkgName": "org.springframework:spring-webmvc",
+          "PkgPath": "app.jar/BOOT-INF/lib/spring-webmvc-6.2.19.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/org.springframework/spring-webmvc@6.2.19",
+            "UID": "14529a839cfe3bf7"
+          },
+          "InstalledVersion": "6.2.19",
+          "FixedVersion": "7.0.9",
+          "Status": "fixed",
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-47890",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Fingerprint": "sha256:8b591159313a835bfd1cfcd1f9d8b754c359c7fd7a6fb59f4485302fcd5fa681",
+          "Title": "org.springframework/spring-webmvc: org.springframework/spring-webflux: Spring Framework: Stream corruption in Server-Sent Events (SSE) with view fragments",
+          "Description": "Spring MVC and WebFlux applications are vulnerable to stream corruption when using Server-Sent Events (SSE) with view fragments.\nSpring Framework 7.0.0 - 7.0.8\nSpring Framework 6.2.0 - 6.2.19",
+          "Severity": "CRITICAL",
+          "CweIDs": [
+            "CWE-93"
+          ],
+          "VendorSeverity": {
+            "ghsa": 4,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+              "V3Score": 6.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2026-47890",
+            "https://github.com/spring-projects/spring-framework",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-47890",
+            "https://spring.io/security/cve-2026-47890",
+            "https://www.cve.org/CVERecord?id=CVE-2026-47890"
+          ],
+          "PublishedDate": "2026-08-27T06:17:20.12Z",
+          "LastModifiedDate": "2026-09-02T17:36:58.89Z"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+> mvn package (lr-6, parent 4.0.10 )
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< ua.duikt.lavrishko:rental-token-auth >----------------
+[INFO] Building rental-token-auth 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ rental-token-auth ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 4 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ rental-token-auth ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 10 source files with javac [debug parameters release 21] to target/classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[3,38] package com.fasterxml.jackson.databind does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[4,38] package com.fasterxml.jackson.databind does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[30,19] cannot find symbol
+  symbol:   class ObjectMapper
+  location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[98,13] cannot find symbol
+  symbol:   class JsonNode
+  location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[107,32] cannot find symbol
+  symbol:   class JsonNode
+  location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[30,43] cannot find symbol
+  symbol:   class ObjectMapper
+  location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[60,9] cannot find symbol
+  symbol:   class JsonNode
+  location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[61,9] cannot find symbol
+  symbol:   class JsonNode
+  location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[100,13] cannot find symbol
+  symbol:   class JsonNode
+  location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[108,9] cannot find symbol
+  symbol:   class JsonNode
+  location: class ua.duikt.lavrishko.rental.auth.TokenService
+[INFO] 10 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.117 s
+[INFO] Finished at: 2026-11-22T11:47:31Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project rental-token-auth: Compilation failure: Compilation failure: 
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[3,38] package com.fasterxml.jackson.databind does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[4,38] package com.fasterxml.jackson.databind does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[30,19] cannot find symbol
+[ERROR]   symbol:   class ObjectMapper
+[ERROR]   location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[98,13] cannot find symbol
+[ERROR]   symbol:   class JsonNode
+[ERROR]   location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[107,32] cannot find symbol
+[ERROR]   symbol:   class JsonNode
+[ERROR]   location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[30,43] cannot find symbol
+[ERROR]   symbol:   class ObjectMapper
+[ERROR]   location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[60,9] cannot find symbol
+[ERROR]   symbol:   class JsonNode
+[ERROR]   location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[61,9] cannot find symbol
+[ERROR]   symbol:   class JsonNode
+[ERROR]   location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[100,13] cannot find symbol
+[ERROR]   symbol:   class JsonNode
+[ERROR]   location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/auth/TokenService.java:[108,9] cannot find symbol
+[ERROR]   symbol:   class JsonNode
+[ERROR]   location: class ua.duikt.lavrishko.rental.auth.TokenService
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+(код завершення: 1)

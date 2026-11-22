@@ -7,9 +7,10 @@ set -eu
 mkdir -p "$RES"
 scan() { # ім'я-ЛР тека-коду кінцеві-аргументи...
   local lr=$1 dir=$2; shift 2
+  local rules=""; [ -d "$PR7/rules" ] && rules="-v $PR7/rules:/rules:ro"
   local targets="src/main src/test $(cd "$dir" && ls | grep -vE '^(src|target|logs)$' | tr '\n' ' ')"
   docker run --rm --name "cw-pr7-semgrep-$lr" -u "$UIDGID" -e HOME=/tmp \
-    -v "$dir":/src:ro -v "$RES":/out -v "$PR7/rules":/rules:ro -w /src "$SEMGREP_IMG" \
+    -v "$dir":/src:ro -v "$RES":/out $rules -w /src "$SEMGREP_IMG" \
     semgrep scan --metrics=off --no-git-ignore --exclude target --exclude logs "$@" $targets
 }
 for lr in lr3 lr6; do

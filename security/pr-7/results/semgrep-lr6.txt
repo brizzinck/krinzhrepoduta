@@ -14,3 +14,34 @@
   yaml             24       1                                                                                           
   html              1       1                                                                                           
                                                                                                                         
+                   
+                   
+┌─────────────────┐
+│ 2 Code Findings │
+└─────────────────┘
+                                                               
+    src/main/java/ua/duikt/lavrishko/rental/auth/UserStore.java
+   ❯❯❱ generic.secrets.security.detected-bcrypt-hash.detected-bcrypt-hash
+          ❰❰ Blocking ❱❱
+          bcrypt hash detected        
+          Details: https://sg.run/3A8G
+                                      
+           12┆ private static final String HASH_OLENA =                       
+               "$2a$10$ytC0/M9/5svn3QNCj.AXReWhG7DXEPBhQdKAzay0L1NEKGRTE417e";
+            ⋮┆----------------------------------------
+           13┆ private static final String HASH_MANAGER =                     
+               "$2a$10$hNdcW.3qoENZkChRt073v.bCI7rCrISqijc9Wb3X0dTbv/wkyhDaS";
+
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 2 (2 blocking)
+ • Rules run: 238
+ • Targets scanned: 19
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 238 rules on 19 files: 2 findings.
+(код завершення: 0)

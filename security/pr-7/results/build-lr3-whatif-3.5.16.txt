@@ -1,0 +1,39 @@
+> mvn package (lr-3, parent 3.5.16 )
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< ua.duikt.lavrishko:rental-validation >----------------
+[INFO] Building rental-validation 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ rental-validation ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ rental-validation ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 16 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ rental-validation ---
+[INFO] Copying 2 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ rental-validation ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 6 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ rental-validation ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ rental-validation ---
+[INFO] Building jar: /w/target/app.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (repackage) @ rental-validation ---
+[INFO] Replacing main artifact /w/target/app.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /w/target/app.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.473 s
+[INFO] Finished at: 2026-11-22T11:46:28Z
+[INFO] ------------------------------------------------------------------------
+(код завершення: 0)

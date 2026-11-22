@@ -1,0 +1,91 @@
+> mvn package (lr-3, parent 4.0.10 )
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< ua.duikt.lavrishko:rental-validation >----------------
+[INFO] Building rental-validation 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ rental-validation ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ rental-validation ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 16 source files with javac [debug parameters release 21] to target/classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[4,42] package com.fasterxml.jackson.databind.cfg does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[5,42] package com.fasterxml.jackson.databind.cfg does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[6,43] package com.fasterxml.jackson.databind.type does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[7,54] package org.springframework.boot.autoconfigure.jackson does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[15,5] cannot find symbol
+  symbol:   class Jackson2ObjectMapperBuilderCustomizer
+  location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[17,49] cannot find symbol
+  symbol:   variable LogicalType
+  location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[18,30] cannot find symbol
+  symbol:   variable CoercionInputShape
+  location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[18,58] cannot find symbol
+  symbol:   variable CoercionAction
+  location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[19,30] cannot find symbol
+  symbol:   variable CoercionInputShape
+  location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[19,56] cannot find symbol
+  symbol:   variable CoercionAction
+  location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[20,30] cannot find symbol
+  symbol:   variable CoercionInputShape
+  location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[20,58] cannot find symbol
+  symbol:   variable CoercionAction
+  location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[INFO] 12 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.398 s
+[INFO] Finished at: 2026-11-22T11:47:29Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project rental-validation: Compilation failure: Compilation failure: 
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[4,42] package com.fasterxml.jackson.databind.cfg does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[5,42] package com.fasterxml.jackson.databind.cfg does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[6,43] package com.fasterxml.jackson.databind.type does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[7,54] package org.springframework.boot.autoconfigure.jackson does not exist
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[15,5] cannot find symbol
+[ERROR]   symbol:   class Jackson2ObjectMapperBuilderCustomizer
+[ERROR]   location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[17,49] cannot find symbol
+[ERROR]   symbol:   variable LogicalType
+[ERROR]   location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[18,30] cannot find symbol
+[ERROR]   symbol:   variable CoercionInputShape
+[ERROR]   location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[18,58] cannot find symbol
+[ERROR]   symbol:   variable CoercionAction
+[ERROR]   location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[19,30] cannot find symbol
+[ERROR]   symbol:   variable CoercionInputShape
+[ERROR]   location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[19,56] cannot find symbol
+[ERROR]   symbol:   variable CoercionAction
+[ERROR]   location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[20,30] cannot find symbol
+[ERROR]   symbol:   variable CoercionInputShape
+[ERROR]   location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] /w/src/main/java/ua/duikt/lavrishko/rental/config/JsonStrictConfig.java:[20,58] cannot find symbol
+[ERROR]   symbol:   variable CoercionAction
+[ERROR]   location: class ua.duikt.lavrishko.rental.config.JsonStrictConfig
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+(код завершення: 1)

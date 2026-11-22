@@ -1,0 +1,158 @@
+> mvn test (lr-3, parent 3.5.16 tomcat.version=10.1.59,jackson-bom.version=2.21.7,log4j2.version=2.25.5)
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< ua.duikt.lavrishko:rental-validation >----------------
+[INFO] Building rental-validation 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ rental-validation ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ rental-validation ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ rental-validation ---
+[INFO] Copying 2 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ rental-validation ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ rental-validation ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running ua.duikt.lavrishko.rental.validation.CustomValidatorsTest
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/var/maven/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.598 s -- in ua.duikt.lavrishko.rental.validation.CustomValidatorsTest
+[INFO] Running ua.duikt.lavrishko.rental.ApiAndDemoTest
+11:47:04.154 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [ua.duikt.lavrishko.rental.ApiAndDemoTest]: ApiAndDemoTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:47:04.216 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration ua.duikt.lavrishko.rental.RentalApplication for test class ua.duikt.lavrishko.rental.ApiAndDemoTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-22T11:47:04.434Z  INFO 97 --- [           main] u.duikt.lavrishko.rental.ApiAndDemoTest  : Starting ApiAndDemoTest using Java 21.0.12.1 with PID 97 (started by ubuntu in /w)
+2026-11-22T11:47:04.435Z  INFO 97 --- [           main] u.duikt.lavrishko.rental.ApiAndDemoTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-22T11:47:05.019Z  INFO 97 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-22T11:47:05.153Z  INFO 97 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:rental-eaec18d2-bd55-40c8-beb7-06c73ce5176b user=SA
+2026-11-22T11:47:05.154Z  INFO 97 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-22T11:47:05.704Z  INFO 97 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-22T11:47:05.704Z  INFO 97 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-22T11:47:05.705Z  INFO 97 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-11-22T11:47:05.724Z  INFO 97 --- [           main] u.duikt.lavrishko.rental.ApiAndDemoTest  : Started ApiAndDemoTest in 1.445 seconds (process running for 2.565)
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.190 s -- in ua.duikt.lavrishko.rental.ApiAndDemoTest
+[INFO] Running ua.duikt.lavrishko.rental.RegistrationValidationTest
+2026-11-22T11:47:06.249Z  INFO 97 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ua.duikt.lavrishko.rental.RegistrationValidationTest]: RegistrationValidationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-22T11:47:06.253Z  INFO 97 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ua.duikt.lavrishko.rental.RentalApplication for test class ua.duikt.lavrishko.rental.RegistrationValidationTest
+[INFO] Tests run: 51, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.308 s -- in ua.duikt.lavrishko.rental.RegistrationValidationTest
+[INFO] Running ua.duikt.lavrishko.rental.VulnProfileErrorsTest
+2026-11-22T11:47:07.559Z  INFO 97 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ua.duikt.lavrishko.rental.VulnProfileErrorsTest]: VulnProfileErrorsTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-22T11:47:07.561Z  INFO 97 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ua.duikt.lavrishko.rental.RentalApplication for test class ua.duikt.lavrishko.rental.VulnProfileErrorsTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-22T11:47:07.694Z  INFO 97 --- [           main] u.d.l.rental.VulnProfileErrorsTest       : Starting VulnProfileErrorsTest using Java 21.0.12.1 with PID 97 (started by ubuntu in /w)
+2026-11-22T11:47:07.694Z  INFO 97 --- [           main] u.d.l.rental.VulnProfileErrorsTest       : The following 1 profile is active: "vuln"
+2026-11-22T11:47:07.947Z  INFO 97 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-11-22T11:47:07.956Z  INFO 97 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-22T11:47:07.956Z  INFO 97 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.59]
+2026-11-22T11:47:07.981Z  INFO 97 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-11-22T11:47:07.982Z  INFO 97 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 286 ms
+2026-11-22T11:47:08.024Z  INFO 97 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-11-22T11:47:08.028Z  INFO 97 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:rental-5684446c-4314-4811-a5d8-cc53e7aa0d5d user=SA
+2026-11-22T11:47:08.028Z  INFO 97 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-11-22T11:47:08.146Z  INFO 97 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 43953 (http) with context path '/'
+2026-11-22T11:47:08.150Z  INFO 97 --- [           main] u.d.l.rental.VulnProfileErrorsTest       : Started VulnProfileErrorsTest in 0.481 seconds (process running for 4.992)
+2026-11-22T11:47:08.216Z  INFO 97 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-22T11:47:08.216Z  INFO 97 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-22T11:47:08.216Z  INFO 97 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-11-22T11:47:08.244Z  WARN 97 --- [o-auto-1-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'PUT' is not supported]
+2026-11-22T11:47:08.262Z  WARN 97 --- [o-auto-1-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'text/plain;charset=UTF-8' is not supported]
+2026-11-22T11:47:08.271Z  WARN 97 --- [o-auto-1-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'DELETE' is not supported]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.735 s -- in ua.duikt.lavrishko.rental.VulnProfileErrorsTest
+[INFO] Running ua.duikt.lavrishko.rental.ChunkedBodyLimitTest
+2026-11-22T11:47:08.299Z  INFO 97 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ua.duikt.lavrishko.rental.ChunkedBodyLimitTest]: ChunkedBodyLimitTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-22T11:47:08.303Z  INFO 97 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ua.duikt.lavrishko.rental.RentalApplication for test class ua.duikt.lavrishko.rental.ChunkedBodyLimitTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-22T11:47:08.319Z  INFO 97 --- [           main] u.d.l.rental.ChunkedBodyLimitTest        : Starting ChunkedBodyLimitTest using Java 21.0.12.1 with PID 97 (started by ubuntu in /w)
+2026-11-22T11:47:08.320Z  INFO 97 --- [           main] u.d.l.rental.ChunkedBodyLimitTest        : No active profile set, falling back to 1 default profile: "default"
+2026-11-22T11:47:08.419Z  INFO 97 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-11-22T11:47:08.420Z  INFO 97 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-22T11:47:08.421Z  INFO 97 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.59]
+2026-11-22T11:47:08.430Z  INFO 97 --- [           main] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-11-22T11:47:08.431Z  INFO 97 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 111 ms
+2026-11-22T11:47:08.448Z  INFO 97 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-11-22T11:47:08.451Z  INFO 97 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection conn20: url=jdbc:h2:mem:rental-d5dd2b1e-f532-4a23-8adc-73e12651c7ab user=SA
+2026-11-22T11:47:08.451Z  INFO 97 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-11-22T11:47:08.510Z  INFO 97 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 38361 (http) with context path '/'
+2026-11-22T11:47:08.512Z  INFO 97 --- [           main] u.d.l.rental.ChunkedBodyLimitTest        : Started ChunkedBodyLimitTest in 0.205 seconds (process running for 5.354)
+2026-11-22T11:47:08.519Z  INFO 97 --- [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-22T11:47:08.519Z  INFO 97 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-22T11:47:08.520Z  INFO 97 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.271 s -- in ua.duikt.lavrishko.rental.ChunkedBodyLimitTest
+[INFO] Running ua.duikt.lavrishko.rental.VulnerableDemoTest
+2026-11-22T11:47:08.569Z  INFO 97 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ua.duikt.lavrishko.rental.VulnerableDemoTest]: VulnerableDemoTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-22T11:47:08.572Z  INFO 97 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ua.duikt.lavrishko.rental.RentalApplication for test class ua.duikt.lavrishko.rental.VulnerableDemoTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-11-22T11:47:08.588Z  INFO 97 --- [           main] u.d.lavrishko.rental.VulnerableDemoTest  : Starting VulnerableDemoTest using Java 21.0.12.1 with PID 97 (started by ubuntu in /w)
+2026-11-22T11:47:08.589Z  INFO 97 --- [           main] u.d.lavrishko.rental.VulnerableDemoTest  : The following 1 profile is active: "vuln"
+2026-11-22T11:47:08.691Z  INFO 97 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-11-22T11:47:08.693Z  INFO 97 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection conn26: url=jdbc:h2:mem:rental-5bd865ef-b356-44f1-b6fb-6fd43f558013 user=SA
+2026-11-22T11:47:08.693Z  INFO 97 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-11-22T11:47:08.750Z  INFO 97 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-22T11:47:08.750Z  INFO 97 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-22T11:47:08.750Z  INFO 97 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-11-22T11:47:08.754Z  INFO 97 --- [           main] u.d.lavrishko.rental.VulnerableDemoTest  : Started VulnerableDemoTest in 0.18 seconds (process running for 5.596)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.238 s -- in ua.duikt.lavrishko.rental.VulnerableDemoTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 76, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.787 s
+[INFO] Finished at: 2026-11-22T11:47:09Z
+[INFO] ------------------------------------------------------------------------
+(код завершення: 0)

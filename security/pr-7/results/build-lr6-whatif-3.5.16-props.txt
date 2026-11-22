@@ -1,0 +1,41 @@
+> mvn package (lr-6, parent 3.5.16 tomcat.version=10.1.59,jackson-bom.version=2.21.7,log4j2.version=2.25.5)
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< ua.duikt.lavrishko:rental-token-auth >----------------
+[INFO] Building rental-token-auth 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ rental-token-auth ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 4 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ rental-token-auth ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 10 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ rental-token-auth ---
+[INFO] skip non existing resourceDirectory /w/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ rental-token-auth ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 2 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] /w/src/test/java/ua/duikt/lavrishko/rental/auth/TokenAuthTest.java: /w/src/test/java/ua/duikt/lavrishko/rental/auth/TokenAuthTest.java uses or overrides a deprecated API.
+[INFO] /w/src/test/java/ua/duikt/lavrishko/rental/auth/TokenAuthTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ rental-token-auth ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ rental-token-auth ---
+[INFO] Building jar: /w/target/app.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (repackage) @ rental-token-auth ---
+[INFO] Replacing main artifact /w/target/app.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /w/target/app.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.058 s
+[INFO] Finished at: 2026-11-22T11:47:19Z
+[INFO] ------------------------------------------------------------------------
+(код завершення: 0)

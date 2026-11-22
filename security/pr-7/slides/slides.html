@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920">
+<title>ПР 7: SAST, SCA інструменти</title>
+<link rel="stylesheet" href="slides.css">
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide s1" data-theme="dark" id="s-1">
+  <p class="kind">Практична робота № 7</p>
+  <h1>SAST, SCA інструменти</h1>
+  <p class="who">Виконав: Лаврішко Владислав Сергійович, група ТЦР-32</p>
+  <p class="who">Перевірив: Ананченко Олексій Євгенович</p>
+  <p class="sup">Дисципліна: Безпека розробки програмного забезпечення<br>Semgrep і Trivy над ЛР 3 та ЛР 6<br>ДУІКТ, 2026</p>
+  <div class="nums">
+    <div class="card"><span class="k">7</span><span class="t">спрацювань Semgrep: 4 істинні, 3 хибні</span></div>
+    <div class="card"><span class="k">89 і 21</span><span class="t">знахідок Trivy у ЛР 3 і ЛР 6</span></div>
+    <div class="card"><span class="k">8,2 і 5,4</span><span class="t">оцінка SQL-ін'єкції в пошуку: базова й контекстна</span></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide s2" data-theme="light" id="s-2">
+  <h1>SAST, SCA і DAST: що кожен бачить</h1>
+  <table class="cmp">
+    <colgroup><col style="width:190px"><col style="width:520px"><col style="width:640px"><col></colgroup>
+    <tr><th>Метод</th><th>Що перевіряє</th><th>Слабке місце</th><th>У роботі</th></tr>
+    <tr class="used"><td>SAST</td><td>вихідний код, не запускаючи його: шлях недовірених даних до небезпечного виклику</td><td>не знає контексту, тому дає хибні спрацювання</td><td>Semgrep CE</td></tr>
+    <tr class="used"><td>SCA</td><td>відкриті залежності, прямі й транзитивні, за базами CVE, NVD, GHSA</td><td>не бачить вразливості, якої ще немає в базі</td><td>Trivy</td></tr>
+    <tr><td>DAST</td><td>запущений застосунок ззовні</td><td>код він не бачить, потрібен запуск</td><td>не запускали</td></tr>
+  </table>
+  <p class="note">SAST шукає помилки у власному коді, SCA шукає вразливі чужі бібліотеки. Semgrep CE не замінює SCA: за README він аналізує в межах функції чи файлу, а Supply Chain є лише в платній платформі.</p>
+</section>
+
+<!-- 3 -->
+<section class="slide s3" data-theme="light" id="s-3">
+  <h1>Semgrep: налаштування і знахідки</h1>
+  <div class="row">
+    <div class="side">
+      <div class="codebox"><span class="cm">docker run semgrep/semgrep:1.186.0</span>
+semgrep scan --metrics=off
+  --config p/java
+  --config p/security-audit
+  --config p/secrets
+  --config p/owasp-top-ten</div>
+      <div class="card"><h3>ЛР 3 і ЛР 6</h3>36 файлів і 239 правил, 5 знахідок; 19 файлів і 238 правил, 2 знахідки. Помилок сканера немає.</div>
+    </div>
+    <div class="tri">
+      <div class="it"><span class="n">4</span><div><p class="v">Істинні за задумом</p><p class="d">SQL-ін'єкція в <code>VulnerableDemoController</code>, рядки 43, 46, 64, 67; працює лише в профілі <code>vuln</code></p></div></div>
+      <div class="it bad"><span class="n">3</span><div><p class="v">Хибні</p><p class="d">BCrypt-хеші в <code>init.sql</code> і <code>UserStore</code>: хеш не секрет, паролі лабораторні</p></div></div>
+      <div class="it warn"><span class="n">2</span><div><p class="v">Semgrep пропустив</p><p class="d"><code>th:utext</code> (XSS) і пароль БД: правил на них у наборах немає, знайдено читанням коду</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide s4" data-theme="light" id="s-4">
+  <h1>Trivy: прямі й транзитивні залежності</h1>
+  <div class="top">
+    <div class="card stat"><span class="k">89</span><span class="t">знахідок у ЛР 3, Boot 3.3.5, з них 15 Critical</span></div>
+    <div class="card stat"><span class="k">21</span><span class="t">знахідка в ЛР 6, Boot 3.5.16, з них 7 Critical</span></div>
+    <div class="card stat"><span class="k">1</span><span class="t">пряма залежність з вразливістю, решта транзитивні</span></div>
+  </div>
+  <table class="rel">
+    <colgroup><col style="width:500px"><col style="width:420px"><col style="width:200px"><col style="width:200px"><col></colgroup>
+    <tr><th>Пакет</th><th>Звідки</th><th>ЛР 3, C/H/M/L</th><th>ЛР 6</th><th>Фікс у</th></tr>
+    <tr><td>spring-security-crypto</td><td><span class="dir">пряма</span></td><td>0/1/0/0</td><td>немає</td><td>6.3.8</td></tr>
+    <tr><td>tomcat-embed-core</td><td>starter-web</td><td>8/16/7/5</td><td>5/1/1/0</td><td>10.1.59</td></tr>
+    <tr><td>spring-webmvc</td><td>starter-web</td><td>1/2/8/2</td><td>2/0/0/0</td><td>6.2.19; Critical лише 7.0.9</td></tr>
+    <tr><td>jackson-databind, -core</td><td>starter-json</td><td>0/8/8/0</td><td>0/5/6/0</td><td>2.21.7</td></tr>
+  </table>
+  <div class="card why" style="margin-top:24px"><h3>Чому Boot 3.5.16 ще має CVE</h3>Він тягне Tomcat 10.1.55 і Jackson 2.21.4, а база від 2026-11-22 знає новіші виправлення. У <code>spring-webmvc</code> 6.2.19 лишаються два Critical, виправлені лише в 7.0.9, тобто в Boot 4.</div>
+</section>
+
+<!-- 5 -->
+<section class="slide s5" data-theme="light" id="s-5">
+  <h1>CVSS: SQL-ін'єкція в пошуку</h1>
+  <div class="row">
+    <div>
+      <p class="vec">CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:L</p>
+      <div class="met">
+        <div class="m"><span class="mk">AV:N</span><span>мережа: ендпоінт доступний по HTTP</span></div>
+        <div class="m"><span class="mk">AC:L</span><span>низька складність: один запит</span></div>
+        <div class="m"><span class="mk">PR:N</span><span>вхід не потрібен</span></div>
+        <div class="m"><span class="mk">UI:N</span><span>жертва не бере участі</span></div>
+        <div class="m"><span class="mk">S:U</span><span>вражається лише БД застосунку</span></div>
+        <div class="m"><span class="mk">C:H</span><span>через <code>UNION</code> читаються всі таблиці</span></div>
+        <div class="m"><span class="mk">I:N</span><span>один <code>SELECT</code>, дані не змінюються</span></div>
+        <div class="m"><span class="mk">A:L</span><span>важкий запит сповільнить БД</span></div>
+      </div>
+    </div>
+    <div class="score">
+      <div class="card"><div class="num hi">8,2</div><div class="lv">High, базова оцінка</div></div>
+      <p class="arrow">контекст: MAV:L/CR:L</p>
+      <div class="card"><div class="num md">5,4</div><div class="lv">Medium, контекстна оцінка</div><div class="why">порт лише на 127.0.0.1, дані навчальні</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide s6" data-theme="light" id="s-6">
+  <h1>План виправлень за рівнем</h1>
+  <div class="plan">
+    <div class="h">Рівень</div><div class="h">Строк</div><div class="h">Що робимо</div>
+    <div class="lvl c">Critical</div><div class="dl">до 2026-11-29</div><div><p>оновити <code>parent</code> до 3.5.16 і три властивості: Tomcat 10.1.59, Jackson 2.21.7, log4j 2.25.5</p></div>
+    <div class="lvl hh">High</div><div class="dl">до 2027-02-22</div><div><p>SQL-ін'єкція в <code>register</code> (<code>INSERT</code>, 7,4): типовий профіль у <code>compose.yaml</code> змінити на безпечний</p></div>
+    <div class="lvl m">Medium</div><div class="dl">до 2027-11-22</div><div><p>SQL-ін'єкція в <code>search</code> (5,4): той самий профіль змінити з <code>vuln</code> на безпечний</p></div>
+    <div class="lvl l">Low</div><div class="dl">до 2028-11-22</div><div><p><code>th:utext</code> замінити на <code>th:text</code>, пароль БД узяти зі змінної середовища</p></div>
+    <div class="lvl a">Прийнято</div><div class="dl">перегляд раз на 2 тижні</div><div><p><code>spring-webmvc</code>, два CVE: потрібен Spring 7.0.9 (Boot 4)</p></div>
+  </div>
+  <div class="strip">
+    <div class="card"><div class="k">з 89 до 21</div><div class="t">ЛР 3 після <code>parent</code> 3.5.16</div></div>
+    <div class="card"><div class="k">з 21 до 2</div><div class="t">після трьох властивостей, в обох ЛР</div></div>
+    <div class="card"><div class="k">76 і 18</div><div class="t">тестів проходять на копіях</div></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide s7" data-theme="dark" id="s-7">
+  <h1>Висновки</h1>
+  <div class="cards">
+    <div class="card"><h3>Semgrep</h3><p>7 спрацювань: 4 істинні, 3 хибні. Пропустив <code>th:utext</code> і пароль БД, бо правил на них у наборах немає.</p></div>
+    <div class="card"><h3>Trivy</h3><p>89 знахідок у ЛР 3 і 21 у ЛР 6, головно в Tomcat і Jackson, майже всі транзитивні.</p></div>
+    <div class="card"><h3>CVSS</h3><p>SQL-ін'єкція в пошуку спала з 8,2 до 5,4. Три Critical і один High стали 0,0, бо код не використовує вразливу можливість.</p></div>
+    <div class="card"><h3>Далі</h3><p>Після оновлення лишилось по 2 знахідки в <code>spring-webmvc</code>, їх закриє лише Boot 4. Сканувати в CI на кожен push і раз на два тижні.</p></div>
+  </div>
+  <p class="link"><a href="https://github.com/brizzinck/krinzhrepoduta/tree/main/security/pr-7">github.com/brizzinck/krinzhrepoduta/tree/main/security/pr-7</a></p>
+</section>
+
+</body>
+</html>
