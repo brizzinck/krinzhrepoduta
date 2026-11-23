@@ -11,9 +11,10 @@ $T/runlog.sh $R -- git diff --no-index --stat $A/service/ReportService.java $B/s
 $T/runlog.sh $R -- git diff --no-index --stat $A/service/PagedReportService.java $B/service/PagedReportService.java
 $T/runlog.sh $R -- git diff --no-index --stat $A/format/ReportFormat.java $B/format/ReportFormat.java
 $T/runlog.sh $R -- git diff --no-index --stat $A/format/AbstractReportFormat.java $B/format/AbstractReportFormat.java
+$T/runlog.sh $R -- git diff --no-index --stat $A/format/AbstractPagedFormat.java $B/format/AbstractPagedFormat.java
 $T/runlog.sh $R -- sha256sum $A/service/ReportService.java $B/service/ReportService.java
 $T/runlog.sh $R -- git diff --no-index --stat $A/app/Main.java $B/app/Main.java
 $T/runlog.sh $R -- diff -u $A/app/Main.java $B/app/Main.java
 $T/runlog.sh $R -- grep -rn "new \|import ua.duikt.lavrishko.reports.format\|import ua.duikt.lavrishko.reports.source" $B/service
 $T/runlog.sh $R -- grep -rn "renderPages" $B/format
-$T/runlog.sh $R -- grep -rln "implements PagedFormat" $B/format
+$T/runlog.sh $R -- grep -rln "extends AbstractPagedFormat" $B/format

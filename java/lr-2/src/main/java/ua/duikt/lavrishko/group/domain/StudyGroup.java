@@ -7,9 +7,10 @@ import java.util.Objects;
 
 /**
  * Навчальна група: агрегат, що зберігає студентів і рахує середній бал.
+ * Клас final: нащадок не може обійти перевірки.
  * Внутрішній список недоступний ззовні, а середній бал обчислюється за поточним набором студентів.
  */
-public class StudyGroup {
+public final class StudyGroup {
 
     private final String name;
     private final List<Student> students = new ArrayList<>();
@@ -34,8 +35,9 @@ public class StudyGroup {
         if (student.isInGroup()) {
             return false;
         }
-        students.add(student);
+        // спершу зв'язок: якщо attach кине виняток, у списку студента не буде
         student.attach(this);
+        students.add(student);
         return true;
     }
 

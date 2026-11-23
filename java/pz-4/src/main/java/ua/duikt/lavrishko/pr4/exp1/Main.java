@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Document[] documents = {
                 new Report("Підсумки семестру"),
-                new Letter("Запрошення на захист", "Ніщеменко Д. О.")
+                new Letter("Запрошення на захист", "Петренко О. І.")
         };
         for (Document d : documents) {
             System.out.println(d.info());   // звичайний метод базового класу

@@ -89,3 +89,8 @@ code span.st, code span.ch { color: #2a00ff; }
 code span.co { color: #3f7f5f; font-style: italic; }
 code span.dv, code span.fl { color: #098658; }
 code span.an, code span.at { color: #646464; }
+
+/* Long code lines wrap instead of being cut (was an inline <style> block in some report.md files). */
+pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important; }
+/* Keep a table row on one page. */
+tr { break-inside: avoid; }

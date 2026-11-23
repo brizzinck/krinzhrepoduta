@@ -12,11 +12,6 @@ teacher: ["Ніщеменко Дмитро Олександрович"]
 city-year: "Київ – 2026"
 ---
 
-<style>
-pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important; }
-</style>
-
-
 # 1. Мета роботи
 
 Експериментально перевірити рівні доступу, види конструкторів, `this`, `static` і `final`, зафіксувати повідомлення компілятора та пояснити різницю доступу між двома пакетами.
@@ -32,10 +27,10 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 ```java
 public class Account {
     public static int count;        // дослід 4
-    private String pin = "0000";    // private: лише всередині класу Account
-    double balance;                 // за замовчуванням (package-private): весь пакет model
-    protected String number;        // protected: пакет model і підкласи з будь-якого пакета
-    public String owner;            // public: звідусіль
+    private String pin = "0000";    // лише клас Account
+    double balance;                 // пакет model
+    protected String number;        // пакет model і підкласи
+    public String owner;            // усі
     private final String id;        // дослід 5
 ```
 
@@ -52,9 +47,9 @@ MainAll.java:11: error: number has protected access in Account
 3 errors
 ```
 
-З пакета `model` не компілюється лише `private`. З `Main` в іншому пакеті лишається тільки `public`: за замовчуванням доступ обмежено пакетом `model`, а `protected` відкритий пакету й підкласам, `Main` не підклас `Account`. Таблицю 1 я склав за фактичним виводом `javac`, вона збігається з очікуваною.
+З пакета `model` не компілюється лише `private`. З `Main` в іншому пакеті лишається тільки `public`: за замовчуванням доступ обмежено пакетом `model`, а `protected` відкритий пакету й підкласам, `Main` не підклас `Account`. Таблицю 1 я склав за фактичним виводом `javac`, вона збігається з очікуваною, а рисунок 1 показує те саме на діаграмі класів.
 
-: Таблиця 1 – Доступ до полів `Account` з двох пакетів
+Таблиця 1. Доступ до полів `Account` з двох пакетів
 
 | Рівень доступу (поле) | З іншого класу пакета model | З Main у пакеті app |
 |---|---|---|
@@ -62,6 +57,8 @@ MainAll.java:11: error: number has protected access in Account
 | за замовчуванням (`balance`) | так | ні |
 | `protected` (`number`) | так | ні |
 | `public` (`owner`) | так | так |
+
+![Рисунок 1. Класи й доступ між пакетами `model` і `app`](img/access.png){width=68%}
 
 Робочий код без хибних звернень компілюється (`results/compile_ok.txt`). `Main` читає `number` і `balance` через публічні геттери, а `protected` доступний підкласу `ProbeSub` з пакета `app` (у дослідах 2-5 показано частини того самого виводу):
 
@@ -153,11 +150,11 @@ id (своє в кожного):    ID-7, ID-8, ID-9
 
 # 7. Дослід 5. final
 
-Поле `id` оголошено `private final` (значення задається в конструкторі), у методі `dailyLimit()` оголошено `final int limit = 5;`, і метод повертає `limit * 1000`. Спроби перезаписати зроблено в окремих фрагментах з таким самим оголошенням: `this.id = newId;` у методі `rename` (`AccountFinalField`) і `limit = 6;` (`FinalLocal`):
+Поле `id` оголошено `private final` (значення задається в конструкторі), у методі `dailyLimit()` оголошено `final int limit = 5;`, і метод повертає `limit * 1000`. Спроби перезаписати зроблено поза збіркою: у копії `Account` (`compile-errors/E3_final_field/Account.java`) додано метод `rename` з `this.id = newId;`, а в окремому класі `FinalLocal` стоїть `limit = 6;`:
 
 ```
 > javac … compile-errors/E3_final_field/*.java
-AccountFinalField.java:10: error: cannot assign a value to final variable id
+Account.java:61: error: cannot assign a value to final variable id
 > javac … compile-errors/E4_final_local/*.java
 FinalLocal.java:5: error: cannot assign a value to final variable limit
 > java -cp target/classes ua.duikt.lavrishko.pr2.app.Main

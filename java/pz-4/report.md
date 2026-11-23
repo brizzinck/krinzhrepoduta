@@ -1,5 +1,5 @@
 ---
-pagetitle: "Практична робота № 4 (у Classroom: ПЗ № 4)"
+pagetitle: "Практична робота № 4"
 university: "Державний університет інформаційно-комунікаційних технологій"
 department: "Кафедра технологій цифрового розвитку"
 report: "з практичної роботи № 4"
@@ -54,7 +54,7 @@ NoRender.java:4: error: NoRender is not abstract and does not override abstract 
 Документ «Підсумки семестру»
 ЗВІТ: Підсумки семестру (розділи, таблиці, висновки)
 Документ «Запрошення на захист»
-Шановний(а) Ніщеменко Д. О.! Тема листа: Запрошення на захист
+Шановний(а) Петренко О. І.! Тема листа: Запрошення на захист
 ```
 
 ## Дослід 2. Два інтерфейси і конфлікт default
@@ -62,12 +62,25 @@ NoRender.java:4: error: NoRender is not abstract and does not override abstract 
 ![Рисунок 1. Ієрархія документів: абстрактний клас і два інтерфейси](diagrams/document.png){width=60%}
 
 ```java
-public interface Printable  { void print();  default String describe() { return "Printable: документ можна надрукувати"; } }
-public interface Exportable { void export(); default String describe() { return "Exportable: документ можна експортувати"; } }
+public interface Printable {
+    void print();
+    default String describe() {
+        return "Printable: документ можна надрукувати";
+    }
+}
+
+public interface Exportable {
+    void export();
+    default String describe() {
+        return "Exportable: документ можна експортувати";
+    }
+}
 
 public class Report extends Document implements Printable, Exportable {
-    @Override public String describe() {        // розв'язання конфлікту
-        return Printable.super.describe() + "; " + Exportable.super.describe();
+    @Override
+    public String describe() {   // розв'язання конфлікту
+        return Printable.super.describe() + "; "
+                + Exportable.super.describe();
     }
 }
 ```
@@ -122,8 +135,13 @@ public interface Notifier { void send(String message); }
 
 public class NotificationService {
     private final Notifier notifier;
-    public NotificationService(Notifier notifier) { this.notifier = notifier; }   // ззовні
-    public void notifyUser(String user) { notifier.send("Вітаємо, " + user + "! Документ готовий."); }
+    public NotificationService(Notifier notifier) {   // ззовні
+        this.notifier = notifier;
+    }
+
+    public void notifyUser(String user) {
+        notifier.send("Вітаємо, " + user + "! Документ готовий.");
+    }
 }
 // Main
 new NotificationService(new EmailNotifier()).notifyUser("Олена");

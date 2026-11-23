@@ -46,6 +46,7 @@ public final class Menu {
             if (choice == AREA || choice == EXIT) {
                 return choice;
             }
+            dropRestOfLine();
             out.println("Помилка: такого пункту немає. Спробуйте ще раз.");
         }
     }
@@ -97,8 +98,10 @@ public final class Menu {
             double value = in.nextDouble();
             // hasNextDouble приймає NaN, Infinity і 1e999, тому скінченність перевіряємо окремо.
             if (!Double.isFinite(value)) {
+                dropRestOfLine();
                 out.println(NOT_A_NUMBER);
             } else if (value < 0) {
+                dropRestOfLine();
                 out.println(
                         "Помилка: площа не може бути від'ємною. Спробуйте ще раз.");
             } else {
@@ -118,7 +121,15 @@ public final class Menu {
             if (unit != null) {
                 return unit;
             }
+            dropRestOfLine();
             out.println("Помилка: такої одиниці немає. Спробуйте ще раз.");
+        }
+    }
+
+    /** Відкидає решту рядка після відхиленого значення, щоб одна помилка дала одне повідомлення. */
+    private void dropRestOfLine() {
+        if (in.hasNextLine()) {
+            in.nextLine();
         }
     }
 

@@ -1,0 +1,24 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam defaultFontSize 15
+skinparam monochrome true
+skinparam sequenceMessageAlign center
+hide footbox
+
+actor "Користувач\n(Swagger UI)" as U
+participant "CameraController" as C
+participant "CameraService" as S
+participant "CameraClient\n(Feign)" as F
+participant "DummyJSON" as D
+
+U -> C : POST /api/v1/camera/snapshot
+C -> S : captureSnapshot()
+S -> F : captureSnapshot()
+F -> D : PUT /c/382a-be11-44ef-8b0c
+D --> F : {"image": "<Base64>"}
+F --> S : SnapshotDto
+S --> C : SnapshotDto
+C --> U : 200, image/jpeg\n(байти після Base64.decode)
+@enduml

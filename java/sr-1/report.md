@@ -69,19 +69,15 @@ public class CameraService {
 }
 ```
 
-Контролер етапу 1 має анотації `@RestController`, `@RequestMapping("/api/v1/camera")` і `@Tag(name = "Camera")`. Метод `GET /info` повертає `CameraInfoDto`, а `POST /snapshot` повертає `SnapshotDto`, обидва через `cameraService`. Код етапу 1 лежить у `demo/stages/CameraController.stage1.java`.
+Контролер етапу 1 має анотації `@RestController`, `@RequestMapping("/api/v1/camera")` і `@Tag(name = "Camera")`. Метод `GET /info` повертає `CameraInfoDto`, а `POST /snapshot` повертає `SnapshotDto`, обидва через `cameraService`. Код етапу 1 лежить у `demo/stages/CameraController.stage1.java`. Рисунок 1 показує шлях запиту `POST /snapshot` через ці три шари до DummyJSON і назад.
+
+![Рисунок 1. Проходження запиту `POST /snapshot`](img/sequence.png){width=68%}
 
 # 4. Запуск і перевірка (етап 1)
 
-`mvn package`, `java -jar target/demo-0.0.1-SNAPSHOT.jar`, без параметрів. Обидва ендпоїнти повертають 200; у Swagger UI (Try it out) видно поля `id`, `device_type`, `status`, `features`, `location` та об'єкт `{"image": "…"}`.
+`mvn package`, `java -jar target/demo-0.0.1-SNAPSHOT.jar`, без параметрів. Обидва ендпоїнти повертають 200; у Swagger UI (Try it out) видно поля `id`, `device_type`, `status`, `features`, `location` та об'єкт `{"image": "…"}` (рисунок 2 і рисунок 3).
 
-```{.text .small}
-> curl -i http://localhost:8080/api/v1/camera/info
-HTTP/1.1 200 
-Content-Type: application/json
-…
-{"id":123,"device_type":"camera","status":"online","features":["motion_detection","night_vision","audio"],"location":{"room":"office","floor":2}}
-```
+![Рисунок 2. `GET /info` у Swagger UI: 200 і поля відповіді](demo/screenshots/swagger_info.png){width=62%}
 
 Логи сервісу:
 
@@ -120,13 +116,7 @@ Content-Type: application/json
     }
 ```
 
-Декодується поле `image`, а не весь JSON; `produces` бере участь в узгодженні з `Accept`. Swagger UI показує відповідь на `POST /snapshot` до і після зміни:
-
-::: {.pair}
-![](demo/screenshots/swagger_snapshot_json.png){width=48%} ![](demo/screenshots/swagger_snapshot_jpeg.png){width=48%}
-
-Рисунок 1 (зліва). `POST /snapshot` після етапу 1: 200, `application/json`, Base64. Рисунок 2 (справа). Після фінального завдання: 200, `image/jpeg`, зображення
-:::
+Декодується поле `image`, а не весь JSON; `produces` бере участь в узгодженні з `Accept`. Перевірка через `curl`:
 
 ```{.text .small}
 > curl -X POST http://localhost:8080/api/v1/camera/snapshot -H "Accept: image/jpeg" -D snapshot-headers.txt -o snapshot.jpg
@@ -142,6 +132,14 @@ ba6a02acbdac0f745f7bbe7ff52529aa87b727b8454ec3370a901a78edfd67c6  results/snapsh
 
 Файл відкривається як зображення, його хеш збігається з незалежно декодованою відповіддю мока. Запит із `Accept: application/json` дає 406, бо ендпоїнт тепер оголошує лише `image/jpeg`.
 
+Swagger UI показує відповідь на `POST /snapshot` до і після зміни:
+
+::: {.pair}
+![](demo/screenshots/swagger_snapshot_json.png){width=48%} ![](demo/screenshots/swagger_snapshot_jpeg.png){width=48%}
+
+Рисунок 3 (зліва). Етап 1: 200, `application/json`, Base64. Рисунок 4 (справа). Фінал: 200, `image/jpeg`, зображення
+:::
+
 # 6. Порівняння «до» і «після»
 
 | | Етап 1 (до) | Етап 2 (після) |
@@ -156,17 +154,17 @@ ba6a02acbdac0f745f7bbe7ff52529aa87b727b8454ec3370a901a78edfd67c6  results/snapsh
 
 # 7. Відповіді на контрольні питання
 
-**1. Чим відрізняються ролі CameraClient, CameraService і CameraController, як проходить запит?** Контролер приймає HTTP-запит користувача й повертає відповідь, сервіс містить логіку виклику й логування, а клієнт (інтерфейс Feign) надсилає запити до зовнішнього сервісу. Запит іде від користувача до контролера, далі до сервісу й клієнта, а клієнт звертається до DummyJSON. Відповідь повертається у зворотному напрямку.
+**1. Чим відрізняються ролі CameraClient, CameraService і CameraController, як проходить запит?** Контролер приймає HTTP-запит користувача й повертає відповідь, сервіс містить логіку виклику й логування, а клієнт (інтерфейс Feign) надсилає запити до зовнішнього сервісу. Запит проходить контролер, сервіс і клієнт до DummyJSON, відповідь іде назад тим самим шляхом (рисунок 1).
 
-**2. Навіщо потрібен CameraInfoDto?** Він описує структуру JSON-відповіді як тип Java, тож Feign перетворює JSON на об'єкт, а код працює з полями замість сирого тексту. Той самий тип є відповіддю нашого `GET /info`, і Swagger UI бере з нього схему.
+**2. Навіщо потрібен CameraInfoDto?** Він описує структуру JSON-відповіді як тип Java: Feign перетворює JSON на об'єкт, і код працює з полями, а не з сирим текстом. Той самий тип є відповіддю нашого `GET /info`, і Swagger UI бере з нього схему.
 
 **3. Що роблять @Service, @RequiredArgsConstructor і @Slf4j?** `@Service` реєструє клас як компонент Spring. `@RequiredArgsConstructor` (Lombok) створює конструктор для `final`-полів, і Spring підставляє залежності через нього. `@Slf4j` додає поле `log` для логування.
 
-**4. Які HTTP-методи й адреси використовує API, чому POST у контролері викликає PUT у Feign-клієнті?** Наш API: `GET /api/v1/camera/info` і `POST /api/v1/camera/snapshot`. Зовнішній сервіс: `GET https://dummyjson.com/c/0716-c5cb-4391-afc3` і `PUT https://dummyjson.com/c/382a-be11-44ef-8b0c`. Методи різні, бо це дві окремі ділянки: анотація контролера визначає наш API, а анотація клієнта визначає запит до зовнішнього сервісу, тому на `POST` користувача Feign надсилає `PUT`.
+**4. Які HTTP-методи й адреси використовує API, чому POST у контролері викликає PUT у Feign-клієнті?** Наш API: `GET /api/v1/camera/info` і `POST /api/v1/camera/snapshot`. Зовнішній сервіс `https://dummyjson.com/c`: `GET /0716-c5cb-4391-afc3` і `PUT /382a-be11-44ef-8b0c`. Методи різні, бо це дві окремі ділянки: анотація контролера задає наш API, а анотація клієнта запит до зовнішнього сервісу, тому на `POST` користувача Feign надсилає `PUT`.
 
 # 8. Висновки
 
-Створено мікросервіс камери на Spring Boot 3.3.5 з OpenFeign, DTO-записами, сервісом із логуванням, REST-контролером і Swagger UI; залежності передає Spring через конструктор. Спершу `POST /snapshot` повертав JSON із Base64, у фіналі той самий ендпоїнт повертає `ResponseEntity<byte[]>` з `Content-Type: image/jpeg`. Результат я перевірив у Swagger UI й через `curl`: 200, коректний тип, файл 900x600 з тим самим хешем, що й незалежне декодування. Логи показали пари повідомлень «до виклику» й «після відповіді». Опановано створення REST-сервісу, інтеграцію через Feign, роботу з DTO та узгодження типу відповіді.
+Створено мікросервіс камери на Spring Boot 3.3.5 з OpenFeign, DTO-записами, сервісом із логуванням, REST-контролером і Swagger UI. Спершу `POST /snapshot` повертав JSON із Base64, у фіналі той самий ендпоїнт повертає `ResponseEntity<byte[]>` з `Content-Type: image/jpeg`. Результат я перевірив у Swagger UI й через `curl`: 200, коректний тип, файл 900x600 з тим самим хешем, що й незалежне декодування. Опановано створення REST-сервісу, інтеграцію через Feign, роботу з DTO та узгодження типу відповіді.
 
 # 9. Посилання на репозиторій
 

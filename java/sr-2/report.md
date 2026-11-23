@@ -20,7 +20,7 @@ city-year: "Київ – 2026"
 
 # 1. Мета роботи
 
-Підключити до застосунку Camera API файлову базу H2, зберігати список камер із зовнішнього сервісу через Spring Data JPA та Hibernate, а результат перевірити у Swagger UI та H2 Console. У методичці робота має назву «Практична робота № 2», у Classroom це самостійна робота № 2.
+Підключити до застосунку Camera API файлову базу H2, зберігати список камер із зовнішнього сервісу через Spring Data JPA та Hibernate, а результат перевірити у Swagger UI та H2 Console.
 
 Проєкт зібрано Maven на JDK 21 у docker-образі `maven:3.9-eclipse-temurin-21`. IntelliJ IDEA не використовувалась, тому код показано знімками термінала зі справжніх файлів проєкту.
 
@@ -40,63 +40,63 @@ Content-Length: 106972
 
 Крок 2. У `pom.xml` я додав Spring Data JPA та H2 зі scope `runtime`. Spring Data JPA дає інтерфейси, Hibernate відображає об'єкти на таблиці, H2 зберігає дані.
 
-![Рисунок 1. Залежності у pom.xml](demo/screenshots/code_pom.png){width=62%}
+![Рисунок 1 — Залежності у pom.xml](demo/screenshots/code_pom.png){width=62%}
 
 Крок 3. У `application.properties` я налаштував файлову базу, JPA, H2 Console, шлях списку камер і таймаути Feign. Тека `data/` є в `.gitignore`, файл бази не комітиться.
 
-![Рисунок 2. Налаштування application.properties](demo/screenshots/code_properties.png){width=62%}
+![Рисунок 2 — Налаштування application.properties](demo/screenshots/code_properties.png){width=62%}
 
 Кроки 4 і 5. Відповідь сервісу описано двома DTO, `@JsonProperty` зіставляє `device_type` із полем `deviceType`, а `location` використовує record із попередньої роботи. У `CameraClient` додано третій метод, два попередні збережено.
 
-![Рисунок 3. CameraItemDto і CameraListDto](demo/screenshots/code_dto.png){width=62%}
+![Рисунок 3 — CameraItemDto і CameraListDto](demo/screenshots/code_dto.png){width=62%}
 
-![Рисунок 4. Новий метод CameraClient](demo/screenshots/code_client.png){width=62%}
+![Рисунок 4 — Новий метод CameraClient](demo/screenshots/code_client.png){width=62%}
 
 Кроки 6 і 7. DTO описує JSON зовнішнього сервісу з вкладеним `location`, а `CameraEntity` описує рядок таблиці `cameras`, де `location` розкладено на два стовпці. Поле `id` приходить ззовні, тому `@GeneratedValue` немає. `CameraRepository` успадковує від `JpaRepository` методи `saveAll`, `findAll`, `findById` і `delete`.
 
-![Рисунок 5. CameraEntity](demo/screenshots/code_entity.png){width=62%}
+![Рисунок 5 — CameraEntity](demo/screenshots/code_entity.png){width=62%}
 
-![Рисунок 6. CameraRepository](demo/screenshots/code_repository.png){width=62%}
+![Рисунок 6 — CameraRepository](demo/screenshots/code_repository.png){width=62%}
 
-Крок 8. `CameraService` отримує список через Feign, перевіряє його, перетворює DTO на Entity і зберігає. Порожній список або камера без `id` дають 502, відсутня камера дає 404.
+Крок 8. `CameraService` отримує список через Feign, перевіряє його, перетворює DTO на Entity і зберігає. Відповідь без списку камер (`null`) або камера без `id` дають 502, відсутня камера дає 404.
 
-![Рисунок 7. CameraService: імпорт і перетворення DTO на Entity](demo/screenshots/code_service_import.png){width=80%}
+![Рисунок 7 — CameraService: імпорт і перетворення DTO на Entity](demo/screenshots/code_service_import.png){width=80%}
 
-![Рисунок 8. CameraService: читання і видалення](demo/screenshots/code_service_read.png){width=80%}
+![Рисунок 8 — CameraService: читання і видалення](demo/screenshots/code_service_read.png){width=80%}
 
 Крок 9. `CameraController` доповнено чотирма операціями. `GET /saved` читає записи лише з H2, а `DELETE` повертає 204.
 
-![Рисунок 9. Нові операції CameraController](demo/screenshots/code_controller.png){width=64%}
+![Рисунок 9 — Нові операції CameraController](demo/screenshots/code_controller.png){width=64%}
 
-![Рисунок 10. Swagger UI: шість операцій](demo/screenshots/swagger_overview.png){width=62%}
+![Рисунок 10 — Swagger UI: шість операцій](demo/screenshots/swagger_overview.png){width=40%}
 
 Крок 10. У H2 Console (`jdbc:h2:file:./data/cameradb`, користувач `sa`, порожній пароль) таблиця `CAMERAS` має чотири записи, із них три зі статусом `ONLINE`.
 
 ::: {.pair}
 ![](demo/screenshots/h2_all.png){width=49%} ![](demo/screenshots/h2_online.png){width=49%}
 
-Рисунок 11. H2 Console: усі камери та фільтр за статусом
+Рисунок 11 — H2 Console: усі камери та фільтр за статусом
 :::
 
 Крок 11. У Swagger UI послідовно виконано всі дії з методички.
 
 ::: {.pair}
-![](demo/screenshots/swagger_import.png){width=49%} ![](demo/screenshots/swagger_saved.png){width=49%}
+![](demo/screenshots/swagger_import.png){width=44%} ![](demo/screenshots/swagger_saved.png){width=44%}
 
-Рисунок 12. POST /import і GET /saved: код 200, чотири камери
+Рисунок 12 — POST /import і GET /saved: код 200, чотири камери
 
-![](demo/screenshots/swagger_saved_1.png){width=49%} ![](demo/screenshots/swagger_delete.png){width=49%}
+![](demo/screenshots/swagger_saved_1.png){width=44%} ![](demo/screenshots/swagger_delete.png){width=44%}
 
-Рисунок 13. GET /saved/1: код 200; DELETE /saved/1: код 204
+Рисунок 13 — GET /saved/1: код 200; DELETE /saved/1: код 204
 
-![](demo/screenshots/swagger_404.png){width=49%} ![](demo/screenshots/swagger_reimport.png){width=49%}
+![](demo/screenshots/swagger_404.png){width=44%} ![](demo/screenshots/swagger_saved_after.png){width=44%}
 
-Рисунок 14. GET /saved/1 після видалення: код 404; повторний POST /import: код 200
+Рисунок 14 — GET /saved/1 після видалення: код 404; після повторного імпорту GET /saved: камера 1 знову є, чотири записи
 :::
 
-Крок 12. Підсумкова схема шляху даних: контролер викликає сервіс, а той бере дані із зовнішнього сервісу через Feign і зберігає їх у H2 через репозиторій.
+Крок 12. Пакети проєкту: `client`, `controller`, `dto`, `entity`, `repository`, `service` (`demo/results/tree.txt`). Контролер викликає сервіс, а той бере дані через Feign і зберігає їх у H2 через репозиторій.
 
-![Рисунок 15. Шлях даних застосунку](diagrams/flow.png){width=78%}
+![Рисунок 15 — Шлях даних застосунку](diagrams/flow.png){width=78%}
 
 # 3. HTTP-відповіді та результат видалення
 

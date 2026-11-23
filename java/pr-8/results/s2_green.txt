@@ -29,7 +29,7 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running ua.duikt.lavrishko.pr8.SprintBoundaryTest
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.255 s -- in ua.duikt.lavrishko.pr8.SprintBoundaryTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.092 s -- in ua.duikt.lavrishko.pr8.SprintBoundaryTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -38,7 +38,7 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  4.195 s
-[INFO] Finished at: 2026-11-13T00:14:54Z
+[INFO] Total time:  1.999 s
+[INFO] Finished at: 2026-11-23T10:37:55Z
 [INFO] ------------------------------------------------------------------------
 (код завершення: 0)

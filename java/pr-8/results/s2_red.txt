@@ -29,8 +29,8 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running ua.duikt.lavrishko.pr8.SprintBoundaryTest
-[ERROR] Tests run: 7, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.231 s <<< FAILURE! -- in ua.duikt.lavrishko.pr8.SprintBoundaryTest
-[ERROR] ua.duikt.lavrishko.pr8.SprintBoundaryTest.boundariesInsideRange(int, int, boolean)[3] -- Time elapsed: 0.015 s <<< FAILURE!
+[ERROR] Tests run: 7, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.120 s <<< FAILURE! -- in ua.duikt.lavrishko.pr8.SprintBoundaryTest
+[ERROR] ua.duikt.lavrishko.pr8.SprintBoundaryTest.boundariesInsideRange(int, int, boolean)[3] -- Time elapsed: 0.009 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
 	at ua.duikt.lavrishko.pr8.SprintBoundaryTest.boundariesInsideRange(SprintBoundaryTest.java:23)
@@ -46,8 +46,8 @@ org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  4.345 s
-[INFO] Finished at: 2026-11-13T00:15:01Z
+[INFO] Total time:  2.115 s
+[INFO] Finished at: 2026-11-23T10:37:58Z
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.6.1:test (default-test) on project pr8: There are test failures.
 [ERROR] 

@@ -1,7 +1,7 @@
 package ua.duikt.lavrishko.media;
 
 /** Аудіокнига: четвертий різновид, доданий без змін у коді обробки. */
-public class Audiobook extends MediaContent {
+public final class Audiobook extends MediaContent {
 
     private final String author;
     private final String narrator;

@@ -2,3 +2,7 @@
 Помилка: файл demo/v2_cp1251.txt не в кодуванні UTF-8 (рядок 1)
   причина: MalformedInputException: Input length = 1
 (код завершення: 1)
+
+> ls results/report_cp1251.txt
+ls: cannot access 'results/report_cp1251.txt': No such file or directory
+(код завершення: 2)

@@ -12,24 +12,19 @@ teacher: ["Ніщеменко Дмитро Олександрович"]
 city-year: "Київ – 2026"
 ---
 
-<style>
-pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important; }
-</style>
-
 # 1. Мета роботи
 
 Побудувати консольний звіт за файлом даних засобами Stream API: перетворити рядки на об'єкти, усунути повтори, згрупувати з підсумками, впорядкувати й знайти запис за ключем без винятків.
 
 # 2. Завдання за варіантом
 
-Номер у списку групи 12, варіант 2 (12 mod 5): трекер задач, файл `v2_issues.txt` з рядками `ключ;статус;виконавець;story_points` (UTF-8, перший рядок заголовок, 40 рядків даних). Категорія це статус, підсумок у категорії це сума story points, показник для топ-5 це story points. Програма `java -jar report.jar <файл> <ключ>` друкує три частини: підсумки за статусами (за алфавітом), п'ять задач з найбільшими story points (за рівних оцінок за ключем), результат пошуку за ключем. Maven, Java 21, без залежностей, запуск у docker. Повні виводи в `results/`.
-
-![Рисунок 1 — Конвеєр обробки даних](img/pipeline.png){width=70%}
+Номер у списку групи 12, варіант 2 (12 mod 5): трекер задач, файл `v2_issues.txt` з рядками `ключ;статус;виконавець;story_points` (UTF-8, перший рядок заголовок, 40 рядків даних). Категорія — це статус, підсумок у категорії — це сума story points, показник для топ-5 — це story points. Програма `java -jar report.jar <файл> <ключ>` друкує три частини: підсумки за статусами (за алфавітом), п'ять задач з найбільшими story points (за рівних оцінок за ключем), результат пошуку за ключем. Maven, Java 21, без залежностей, запуск у docker. Повні виводи в `results/`.
 
 # 3. Рядки в об'єкти і усунення повторів
 
-Кожен рядок стає записом `Issue(key, status, assignee, storyPoints)` через `Issue.parse`. Решта обробки працює з об'єктами. `Issue` це Java record: `equals` і `hashCode` за всіма полями, тому повністю однакові рядки дають рівні об'єкти й `distinct()` лишає по одному.
+Кожен рядок стає записом `Issue(key, status, assignee, storyPoints)` через `Issue.parse`. Решта обробки працює з об'єктами. `Issue` — це Java record: `equals` і `hashCode` за всіма полями, тому повністю однакові рядки дають рівні об'єкти й `distinct()` лишає по одному.
 
+::: {style="break-inside: avoid"}
 ```java
 try (Stream<String> lines = Files.lines(Path.of(args[0]), StandardCharsets.UTF_8)) {
     all = lines.skip(1)
@@ -39,8 +34,13 @@ try (Stream<String> lines = Files.lines(Path.of(args[0]), StandardCharsets.UTF_8
 }
 List<Issue> issues = all.stream().distinct().toList();
 ```
+:::
 
-Заголовок пропускає `skip(1)`, потік закрито через `try-with-resources`. У файлі 40 рядків, унікальних записів 36: чотири рядки це повні повтори (`SHOP-114`, `SHOP-237`, `SHOP-258`, `SHOP-364`). Усі наступні кроки йдуть від `issues`, тому повтори не потрапляють ні в підсумки, ні в топ.
+Заголовок пропускає `skip(1)`, потік закрито через `try-with-resources`. У файлі 40 рядків, унікальних записів 36: чотири рядки — це повні повтори (`SHOP-114`, `SHOP-237`, `SHOP-258`, `SHOP-364`). Усі наступні кроки йдуть від `issues`, тому повтори не потрапляють ні в підсумки, ні в топ.
+
+Загальна схема конвеєра на рисунку 1: три частини звіту виконуються одна за одною над тим самим списком `issues`.
+
+![Рисунок 1 — Конвеєр обробки даних](img/pipeline.png){width=60%}
 
 # 4. Підсумки за статусами, топ-5 і пошук
 
@@ -59,10 +59,11 @@ issues.stream()
         .sorted(Comparator.comparingInt(Issue::storyPoints).reversed()
                 .thenComparing(Issue::key))
         .limit(5)
-        .forEach(issue -> System.out.printf("  %2d %s%n", issue.storyPoints(), issue.key()));
+        .forEach(issue -> System.out.printf("  %2d %s %s %s%n",
+                issue.storyPoints(), issue.key(), issue.status(), issue.assignee()));
 ```
 
-Спочатку компаратор порівнює story points за спаданням, а за рівних значень ключі за зростанням. Це важливо тут: задач із 13 SP шість, а в топ входить п'ять.
+Спочатку компаратор порівнює story points за спаданням, а за рівних значень ключі за зростанням. Це важливо тут: задач із 13 SP шість, а в топ входить п'ять. У рядку топ-5 друкуються ще статус і виконавець.
 
 ```java
 String found = issues.stream()
@@ -76,6 +77,7 @@ String found = issues.stream()
 
 # 5. Результати двох запусків і перевірка
 
+::: {style="break-inside: avoid"}
 ```
 > java -jar target/report.jar data/v2_issues.txt SHOP-101
 Рядків у файлі: 40, унікальних записів: 36
@@ -85,19 +87,20 @@ String found = issues.stream()
   REVIEW         8    33
   TODO           8    35
 Топ-5 за story points:
-  13 SHOP-190
-  13 SHOP-286
-  13 SHOP-357
-  13 SHOP-366
-  13 SHOP-376
+  13 SHOP-190 DONE nova8
+  13 SHOP-286 DONE pixel5
+  13 SHOP-357 TODO pixel5
+  13 SHOP-366 REVIEW neo6
+  13 SHOP-376 IN_PROGRESS echo1
 Пошук SHOP-101: SHOP-101, DONE, виконавець byte8, 8 SP
 (код завершення: 0)
 
 > java -jar target/report.jar data/v2_issues.txt SHOP-000
-…  (перші три частини ті самі)
+…  (рядок з кількістю записів і перші дві частини ті самі)
 Пошук SHOP-000: не знайдено
 (код завершення: 0)
 ```
+:::
 
 Для відсутнього ключа програма завершується з кодом 0 і друкує «не знайдено». Без другого аргументу вона друкує підказку `Використання: java -jar report.jar <файл з даними> <ключ задачі>` і завершується з кодом 2 (`results/usage.txt`).
 

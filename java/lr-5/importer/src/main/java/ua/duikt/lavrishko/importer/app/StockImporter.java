@@ -30,41 +30,42 @@ public final class StockImporter {
             throws ImportFailedException {
         checkNotSameFile(input, output);
         ImportSummary summary = new ImportSummary();
-        // try-with-resources закриває обидва файли в будь-якому разі: і після успіху, і після винятку.
-        // Ресурси закриваються у зворотному порядку: спершу writer, потім reader.
-        try (BufferedReader reader = openInput(input);
-             BufferedWriter writer = openOutput(output)) {
-
-            writeLine(writer, "Звіт імпорту залишків товарів", output);
-            writeLine(writer, "Вхідний файл: " + input, output);
-            writeLine(writer, "", output);
-            writeLine(writer, "Відхилені рядки:", output);
-
+        // Спершу відкриваємо вхід і перевіряємо заголовок: якщо вони хибні, файл звіту не створюється
+        // і старий звіт не перезаписується. Кожен файл закрито try-with-resources у будь-якому разі.
+        try (BufferedReader reader = openInput(input)) {
             readHeader(reader, input);
-            long lineNumber = 1;
-            String line;
-            // Потокове читання: у пам'яті завжди лише один рядок файлу.
-            while ((line = readLine(reader, input, lineNumber + 1)) != null) {
-                lineNumber++;
-                try {
-                    StockItem item = parser.parse(line, lineNumber);
-                    summary.accept(item);
-                } catch (RecordFormatException e) {
-                    summary.reject();
-                    writeLine(writer, "Рядок " + e.lineNumber() + ": " + e.getMessage(), output);
-                    onRejected.accept(e);
-                }
-            }
-            if (summary.rejected() == 0) {
-                writeLine(writer, "немає", output);
-            }
+            // Ресурси закриваються у зворотному порядку: спершу writer, потім reader.
+            try (BufferedWriter writer = openOutput(output)) {
+                writeLine(writer, "Звіт імпорту залишків товарів", output);
+                writeLine(writer, "Вхідний файл: " + input, output);
+                writeLine(writer, "", output);
+                writeLine(writer, "Відхилені рядки:", output);
 
-            writeLine(writer, "", output);
-            writeLine(writer, "Підсумок", output);
-            writeLine(writer, "Рядків даних: " + summary.dataLines(), output);
-            writeLine(writer, "Імпортовано позицій: " + summary.imported(), output);
-            writeLine(writer, "Відхилено рядків: " + summary.rejected(), output);
-            writeLine(writer, "Загальна вартість залишків: " + summary.totalValue().toPlainString(), output);
+                long lineNumber = 1;
+                String line;
+                // Потокове читання: у пам'яті завжди лише один рядок файлу.
+                while ((line = readLine(reader, input, lineNumber + 1)) != null) {
+                    lineNumber++;
+                    try {
+                        StockItem item = parser.parse(line, lineNumber);
+                        summary.accept(item);
+                    } catch (RecordFormatException e) {
+                        summary.reject();
+                        writeLine(writer, "Рядок " + e.lineNumber() + ": " + e.getMessage(), output);
+                        onRejected.accept(e);
+                    }
+                }
+                if (summary.rejected() == 0) {
+                    writeLine(writer, "немає", output);
+                }
+
+                writeLine(writer, "", output);
+                writeLine(writer, "Підсумок", output);
+                writeLine(writer, "Рядків даних: " + summary.dataLines(), output);
+                writeLine(writer, "Імпортовано позицій: " + summary.imported(), output);
+                writeLine(writer, "Відхилено рядків: " + summary.rejected(), output);
+                writeLine(writer, "Загальна вартість залишків: " + summary.totalValue().toPlainString(), output);
+            }
         } catch (IOException e) {
             // Сюди потрапляє лише помилка close(): writer під час закриття дописує буфер на диск.
             throw new ImportFailedException("не вдалося дописати звіт у файл " + output, e);

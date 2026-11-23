@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes -d /tmp/out compile-errors/E5_subclass/*.java
+compile-errors/E5_subclass/Sneaky.java:6: error: cannot inherit from final Student
+public class Sneaky extends Student {
+                            ^
+1 error
+(код завершення: 1)

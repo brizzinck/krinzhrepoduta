@@ -28,6 +28,25 @@ class MenuTest {
     }
 
     @Test
+    void twoWordsAtUnitPromptGiveOneMessage() {
+        String output = run("1\n1\nfoo bar\nm2\nha\n0\n");
+        assertEquals(2, output.split("такої одиниці немає", -1).length);
+        assertTrue(output.contains("1 m² = 0.0001 ha"));
+    }
+
+    @Test
+    void twoNumbersAtMenuPromptGiveOneMessage() {
+        String output = run("7 8\n0\n");
+        assertEquals(2, output.split("такого пункту немає", -1).length);
+    }
+
+    @Test
+    void twoNegativeValuesGiveOneMessage() {
+        String output = run("1\n-5 -6\n0\n");
+        assertEquals(2, output.split("від'ємною", -1).length);
+    }
+
+    @Test
     void endOfInputFinishesWithoutException() {
         assertTrue(run("1\n5\n").endsWith("Вихід. Дякуємо за використання!" + System.lineSeparator()));
     }

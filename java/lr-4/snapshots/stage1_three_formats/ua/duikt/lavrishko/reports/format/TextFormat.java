@@ -5,7 +5,7 @@ import java.util.List;
 import ua.duikt.lavrishko.reports.model.Table;
 
 /** Звичайний текст зі стовпцями однакової ширини; підтримує сторінки. */
-public class TextFormat extends AbstractReportFormat implements PagedFormat {
+public class TextFormat extends AbstractPagedFormat {
 
     @Override
     protected String header(Table table) {
@@ -29,8 +29,8 @@ public class TextFormat extends AbstractReportFormat implements PagedFormat {
     }
 
     @Override
-    public List<String> renderPages(Table table, int pageSize) {
-        return renderPagesWith(table, pageSize, (n, total) -> "-- Сторінка " + n + " з " + total + " --\n");
+    protected String pageMarker(int n, int total) {
+        return "-- Сторінка " + n + " з " + total + " --\n";
     }
 
     private static List<Integer> widths(Table table) {

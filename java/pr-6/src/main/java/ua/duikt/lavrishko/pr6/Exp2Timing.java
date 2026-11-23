@@ -25,26 +25,26 @@ public class Exp2Timing {
                 linkedList.add(new Issue("ISS-" + i, "Задача " + i, i % 13 + 1));
                 hashSet.add(new Issue("ISS-" + i, "Задача " + i, i % 13 + 1));
             }
-            long insArray = insertMiddle(arrayList);
-            long insLinked = insertMiddle(linkedList);
+            double insArray = insertMiddle(arrayList);
+            double insLinked = insertMiddle(linkedList);
             // Після вставок розмір списків інший, але шукаємо ті самі ключі: вони є в усіх трьох колекціях
-            long hasArray = contains(arrayList);
-            long hasLinked = contains(linkedList);
-            long hasHash = contains(hashSet);
-            System.out.printf("%-8d %-14d %-14d %-14d %-14d %-14d%n", run,
+            double hasArray = contains(arrayList);
+            double hasLinked = contains(linkedList);
+            double hasHash = contains(hashSet);
+            System.out.printf("%-8d %-14.2f %-14.2f %-14.2f %-14.2f %-14.2f%n", run,
                     insArray, insLinked, hasArray, hasLinked, hasHash);
         }
     }
 
-    private static long insertMiddle(List<Issue> list) {
+    private static double insertMiddle(List<Issue> list) {
         long t0 = System.nanoTime();
         for (int i = 0; i < OPS; i++) {
             list.add(list.size() / 2, new Issue("NEW-" + i, "Нова " + i, 3));
         }
-        return (System.nanoTime() - t0) / 1_000_000;
+        return (System.nanoTime() - t0) / 1_000_000.0;
     }
 
-    private static long contains(java.util.Collection<Issue> collection) {
+    private static double contains(java.util.Collection<Issue> collection) {
         int found = 0;
         long t0 = System.nanoTime();
         for (int i = 0; i < OPS; i++) {
@@ -53,7 +53,7 @@ public class Exp2Timing {
                 found++;
             }
         }
-        long ms = (System.nanoTime() - t0) / 1_000_000;
+        double ms = (System.nanoTime() - t0) / 1_000_000.0;
         if (found != OPS) {
             throw new IllegalStateException("знайдено " + found + " з " + OPS);
         }

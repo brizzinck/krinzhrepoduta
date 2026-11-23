@@ -1,8 +1,6 @@
 package ua.duikt.lavrishko.reports.format;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 import ua.duikt.lavrishko.reports.model.Table;
 
 /**
@@ -28,16 +26,6 @@ public abstract class AbstractReportFormat implements ReportFormat {
     /** Підсумок за замовчуванням порожній; формати перевизначають за потреби. */
     protected String footer(Table table) {
         return "";
-    }
-
-    /** Спільний цикл по сторінках; формат передає лише текст позначки «Сторінка N з M». */
-    protected final List<String> renderPagesWith(Table table, int pageSize, BiFunction<Integer, Integer, String> marker) {
-        List<Table> pages = Pagination.split(table, pageSize);
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < pages.size(); i++) {
-            result.add(render(pages.get(i)) + marker.apply(i + 1, pages.size()));
-        }
-        return result;
     }
 
     protected static String join(List<String> cells, String separator) {

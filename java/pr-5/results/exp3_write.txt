@@ -2,10 +2,6 @@
 Записано рядків: 3, close() не викликано
 (код завершення: 0)
 
-> ls -l files/no_close.txt
--rw-r--r-- 1 skalse skalse 0 Nov  2 22:31 files/no_close.txt
-(код завершення: 0)
-
 > wc -c files/no_close.txt
 0 files/no_close.txt
 (код завершення: 0)
@@ -15,10 +11,6 @@
 
 > java -cp target/classes ua.duikt.lavrishko.pr5.Main exp3 write-twr files/with_close.txt
 Записано рядків: 3, close() викличе try-with-resources
-(код завершення: 0)
-
-> ls -l files/with_close.txt
--rw-r--r-- 1 skalse skalse 135 Nov  2 22:31 files/with_close.txt
 (код завершення: 0)
 
 > wc -m -c files/with_close.txt

@@ -1,5 +1,8 @@
 @startuml
 skinparam dpi 140
+skinparam nodesep 20
+skinparam ranksep 30
+
 skinparam defaultFontName DejaVu Sans
 skinparam classAttributeIconSize 0
 skinparam shadowing false
@@ -13,17 +16,12 @@ hide empty members
 class Exception <<java.lang>>
 
 class InvalidStockItemException <<domain>> {
-  +InvalidStockItemException(message)
 }
 class RecordFormatException <<parse>> {
   -lineNumber : long
-  +RecordFormatException(lineNumber, message)
-  +RecordFormatException(lineNumber, message, cause)
   +lineNumber() : long
 }
 class ImportFailedException <<app>> {
-  +ImportFailedException(message)
-  +ImportFailedException(message, cause)
 }
 
 Exception <|-- InvalidStockItemException
@@ -31,7 +29,6 @@ Exception <|-- RecordFormatException
 Exception <|-- ImportFailedException
 
 class StockItem <<domain>> {
-  -StockItem(article, quantity, price)
   +{static} create(article, quantity, price)
 }
 class StockItemParser <<parse>> {
@@ -46,10 +43,10 @@ class Main <<app>> {
 
 StockItem ..> InvalidStockItemException : кидає
 StockItemParser ..> StockItem : create()
-StockItemParser ..> RecordFormatException : кидає,\nInvalidStockItemException або\nNumberFormatException у cause
+StockItemParser ..> RecordFormatException : кидає, cause:\nInvalidStockItem-\nException або\nNumberFormatException
 StockImporter ..> StockItemParser
-StockImporter ..> RecordFormatException : ловить у циклі,\nрядок відхиляється
-StockImporter ..> ImportFailedException : кидає,\nIOException у cause
+StockImporter ..> RecordFormatException : ловить\nу циклі
+StockImporter ..> ImportFailedException : кидає,\ncause: IOException
 Main ..> StockImporter
-Main ..> ImportFailedException : ловить,\nкоротке повідомлення
+Main ..> ImportFailedException : ловить
 @enduml

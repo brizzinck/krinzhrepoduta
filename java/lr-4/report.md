@@ -35,6 +35,7 @@ OCP: код відкритий для розширення й закритий �
 | `ReportFormat`, `DataSource` | інтерфейси | ролі, від яких залежить сервіс; сервісу не потрібна спільна основа реалізацій, а клас може виконувати кілька ролей (`HtmlFormat` водночас `ReportFormat` і `PagedFormat`) |
 | `PagedFormat` | інтерфейс (розширює `ReportFormat`) | можливість лише частини форматів |
 | `AbstractReportFormat` | абстрактний клас | лише в абстрактному класі можна зробити спільний порядок «заголовок, рядки, підсумок» `final`-шаблоном і сховати кроки як `protected` |
+| `AbstractPagedFormat` | абстрактний клас (розширює `AbstractReportFormat`, реалізує `PagedFormat`) | спільний цикл по сторінках для форматів, яким сторінки мають сенс; решта форматів його не успадковує |
 | `TextFormat`, `CsvFormat`, `HtmlFormat`, `MarkdownFormat`, `InMemoryDataSource`, `CsvFileDataSource` | класи | лише відмінності: заголовок, форма рядка, підсумок; джерело таблиці |
 
 Інтерфейс обирано, коли треба описати роль чи можливість для різних класів; абстрактний клас, коли реалізації мають спільний код. Обидва підходи поєднано: `AbstractReportFormat implements ReportFormat`.
@@ -55,13 +56,16 @@ public abstract class AbstractReportFormat implements ReportFormat {
     protected abstract String header(Table table);
     protected abstract String formatRow(Table table, List<String> row);
     protected String footer(Table table) { return ""; }
-    // спільний цикл сторінок; формат передає лише позначку «Сторінка N з M»
-    protected final List<String> renderPagesWith(Table table, int pageSize,
-            BiFunction<Integer, Integer, String> marker) { /* Pagination.split + render + marker */ }
+}
+
+public abstract class AbstractPagedFormat extends AbstractReportFormat implements PagedFormat {
+    @Override
+    public final List<String> renderPages(Table table, int pageSize) { /* Pagination.split, render, pageMarker */ }
+    protected abstract String pageMarker(int n, int total);   // «Сторінка N з M»
 }
 ```
 
-Шаблонний метод записано один раз; формати реалізують лише різне; сторінки розбиває один `Pagination.split`, а цикл по сторінках записано один раз у `renderPagesWith`, у `TextFormat` і `HtmlFormat` лишилася тільки позначка.
+Шаблонний метод записано один раз; формати реалізують лише різне; сторінки розбиває один `Pagination.split`, а цикл по сторінках записано один раз в `AbstractPagedFormat`, у `TextFormat` і `HtmlFormat` лишилася тільки позначка сторінки.
 
 ## Розділення інтерфейсів (ISP)
 
@@ -72,7 +76,7 @@ public interface PagedFormat extends ReportFormat {
 }
 ```
 
-`PagedFormat` реалізують лише `TextFormat` і `HtmlFormat`. У `CsvFormat` немає публічного методу сторінок і заглушки; захищений помічник `renderPagesWith` спільний для форматів зі сторінками й до контракту не входить. Окремий `PagedReportService` приймає `PagedFormat`, тому помилкове використання відхиляє компілятор:
+`PagedFormat` реалізує лише `AbstractPagedFormat`, від якого успадковуються `TextFormat` і `HtmlFormat`. `CsvFormat` і `MarkdownFormat` успадковують тільки `AbstractReportFormat`, тому в них немає ні методу сторінок, ні заглушки, ні допоміжного коду для сторінок. Окремий `PagedReportService` приймає `PagedFormat`, тому помилкове використання відхиляє компілятор:
 
 ```text
 > javac -encoding UTF-8 -cp target/classes compile-errors/E1_csv_paged/*.java

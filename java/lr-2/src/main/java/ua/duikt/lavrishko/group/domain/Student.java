@@ -4,8 +4,9 @@ package ua.duikt.lavrishko.group.domain;
  * Студент: елемент агрегата StudyGroup.
  * Незмінні дані (номер, ПІБ, номер залікової книжки) задаються лише в конструкторі,
  * змінюється тільки оцінка, і то через setGrade з перевіркою.
+ * Клас final: нащадок не може перевизначити getGrade() чи isInGroup() і обійти перевірки.
  */
-public class Student {
+public final class Student {
 
     /** Типові значення для скороченого конструктора. */
     private static final String DEFAULT_RECORD_BOOK = "не вказано";

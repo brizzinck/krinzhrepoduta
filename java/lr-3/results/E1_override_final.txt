@@ -1,5 +1,5 @@
 > javac -encoding UTF-8 -cp target/classes compile-errors/E1_override_final/*.java
-compile-errors/E1_override_final/BadFilm.java:10: error: describe() in BadFilm cannot override describe() in MediaContent
+compile-errors/E1_override_final/BadMedia.java:20: error: describe() in BadMedia cannot override describe() in MediaContent
     public String describe() {
                   ^
   overridden method is final

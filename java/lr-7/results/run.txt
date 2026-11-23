@@ -6,11 +6,11 @@
   REVIEW         8    33
   TODO           8    35
 Топ-5 за story points:
-  13 SHOP-190
-  13 SHOP-286
-  13 SHOP-357
-  13 SHOP-366
-  13 SHOP-376
+  13 SHOP-190 DONE nova8
+  13 SHOP-286 DONE pixel5
+  13 SHOP-357 TODO pixel5
+  13 SHOP-366 REVIEW neo6
+  13 SHOP-376 IN_PROGRESS echo1
 Пошук SHOP-101: SHOP-101, DONE, виконавець byte8, 8 SP
 (код завершення: 0)
 
@@ -22,10 +22,10 @@
   REVIEW         8    33
   TODO           8    35
 Топ-5 за story points:
-  13 SHOP-190
-  13 SHOP-286
-  13 SHOP-357
-  13 SHOP-366
-  13 SHOP-376
+  13 SHOP-190 DONE nova8
+  13 SHOP-286 DONE pixel5
+  13 SHOP-357 TODO pixel5
+  13 SHOP-366 REVIEW neo6
+  13 SHOP-376 IN_PROGRESS echo1
 Пошук SHOP-000: не знайдено
 (код завершення: 0)

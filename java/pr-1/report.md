@@ -18,7 +18,7 @@ city-year: "Київ – 2026"
 
 # 2. Середовище, код і рішення
 
-Рішення. Я збирав і запускав проєкт у docker-образі `maven:3.9-eclipse-temurin-21` (JDK 21.0.12.1, Maven 3.9.16), а не в IntelliJ IDEA: нічого не встановлювалось у систему, а `mvn clean package` однаковий в IDE й у терміналі. `JAVA_HOME` і PATH для Windows не налаштовувались. Кирилиця у виводі коректна, бо в образі задано локаль `LC_ALL=en_US.UTF-8`.
+Рішення. Я збирав і запускав проєкт у docker-образі `maven:3.9-eclipse-temurin-21` (JDK 21.0.12.1, Maven 3.9.16), а не в IntelliJ IDEA: нічого не встановлювалось у систему, а збірка командою `mvn clean package` однакова в IDE й у терміналі. `JAVA_HOME` і PATH для Windows не налаштовувались. Кирилиця у виводі коректна, бо в образі задано локаль `LC_ALL=en_US.UTF-8`.
 
 ```text
 > java -version
@@ -30,6 +30,10 @@ javac 21.0.12.1
 Код. Окремий метод `greet()` виділено, щоб його байт-код був коротким:
 
 ```java
+package ua.duikt.lavrishko.env;
+
+import org.apache.commons.lang3.StringUtils;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -47,7 +51,7 @@ public class Main {
 }
 ```
 
-`pom.xml` (`ua.duikt.lavrishko:env-check:1.0`): `maven.compiler.release` 21, `project.build.sourceEncoding` UTF-8, залежність `commons-lang3` 3.17.0 (приклад методички). Плагін `maven-dependency-plugin` (`copy-dependencies` у фазі `package`) кладе залежності в `target/lib`, а `maven-jar-plugin` пише в маніфест `Main-Class` і `Class-Path`:
+У `pom.xml` проєкту `env-check` задано `maven.compiler.release` 21, `project.build.sourceEncoding` UTF-8, залежність `commons-lang3` 3.17.0 (приклад методички). Плагін `maven-dependency-plugin` (`copy-dependencies` у фазі `package`) кладе залежності в `target/lib`, а `maven-jar-plugin` пише в маніфест `Main-Class` і `Class-Path`:
 
 ```xml
 <manifest>
@@ -62,19 +66,12 @@ public class Main {
 ```text
 > mvn clean package
 …
-[INFO] --- compiler:3.15.0:compile (default-compile) @ env-check ---
-…
 [INFO] Compiling 1 source file with javac [debug release 21] to target/classes
 …
 [INFO] Building jar: /w/target/env-check-1.0.jar
 …
 [INFO] BUILD SUCCESS
 …
-
-> unzip -p target/env-check-1.0.jar META-INF/MANIFEST.MF
-…
-Class-Path: lib/commons-lang3-3.17.0.jar
-Main-Class: ua.duikt.lavrishko.env.Main
 
 > java -jar target/env-check-1.0.jar
 JVM: 21.0.12.1+1-LTS (Eclipse Adoptium)
@@ -83,7 +80,9 @@ Reversed (Commons Lang): avaJ
 Привіт зі збірки!
 ```
 
-Збірка пройшла без помилок, вивід містить версію JVM, ОС (Linux, бо запуск у контейнері), результат методу з залежності (`avaJ`) і кирилицю без спотворень.
+Збірка пройшла без помилок, вивід містить версію JVM, ОС (Linux, бо запуск у контейнері), результат методу з залежності (`avaJ`) і кирилицю без спотворень. Рисунок 1 показує, звідки беруться два JAR-файли, які потрібні для запуску.
+
+![Рисунок 1. Збірка й запуск артефакту](img/build.png){width=46%}
 
 # 4. Аналіз байт-коду
 

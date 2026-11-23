@@ -1,7 +1,7 @@
 package ua.duikt.lavrishko.media;
 
 /** Пісня: додає виконавця й альбом. */
-public class Song extends MediaContent {
+public final class Song extends MediaContent {
 
     private final String artist;
     private final String album;

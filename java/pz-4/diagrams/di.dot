@@ -18,8 +18,8 @@ digraph G {
     aM [label="{SmsNotifier|+ send(message)\l}"];
     aMain [fillcolor="#d6f0d2", label="{Main|створює реалізацію і передає сервісу:\lnew NotificationService(new SmsNotifier())\l}"];
     aS -> aN [arrowhead=vee, style=dashed, label=" залежить лише від\l інтерфейсу"];
-    aE -> aN [arrowhead=empty];
-    aM -> aN [arrowhead=empty];
+    aE -> aN [arrowhead=empty, style=dashed];
+    aM -> aN [arrowhead=empty, style=dashed];
     aMain -> aS [arrowhead=vee, style=dashed];
   }
 }

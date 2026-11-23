@@ -15,9 +15,10 @@ Main-Class: ua.duikt.lavrishko.converter.Main
 0
 (код завершення: 1)
 
-> ls -l target/*.jar
--rw-r--r-- 1 skalse skalse 681791 Nov  3 13:58 target/converter.jar
--rw-r--r-- 1 skalse skalse   8918 Nov  3 13:58 target/original-converter.jar
+> wc -c target/*.jar
+681859 target/converter.jar
+  8986 target/original-converter.jar
+690845 total
 (код завершення: 0)
 
 > grep -rc -E 'catch|try' src/main/java

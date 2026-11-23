@@ -24,6 +24,7 @@ class Issue {
   - key : String
   - title : String
   - storyPoints : int
+  + setKey(key : String)
   + equals(Object) : boolean
   + hashCode() : int
 }

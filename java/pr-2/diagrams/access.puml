@@ -32,8 +32,8 @@ package "app (ua.duikt.lavrishko.pr2.app)" {
   class ProbeSub
 }
 
-Account <|-- ProbeSub
-AccessProbe ..> Account : бачить ~balance, #number, +owner
-Main ..> Account : бачить лише +owner
-note right of ProbeSub : бачить #number через успадкування,\nале не ~balance
+Account <|-right- ProbeSub : бачить #number,\nне бачить ~balance
+AccessProbe .down.> Account : бачить ~balance,\n#number, +owner
+ProbeSub -[hidden]down- Main
+Main .left.> Account : бачить лише +owner
 @enduml

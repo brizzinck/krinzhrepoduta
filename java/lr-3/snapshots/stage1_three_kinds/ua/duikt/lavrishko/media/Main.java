@@ -26,5 +26,15 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println("Відхилено: " + e.getMessage());
         }
+        try {
+            new Film("Старе кіно", 100, "Режисер", 1500);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Відхилено: " + e.getMessage());
+        }
+        try {
+            new Podcast("Випуск нуль", 100, "Ведучий", 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Відхилено: " + e.getMessage());
+        }
     }
 }

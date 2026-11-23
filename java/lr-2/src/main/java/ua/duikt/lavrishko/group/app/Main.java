@@ -32,8 +32,9 @@ public class Main {
         tryDuplicate(group, ivanov);
 
         System.out.println("Контрольована зміна оцінки:");
+        int before = shortOne.getGrade();
         shortOne.setGrade(80);
-        System.out.println("Мельник Марія: оцінка була 0, стала 80");
+        System.out.println(shortOne.getFullName() + ": оцінка була " + before + ", стала " + shortOne.getGrade());
         System.out.println(group.summary());
 
         System.out.println("Видалення студента:");

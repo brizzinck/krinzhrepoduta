@@ -29,25 +29,25 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running ua.duikt.lavrishko.pr8.SprintTest
-[ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.103 s <<< FAILURE! -- in ua.duikt.lavrishko.pr8.SprintTest
-[ERROR] ua.duikt.lavrishko.pr8.SprintTest.addsTaskWhenItFits -- Time elapsed: 0.018 s <<< FAILURE!
+[ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.050 s <<< FAILURE! -- in ua.duikt.lavrishko.pr8.SprintTest
+[ERROR] ua.duikt.lavrishko.pr8.SprintTest.addsTaskWhenItFits -- Time elapsed: 0.007 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
-	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:190)
-	at ua.duikt.lavrishko.pr8.SprintTest.addsTaskWhenItFits(SprintTest.java:20)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at ua.duikt.lavrishko.pr8.SprintTest.addsTaskWhenItFits(SprintTest.java:19)
 
 [INFO] 
 [INFO] Results:
 [INFO] 
 [ERROR] Failures: 
-[ERROR]   SprintTest.addsTaskWhenItFits:20 expected: <true> but was: <false>
+[ERROR]   SprintTest.addsTaskWhenItFits:19 expected: <true> but was: <false>
 [INFO] 
 [ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0
 [INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.961 s
-[INFO] Finished at: 2026-11-13T00:14:48Z
+[INFO] Total time:  2.042 s
+[INFO] Finished at: 2026-11-23T10:37:52Z
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.6.1:test (default-test) on project pr8: There are test failures.
 [ERROR] 

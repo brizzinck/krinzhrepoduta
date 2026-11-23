@@ -47,7 +47,8 @@ public class Main {
                 .sorted(Comparator.comparingInt(Issue::storyPoints).reversed()
                         .thenComparing(Issue::key))
                 .limit(5)
-                .forEach(issue -> System.out.printf("  %2d %s%n", issue.storyPoints(), issue.key()));
+                .forEach(issue -> System.out.printf("  %2d %s %s %s%n",
+                        issue.storyPoints(), issue.key(), issue.status(), issue.assignee()));
 
         // Пошук: Optional замість null
         String found = issues.stream()

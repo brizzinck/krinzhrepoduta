@@ -1,0 +1,23 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam monochrome true
+skinparam rectangle {
+  RoundCorner 6
+}
+
+rectangle "Main.java" as src
+rectangle "Main.class" as cls
+rectangle "env-check-1.0.jar\n(Main-Class, Class-Path)" as jar
+rectangle "lib/commons-lang3-3.17.0.jar" as lib
+rectangle "pom.xml\n(залежність commons-lang3)" as pom
+rectangle "java -jar env-check-1.0.jar" as run
+
+src --> cls : compiler:compile\n(javac, release 21)
+cls --> jar : jar:jar
+pom --> lib : dependency:\ncopy-dependencies
+jar --> run : запуск
+lib --> run : Class-Path
+@enduml

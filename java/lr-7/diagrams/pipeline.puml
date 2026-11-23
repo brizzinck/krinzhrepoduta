@@ -8,25 +8,16 @@ skinparam activity {
   BorderColor #333333
 }
 start
-:Files.lines(файл, UTF-8);
-:skip(1): пропустити заголовок;
-:map(Issue::parse): рядок у Issue;
-:toList(): усі записи (40);
-:distinct(): прибрати повні повтори;
-:унікальні записи (36);
-fork
-  :groupingBy(Issue::status, TreeMap::new,\nsummarizingInt(Issue::storyPoints));
-  :підсумки за статусами;
-fork again
-  :sorted(за story points спадно, далі за ключем);
-  :limit(5);
-  :топ-5;
-fork again
-  :filter(ключ збігається);
-  :findFirst();
-  :map(Issue::toString);
-  :orElse("не знайдено");
-  :результат пошуку;
-end fork
+:Files.lines(файл, UTF-8)\nskip(1): пропустити заголовок\nfilter(рядок не порожній)\nmap(Issue::parse): рядок у Issue\ntoList(): усі записи (40);
+:distinct(): прибрати повні повтори\nунікальні записи (36);
+partition "Підсумки" {
+  :groupingBy(Issue::status, TreeMap::new,\nsummarizingInt(Issue::storyPoints))\nпідсумки за статусами;
+}
+partition "Топ-5" {
+  :sorted(за story points спадно, далі за ключем)\nlimit(5)\nтоп-5;
+}
+partition "Пошук" {
+  :filter(ключ збігається)\nfindFirst()\nmap(Issue::toString)\norElse("не знайдено")\nрезультат пошуку;
+}
 stop
 @enduml

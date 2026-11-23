@@ -4,7 +4,7 @@ import java.util.List;
 import ua.duikt.lavrishko.reports.model.Table;
 
 /** HTML-таблиця; підтримує сторінки. */
-public class HtmlFormat extends AbstractReportFormat implements PagedFormat {
+public class HtmlFormat extends AbstractPagedFormat {
 
     @Override
     protected String header(Table table) {
@@ -23,8 +23,8 @@ public class HtmlFormat extends AbstractReportFormat implements PagedFormat {
     }
 
     @Override
-    public List<String> renderPages(Table table, int pageSize) {
-        return renderPagesWith(table, pageSize, (n, total) -> "<!-- Сторінка " + n + " з " + total + " -->\n");
+    protected String pageMarker(int n, int total) {
+        return "<!-- Сторінка " + n + " з " + total + " -->\n";
     }
 
     private static String cells(String tag, List<String> values) {

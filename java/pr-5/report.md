@@ -5,16 +5,12 @@ department: "Кафедра технологій цифрового розвит
 report: "з практичної роботи № 5"
 discipline: "Конструювання програмного забезпечення JAVA"
 topic: "Винятки, захисне програмування та основи вводу-виводу. Перевірювані та неперевірювані винятки, власні винятки, робота з файлами"
-variant: "Варіант 2"
+variant: "Варіант 2 (залишки товарів, InvalidQuantityException)"
 student: ["студент групи ТЦР-32", "Лаврішко Владислав Сергійович"]
 teacher-label: "Перевірив:"
 teacher: ["Ніщеменко Дмитро Олександрович"]
 city-year: "Київ – 2026"
 ---
-
-<style>
-pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important; }
-</style>
 
 # 1. Мета роботи
 
@@ -22,7 +18,7 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 
 # 2. Завдання за варіантом
 
-Номер у списку групи 12, варіант 2: дані «залишки товарів», власний виняток `InvalidQuantityException`. Виконано три досліди: (1) перевірювані й неперевірювані винятки, порядок `catch`, `finally`; (2) перекидання власного винятку без причини й з причиною; (3) запис через `BufferedWriter` без `close()` і в `try-with-resources`, читання в різних кодуваннях. Maven, Java 21, запуск у docker `maven:3.9-eclipse-temurin-21`; хибні фрагменти лежать у `compile-errors/`, справжні виводи в `results/`.
+Номер у списку групи 12, варіант 2: дані «залишки товарів», власний виняток `InvalidQuantityException`. Виконано три досліди: (1) перевірювані й неперевірювані винятки, порядок `catch`, `finally`; (2) перекидання власного винятку без причини й з причиною; (3) запис через `BufferedWriter` без `close()` і в `try-with-resources`, читання в різних кодуваннях. Maven, Java 21; хибні фрагменти лежать у `compile-errors/`, справжні виводи в `results/`.
 
 # 3. Дослід 1. Перевірювані й неперевірювані винятки
 
@@ -40,19 +36,21 @@ Unreported.java:6: error: unreported exception FileNotFoundException; must be ca
 Далі я переписав його двома способами. Перший метод обробляє виняток сам, другий передає його викликачу:
 
 ```java
-    public static void readFirstLineWithCatch(String path) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            System.out.println("Перший рядок: " + reader.readLine());
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не знайдено: " + e.getMessage());
-        } // … далі catch (IOException e) для решти помилок вводу-виводу
+public static void readFirstLineWithCatch(String path) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+        System.out.println("Перший рядок: " + reader.readLine());
+    } catch (FileNotFoundException e) {
+        System.out.println("Файл не знайдено: " + e.getMessage());
+    } catch (IOException e) {
+        System.out.println("Помилка вводу-виводу: " + e.getMessage());
     }
+}
 
-    public static void openWithThrows(String path) throws IOException {
-        try (FileReader reader = new FileReader(path)) {
-            System.out.println("Файл відкрито: " + path);
-        }
+public static void openWithThrows(String path) throws IOException {
+    try (FileReader reader = new FileReader(path)) {
+        System.out.println("Файл відкрито: " + path);
     }
+}
 ```
 
 ```
@@ -109,14 +107,14 @@ WrongOrder.java:11: error: exception IOException has already been caught
 `InvalidQuantityException extends Exception` (перевірюваний, бо некоректні дані очікувані; тип методичка не задає) має два конструктори: `(String message)` і `(String message, Throwable cause)`. Метод розбирає кількість через `Integer.parseInt` і перекидає виняток двома способами:
 
 ```java
-    public static int parseQuantityWithoutCause(String text) throws InvalidQuantityException {
-        try {
-            return checkPositive(Integer.parseInt(text));
-        } catch (NumberFormatException e) {
-            throw new InvalidQuantityException(e.getMessage());          // спосіб 1
-        }
+public static int parseQuantityWithoutCause(String text) throws InvalidQuantityException {
+    try {
+        return checkPositive(Integer.parseInt(text));
+    } catch (NumberFormatException e) {
+        throw new InvalidQuantityException(e.getMessage());          // спосіб 1
     }
-    // спосіб 2: у catch ... throw new InvalidQuantityException("Некоректна кількість", e);
+}
+// спосіб 2: у catch ... throw new InvalidQuantityException("Некоректна кількість", e);
 ```
 
 ```
@@ -140,10 +138,10 @@ getCause():   java.lang.NumberFormatException: For input string: "abc"
 Три рядки з кирилицею записано через `BufferedWriter` двома способами: без `close()` (`writeWithoutClose`) і в `try (BufferedWriter writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) { … }`.
 
 ```
-> ls -l files/no_close.txt
--rw-r--r-- 1 skalse skalse 0 Nov  2 22:31 files/no_close.txt
-> ls -l files/with_close.txt
--rw-r--r-- 1 skalse skalse 135 Nov  2 22:31 files/with_close.txt
+> wc -c files/no_close.txt
+0 files/no_close.txt
+> wc -m -c files/with_close.txt
+ 83 135 files/with_close.txt
 > cat files/with_close.txt
 Привіт зі складу
 Артикул A-101: молоко, залишок 15

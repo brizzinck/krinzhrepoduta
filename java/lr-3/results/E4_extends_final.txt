@@ -1,0 +1,6 @@
+> javac -encoding UTF-8 -cp target/classes compile-errors/E4_extends_final/*.java
+compile-errors/E4_extends_final/BadFilm.java:4: error: cannot inherit from final Film
+class BadFilm extends Film {
+                      ^
+1 error
+(код завершення: 1)

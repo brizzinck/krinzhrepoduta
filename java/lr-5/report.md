@@ -5,16 +5,12 @@ department: "Кафедра технологій цифрового розвит
 report: "з лабораторної роботи № 5"
 discipline: "Конструювання програмного забезпечення JAVA"
 topic: "Винятки, захисне програмування та основи вводу-виводу. Утиліта імпорту даних з текстового файлу"
-variant: "Варіант 2"
+variant: "Варіант 2 (залишки товарів: артикул;кількість;ціна)"
 student: ["студент групи ТЦР-32", "Лаврішко Владислав Сергійович"]
 teacher-label: "Перевірив:"
 teacher: ["Ніщеменко Дмитро Олександрович"]
 city-year: "Київ – 2026"
 ---
-
-<style>
-pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important; }
-</style>
 
 # 1. Мета роботи
 
@@ -29,56 +25,60 @@ pre, pre code { overflow: visible !important; overflow-wrap: anywhere !important
 Дані перевіряються на межі між текстом файлу й предметною областю, під час розбору рядка. `StockItemParser.parse` перевіряє формат (порожній рядок, кількість полів), перетворює текст на типи й передає значення фабриці `StockItem.create`, яка перевіряє правила варіанта.
 
 ```java
-    public StockItem parse(String line, long lineNumber) throws RecordFormatException {
-        if (line.isBlank()) {
-            throw new RecordFormatException(lineNumber, "порожній рядок");
-        }
-        // limit = -1: не відкидати порожні поля в кінці ("A-1;5;" дає 3 поля, а не 2)
-        String[] fields = line.split(";", -1);
-        if (fields.length != FIELD_COUNT) {
-            throw new RecordFormatException(lineNumber,
-                    "очікувалось " + FIELD_COUNT + " поля, отримано " + fields.length);
-        }
-        String article = fields[0].strip();
-        int quantity = parseQuantity(fields[1].strip(), lineNumber);
-        BigDecimal price = parsePrice(fields[2].strip(), lineNumber);
-        try {
-            return StockItem.create(article, quantity, price);
-        } catch (InvalidStockItemException e) {
-            // повідомлення доменного винятку зрозуміле користувачу, а сам виняток лишається причиною
-            throw new RecordFormatException(lineNumber, e.getMessage(), e);
-        }
+public StockItem parse(String line, long lineNumber) throws RecordFormatException {
+    if (line.isBlank()) {
+        throw new RecordFormatException(lineNumber, "порожній рядок");
     }
+    // limit = -1: не відкидати порожні поля в кінці ("A-1;5;" дає 3 поля, а не 2)
+    String[] fields = line.split(";", -1);
+    if (fields.length != FIELD_COUNT) {
+        throw new RecordFormatException(lineNumber,
+                "очікувалось " + FIELD_COUNT + " поля, отримано " + fields.length);
+    }
+    String article = fields[0].strip();
+    int quantity = parseQuantity(fields[1].strip(), lineNumber);
+    BigDecimal price = parsePrice(fields[2].strip(), lineNumber);
+    try {
+        return StockItem.create(article, quantity, price);
+    } catch (InvalidStockItemException e) {
+        // повідомлення доменного винятку зрозуміле користувачу, а сам виняток лишається причиною
+        throw new RecordFormatException(lineNumber, e.getMessage(), e);
+    }
+}
 ```
 
 Числа розбирають окремі методи, що перетворюють `NumberFormatException` на `RecordFormatException` з номером рядка. Конструктор `StockItem` закритий, тому створити об'єкт можна лише через `create`: некоректний залишок не може існувати. Ціну збережено як `BigDecimal`, щоб сума 200 тисяч значень була точною.
 
 ```java
-    public static StockItem create(String article, int quantity, BigDecimal price)
-            throws InvalidStockItemException {
-        if (article == null || article.isBlank()) {
-            throw new InvalidStockItemException("артикул порожній");
-        }
-        if (quantity <= 0) {
-            throw new InvalidStockItemException("кількість " + quantity + " має бути більше 0");
-        }
-        Objects.requireNonNull(price, "price");
-        if (price.signum() < 0) {
-            throw new InvalidStockItemException("ціна " + price.toPlainString() + " не може бути від'ємною");
-        }
-        return new StockItem(article.strip(), quantity, price);
+public static StockItem create(String article, int quantity, BigDecimal price)
+        throws InvalidStockItemException {
+    if (article == null || article.isBlank()) {
+        throw new InvalidStockItemException("артикул порожній");
     }
+    if (quantity <= 0) {
+        throw new InvalidStockItemException("кількість " + quantity + " має бути більше 0");
+    }
+    Objects.requireNonNull(price, "price");
+    if (price.signum() < 0) {
+        throw new InvalidStockItemException("ціна " + price.toPlainString() + " не може бути від'ємною");
+    }
+    return new StockItem(article.strip(), quantity, price);
+}
 ```
 
 # 4. Створені винятки
 
 Три власні перевірювані винятки (успадковують `Exception`, тож компілятор змушує їх обробити). Рівень рядка відокремлено від рівня файлу, бо реакція різна: помилка рядка лише відхиляє його, помилка файлу зупиняє імпорт.
 
+Таблиця 1. Власні винятки
+
 | Виняток (пакет) | Коли виникає | `cause` |
 |----------|-------------|-----------|
 | `InvalidStockItemException` (`domain`) | порушено правило домену: кількість, ціна, артикул | немає |
-| `RecordFormatException` (`parse`) | рядок неможливо перетворити на `StockItem`; містить номер рядка | `NumberFormatException`, `InvalidStockItemException` або немає (ціна «12,50») |
+| `RecordFormatException` (`parse`) | рядок неможливо перетворити на `StockItem`; містить номер рядка | `NumberFormatException`, `InvalidStockItemException` або немає (порожній рядок, кількість полів, ціна «12,50») |
 | `ImportFailedException` (`app`) | імпорт неможливо продовжити: немає файлу чи доступу, помилка читання/запису | `IOException` або немає (порожній файл, хибний заголовок) |
+
+![Рисунок 1. Власні винятки: хто кидає і хто перехоплює](img/exceptions.png){width=85%}
 
 Причина не губиться: кожен виняток вищого рівня отримує початковий у `cause`. Це показує допоміжна програма `demo/CauseDemo.java`:
 
@@ -96,29 +96,29 @@ Caused by: NumberFormatException: For input string: "десять"
 Перехоплення в двох місцях, за принципом «хто може щось змінити». Цикл `StockImporter.importFile` ловить `RecordFormatException`: лише тут відомо, що помилка стосується одного рядка, а решту файлу треба обробити. `Main.run` ловить `ImportFailedException`: це точка входу, яка показує повідомлення й задає код завершення.
 
 ```java
-            while ((line = readLine(reader, input, lineNumber + 1)) != null) {
-                lineNumber++;
-                try {
-                    StockItem item = parser.parse(line, lineNumber);
-                    summary.accept(item);
-                } catch (RecordFormatException e) {
-                    summary.reject();
-                    writeLine(writer, "Рядок " + e.lineNumber() + ": " + e.getMessage(), output);
-                    onRejected.accept(e);
-                }
-            }
+while ((line = readLine(reader, input, lineNumber + 1)) != null) {
+    lineNumber++;
+    try {
+        StockItem item = parser.parse(line, lineNumber);
+        summary.accept(item);
+    } catch (RecordFormatException e) {
+        summary.reject();
+        writeLine(writer, "Рядок " + e.lineNumber() + ": " + e.getMessage(), output);
+        onRejected.accept(e);
+    }
+}
 ```
 
 ```java
-        } catch (ImportFailedException e) {
-            System.err.println("Помилка: " + e.getMessage());
-            printCause(e.getCause());
-            return EXIT_IMPORT_FAILED;
-        } catch (RuntimeException e) {
-            // Помилка в самій програмі. Стектрейс не показуємо, але тип і повідомлення видно.
-            System.err.println("Непередбачена помилка: " + e);
-            return EXIT_UNEXPECTED;
-        }
+} catch (ImportFailedException e) {
+    System.err.println("Помилка: " + e.getMessage());
+    printCause(e.getCause());
+    return EXIT_IMPORT_FAILED;
+} catch (RuntimeException e) {
+    // Помилка в самій програмі. Стектрейс не показуємо, але тип і повідомлення видно.
+    System.err.println("Непередбачена помилка: " + e);
+    return EXIT_UNEXPECTED;
+}
 ```
 
 | Ситуація | Хто перехоплює | Що бачить користувач | Код |
@@ -129,23 +129,24 @@ Caused by: NumberFormatException: For input string: "десять"
 
 # 6. Закриття файлів і потокова обробка
 
-Обидва файли відкрито в заголовку `try-with-resources`: `close()` викликається за будь-якого результату, у зворотному порядку. Кодування явне (`StandardCharsets.UTF_8`). Файл читається по одному рядку, `ImportSummary` зберігає лише лічильники й суму, тож пам'ять не залежить від розміру файлу.
+Обидва файли відкрито в заголовках `try-with-resources`: `close()` викликається за будь-якого результату, у зворотному порядку. Кодування явне (`StandardCharsets.UTF_8`). Спершу відкривається вхід і перевіряється заголовок, а звіт створюється лише після цього: на файлі в windows-1251 (`demo/v2_cp1251.txt`) утиліта повідомляє про кодування й не залишає порожнього чи напівготового звіту. Файл читається по одному рядку, `ImportSummary` зберігає лише лічильники й суму, тож пам'ять не залежить від розміру файлу.
 
 ```java
-        // Ресурси закриваються у зворотному порядку: спершу writer, потім reader.
-        try (BufferedReader reader = openInput(input);
-             BufferedWriter writer = openOutput(output)) {
-            // ...
-            readHeader(reader, input);
-            long lineNumber = 1;
-            String line;
-            // Потокове читання: у пам'яті завжди лише один рядок файлу.
-            while ((line = readLine(reader, input, lineNumber + 1)) != null) {
-            // ...
-        } catch (IOException e) {
-            // Сюди потрапляє лише помилка close(): writer під час закриття дописує буфер на диск.
-            throw new ImportFailedException("не вдалося дописати звіт у файл " + output, e);
-        }
+// Спершу відкриваємо вхід і перевіряємо заголовок: якщо вони хибні, файл звіту не створюється
+// і старий звіт не перезаписується. Кожен файл закрито try-with-resources у будь-якому разі.
+try (BufferedReader reader = openInput(input)) {
+    readHeader(reader, input);
+    // Ресурси закриваються у зворотному порядку: спершу writer, потім reader.
+    try (BufferedWriter writer = openOutput(output)) {
+        // ...
+        // Потокове читання: у пам'яті завжди лише один рядок файлу.
+        while ((line = readLine(reader, input, lineNumber + 1)) != null) {
+        // ...
+    }
+} catch (IOException e) {
+    // Сюди потрапляє лише помилка close(): writer під час закриття дописує буфер на диск.
+    throw new ImportFailedException("не вдалося дописати звіт у файл " + output, e);
+}
 ```
 
 Доказ потокової обробки: великий файл (200 000 рядків, ≈3,5 МБ) утиліта обробляє з купою `-Xmx8m`, а контрприклад `demo/ReadAllDemo.java` з `Files.readAllLines` за тих самих умов падає (з `-Xmx64m` працює).

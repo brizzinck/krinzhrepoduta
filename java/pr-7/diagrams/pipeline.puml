@@ -1,0 +1,21 @@
+@startuml
+skinparam dpi 140
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+}
+start
+:issues.stream();
+:filter(story points не менше 5);
+:peek(друк ключа);
+if (є термінальна\nоперація?) then (так)
+  :mapToInt(Issue::getStoryPoints)\nsum(): конвеєр виконується,\npeek друкує 5 ключів;
+  :сума: 39;
+else (ні)
+  :конвеєр лише описано,\npeek нічого не друкує;
+endif
+stop
+@enduml

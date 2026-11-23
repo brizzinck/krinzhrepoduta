@@ -45,9 +45,10 @@ public class Main {
         for (T record : sorted) {
             System.out.println("  " + record);
         }
-        boolean complete = sorted.size() == storage.size() && storage.all().containsAll(sorted);
+        boolean complete = sorted.size() == storage.size() && storage.all().containsAll(sorted)
+                && sorted.containsAll(storage.all());
         System.out.println("Перевірка: у списку " + sorted.size() + ", у сховищі " + storage.size()
-                + ", усі записи списку є в сховищі: " + (complete ? "так" : "ні"));
+                + ", список і сховище містять ті самі записи: " + (complete ? "так" : "ні"));
     }
 
     /** Спроби змінити сховище ззовні, повз його методи. */

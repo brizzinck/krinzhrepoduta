@@ -30,8 +30,8 @@
 [INFO] -------------------------------------------------------
 [INFO] Running ua.duikt.lavrishko.pr8.IssueServiceTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-[ERROR] Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.349 s <<< FAILURE! -- in ua.duikt.lavrishko.pr8.IssueServiceTest
-[ERROR] ua.duikt.lavrishko.pr8.IssueServiceTest.notifiesWhenTaskIsAdded -- Time elapsed: 0.327 s <<< FAILURE!
+[ERROR] Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.412 s <<< FAILURE! -- in ua.duikt.lavrishko.pr8.IssueServiceTest
+[ERROR] ua.duikt.lavrishko.pr8.IssueServiceTest.notifiesWhenTaskIsAdded -- Time elapsed: 0.386 s <<< FAILURE!
 Wanted but not invoked:
 notifier.send(
     "olena",
@@ -42,7 +42,7 @@ Actually, there were zero interactions with this mock.
 
 	at ua.duikt.lavrishko.pr8.IssueServiceTest.notifiesWhenTaskIsAdded(IssueServiceTest.java:35)
 
-[ERROR] ua.duikt.lavrishko.pr8.IssueServiceTest.notifiesWhenSprintIsFull -- Time elapsed: 0.006 s <<< FAILURE!
+[ERROR] ua.duikt.lavrishko.pr8.IssueServiceTest.notifiesWhenSprintIsFull -- Time elapsed: 0.007 s <<< FAILURE!
 Wanted but not invoked:
 notifier.send(
     "olena",
@@ -81,8 +81,8 @@ Actually, there were zero interactions with this mock.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  2.713 s
-[INFO] Finished at: 2026-11-13T00:15:17Z
+[INFO] Total time:  3.056 s
+[INFO] Finished at: 2026-11-23T10:38:09Z
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.6.1:test (default-test) on project pr8: There are test failures.
 [ERROR] 

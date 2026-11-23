@@ -8,7 +8,7 @@ set separator none
 hide empty members
 
 package "domain (ua.duikt.lavrishko.group.domain)" {
-  class StudyGroup {
+  class StudyGroup <<final>> {
     -name : String {final}
     -students : List<Student> {final}
     +StudyGroup(name)
@@ -19,7 +19,7 @@ package "domain (ua.duikt.lavrishko.group.domain)" {
     +averageGrade() : double
     +summary() : String
   }
-  class Student {
+  class Student <<final>> {
     {static} -nextId : int
     -id : int {final}
     -fullName : String {final}
@@ -29,7 +29,11 @@ package "domain (ua.duikt.lavrishko.group.domain)" {
     +Student(fullName, recordBookNumber, grade)
     +Student(fullName)
     +getId() : int
+    +getFullName() : String
+    +getRecordBookNumber() : String
+    +getGrade() : int
     +setGrade(grade)
+    +isInGroup() : boolean
     ~attach(group)
     ~detach()
   }
@@ -38,8 +42,8 @@ package "app (ua.duikt.lavrishko.group.app)" {
   class Main
 }
 
-StudyGroup "1" o-- "0..*" Student : students
-Student ..> StudyGroup : group (службовий зв'язок)
+StudyGroup "1" o-right- "0..*" Student : students
+Student ..> StudyGroup
 Main ..> StudyGroup
 Main ..> Student
 @enduml
