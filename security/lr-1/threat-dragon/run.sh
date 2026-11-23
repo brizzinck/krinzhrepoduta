@@ -1,10 +1,11 @@
 #!/bin/sh
 # Запуск OWASP Threat Dragon v2.2.0 (веб-версія) локально в docker: http://localhost:3000
-# Використання:  threat-dragon/run.sh start | stop
+# Використання:  threat-dragon/run.sh start | stop   (порт і імʼя контейнера: TD_PORT, TD_NAME)
 # Секрети генеруються при першому запуску в threat-dragon/td.env (файл не зберігається в репозиторії).
 set -eu
 cd "$(dirname "$0")"
-NAME=td_lr1
+NAME=${TD_NAME:-td_lr1}
+PORT=${TD_PORT:-3000}
 case "${1:-start}" in
   start)
     if [ ! -f td.env ]; then
@@ -20,7 +21,7 @@ ENCRYPTION_KEYS=[{"isPrimary": true, "id": 0, "value": "$(rnd 32)"}]
 ENV
     fi
     docker rm -f "$NAME" >/dev/null 2>&1 || true
-    docker run -d --name "$NAME" --platform linux/x86_64 -p 127.0.0.1:3000:3000 \
+    docker run -d --name "$NAME" --platform linux/x86_64 -p 127.0.0.1:"$PORT":3000 \
       -e ENV_FILE=/app/td.env -v "$PWD/td.env":/app/td.env:ro owasp/threat-dragon:v2.2.0
     ;;
   stop)
