@@ -65,8 +65,6 @@ a { color: inherit; text-decoration: none; }
 /* позначка-коло з номером */
 .badge-n { width: 64px; height: 64px; border-radius: 50%; background: var(--ring); color: var(--on-ring); font-size: 36px; font-weight: 700; display: grid; place-items: center; flex: none; box-shadow: var(--shadow); }
 .badge-n.primary { background: var(--primary); color: var(--on-primary); }
-.ring { position: absolute; border: 7px solid var(--ring); border-radius: 22px; }
-.ring .badge-n { position: absolute; left: -26px; top: -26px; width: 56px; height: 56px; font-size: 32px; }
 
 /* слайд 1 */
 .s1 { justify-content: center; }
@@ -79,37 +77,41 @@ a { color: inherit; text-decoration: none; }
 .s1 .p1 { position: absolute; left: 1130px; top: 120px; transform: rotate(-5deg); --w: 330px; }
 .s1 .p2 { position: absolute; left: 1470px; top: 236px; transform: rotate(5deg); --w: 330px; }
 
-/* слайд 2 */
-.s2 .row { display: flex; gap: 64px; align-items: center; flex: 1; padding-bottom: 60px; }
-.s2 .ops { display: flex; gap: 32px; }
-.opphone { width: 330px; border: 12px solid var(--frame); border-radius: 44px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow-big); }
-.opphone .top { height: 220px; display: grid; place-items: center; font-size: 56px; font-weight: 700; color: var(--on-op); }
+/* слайд 2, команда */
+.people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.person { background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 56px 44px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 12px; }
+.person .ava { width: 120px; height: 120px; border-radius: 50%; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; margin-bottom: 8px; }
+.person .ava .ic { width: 64px; height: 64px; }
+.person .nm { font-size: 46px; line-height: 1.12; font-weight: 700; }
+.person .gr { font-size: 30px; color: var(--muted); }
+.person .rl { font-size: 54px; font-weight: 700; color: var(--primary); margin-top: 10px; line-height: 1.12; }
+.person .wk { font-size: 38px; line-height: 1.25; }
+.s2 .tz { margin-top: 72px; font-size: 48px; font-weight: 700; }
+
+/* слайд 3, проблема і рішення */
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; flex: 1; min-height: 0; padding-bottom: 12px; }
+.pane { border-radius: 32px; padding: 32px 36px 36px; border: 1px solid var(--border); box-shadow: var(--shadow); display: flex; flex-direction: column; }
+.pane.was { background: var(--surface); }
+.pane.now { background: var(--primary-soft); }
+.pane h2 { font-size: 36px; color: var(--muted); margin-bottom: 24px; }
+.pane.now h2 { color: var(--primary); }
+.pane .big { font-size: 64px; line-height: 1.12; font-weight: 800; }
+.pane.now .big { color: var(--primary); margin-bottom: 36px; }
+.ops { display: flex; gap: 14px; margin-bottom: 30px; }
+.opphone { width: 242px; border: 10px solid var(--frame); border-radius: 36px; background: var(--elevated); overflow: hidden; }
+.opphone .top { height: 100px; display: grid; place-items: center; font-size: 38px; font-weight: 700; color: var(--on-op); }
 .opphone .a { background: var(--op-a); } .opphone .b { background: var(--op-b); } .opphone .c { background: var(--op-c); }
-.opphone ul { padding: 32px 24px 36px; display: grid; gap: 34px; }
-.opphone li { display: flex; align-items: center; gap: 16px; font-size: 34px; }
-.opphone li .ic { width: 40px; height: 40px; color: var(--muted); }
-.s2 .big { margin-top: 44px; font-size: 56px; font-weight: 700; line-height: 1.15; }
-.s2 .side { display: grid; gap: 32px; width: 520px; padding-top: 6px; align-content: start; }
-.note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 34px 36px; box-shadow: var(--shadow); font-size: 36px; line-height: 1.3; }
-.note-card .ic { width: 44px; height: 44px; color: var(--primary); margin-bottom: 10px; display: block; }
-.note-card.soft { background: var(--primary-soft); box-shadow: none; }
+.opphone .body { display: grid; justify-items: center; gap: 22px; padding: 26px 0 28px; }
+.opphone .ic { width: 52px; height: 52px; color: var(--muted); }
+.pane ul { display: grid; gap: 26px; align-content: space-evenly; flex: 1; }
+.pane li { display: flex; gap: 24px; align-items: center; font-size: 40px; line-height: 1.2; font-weight: 600; }
+.pane li .ico { width: 88px; height: 88px; border-radius: 26px; background: var(--elevated); color: var(--primary); display: grid; place-items: center; flex: none; }
+.pane li .ic { width: 50px; height: 50px; }
 
-/* слайд 3 */
-.uvp { font-size: 40px; line-height: 1.25; max-width: 1728px; margin-top: -8px; margin-bottom: 44px; color: var(--muted); }
-.s3 .row { display: flex; gap: 72px; flex: 1; min-height: 0; }
-.s3 ul { display: grid; gap: 28px; align-content: start; }
-.s3 li { display: flex; gap: 22px; align-items: center; font-size: 36px; line-height: 1.2; }
-.s3 li .ico { width: 84px; height: 84px; border-radius: 24px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex: none; }
-.s3 li .ic { width: 46px; height: 46px; }
-.s3 figure { width: 960px; flex: none; }
-.s3 .left { width: 640px; display: flex; flex-direction: column; gap: 30px; }
-.s3 figure img { display: block; width: 100%; border-radius: 28px; border: 1px solid var(--border); box-shadow: var(--shadow-big); }
-.s3 .pay { font-size: 32px; line-height: 1.25; background: var(--primary-soft); border-radius: 22px; padding: 18px 32px; }
-
-/* слайд 4 */
-.cmp { display: grid; grid-template-columns: 590px 1fr 1fr 1fr; gap: 0; align-items: stretch; font-size: 34px; }
+/* слайд 4, що нового */
+.cmp { display: grid; grid-template-columns: 640px 1fr 1fr 1fr; gap: 0; align-items: stretch; font-size: 36px; }
 .cmp > div { display: flex; align-items: center; padding: 14px 22px; border-bottom: 1px solid var(--line); min-height: 118px; line-height: 1.2; }
-.cmp .h { font-weight: 700; font-size: 30px; border-bottom: 2px solid var(--border-strong); min-height: 120px; justify-content: center; text-align: center; }
+.cmp .h { font-weight: 700; font-size: 32px; border-bottom: 2px solid var(--border-strong); min-height: 120px; justify-content: center; text-align: center; }
 .cmp .h.us { background: var(--primary); color: var(--on-primary); border-radius: 22px 22px 0 0; }
 .cmp .us { background: var(--primary-soft); justify-content: center; }
 .cmp .c { justify-content: center; }
@@ -118,63 +120,26 @@ a { color: inherit; text-decoration: none; }
 .pill.yes { background: var(--success-soft); color: var(--success); }
 .pill.no { background: var(--danger-soft); color: var(--danger); }
 .pill.part { background: var(--warning-soft); color: var(--warning); }
-.s4 .claim { margin-top: 36px; font-size: 38px; line-height: 1.25; font-weight: 700; color: var(--primary); }
+.s3 .head { display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-bottom: 36px; }
+.s3 .head h1 { margin-bottom: 0; }
+.s3 .aud { display: flex; align-items: center; gap: 16px; background: var(--primary-soft); border: 1px solid var(--border); border-radius: 999px; padding: 14px 36px; font-size: 40px; line-height: 1.2; font-weight: 700; color: var(--primary); }
+.s3 .aud .ic { width: 44px; height: 44px; }
+.s4 .claim { margin-top: 40px; font-size: 40px; line-height: 1.25; font-weight: 700; color: var(--primary); }
 .s4 .fn { margin-top: auto; }
 
-/* слайд 5 */
-.s5 .strip { position: relative; display: flex; justify-content: space-between; align-items: flex-start; margin-top: 4px; }
+/* слайд 5, шлях користувача і три дотики */
+.s5 .strip { position: relative; display: flex; justify-content: space-between; align-items: flex-start; margin-top: 0; }
 .s5 .line { position: absolute; left: 150px; right: 150px; top: 31px; height: 6px; background: var(--border-strong); border-radius: 3px; }
-.s5 .step { position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px; width: 292px; }
-.s5 .step .phone { --w: 268px; }
-.s5 .step .cap { font-size: 30px; line-height: 1.2; text-align: center; font-weight: 600; min-height: 74px; }
+.s5 .step { position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px; width: 300px; }
+.s5 .step .phone { --w: 216px; }
+.s5 .step .cap { font-size: 32px; line-height: 1.2; text-align: center; font-weight: 600; }
+.touch { margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 40px; background: var(--primary-soft); border: 1px solid var(--border); border-radius: 32px; padding: 10px 48px; }
+.touch .n { font-size: 130px; line-height: 1; font-weight: 800; color: var(--primary); }
+.touch .t { font-size: 60px; line-height: 1.1; font-weight: 700; }
+.touch .g { font-size: 38px; line-height: 1.2; color: var(--muted); margin-top: 6px; }
 
-/* слайд 6 */
-.s6 { flex-direction: row; gap: 56px; padding-top: 72px; }
-.s6 .left { width: 600px; display: flex; flex-direction: column; }
-.s6 h1 { margin-bottom: 20px; }
-.s6 .three { font-size: 300px; line-height: 1.05; font-weight: 800; color: var(--primary); margin-bottom: 12px; }
-.s6 .goal { font-size: 40px; line-height: 1.2; margin-bottom: 44px; color: var(--muted); }
-.s6 ol { display: grid; gap: 22px; }
-.s6 li { display: flex; gap: 22px; align-items: center; font-size: 34px; line-height: 1.15; }
-.s6 .li-n { width: 56px; height: 56px; font-size: 32px; }
-.s6 .phone { --w: 400px; margin-top: 0; }
-.s6 .phwrap { position: relative; flex: none; height: max-content; }
-.s6 .r1 { left: 20px; top: 227px; width: 384px; height: 125px; }
-.s6 .r2 { left: 22px; top: 810px; width: 380px; height: 64px; border-radius: 18px; }
-.s6 .right { flex: 1; display: flex; align-items: center; min-width: 0; }
-.dialog { position: relative; width: 640px; background: var(--elevated); border: 2px solid var(--border); border-radius: 36px; padding: 40px; box-shadow: var(--shadow-big); }
-.dialog h2 { font-size: 40px; margin-bottom: 14px; }
-.dialog p { font-size: 30px; line-height: 1.3; color: var(--muted); }
-.dlg-btns { display: grid; gap: 16px; margin-top: 30px; }
-.dlg-btn { height: 88px; border-radius: 26px; display: grid; place-items: center; font-size: 32px; font-weight: 600; position: relative; }
-.dlg-btn.go { background: var(--primary); color: var(--on-primary); }
-.dlg-btn.cancel { border: 2px solid var(--border-strong); }
-.dlg-btn .ring { inset: -12px; border-radius: 34px; }
-.dlg-btn .ring .badge-n { left: -26px; top: -26px; }
-
-/* слайд 7 і 14 */
-.s7, .s14 { flex-direction: row; align-items: center; gap: 80px; }
-.s7 .txt, .s14 .txt { flex: 1; min-width: 0; }
-.s7 h1 { font-size: 128px; line-height: 1.1; margin-bottom: 36px; }
-.s7 .lead { font-size: 44px; line-height: 1.25; color: var(--muted); margin-bottom: 52px; max-width: 900px; }
-.s7 .link { font-size: 60px; font-weight: 400; color: var(--primary); line-height: 1.25; margin-bottom: 18px; }
-.s7 .alt { font-size: 40px; line-height: 1.25; }
-.qrcard { background: var(--qr-field); border-radius: 44px; padding: 32px; flex: none; box-shadow: var(--shadow-big); }
-.qrcard img { display: block; }
-.s7 .qrcard img { width: 520px; height: 520px; }
-.s14 .qrcard { padding: 20px; border-radius: 36px; }
-.s14 .qrcard img { width: 360px; height: 360px; }
-.s14 h1 { font-size: 150px; line-height: 1.1; margin-bottom: 14px; }
-.s14 .q { font-size: 64px; color: var(--primary); font-weight: 700; margin-bottom: 52px; }
-.s14 .links { display: grid; gap: 22px; margin-bottom: 40px; }
-.s14 .links li { display: flex; gap: 22px; align-items: center; font-size: 36px; line-height: 1.2; }
-.s14 .links .ic { width: 52px; height: 52px; color: var(--primary); }
-.s14 .links .mono { font-size: 34px; }
-.s14 .links small { display: block; font-size: 28px; color: var(--muted); line-height: 1.2; }
-.s14 .fn { max-width: 1050px; }
-
-/* слайд 8 */
-.s8 svg.arch { width: 1728px; height: 570px; display: block; margin-top: -10px; }
+/* слайд 6, схема */
+.s6 svg.arch { width: 1728px; height: 570px; display: block; margin-top: -10px; }
 .arch text { font-family: "Adwaita Sans"; font-size: 30px; fill: var(--text); }
 .arch .b { font-weight: 700; }
 .arch .mut { fill: var(--muted); }
@@ -186,73 +151,67 @@ a { color: inherit; text-decoration: none; }
 .arch .dot { fill: var(--border-strong); }
 .chips { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
 .chip { font-size: 30px; padding: 8px 24px; border-radius: 999px; border: 2px solid var(--border-strong); background: var(--surface); }
-.s8 .line1 { margin-top: 26px; font-size: 46px; font-weight: 700; }
+.s6 .line1 { margin-top: 26px; font-size: 46px; font-weight: 700; }
 
-/* слайд 9 */
+/* слайд 7 і 12 */
+.s7, .s12 { flex-direction: row; align-items: center; gap: 80px; }
+.s7 .txt, .s12 .txt { flex: 1; min-width: 0; }
+.s7 h1 { font-size: 128px; line-height: 1.1; margin-bottom: 36px; }
+.s7 .lead { font-size: 44px; line-height: 1.25; color: var(--muted); margin-bottom: 52px; max-width: 900px; }
+.s7 .link { font-size: 60px; font-weight: 400; color: var(--primary); line-height: 1.25; margin-bottom: 18px; }
+.s7 .alt { font-size: 40px; line-height: 1.25; }
+.qrcard { background: var(--qr-field); border-radius: 44px; padding: 32px; flex: none; box-shadow: var(--shadow-big); }
+.qrcard img { display: block; }
+.s7 .qrcard img { width: 520px; height: 520px; }
+.s12 .qrcard { padding: 20px; border-radius: 36px; }
+.s12 .qrcard img { width: 360px; height: 360px; }
+.s12 h1 { font-size: 150px; line-height: 1.1; margin-bottom: 14px; }
+.s12 .q { font-size: 64px; color: var(--primary); font-weight: 700; margin-bottom: 52px; }
+.s12 .links { display: grid; gap: 22px; margin-bottom: 40px; }
+.s12 .links li { display: flex; gap: 22px; align-items: center; font-size: 36px; line-height: 1.2; }
+.s12 .links .ic { width: 52px; height: 52px; color: var(--primary); }
+.s12 .links .mono { font-size: 34px; }
+.s12 .links small { display: block; font-size: 28px; color: var(--muted); line-height: 1.2; }
+.s12 .fn { max-width: 1050px; }
+
+/* слайд 8, метрики */
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .tile { min-height: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: 20px 32px 20px; box-shadow: var(--shadow); }
-.tile .n { white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -.02em; font-size: 88px; line-height: 1; font-weight: 800; color: var(--primary); }
-.tile .l { font-size: 32px; line-height: 1.15; font-weight: 700; min-height: 2.3em; }
-.tile .t { font-size: 28px; line-height: 1.2; color: var(--success); font-weight: 600; margin-top: 6px; display: flex; gap: 10px; align-items: center; }
-.tile .t .ic { width: 32px; height: 32px; flex: none; }
-.tile .m { font-size: 28px; line-height: 1.2; margin-top: 6px; color: var(--muted); }
-.bar { position: relative; height: 14px; border-radius: 7px; background: var(--line); margin-top: 16px; overflow: visible; }
-.bar i { display: block; height: 100%; border-radius: 7px; background: var(--primary); width: calc(var(--v) * 1%); min-width: 0; }
-.bar.goal::after { content: ""; position: absolute; top: -6px; bottom: -6px; left: calc(var(--g) * 1%); width: 4px; background: var(--text); border-radius: 2px; }
-.tile .ok { display: flex; gap: 10px; align-items: center; margin-top: 14px; font-size: 28px; font-weight: 600; color: var(--success); }
-.tile .ok .ic { width: 34px; height: 34px; }
-.s9 .method { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.s9 .method .fn { display: flex; gap: 16px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 8px 24px; font-size: 28px; line-height: 1.2; color: var(--text); }
-.s9 .method .ic { width: 40px; height: 40px; flex: none; color: var(--primary); }
-.s9 .labels { margin-top: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.tile .n { white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -.02em; font-size: 96px; line-height: 1; font-weight: 800; color: var(--primary); }
+.tile .l { font-size: 34px; line-height: 1.15; font-weight: 700; min-height: 2.3em; }
+.tile .t { font-size: 30px; line-height: 1.2; color: var(--success); font-weight: 600; margin-top: 8px; display: flex; gap: 10px; align-items: center; }
+.tile .t .ic { width: 34px; height: 34px; flex: none; }
+.tile .m { font-size: 30px; line-height: 1.2; margin-top: 8px; color: var(--muted); }
+.s8 .method { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.s8 .method .fn { display: flex; gap: 16px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 8px 24px; font-size: 28px; line-height: 1.2; color: var(--text); }
+.s8 .method .ic { width: 40px; height: 40px; flex: none; color: var(--primary); }
 
-/* слайд 10 */
-.s10 .row { display: flex; gap: 56px; flex: 1; min-height: 0; }
-.s10 ul { width: 620px; display: grid; gap: 40px; align-content: start; flex: none; }
-.s10 li { display: grid; grid-template-columns: 124px 1fr; column-gap: 20px; align-items: baseline; font-size: 38px; line-height: 1.2; font-weight: 600; }
-.s10 li .k { font-size: 80px; font-weight: 800; color: var(--primary); line-height: 1; font-variant-numeric: tabular-nums; }
-.s10 li .k.ic { width: 80px; height: 80px; align-self: start; }
-.s10 li span.sm { display: block; font-size: 30px; line-height: 1.25; font-weight: 400; color: var(--muted); margin-top: 8px; }
-.defects { display: flex; gap: 32px; flex: 1; min-width: 0; align-items: flex-start; }
+/* слайд 9, тестування і якість */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 28px; }
+.st { background: var(--surface); border: 1px solid var(--border); border-radius: 26px; padding: 18px 26px 20px; box-shadow: var(--shadow); }
+.st .k { font-size: 80px; line-height: 1; font-weight: 800; color: var(--primary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.st .sm { font-size: 30px; line-height: 1.2; font-weight: 600; margin-top: 8px; min-height: 2.4em; }
+.s9 .row { display: flex; gap: 32px; flex: 1; min-height: 0; }
+.defects { display: flex; gap: 24px; flex: none; width: 840px; align-items: flex-start; }
 .dcard { flex: 1; min-width: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: 22px; box-shadow: var(--shadow); }
 .dcard img { display: block; width: 100%; border-radius: 16px; border: 1px solid var(--border); }
-.dcard .t { font-size: 34px; font-weight: 700; line-height: 1.2; margin: 20px 0 10px; }
-.dcard .fix { font-size: 30px; line-height: 1.2; color: var(--success); font-weight: 600; display: flex; gap: 10px; align-items: flex-start; }
-.dcard .fix .ic { width: 36px; height: 36px; margin-top: 0; }
+.dcard .t { font-size: 32px; font-weight: 700; line-height: 1.2; margin: 18px 0 10px; }
+.dcard .fix { font-size: 32px; line-height: 1.2; color: var(--success); font-weight: 600; display: flex; gap: 10px; align-items: center; }
+.dcard .fix .ic { width: 38px; height: 38px; }
+.checks { flex: 1; min-width: 0; display: grid; gap: 18px; grid-auto-rows: 1fr; }
+.checks li { display: flex; gap: 20px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 18px 26px; font-size: 34px; line-height: 1.2; font-weight: 600; box-shadow: var(--shadow); }
+.checks .ic { width: 48px; height: 48px; color: var(--primary); }
+.checks li.open .ic { color: var(--warning); }
 
-/* слайд 11 */
-.cards8 { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 24px; flex: 1; min-height: 0; }
-.lc { background: var(--surface); border: 1px solid var(--border); border-radius: 26px; padding: 24px 26px 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
-.lc h3 { font-size: 34px; line-height: 1.15; font-weight: 700; color: var(--primary); margin-bottom: 16px; }
-.lc p { font-size: 28px; line-height: 1.22; }
-.lc p + p { margin-top: 12px; }
-.lc .src { margin-top: auto; font-size: 24px; }
+/* слайд 10, апробація */
+.s10 .conf { font-size: 38px; line-height: 1.3; color: var(--muted); max-width: 1600px; margin-bottom: 44px; }
+.theses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.th { background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 40px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px; }
+.th .nm { font-size: 44px; line-height: 1.12; font-weight: 700; }
+.th .sec { font-size: 28px; line-height: 1.25; color: var(--muted); }
+.th .tt { font-size: 34px; line-height: 1.3; font-weight: 700; color: var(--primary); margin-top: 8px; }
 
-/* слайд 12 */
-.people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-.person { background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 44px 40px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 12px; }
-.person .ava { width: 100px; height: 100px; border-radius: 50%; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; margin-bottom: 8px; }
-.person .ava .ic { width: 54px; height: 54px; }
-.person .nm { font-size: 46px; line-height: 1.12; font-weight: 700; }
-.person .gr { font-size: 30px; color: var(--muted); }
-.person .rl { font-size: 54px; font-weight: 700; color: var(--primary); margin-top: 10px; line-height: 1.12; }
-.person .wk { font-size: 36px; line-height: 1.25; }
-.person .sp { font-size: 30px; line-height: 1.25; color: var(--muted); margin-top: 16px; }
-.s12 .tz { margin-top: 44px; font-size: 48px; font-weight: 700; }
-
-/* слайд 13 */
-.road { display: grid; grid-template-columns: 240px repeat(5, 1fr); gap: 24px; position: relative; margin: auto 0; }
-.road .rline { position: absolute; left: 32px; right: 241px; top: 31px; height: 6px; background: var(--border-strong); border-radius: 3px; }
-.rs { position: relative; display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
-.road { align-items: stretch; }
-.rs .badge-n { background: var(--surface); color: var(--text); border: 4px solid var(--border-strong); box-shadow: none; }
-.rs .box { background: var(--surface); border: 3px dashed var(--border-strong); border-radius: 24px; padding: 20px 20px; font-size: 30px; line-height: 1.2; width: 100%; min-height: 240px; flex: 1; }
-.rs.now .badge-n { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
-.rs.now .box { background: var(--primary-soft); border: 3px solid var(--primary); font-weight: 700; }
-.rs.now .box .ic { width: 56px; height: 56px; color: var(--primary); display: block; margin-bottom: 14px; }
-.s13 .fn { margin-top: 0; }
-
-/* слайд 14, підсумки */
+/* слайд 11, підсумки */
 .sumcmp { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 .sumcmp .col { border-radius: 30px; padding: 40px 48px; border: 1px solid var(--border); box-shadow: var(--shadow); display: grid; gap: 26px; align-content: start; }
 .sumcmp .was { background: var(--surface); }
@@ -263,11 +222,13 @@ a { color: inherit; text-decoration: none; }
 .sumcmp b { font-size: 76px; line-height: 1; font-weight: 800; width: 64px; flex: none; font-variant-numeric: tabular-nums; }
 .sumcmp .was b { color: var(--muted); }
 .sumcmp .now b { color: var(--primary); }
-.done { margin-top: 32px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.done .chip { display: flex; gap: 16px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 26px 32px; font-size: 34px; line-height: 1.2; font-weight: 600; box-shadow: var(--shadow); }
+.done { margin-top: 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 24px; }
+.done .chip { display: flex; gap: 16px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 18px 24px; font-size: 30px; line-height: 1.2; font-weight: 600; box-shadow: var(--shadow); }
 .done .ic { width: 44px; height: 44px; flex: none; color: var(--success); }
+.s11 .next { margin-top: auto; font-size: 38px; line-height: 1.25; }
+.s11 .next b { color: var(--primary); font-weight: 700; }
 
-/* слайд 8, кнопка відео демо (у PDF посилання на відео, на сайті відкриває плеєр) */
+/* слайд 7, кнопка відео демо (у PDF посилання на відео, на сайті відкриває плеєр) */
 .demo-btn { position: absolute; left: 96px; bottom: 96px; display: flex; gap: 18px; align-items: center; padding: 22px 40px 22px 30px;
   font-size: 38px; font-weight: 600; line-height: 1; color: var(--bg); background: var(--primary); border-radius: 999px; box-shadow: var(--shadow); }
 .demo-btn .pl { width: 44px; height: 44px; }
