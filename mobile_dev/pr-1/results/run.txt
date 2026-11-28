@@ -1,0 +1,36 @@
+# журнал кроків adb; емулятор запущено start_emu.sh (AVD lab, Pixel 6, API 34), пише shots.py
+# adb devices
+List of devices attached
+emulator-5554	device
+# getprop
+14
+34
+sdk_gphone64_x86_64
+# install: Performing Streamed Install
+Success
+$ adb shell am force-stop com.example.utilityhub
+$ adb shell am start -n com.example.utilityhub/.MainActivity
+Starting: Intent { cmp=com.example.utilityhub/.MainActivity }
+# screencap -> shots/pr1_01_page1.png
+$ adb shell input swipe 900 1200 150 1200 300
+# screencap -> shots/pr1_02_page2.png
+$ adb shell input swipe 150 1200 900 1200 300
+$ adb shell input tap 540 850; sleep 0.6; screencap -p /sdcard/s.png
+# screencap -> shots/pr1_03_toast_stub.png
+$ adb shell input tap 194 529
+$ adb shell input tap 540 879; sleep 0.6; screencap -p /sdcard/s.png
+# screencap -> shots/pr1_04_currency_empty.png
+$ adb shell input tap 540 532
+$ adb shell input text 100
+$ adb shell input keyevent 4
+$ adb shell input tap 540 700
+$ adb shell input tap 477 952
+$ adb shell input tap 540 879
+# screencap -> shots/pr1_05_currency_result.png
+$ adb shell input tap 540 532
+$ adb shell input keyevent 67 67 67 67
+$ adb shell input text .
+$ adb shell input keyevent 4
+$ adb shell input tap 540 879; sleep 0.6; screencap -p /sdcard/s.png
+# screencap -> shots/pr1_06_currency_invalid.png
+# ok
