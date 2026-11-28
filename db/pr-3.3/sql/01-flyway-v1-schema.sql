@@ -1,0 +1,8 @@
+-- Міграція Flyway V1: базова схема Northwind (13 таблиць, без колонки Email у customers).
+-- Файл: src/main/resources/db/migration/V1__northwind_schema.sql (великий, повний дамп схеми: CREATE TABLE для
+-- categories, suppliers, products, customers, employees, orders, order details та інших, ключі й індекси).
+-- Тут його не скопійовано: щоб прочитати, виконайте  cat src/main/resources/db/migration/V1__northwind_schema.sql
+-- У make migrate V1 не виконується: база northwind_orm уже створена з northwind_orm.sql (make db, це та сама схема),
+-- тому Flyway лише ставить на неї базову версію 1:
+--   ./flyway.sh baseline   (baselineVersion=1, у flyway_schema_history з'являється рядок V1 Baseline)
+-- Для порожньої бази V1 застосовується повністю: FLYWAY_DB=northwind_orm_clean ./flyway.sh migrate

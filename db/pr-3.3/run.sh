@@ -1,6 +1,6 @@
 #!/bin/sh
 # Запускає консольний додаток у docker у мережі контейнера duikt-mysql (порт БД на хост не публікується).
-# Збірка: ../../tools/mvn.sh -q package. SHOW_SQL=true друкує SQL, який генерує Hibernate. Паролі лише для локального контейнера.
+# Збірка: ./mvn.sh -q package. SHOW_SQL=true друкує SQL, який генерує Hibernate. Паролі лише для локального контейнера.
 cd "$(dirname "$0")"
 TTY=""
 [ -t 0 ] && TTY="-t"

@@ -1,5 +1,5 @@
 -- ПР 2.2, завдання 2-5: запити 3-7 варіанта 2 до оптимізації і після неї (MySQL 8.4, база northwind_opt).
--- Порядок: ../_shared/northwind/setup_northwind.sh northwind_opt; ./step.sh analyze part2_queries.sql;
+-- Порядок: northwind/setup_northwind.sh northwind_opt; ./step.sh analyze part2_queries.sql;
 -- ./qstat.sh q3 before (так само q4..q7); ./step.sh indexes part2_queries.sql;
 -- ./qstat.sh q3 after, q4 after, q5_new after, q6_new after, q7 after; ./step.sh equivalence part2_queries.sql.
 -- Скрипт qstat.sh виконує для запиту EXPLAIN, EXPLAIN ANALYZE, EXPLAIN FORMAT=JSON, крок handler і 500 запусків із кроком digest.

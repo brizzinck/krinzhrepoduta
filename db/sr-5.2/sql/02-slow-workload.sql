@@ -1,4 +1,4 @@
--- Запит для спостереження: активні оренди (JOIN п'яти таблиць), той самий, що в ПР 3.1
+-- Крок 1. Запит для спостереження: активні оренди (JOIN п'яти таблиць), той самий, що в ПР 3.1. demo.sh запускає його тричі в базі car_rental.
 SELECT r.rental_id, CONCAT(c.last_name, ' ', c.first_name) AS customer,
        CONCAT(m.brand, ' ', m.model_name) AS car, b.city AS pickup_city
 FROM rentals r

@@ -1,0 +1,123 @@
+$ ./run.sh < demo/07-crud-all.txt
+Підключено до БД: car_rental
+1 Показати таблицю   2 Знайти за ключем   3 Додати   4 Змінити   5 Видалити
+6 Активні оренди (JOIN)   7 Вільні авто (фільтр)   8 Виручка філій (агрегація)
+9 Меню   0 Вихід
+
+Ваш вибір: 3
+1.branches  2.customers  3.cars
+Таблиця: 1
+Порожнє значення: типове (0, available) або NULL
+name: Прокат «Тест»
+city: Вінниця
+address: вул. Тестова, 1
+phone: +380430000001
+Додано рядок, ключ: 5
+
+Ваш вибір: 4
+1.branches  2.customers  3.cars
+Таблиця: 1
+Ключ: 5
+Порожнє значення: стовпець не змінюється
+name [Прокат «Тест»]: 
+city [Вінниця]: 
+address [вул. Тестова, 1]: вул. Тестова, 2
+phone [+380430000001]: 
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.customers  3.cars
+Таблиця: 1
+Ключ: 5
+branchId | name          | city    | address         | phone        
+5        | Прокат «Тест» | Вінниця | вул. Тестова, 2 | +380430000001
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.customers  3.cars
+Таблиця: 1
+Ключ: 5
+Видалено рядків: 1
+
+Ваш вибір: 3
+1.branches  2.customers  3.cars
+Таблиця: 2
+Порожнє значення: типове (0, available) або NULL
+first_name: Тест
+last_name: Тестовий
+middle_name: 
+phone: +380990000001
+email: test.user@example.com
+birth_date: 1990-01-01
+license_number: TST000001
+license_expires: 2030-01-01
+Додано рядок, ключ: 21
+
+Ваш вибір: 4
+1.branches  2.customers  3.cars
+Таблиця: 2
+Ключ: 21
+Порожнє значення: стовпець не змінюється
+first_name [Тест]: 
+last_name [Тестовий]: 
+phone [+380990000001]: +380990000002
+email [test.user@example.com]: 
+license_number [TST000001]: 
+license_expires [2030-01-01]: 
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.customers  3.cars
+Таблиця: 2
+Ключ: 21
+customerId | firstName | lastName | middleName | phone         | email                 | birthDate  | licenseNumber | licenseExpires | registeredAt       
+21         | Тест      | Тестовий | NULL       | +380990000002 | test.user@example.com | 1990-01-01 | TST000001     | 2030-01-01     | 2026-11-13 01:06:37
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.customers  3.cars
+Таблиця: 2
+Ключ: 21
+Видалено рядків: 1
+
+Ваш вибір: 3
+1.branches  2.customers  3.cars
+Таблиця: 3
+Порожнє значення: типове (0, available) або NULL
+model_id: 1
+branch_id: 1
+vin: TESTVIN0000000003
+plate_number: TEST0003XX
+manufacture_year: 2024
+mileage_km: 
+daily_price: 1500.00
+status: 
+Додано рядок, ключ: 25
+
+Ваш вибір: 4
+1.branches  2.customers  3.cars
+Таблиця: 3
+Ключ: 25
+Порожнє значення: стовпець не змінюється
+plate_number [TEST0003XX]: 
+mileage_km [0]: 12500
+daily_price [1500.00]: 1350.50
+status [available]: maintenance
+Змінено рядків: 1
+
+Ваш вибір: 2
+1.branches  2.customers  3.cars
+Таблиця: 3
+Ключ: 25
+carId | modelId | branchId | vin               | plateNumber | manufactureYear | mileageKm | dailyPrice | status     
+25    | 1       | 1        | TESTVIN0000000003 | TEST0003XX  | 2024            | 12500     | 1350.50    | maintenance
+Рядків: 1
+
+Ваш вибір: 5
+1.branches  2.customers  3.cars
+Таблиця: 3
+Ключ: 25
+Видалено рядків: 1
+
+Ваш вибір: 0
+Роботу завершено

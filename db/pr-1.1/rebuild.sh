@@ -1,9 +1,9 @@
 #!/bin/sh
 # Створює бази з нуля: car_rental (основна) і car_rental_check (копія для перевірки обмежень).
-# Запуск: ./rebuild.sh  (контейнер duikt-mysql має працювати: ../_shared/mysql-up.sh)
+# Запуск: ./rebuild.sh  (контейнер duikt-mysql має працювати: ./mysql-up.sh)
 set -eu
 cd "$(dirname "$0")"
-M=../_shared/mysql.sh
+M=./mysql.sh
 $M < schema.sql
 $M < seed.sql
 DROP='DROP DATABASE IF EXISTS car_rental_check;'

@@ -5,7 +5,7 @@ import subprocess
 from collections import OrderedDict
 from pathlib import Path
 
-M = str(Path(__file__).resolve().parent.parent / "_shared" / "mysql.sh")
+M = str(Path(__file__).resolve().parent / "mysql.sh")
 
 def q(sql):
     out = subprocess.run([M, "-N", "-B", "-e", sql], capture_output=True, text=True, check=True).stdout

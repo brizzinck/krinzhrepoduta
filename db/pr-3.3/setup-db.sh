@@ -1,7 +1,5 @@
 #!/bin/sh
-# Створює окрему базу northwind_orm (Northwind викладачки з виправленнями) і дає користувачу rental права на неї.
-# Базу можна перестворити в будь-який момент: міграції цієї роботи змінюють лише northwind_orm.
-set -eu
+# Створює базу northwind_orm з готового файла northwind_orm.sql (Northwind викладачки з виправленнями і правами для rental).
 cd "$(dirname "$0")"
-../_shared/northwind/setup_northwind.sh northwind_orm
-../_shared/mysql.sh -e "GRANT ALL PRIVILEGES ON northwind_orm.* TO 'rental'@'%'"
+./mysql.sh < northwind_orm.sql
+echo "Northwind створено в базі northwind_orm"

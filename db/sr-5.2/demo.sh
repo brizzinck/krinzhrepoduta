@@ -1,71 +1,80 @@
 #!/bin/sh
 # Демонстрація логування й моніторингу MySQL 8.4 на базі car_rental у контейнері duikt-mysql.
 # Використання: ./demo.sh slow | lock | binlog | errlog | all
+# Увесь SQL лежить у теці sql/ (по одному файлу на крок). Скрипт лише запускає ці файли й друкує команду;
+# сам запит видно у виводі завдяки -vvv (клієнт mysql друкує текст запиту перед результатом).
 # Змінюються лише змінні рівня сервера (SET GLOBAL), вони повертаються в кінці кожної частини.
 # Дані car_rental залишаються без змін: тестові оновлення скасовуються або повертаються.
 cd "$(dirname "$0")"
-M=../_shared/mysql.sh
+M=./mysql.sh
 
-# друкує команду як у терміналі (без шляху до _shared) і виконує її
-show() { printf '$ %s\n' "$(printf '%s' "$*" | sed 's#\.\./_shared/##g')"; sh -c "$*" 2>&1; }
-# те саме, але друкує скорочений запис команди ("…" на місці пропущеного), а виконує повну
-showd() { printf '$ %s\n' "$1"; shift; sh -c "$*" 2>&1; }
+# run ОПЦІЇ ФАЙЛ: друкує команду як у терміналі й виконує файл SQL через mysql.sh
+run() { printf '$ %s %s < %s\n' "$M" "$1" "$2"; $M $1 < "$2" 2>&1; }
+
+# те, що працює без -vvv (запит іде від сеансу чи з хибним паролем): друкуємо файл, щоб SQL було видно.
+# Коментарі в цих файлах з "--": клієнт їх прибирає, тому текст запиту на сервері без змін (потрібно для slow_log і innodb_lock_waits).
+show() { printf '$ cat %s\n' "$1"; cat "$1"; }
 
 slow() {
   # повільний журнал у таблицю mysql.slow_log, поріг 0: фіксується кожен запит
-  showd "mysql.sh -e \"SET GLOBAL long_query_time = 0; SET GLOBAL slow_query_log = ON; …\"" \
-    "$M -e \"SET GLOBAL log_output = 'TABLE'; SET GLOBAL long_query_time = 0; SET GLOBAL slow_query_log = ON; TRUNCATE mysql.slow_log; TRUNCATE performance_schema.events_statements_summary_by_digest;\""
-  for i in 1 2 3; do $M car_rental < demo.sql >/dev/null; done
-  printf '$ %s\n' "mysql.sh car_rental < demo.sql   # тричі"
-  showd "mysql.sh -t -e \"SELECT query_time, rows_sent, rows_examined, … FROM mysql.slow_log WHERE …\"" \
-    "$M -t -e \"SELECT query_time, rows_sent, rows_examined, LEFT(sql_text, 20) AS sql_text FROM mysql.slow_log WHERE db = 'car_rental' AND sql_text LIKE 'SELECT r.rental_id%'\""
-  showd "mysql.sh -t -e \"SELECT … AS avg_ms, … FROM …events_statements_summary_by_digest …\"" \
-    "$M -t -e \"SELECT LEFT(DIGEST_TEXT, 20) AS statement, COUNT_STAR AS cnt, ROUND(AVG_TIMER_WAIT / 1e9, 3) AS avg_ms, SUM_ROWS_EXAMINED AS rows_examined FROM performance_schema.events_statements_summary_by_digest WHERE SCHEMA_NAME = 'car_rental' AND DIGEST_TEXT LIKE 'SELECT \\\`r\\\` . \\\`rental_id\\\`%'\""
+  run "-vvv" sql/01-slow-enable.sql
+  show sql/02-slow-workload.sql
+  printf '$ %s\n' "for i in 1 2 3; do ./mysql.sh car_rental < sql/02-slow-workload.sql; done"
+  for i in 1 2 3; do $M car_rental < sql/02-slow-workload.sql >/dev/null; done
+  run "-t -vvv" sql/03-slow-read-slow-log.sql
+  run "-t -vvv" sql/04-slow-read-digest.sql
   # повернення налаштувань
-  $M -e "SET GLOBAL slow_query_log = OFF; SET GLOBAL long_query_time = 10; SET GLOBAL log_output = 'FILE'"
-  showd "mysql.sh -N -e \"SHOW GLOBAL VARIABLES WHERE Variable_name IN ('slow_query_log', …)\"" \
-    "$M -N -e \"SHOW GLOBAL VARIABLES WHERE Variable_name IN ('slow_query_log', 'long_query_time', 'log_output')\""
+  run "-vvv" sql/05-slow-restore.sql
+  run "-vvv" sql/06-slow-check-variables.sql
 }
 
 lock() {
   # сеанс A тримає блокування рядка, сеанс B чекає, сеанс C дивиться на очікування
-  printf '$ %s\n' "mysql.sh car_rental -e \"START TRANSACTION; UPDATE cars …; DO SLEEP(10); ROLLBACK\" &   # сеанс A"
-  $M car_rental -e "START TRANSACTION; UPDATE cars SET mileage_km = mileage_km WHERE car_id = 1; DO SLEEP(10); ROLLBACK" >/dev/null 2>&1 &
+  show sql/07-lock-session-a.sql
+  printf '$ %s\n' "./mysql.sh car_rental < sql/07-lock-session-a.sql &   # сеанс A: UPDATE, DO SLEEP(10), ROLLBACK"
+  $M car_rental < sql/07-lock-session-a.sql >/dev/null 2>&1 &
   sleep 2
-  printf '$ %s\n' "mysql.sh car_rental -e \"UPDATE cars SET status = status WHERE car_id = 1\" &   # сеанс B"
-  $M car_rental -e "UPDATE cars SET status = status WHERE car_id = 1" >/dev/null 2>&1 &
+  show sql/08-lock-session-b.sql
+  printf '$ %s\n' "./mysql.sh car_rental < sql/08-lock-session-b.sql &   # сеанс B: той самий рядок, чекає"
+  $M car_rental < sql/08-lock-session-b.sql >/dev/null 2>&1 &
   sleep 2
-  showd "mysql.sh -E -e \"SELECT locked_table, wait_age_secs, waiting_pid, waiting_query, … FROM sys.innodb_lock_waits\"" \
-    "$M -E -e \"SELECT locked_table, wait_age_secs, waiting_pid, waiting_query, blocking_pid, blocking_query FROM sys.innodb_lock_waits\""
-  showd "mysql.sh -t -e \"SELECT object_name, lock_type, lock_mode, … FROM performance_schema.data_locks WHERE …\"" \
-    "$M -t -e \"SELECT object_name, lock_type, lock_mode, lock_status, lock_data FROM performance_schema.data_locks WHERE object_name = 'cars'\""
+  run "-E -vvv" sql/09-lock-waits.sql
+  run "-t -vvv" sql/10-lock-data-locks.sql
   wait
   echo "# Сеанс A завершився ROLLBACK, сеанс B виконався"
 }
 
 binlog() {
   # двійковий журнал: позиція до зміни, подія UPDATE у режимі ROW (mysqlbinlog в образі mysql:8.4 немає)
-  show "$M -N -e \"SHOW BINARY LOG STATUS\""
-  LOG=$($M -N -e "SHOW BINARY LOG STATUS" | cut -f1)
-  POS=$($M -N -e "SHOW BINARY LOG STATUS" | cut -f2)
-  show "$M car_rental -e \"UPDATE cars SET mileage_km = mileage_km + 100 WHERE car_id = 1\""
+  run "-vvv" sql/11-binlog-status.sql
+  LOG=$($M -N < sql/11-binlog-status.sql | cut -f1)
+  POS=$($M -N < sql/11-binlog-status.sql | cut -f2)
+  run "-vvv car_rental" sql/12-binlog-update.sql
+  # SHOW BINLOG EVENTS не приймає змінних: ім'я файла й позицію підставляє sed
   # cut -c17- прибирає стовпець Log_name (ім'я файла вже є в команді), щоб вивід вміщався в 92 колонки
-  show "$M -t -e \"SHOW BINLOG EVENTS IN '$LOG' FROM $POS\" | cut -c17-"
-  show "$M -N -e \"SHOW VARIABLES WHERE Variable_name IN ('log_bin', 'binlog_format')\""
-  $M car_rental -e "UPDATE cars SET mileage_km = mileage_km - 100 WHERE car_id = 1"
+  printf '$ %s\n' "sed -e \"s/@LOG@/$LOG/\" -e \"s/@POS@/$POS/\" sql/13-binlog-events.sql | ./mysql.sh -t | cut -c17-"
+  printf '# SHOW BINLOG EVENTS IN '"'%s'"' FROM %s;\n' "$LOG" "$POS"
+  sed -e "s/@LOG@/$LOG/" -e "s/@POS@/$POS/" sql/13-binlog-events.sql | $M -t 2>&1 | cut -c17-
+  run "-vvv" sql/14-binlog-variables.sql
+  $M car_rental < sql/15-binlog-revert.sql
 }
 
 errlog() {
   # журнал помилок: невдалий вхід видно лише при log_error_verbosity = 3
-  T0=$($M -N -e "SELECT NOW(6)")
-  Q="SELECT COUNT(*) AS login_errors FROM performance_schema.error_log WHERE error_code = 'MY-010926' AND logged > '$T0'"
-  show "$M -N -e \"SELECT @@log_error_verbosity\""
-  show "MYSQL_PWD=wrong $M -e \"SELECT 1\""
-  show "$M -t -e \"$Q\""
-  show "$M -e \"SET GLOBAL log_error_verbosity = 3\""
-  show "MYSQL_PWD=wrong $M -e \"SELECT 1\""
-  show "$M -E -e \"SELECT logged, prio, error_code, LEFT(data, 62) AS data FROM performance_schema.error_log WHERE error_code = 'MY-010926' AND logged > '$T0'\""
-  $M -e "SET GLOBAL log_error_verbosity = 2"
+  T0=$($M -N < sql/16-errlog-start-time.sql)
+  # підставляє момент початку замість @T0@ і виконує файл
+  runt() { printf '$ %s\n' "sed \"s/@T0@/$T0/\" $2 | ./mysql.sh $1"; sed "s/@T0@/$T0/" "$2" | $M $1 2>&1; }
+  run "-vvv" sql/17-errlog-verbosity.sql
+  show sql/19-errlog-failed-login.sql
+  printf '$ %s\n' "MYSQL_PWD=wrong ./mysql.sh < sql/19-errlog-failed-login.sql"
+  MYSQL_PWD=wrong $M < sql/19-errlog-failed-login.sql 2>&1
+  runt "-t -vvv" sql/18-errlog-count.sql
+  run "-vvv" sql/20-errlog-verbosity-3.sql
+  show sql/19-errlog-failed-login.sql
+  printf '$ %s\n' "MYSQL_PWD=wrong ./mysql.sh < sql/19-errlog-failed-login.sql"
+  MYSQL_PWD=wrong $M < sql/19-errlog-failed-login.sql 2>&1
+  runt "-E -vvv" sql/21-errlog-entry.sql
+  $M < sql/22-errlog-verbosity-2.sql
 }
 
 case "${1:-all}" in

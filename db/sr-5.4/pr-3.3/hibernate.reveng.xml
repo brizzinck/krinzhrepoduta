@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN"
+  "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd">
+<!-- Усі 13 таблиць Northwind; службова таблиця історії міграцій Flyway в модель не потрапляє. -->
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="northwind_orm"/>
+  <table-filter match-name="flyway_schema_history" exclude="true"/>
+  <table-filter match-name=".*"/>
+</hibernate-reverse-engineering>

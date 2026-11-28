@@ -10,4 +10,4 @@ SQL=$(awk -v h="-- $1." 'index($0, h) == 1 { on = 1; next } /^-- [0-9a-z_]+\./ {
 case "$1" in
   [0-9]*) printf '%s\n' "$SQL" | sed 's/^/# /' ;;
 esac
-printf '%s\n' "$SQL" | ../_shared/mysql.sh -t -n --force northwind_opt
+printf '%s\n' "$SQL" | ./mysql.sh -t -n --force northwind_opt

@@ -3,7 +3,7 @@
 # Використання: ./qstat.sh q3 before   (запит: q3..q7, q5_new, q6_new; стан: before або after)
 set -eu
 cd "$(dirname "$0")"
-M=../_shared/mysql.sh
+M=./mysql.sh
 DB=northwind_opt
 RUNS=500
 TAB=$(printf '\t')
