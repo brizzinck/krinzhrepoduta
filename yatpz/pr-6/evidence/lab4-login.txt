@@ -1,0 +1,2 @@
+# POST https://0a0b009604b3aa3d80a30d2b00550068.web-security-academy.net/login  username=administrator password=4abzzi4gilbehmf2mp1o
+# after login url=https://0a0b009604b3aa3d80a30d2b00550068.web-security-academy.net/my-account?id=administrator

