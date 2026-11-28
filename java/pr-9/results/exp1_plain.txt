@@ -1,0 +1,11 @@
+> java -cp target/classes ua.duikt.lavrishko.pr9.Exp1Race plain
+без синхронізації: 47346 / 400000, втрачено 352654
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr9.Exp1Race plain
+без синхронізації: 125858 / 400000, втрачено 274142
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr9.Exp1Race plain
+без синхронізації: 78100 / 400000, втрачено 321900
+(код завершення: 0)

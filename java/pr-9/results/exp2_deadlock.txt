@@ -1,0 +1,180 @@
+> docker logs pr9-deadlock
+Thread-0 тримає дошку 1, чекає дошку 2
+Thread-1 тримає дошку 2, чекає дошку 1
+(код завершення: 0)
+
+> docker ps --filter name=pr9-deadlock --format '{{.Status}}'   (Up означає, що програма зависла)
+Up 2 seconds
+(код завершення: 0)
+
+> docker exec pr9-deadlock jps -l
+1 ua.duikt.lavrishko.pr9.Exp2Deadlock
+29 jdk.jcmd/sun.tools.jps.Jps
+(код завершення: 0)
+
+> docker exec pr9-deadlock jstack 1
+2026-11-28 13:26:14
+Full thread dump OpenJDK 64-Bit Server VM (21.0.12.1+1-LTS mixed mode, sharing):
+
+Threads class SMR info:
+_java_thread_list=0x00007fd544002110, length=16, elements={
+0x00007fd5e002a980, 0x00007fd5e0145530, 0x00007fd5e0146aa0, 0x00007fd5e0148350,
+0x00007fd5e0149990, 0x00007fd5e014af30, 0x00007fd5e014caf0, 0x00007fd5e014e1b0,
+0x00007fd5e0159ff0, 0x00007fd5e015d0c0, 0x00007fd5e0170150, 0x00007fd5e01712c0,
+0x00007fd53402d1f0, 0x00007fd534036f40, 0x00007fd5340381d0, 0x00007fd544000ff0
+}
+
+"main" #1 [7] prio=5 os_prio=0 cpu=18.79ms elapsed=2.39s tid=0x00007fd5e002a980 nid=7 in Object.wait()  [0x00007fd5e4955000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait0(java.base@21.0.12.1/Native Method)
+	- waiting on <0x000000063442ee98> (a java.lang.Thread)
+	at java.lang.Object.wait(java.base@21.0.12.1/Object.java:366)
+	at java.lang.Thread.join(java.base@21.0.12.1/Thread.java:2079)
+	- locked <0x000000063442ee98> (a java.lang.Thread)
+	at java.lang.Thread.join(java.base@21.0.12.1/Thread.java:2155)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock.main(Exp2Deadlock.java:24)
+
+"Reference Handler" #9 [15] daemon prio=10 os_prio=0 cpu=0.22ms elapsed=2.38s tid=0x00007fd5e0145530 nid=15 waiting on condition  [0x00007fd5aee04000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.ref.Reference.waitForReferencePendingList(java.base@21.0.12.1/Native Method)
+	at java.lang.ref.Reference.processPendingReferences(java.base@21.0.12.1/Reference.java:246)
+	at java.lang.ref.Reference$ReferenceHandler.run(java.base@21.0.12.1/Reference.java:208)
+
+"Finalizer" #10 [16] daemon prio=8 os_prio=0 cpu=0.14ms elapsed=2.38s tid=0x00007fd5e0146aa0 nid=16 in Object.wait()  [0x00007fd5aed03000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait0(java.base@21.0.12.1/Native Method)
+	- waiting on <0x00000006344025f0> (a java.lang.ref.NativeReferenceQueue$Lock)
+	at java.lang.Object.wait(java.base@21.0.12.1/Object.java:366)
+	at java.lang.Object.wait(java.base@21.0.12.1/Object.java:339)
+	at java.lang.ref.NativeReferenceQueue.await(java.base@21.0.12.1/NativeReferenceQueue.java:48)
+	at java.lang.ref.ReferenceQueue.remove0(java.base@21.0.12.1/ReferenceQueue.java:158)
+	at java.lang.ref.NativeReferenceQueue.remove(java.base@21.0.12.1/NativeReferenceQueue.java:89)
+	- locked <0x00000006344025f0> (a java.lang.ref.NativeReferenceQueue$Lock)
+	at java.lang.ref.Finalizer$FinalizerThread.run(java.base@21.0.12.1/Finalizer.java:173)
+
+"Signal Dispatcher" #11 [17] daemon prio=9 os_prio=0 cpu=0.28ms elapsed=2.38s tid=0x00007fd5e0148350 nid=17 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Service Thread" #12 [18] daemon prio=9 os_prio=0 cpu=0.03ms elapsed=2.38s tid=0x00007fd5e0149990 nid=18 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Monitor Deflation Thread" #13 [19] daemon prio=9 os_prio=0 cpu=0.14ms elapsed=2.38s tid=0x00007fd5e014af30 nid=19 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #14 [20] daemon prio=9 os_prio=0 cpu=8.75ms elapsed=2.38s tid=0x00007fd5e014caf0 nid=20 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C1 CompilerThread0" #22 [21] daemon prio=9 os_prio=0 cpu=10.06ms elapsed=2.38s tid=0x00007fd5e014e1b0 nid=21 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"Notification Thread" #26 [22] daemon prio=9 os_prio=0 cpu=0.02ms elapsed=2.38s tid=0x00007fd5e0159ff0 nid=22 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Common-Cleaner" #27 [23] daemon prio=8 os_prio=0 cpu=0.19ms elapsed=2.38s tid=0x00007fd5e015d0c0 nid=23 waiting on condition  [0x00007fd5ae52c000]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@21.0.12.1/Native Method)
+	- parking to wait for  <0x0000000634412a30> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(java.base@21.0.12.1/LockSupport.java:269)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@21.0.12.1/AbstractQueuedSynchronizer.java:1886)
+	at java.lang.ref.ReferenceQueue.await(java.base@21.0.12.1/ReferenceQueue.java:71)
+	at java.lang.ref.ReferenceQueue.remove0(java.base@21.0.12.1/ReferenceQueue.java:143)
+	at java.lang.ref.ReferenceQueue.remove(java.base@21.0.12.1/ReferenceQueue.java:218)
+	at jdk.internal.ref.CleanerImpl.run(java.base@21.0.12.1/CleanerImpl.java:140)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+	at jdk.internal.misc.InnocuousThread.run(java.base@21.0.12.1/InnocuousThread.java:186)
+
+"Thread-0" #28 [24] prio=5 os_prio=0 cpu=11.16ms elapsed=2.37s tid=0x00007fd5e0170150 nid=24 waiting for monitor entry  [0x00007fd5ae42b000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at ua.duikt.lavrishko.pr9.TaskBoard.moveTask(TaskBoard.java:20)
+	- waiting to lock <0x000000063442ede0> (a ua.duikt.lavrishko.pr9.TaskBoard)
+	- locked <0x000000063442edc8> (a ua.duikt.lavrishko.pr9.TaskBoard)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock$$Lambda/0x00007fd560001800.run(Unknown Source)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock.run(Exp2Deadlock.java:33)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock.lambda$main$0(Exp2Deadlock.java:20)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock$$Lambda/0x00007fd560001a20.run(Unknown Source)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+
+"Thread-1" #29 [25] prio=5 os_prio=0 cpu=9.75ms elapsed=2.37s tid=0x00007fd5e01712c0 nid=25 waiting for monitor entry  [0x00007fd5ae32a000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at ua.duikt.lavrishko.pr9.TaskBoard.moveTask(TaskBoard.java:20)
+	- waiting to lock <0x000000063442edc8> (a ua.duikt.lavrishko.pr9.TaskBoard)
+	- locked <0x000000063442ede0> (a ua.duikt.lavrishko.pr9.TaskBoard)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock$$Lambda/0x00007fd560001800.run(Unknown Source)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock.run(Exp2Deadlock.java:33)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock.lambda$main$1(Exp2Deadlock.java:21)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock$$Lambda/0x00007fd560001c48.run(Unknown Source)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+
+"C1 CompilerThread1" #23 [26] daemon prio=9 os_prio=0 cpu=6.96ms elapsed=2.37s tid=0x00007fd53402d1f0 nid=26 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C1 CompilerThread2" #24 [27] daemon prio=9 os_prio=0 cpu=5.40ms elapsed=2.37s tid=0x00007fd534036f40 nid=27 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C1 CompilerThread3" #25 [28] daemon prio=9 os_prio=0 cpu=7.57ms elapsed=2.37s tid=0x00007fd5340381d0 nid=28 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"Attach Listener" #30 [82] daemon prio=9 os_prio=0 cpu=0.20ms elapsed=0.10s tid=0x00007fd544000ff0 nid=82 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"VM Thread" os_prio=0 cpu=0.28ms elapsed=2.38s tid=0x00007fd5e013c260 nid=14 runnable  
+
+"VM Periodic Task Thread" os_prio=0 cpu=0.95ms elapsed=2.38s tid=0x00007fd5e012a310 nid=13 waiting on condition  
+
+"G1 Service" os_prio=0 cpu=0.07ms elapsed=2.39s tid=0x00007fd5e0110250 nid=12 runnable  
+
+"G1 Refine#0" os_prio=0 cpu=0.03ms elapsed=2.39s tid=0x00007fd5e010f290 nid=11 runnable  
+
+"G1 Conc#0" os_prio=0 cpu=0.04ms elapsed=2.39s tid=0x00007fd5e0067680 nid=10 runnable  
+
+"G1 Main Marker" os_prio=0 cpu=0.06ms elapsed=2.39s tid=0x00007fd5e00666e0 nid=9 runnable  
+
+"GC Thread#0" os_prio=0 cpu=0.05ms elapsed=2.39s tid=0x00007fd5e0055b90 nid=8 runnable  
+
+JNI global refs: 14, weak refs: 0
+
+
+Found one Java-level deadlock:
+=============================
+"Thread-0":
+  waiting to lock monitor 0x00007fd530031450 (object 0x000000063442ede0, a ua.duikt.lavrishko.pr9.TaskBoard),
+  which is held by "Thread-1"
+
+"Thread-1":
+  waiting to lock monitor 0x00007fd524014e30 (object 0x000000063442edc8, a ua.duikt.lavrishko.pr9.TaskBoard),
+  which is held by "Thread-0"
+
+Java stack information for the threads listed above:
+===================================================
+"Thread-0":
+	at ua.duikt.lavrishko.pr9.TaskBoard.moveTask(TaskBoard.java:20)
+	- waiting to lock <0x000000063442ede0> (a ua.duikt.lavrishko.pr9.TaskBoard)
+	- locked <0x000000063442edc8> (a ua.duikt.lavrishko.pr9.TaskBoard)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock$$Lambda/0x00007fd560001800.run(Unknown Source)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock.run(Exp2Deadlock.java:33)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock.lambda$main$0(Exp2Deadlock.java:20)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock$$Lambda/0x00007fd560001a20.run(Unknown Source)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+"Thread-1":
+	at ua.duikt.lavrishko.pr9.TaskBoard.moveTask(TaskBoard.java:20)
+	- waiting to lock <0x000000063442edc8> (a ua.duikt.lavrishko.pr9.TaskBoard)
+	- locked <0x000000063442ede0> (a ua.duikt.lavrishko.pr9.TaskBoard)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock$$Lambda/0x00007fd560001800.run(Unknown Source)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock.run(Exp2Deadlock.java:33)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock.lambda$main$1(Exp2Deadlock.java:21)
+	at ua.duikt.lavrishko.pr9.Exp2Deadlock$$Lambda/0x00007fd560001c48.run(Unknown Source)
+	at java.lang.Thread.runWith(java.base@21.0.12.1/Thread.java:1596)
+	at java.lang.Thread.run(java.base@21.0.12.1/Thread.java:1583)
+
+Found 1 deadlock.
+
+(код завершення: 0)

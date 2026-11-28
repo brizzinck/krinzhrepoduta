@@ -1,0 +1,11 @@
+> java -cp target/classes ua.duikt.lavrishko.pr9.Exp1Race synced
+synchronized: 400000 / 400000, втрачено 0
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr9.Exp1Race synced
+synchronized: 400000 / 400000, втрачено 0
+(код завершення: 0)
+
+> java -cp target/classes ua.duikt.lavrishko.pr9.Exp1Race synced
+synchronized: 400000 / 400000, втрачено 0
+(код завершення: 0)

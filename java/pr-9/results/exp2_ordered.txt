@@ -1,0 +1,3 @@
+> java -cp target/classes ua.duikt.lavrishko.pr9.Exp2Deadlock ordered
+Дошка 1: 10 задач, дошка 2: 10 задач, разом 20. Програма завершилась.
+(код завершення: 0)
